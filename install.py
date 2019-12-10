@@ -60,7 +60,7 @@ if os.name == "nt":
 	# At this point, we should be able to get data from Google Drive.
 	print(installLib.userOptions["-configFolder"])
 	print(installLib.userOptions["-dataFolder"])
-	print("\"" + rclonePath + "\" sync \"drive:" + installLib.userOptions["-configFolder"] + "\" config")
-	print("\"" + rclonePath + "\" sync \"drive:" + installLib.userOptions["-dataFolder"] + "\" \"..\\Documents\\User Tools Data\"")
+	os.system("cmd /c \"" + rclonePath + "\" sync \"drive:" + installLib.userOptions["-configFolder"] + "\" config")
+	print("cmd /c \"" + rclonePath + "\" sync \"drive:" + installLib.userOptions["-dataFolder"] + "\" \"..\\Documents\\User Tools Data\"")
 	
 # Code goes here - check for GAM, install it and set it up if needed.
