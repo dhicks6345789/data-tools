@@ -16,11 +16,12 @@ installLib.getUserOption("-googleClientSecret", "Enter the Google Client Secret 
 
 # Make sure PExpect is installed.
 if os.name == "nt":
-	installLib.runIfPathMissing(pythonHome + os.sep + "Lib" + os.sep + "site-packages" + os.sep + "pexpect", "\"" + pipExe + "\" install pexpect")
+	installLib.runIfPathMissing(installLib.pythonHome + os.sep + "Lib" + os.sep + "site-packages" + os.sep + "pexpect", "\"" + installLib.pipExe + "\" install pexpect")
 import pexpect
 
 # Check for rclone - set it up.
-rclone = pexpect.popen_spawn.PopenSpawn("C:\Program Files\rclone\rclone.exe")
-rclone.interact()
+if os.name == "nt":
+	rclone = pexpect.popen_spawn.PopenSpawn("C:\Program Files\rclone\rclone.exe")
+	rclone.interact()
 
 # Check for GAM - set it up.
