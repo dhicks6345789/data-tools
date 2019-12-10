@@ -32,19 +32,18 @@ if os.name == "nt":
 		rclone.expect("Storage>")
 		rclone.send("drive\\r")
 		rclone.expect("client_id>")
+		rclone.send(installLib.userOptions["-googleClientID"] + "\\r")
+		rclone.expect("client_secret>")
 		rclone.send(installLib.userOptions["-googleClientSecret"] + "\\r")
-"expect \"client_id>\"",
-"expect_user -timeout 3600 -re \"(.*)\\n\"",
-"send \"$expect_out(1,string)\\r\"",
-"expect \"client_secret>\"",
-"expect_user -timeout 3600 -re \"(.*)\\n\"",
-"send \"$expect_out(1,string)\\r\"",
-"expect \"scope>\"",
-"send \"drive.readonly\\r\"",
-"expect \"root_folder_id>\"",
-"send \"\\r\"",
-"expect \"service_account_file>\"",
-"send \"\\r\"",
+		rclone.expect("scope>")
+		rclone.send("drive.readonly\\r")
+		rclone.expect("root_folder_id>")
+		rclone.send("\\r")
+		rclone.expect("service_account_file>")
+		rclone.send("\\r")
+		rclone.expect("y/n>")
+		rclone.send("n\\r")
+		rclone.expect("y/n>")
+		rclone.send("n\\r")
 		
-
 # Check for GAM - set it up.
