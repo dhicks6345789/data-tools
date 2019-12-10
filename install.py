@@ -24,8 +24,27 @@ if os.name == "nt":
 	# To do - Check for rclone.
 	# Make sure rclone is configured.
 	if not os.path.exists(installLib.userHome + os.sep + ".config" + os.sep + "rclone" + os.sep + "rclone.conf"):
-		rclone = pexpect.popen_spawn.PopenSpawn("C:/Program Files/rclone/rclone.exe config")
+		rclone = pexpect.popen_spawn.PopenSpawn("C:/Program Files/rclone/rclone.exe config")		
 		rclone.expect("n/s/q>")
-		rclone.send("q\\r")
+		rclone.send("n\\r")
+		rclone.expect("name>")
+		rclone.send("drive\\r")
+		rclone.expect("Storage>")
+		rclone.send("drive\\r")
+		rclone.expect("client_id>")
+		rclone.send(installLib.userOptions["-googleClientSecret"] + "\\r")
+"expect \"client_id>\"",
+"expect_user -timeout 3600 -re \"(.*)\\n\"",
+"send \"$expect_out(1,string)\\r\"",
+"expect \"client_secret>\"",
+"expect_user -timeout 3600 -re \"(.*)\\n\"",
+"send \"$expect_out(1,string)\\r\"",
+"expect \"scope>\"",
+"send \"drive.readonly\\r\"",
+"expect \"root_folder_id>\"",
+"send \"\\r\"",
+"expect \"service_account_file>\"",
+"send \"\\r\"",
+		
 
 # Check for GAM - set it up.
