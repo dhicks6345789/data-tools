@@ -25,6 +25,6 @@ if os.name == "nt":
 	# Make sure rclone is configured.
 	rclone = pexpect.popen_spawn.PopenSpawn("C:/Program Files/rclone/rclone.exe config")
 	rclone.expect("n/s/q>")
-	rclone.send("n\\r")
+	rclone.send("q\\r")
 
 # Check for GAM - set it up.
