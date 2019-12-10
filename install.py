@@ -25,10 +25,11 @@ if os.name == "nt":
 	import pexpect.popen_spawn
 	
 	# Code goes here - check for rclone, install it if needed.
+	rclonePath = "C:\Program Files\rclone\rclone.exe"
 	
 	# Make sure rclone is configured.
 	if not os.path.exists(installLib.userHome + os.sep + ".config" + os.sep + "rclone" + os.sep + "rclone.conf"):
-		rclone = pexpect.popen_spawn.PopenSpawn("C:/Program Files/rclone/rclone.exe config")		
+		rclone = pexpect.popen_spawn.PopenSpawn(rclonePath.replace("\\", "/") + " config")		
 		rclone.expect("n/s/q>")
 		rclone.send("n\n")
 		rclone.expect("name>")
@@ -55,9 +56,10 @@ if os.name == "nt":
 		rclone.send("y\n")
 		rclone.expect("e/n/d/r/c/s/q>")
 		rclone.send("q\n")
-		
-# At this point, we should be able to get data from Google Drive.
-print(installLib.userOptions["-configFolder"])
-print(installLib.userOptions["-dataFolder"])
+
+	# At this point, we should be able to get data from Google Drive.
+	print(installLib.userOptions["-configFolder"])
+	print(installLib.userOptions["-dataFolder"])
+	os.system(rclonePath + " sync code:" + installLib.userOptions["-configFolder"] + " configFolder")
 	
 # Code goes here - check for GAM, install it and set it up if needed.
