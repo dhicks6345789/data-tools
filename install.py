@@ -10,4 +10,12 @@ else:
 shutil.copyfile("install-lib/installLib.py", "./installLib.py")
 import installLib
 
+validValueOptions = ["-googleClientID"]
+
+installLib.getUserOption("")
+
 print("Hello, world!")
+# Check for Expect.
+# Get user options.
+# Check for rclone - set it up.
+# Check for GAM - set it up.
