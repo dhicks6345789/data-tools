@@ -25,7 +25,7 @@ if os.name == "nt":
 	import pexpect.popen_spawn
 	
 	# Code goes here - check for rclone, install it if needed.
-	rclonePath = "C:\Program Files\rclone\rclone.exe"
+	rclonePath = "C:\\Program Files\\rclone\\rclone.exe"
 	
 	# Make sure rclone is configured.
 	if not os.path.exists(installLib.userHome + os.sep + ".config" + os.sep + "rclone" + os.sep + "rclone.conf"):
