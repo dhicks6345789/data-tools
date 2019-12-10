@@ -20,7 +20,8 @@ if os.name == "nt":
 	installLib.runIfPathMissing(installLib.pythonHome + os.sep + "Lib" + os.sep + "site-packages" + os.sep + "pexpect", "\"" + installLib.pipExe + "\" install pexpect")
 	import pexpect
 	import pexpect.popen_spawn
-	
+
+	print(installLib.userHome)
 	# To do - Check for rclone.
 	# Make sure rclone is configured.
 	rclone = pexpect.popen_spawn.PopenSpawn("C:/Program Files/rclone/rclone.exe config")
