@@ -40,7 +40,7 @@ if os.name == "nt":
 		rclone.expect("client_secret>")
 		rclone.send(installLib.userOptions["-googleClientSecret"] + "\n")
 		rclone.expect("scope>")
-		rclone.send("drive.readonly\n")
+		rclone.send("drive\n")
 		rclone.expect("root_folder_id>")
 		rclone.send("\n")
 		rclone.expect("service_account_file>")
