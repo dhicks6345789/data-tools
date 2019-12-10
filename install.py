@@ -14,13 +14,14 @@ validValueOptions = ["-googleClientID", "-googleClientSecret"]
 installLib.getUserOption("-googleClientID", "Enter the Google Client ID used to connect rclone")
 installLib.getUserOption("-googleClientSecret", "Enter the Google Client Secret used to connect rclone")
 
-# Make sure PExpect is installed.
+# Chec if we're on Windows.
 if os.name == "nt":
+	# Make sure PExpect is installed.
 	installLib.runIfPathMissing(installLib.pythonHome + os.sep + "Lib" + os.sep + "site-packages" + os.sep + "pexpect", "\"" + installLib.pipExe + "\" install pexpect")
-import pexpect
-
-# Check for rclone - set it up.
-if os.name == "nt":
+	import pexpect
+	import pexpect.popen_spawn
+	
+	# Check for rclone - set it up.
 	rclone = pexpect.popen_spawn.PopenSpawn("C:\Program Files\rclone\rclone.exe")
 	rclone.interact()
 
