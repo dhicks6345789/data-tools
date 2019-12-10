@@ -21,8 +21,9 @@ if os.name == "nt":
 	import pexpect
 	import pexpect.popen_spawn
 	
-	# Check for rclone - set it up.
-	rclone = pexpect.popen_spawn.PopenSpawn("C:\Program Files\rclone\rclone.exe")
+	# To do - Check for rclone.
+	# Make sure rclone is configured.
+	rclone = pexpect.popen_spawn.PopenSpawn("\"C:\Program Files\rclone\rclone.exe\" config")
 	rclone.interact()
 
 # Check for GAM - set it up.
