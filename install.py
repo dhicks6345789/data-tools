@@ -10,7 +10,7 @@ else:
 shutil.copyfile("install-lib/installLib.py", "./installLib.py")
 import installLib
 
-validValueOptions = ["-googleClientID", "-googleClientSecret"]
+installLib.validValueOptions = ["-googleClientID", "-googleClientSecret"]
 installLib.getUserOption("-googleClientID", "Enter the Google Client ID used to connect rclone")
 installLib.getUserOption("-googleClientSecret", "Enter the Google Client Secret used to connect rclone")
 
