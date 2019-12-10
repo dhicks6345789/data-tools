@@ -12,7 +12,7 @@ import installLib
 
 validValueOptions = ["-googleClientID"]
 
-installLib.getUserOption("")
+installLib.getUserOption("-googleClientID", "Enter the Google Client ID used to connect rclone")
 
 print("Hello, world!")
 # Check for Expect.
