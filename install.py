@@ -16,6 +16,17 @@ installLib.getUserOption("-googleClientSecret", "Enter the Google Client Secret 
 
 print("Hello, world!")
 # Check for Expect.
-# Get user options.
+
 # Check for rclone - set it up.
+
+#print("Configuring MariaDB...")
+#    runExpect([
+#        "spawn /usr/bin/mysql_secure_installation",
+#        "expect \"(enter for none):\"",
+#        "send \"\\r\"",
+#        "expect \"\\[Y/n\\]\"",
+#        "send \"n\\r\"",
+#        "interact"
+#    ])
+
 # Check for GAM - set it up.
