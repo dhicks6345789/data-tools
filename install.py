@@ -14,7 +14,10 @@ installLib.validValueOptions = ["-googleClientID", "-googleClientSecret"]
 installLib.getUserOption("-googleClientID", "Enter the Google Client ID used to connect rclone")
 installLib.getUserOption("-googleClientSecret", "Enter the Google Client Secret used to connect rclone")
 
-# Chec if we're on Windows.
+installLib.getUserOption("-configFolder", "Enter the Google Drive folder that contains the Data Tools config")
+installLib.getUserOption("-dataFolder", "Enter the (writeable) Google Drive folder that contains the MIS Data")
+
+# Check if we're on Windows.
 if os.name == "nt":
 	# Make sure PExpect is installed.
 	installLib.runIfPathMissing(installLib.pythonHome + os.sep + "Lib" + os.sep + "site-packages" + os.sep + "pexpect", "\"" + installLib.pipExe + "\" install pexpect")
@@ -53,4 +56,8 @@ if os.name == "nt":
 		rclone.expect("e/n/d/r/c/s/q>")
 		rclone.send("q\n")
 		
-# Check for GAM - set it up.
+# At this point, we should be able to get data from Google Drive.
+print(installLib.userOptions["-configFolder"])
+print(installLib.userOptions["-dataFolder"])
+	
+# Code goes here - check for GAM, install it and set it up if needed.
