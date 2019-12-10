@@ -26,7 +26,7 @@ if os.name == "nt":
 	if not os.path.exists(installLib.userHome + os.sep + ".config" + os.sep + "rclone" + os.sep + "rclone.conf"):
 		rclone = pexpect.popen_spawn.PopenSpawn("C:/Program Files/rclone/rclone.exe config")		
 		rclone.expect("n/s/q>")
-		rclone.send("n\r")
+		rclone.send("n\n")
 		rclone.expect("name>")
 		rclone.send("drive\\r")
 		rclone.expect("Storage>")
