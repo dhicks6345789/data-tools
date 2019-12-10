@@ -19,18 +19,8 @@ if os.name == "nt":
 	installLib.runIfPathMissing(pythonHome + os.sep + "Lib" + os.sep + "site-packages" + os.sep + "pexpect", "\"" + pipExe + "\" install pexpect")
 import pexpect
 
-
-
 # Check for rclone - set it up.
-
-#print("Configuring MariaDB...")
-#    runExpect([
-#        "spawn /usr/bin/mysql_secure_installation",
-#        "expect \"(enter for none):\"",
-#        "send \"\\r\"",
-#        "expect \"\\[Y/n\\]\"",
-#        "send \"n\\r\"",
-#        "interact"
-#    ])
+rclone = pexpect.popen_spawn.PopenSpawn("C:\Program Files\rclone\rclone.exe")
+rclone.interact()
 
 # Check for GAM - set it up.
