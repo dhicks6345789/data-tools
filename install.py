@@ -16,8 +16,8 @@ def runAsBatchFile(theBatchFileLines):
 	for batchFileLine in theBatchFileLines:
 		outputHandle.write(batchFileLine + "\n")
 	outputHandle.close()
-	#os.system("temp.bat")
-	#os.remove("temp.bat")
+	os.system("temp.bat")
+	os.remove("temp.bat")
 
 installLib.validValueOptions = ["-googleClientID", "-googleClientSecret", "-configFolder", "-dataFolder"]
 installLib.getUserOption("-googleClientID", "Enter the Google Client ID used to connect rclone")
