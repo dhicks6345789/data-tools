@@ -10,6 +10,15 @@ else:
 shutil.copyfile("install-lib/installLib.py", "./installLib.py")
 import installLib
 
+# A function to write a bunch of commands to a batch file and then run.
+def runAsBatchFile(theBatchFileLines):
+	outputHandle = open("temp.bat", "w")
+	for batchFileLine in theBatchFileLines:
+		outputHandle.write(batchFileLine + "\n")
+	outputHandle.close()
+	#os.system("temp.bat")
+	#os.remove("temp.bat")
+
 installLib.validValueOptions = ["-googleClientID", "-googleClientSecret", "-configFolder", "-dataFolder"]
 installLib.getUserOption("-googleClientID", "Enter the Google Client ID used to connect rclone")
 installLib.getUserOption("-googleClientSecret", "Enter the Google Client Secret used to connect rclone")
@@ -60,9 +69,7 @@ if os.name == "nt":
 	# At this point, we should be able to get data from Google Drive.
 	print(installLib.userOptions["-configFolder"])
 	print(installLib.userOptions["-dataFolder"])
-	cmdLine = "\"" + rclonePath.replace("\\", "/") + "\" sync \"drive:" + installLib.userOptions["-configFolder"] + "\" config"
-	print(cmdLine)
-	os.system(cmdLine)
-	print("cmd /c \"" + rclonePath + "\" sync \"drive:" + installLib.userOptions["-dataFolder"] + "\" \"..\\Documents\\User Tools Data\"")
+	runAsBatchFile(["\"" + rclonePath.replace("\\", "/") + "\" sync \"drive:" + installLib.userOptions["-configFolder"] + "\" config",
+		"\"" + rclonePath + "\" sync \"drive:" + installLib.userOptions["-dataFolder"] + "\" \"..\\Documents\\User Tools Data\""])
 	
 # Code goes here - check for GAM, install it and set it up if needed.
