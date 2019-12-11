@@ -68,7 +68,7 @@ if os.name == "nt":
 		rclone.send("q\n")
 
 	# At this point, we should be able to get data from Google Drive.
-	runAsBatchFile(["Getting data from Google Drive.",
+	runAsBatchFile(["echo Getting data from Google Drive.",
 		"\"" + rclonePath + "\" sync \"drive:" + installLib.userOptions["-configFolder"] + "\" config",
 		"\"" + rclonePath + "\" sync \"drive:" + installLib.userOptions["-dataFolder"] + "\" \"..\\Documents\\User Tools Data\""])
 	
