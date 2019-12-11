@@ -89,4 +89,4 @@ for requiredConfigParameter in requiredConfigParameters:
 
 
 # Code goes here - more stuff.
-print config["iSAMSAPIKey"]
+print(config["iSAMSAPIKey"])
