@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import os
+import json
 import shutil
 
 # Obtain and import the installLib library - should work on Windows and Linux / MacOS.
@@ -71,5 +72,15 @@ if os.name == "nt":
 	runAsBatchFile(["echo Getting data from Google Drive.",
 		"\"" + rclonePath + "\" sync \"drive:" + installLib.userOptions["-configFolder"] + "\" config",
 		"\"" + rclonePath + "\" sync \"drive:" + installLib.userOptions["-dataFolder"] + "\" \"..\\Documents\\User Tools Data\""])
-	
+
+# Load the configuration file.
+config = json.loads(installLib.readFile("config/config.json"))
+print(config)
+
+
+
 # Code goes here - check for GAM, install it and set it up if needed.
+
+
+
+# Code goes here - more stuff.
