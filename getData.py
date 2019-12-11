@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import json
 import installLib
+import urllib.request
 
 requiredConfigParameters = ["iSAMSAPIKey", "iSAMSAPIDomain"]
 
@@ -11,5 +12,6 @@ for requiredConfigParameter in requiredConfigParameters:
 		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
 		sys.exit(1)
     
-# Code goes here - more stuff.
-print("https://" + config["iSAMSAPIDomain"] + "/api/batch/1.0/xml.ashx?apiKey=" + config["iSAMSAPIKey"])
+# Go and get the data from the iSAMS API.
+response = urllib.request.urlopen("https://" + config["iSAMSAPIDomain"] + "/api/batch/1.0/xml.ashx?apiKey=" + config["iSAMSAPIKey"], context=ssl._create_unverified_context())
+writeFile("iSAMSData.xml", response.read())
