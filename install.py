@@ -13,6 +13,7 @@ import installLib
 # A function to write a bunch of commands to a batch file and then run.
 def runAsBatchFile(theBatchFileLines):
 	outputHandle = open("temp.bat", "w")
+	outputHandle.write("@echo off\n")
 	for batchFileLine in theBatchFileLines:
 		outputHandle.write(batchFileLine + "\n")
 	outputHandle.close()
