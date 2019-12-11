@@ -2,7 +2,7 @@
 import json
 import installLib
 
-requiredConfigParameters = ["iSAMSAPIKey"]
+requiredConfigParameters = ["iSAMSAPIKey", "iSAMSAPIDomain"]
 
 # Load the configuration file.
 config = json.loads(installLib.readFile("config/config.json"))
@@ -12,4 +12,4 @@ for requiredConfigParameter in requiredConfigParameters:
 		sys.exit(1)
     
 # Code goes here - more stuff.
-print(config["iSAMSAPIKey"])
+print("https://" + config["iSAMSAPIDomain"] + "/api/batch/1.0/xml.ashx?apiKey=" + config["iSAMSAPIKey"])
