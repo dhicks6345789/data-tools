@@ -3,6 +3,8 @@ import os
 import json
 import shutil
 
+requiredConfigParameters = ["iSAMSAPIKey", "wombat"]
+
 # Obtain and import the installLib library - should work on Windows and Linux / MacOS.
 if os.path.exists("install-lib"):
 	os.system("git -C install-lib pull https://github.com/dhicks6345789/install-lib.git")
@@ -75,7 +77,9 @@ if os.name == "nt":
 
 # Load the configuration file.
 config = json.loads(installLib.readFile("config/config.json"))
-print(config)
+for requiredConfigParameter in requiredConfigParameters:
+	if not requiredConfigParameter in config.keys():
+		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
 
 
 
