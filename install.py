@@ -3,7 +3,7 @@ import os
 import json
 import shutil
 
-requiredConfigParameters = ["iSAMSAPIKey", "wombat"]
+requiredConfigParameters = ["iSAMSAPIKey"]
 
 # Obtain and import the installLib library - should work on Windows and Linux / MacOS.
 if os.path.exists("install-lib"):
