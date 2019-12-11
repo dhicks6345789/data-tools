@@ -1,9 +1,6 @@
 #!/usr/bin/python
 import os
-import json
 import shutil
-
-requiredConfigParameters = ["iSAMSAPIKey"]
 
 # Obtain and import the installLib library - should work on Windows and Linux / MacOS.
 if os.path.exists("install-lib"):
@@ -75,18 +72,6 @@ if os.name == "nt":
 		"\"" + rclonePath + "\" sync \"drive:" + installLib.userOptions["-configFolder"] + "\" config",
 		"\"" + rclonePath + "\" sync \"drive:" + installLib.userOptions["-dataFolder"] + "\" \"..\\Documents\\User Tools Data\""])
 
-# Load the configuration file.
-config = json.loads(installLib.readFile("config/config.json"))
-for requiredConfigParameter in requiredConfigParameters:
-	if not requiredConfigParameter in config.keys():
-		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
-		sys.exit(1)
-
 
 
 # Code goes here - check for GAM, install it and set it up if needed.
-
-
-
-# Code goes here - more stuff.
-print(config["iSAMSAPIKey"])
