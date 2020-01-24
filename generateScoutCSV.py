@@ -3,7 +3,7 @@ import sys
 import json
 import installLib
 
-requiredConfigParameters = ["-inputFile", "-outputFolder"]
+requiredConfigParameters = ["pupilsCSVInputFile", "outputFolder"]
 
 # Load the configuration file.
 config = json.loads(installLib.readFile("config/config.json"))
