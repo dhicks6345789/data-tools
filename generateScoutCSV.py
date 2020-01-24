@@ -12,4 +12,5 @@ for requiredConfigParameter in requiredConfigParameters:
 		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
 		sys.exit(1)
 
-print(config)
+print(config["pupilsCSVInputFile"])
+print(config["outputFolder"])
