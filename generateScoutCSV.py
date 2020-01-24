@@ -24,4 +24,4 @@ print(config["outputFolder"] + "\\Scout\\allUsersForBorrowerImport.csv")
 pupils = open(config["pupilsCSVInputFile"])
 pupilsReader = csv.reader(pupils, delimiter=',')
 for pupilRow in pupilsReader:
-	print(pupilRow["person_id"] + "," + pupilRow[""] + "Student,Library,OPAC Only,Pupils," + pupilRow["first_name"] + "," + pupilRow["last_name"] + "," + pupilRow["grade_level"])
+	print(pupilRow[0] + "," + pupilRow[6] + ",Student,Library,OPAC Only,Pupils," + pupilRow[2] + "," + pupilRow[4] + "," + pupilRow[5])
