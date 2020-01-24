@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import sys
+import csv
 import json
 import installLib
 
@@ -18,6 +19,6 @@ print(config["outputFolder"] + "\\Scout\\allUsersForBorrowerImport.csv")
 print("P1949,kskirkoli15,Student,Library,OPAC Only,Pupils,Olivia,Kirkup,S5C,28/01/2009")
 
 pupils = open(config["pupilsCSVInputFile"])
-pupilsReader = pupils.reader(pupils, delimiter=',')
+pupilsReader = csv.reader(pupils, delimiter=',')
 for pupilRow in pupilsReader:
 	print(pupilRow)
