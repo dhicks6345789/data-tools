@@ -13,4 +13,4 @@ for requiredConfigParameter in requiredConfigParameters:
 		sys.exit(1)
 
 print(config["pupilsCSVInputFile"])
-print(config["outputFolder"])
+print(config["outputFolder"] + "\\Scout\\allUsersForBorrowerImport.csv")
