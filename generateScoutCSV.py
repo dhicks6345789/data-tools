@@ -14,3 +14,10 @@ for requiredConfigParameter in requiredConfigParameters:
 
 print(config["pupilsCSVInputFile"])
 print(config["outputFolder"] + "\\Scout\\allUsersForBorrowerImport.csv")
+
+print("P1949,kskirkoli15,Student,Library,OPAC Only,Pupils,Olivia,Kirkup,S5C,28/01/2009")
+
+pupils = open(config["pupilsCSVInputFile"])
+pupilsReader = pupils.reader(pupils, delimiter=',')
+for pupilRow in pupilsReader:
+	print(pupilRow)
