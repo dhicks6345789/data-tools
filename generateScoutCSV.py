@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import sys
 import json
 import installLib
 
@@ -10,3 +11,5 @@ for requiredConfigParameter in requiredConfigParameters:
 	if not requiredConfigParameter in config.keys():
 		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
 		sys.exit(1)
+
+print config
