@@ -4,6 +4,7 @@ import sys
 import json
 import pandas
 import installLib
+import xml.etree.ElementTree
 
 requiredConfigParameters = ["outputFolder"]
 
@@ -14,8 +15,8 @@ for requiredConfigParameter in requiredConfigParameters:
 		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
 		sys.exit(1)
 
-pupilsXML = installLib.readFile("iSAMSData.xml")
-		
+pupilsXML = xml.etree.ElementTree.fromstring(installLib.readFile("iSAMSData.xml"))
+
 # Output format:
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
 pupils = pandas.DataFrame({"PupilID":[],"GivenName":[]})
