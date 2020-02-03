@@ -25,4 +25,4 @@ print(config["outputFolder"] + "\\Scout\\allUsersForBorrowerImport.csv")
 
 pupils = pandas.read_csv(config["pupilsCSVInputFile"], header=0)
 for pupilIndex, pupil in pupils.iterrows():
-	print(pupil["person_id"] + "," + pupil["UserName"] + ",Student,Library,OPAC Only,Pupils," + pupil["PreferredForename"] + "," + pupil["PreferredSurname"]+ "," + pupil["RegistrationGroup"]+ "," + pupil["DOB"])
+	print(pupil["person_id"] + "," + pupil["UserName"] + ",Student,Library,OPAC Only,Pupils," + pupil["PreferredForename"] + "," + pupil["PreferredSurname"]+ "," + pupil["RegistrationGroup"]+ "," + str(pupil["DOB"]))
