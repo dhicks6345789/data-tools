@@ -39,13 +39,15 @@ print(pandas.DataFrame(staff).to_csv(index=False))
 pupils = {"PupilID":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Gender":[],"Username":[],"YearGroup":[],"Form":[],"Tutor":[]}
 for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	if currentPupil.find("Surname").text == "Giles":
+		for childTag in currentPupil:
+			print(childTag.tag)
 		pupils["PupilID"].append(currentPupil.find("UserCode").text)
 		pupils["GivenName"].append(currentPupil.find("Preferredname").text)
 		pupils["FamilyName"].append(currentPupil.find("Surname").text)
 		pupils["DateOfBirth"].append(currentPupil.find("DOB").text.split("T")[0])
 		pupils["Gender"].append(currentPupil.find("Gender").text)
 		print(currentPupil.find("EnrolmentSchoolYear").text)
-		pupils["Username"].append("")
+		pupils["Username"].append(currentPupil.find("EmailAddress").text.split("@")[0])
 		pupils["YearGroup"].append("")
 		pupils["Form"].append(currentPupil.find("Form").text)
 		pupils["Tutor"].append("")
