@@ -42,7 +42,7 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 		pupils["PupilID"].append(currentPupil.find("UserCode").text)
 		pupils["GivenName"].append(currentPupil.find("Preferredname").text)
 		pupils["FamilyName"].append(currentPupil.find("Surname").text)
-		pupils["DateOfBirth"].append(currentPupil.find("DOB").text.split["T"][0])
+		pupils["DateOfBirth"].append(currentPupil.find("DOB").text.split("T")[0])
 		pupils["Gender"].append(currentPupil.find("Gender").text)
 		print(currentPupil.find("EnrolmentSchoolYear").text)
 		pupils["Username"].append("")
