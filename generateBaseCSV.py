@@ -36,5 +36,10 @@ print(pandas.DataFrame(staff).to_csv(index=False))
 
 # Output format:
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
-pupils = pandas.DataFrame({"PupilID":[],"GivenName":[]})
-installLib.writeFile(config["outputFolder"] + os.sep + "pupils.csv", pupils.to_csv(index=False))
+pupils = {"PupilID":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Gender":[],"Username":[],"YearGroup":[],"Form":[],"Tutor":[]}
+for currentPupil in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember"):
+	if currentPupil.find("Surname").text == "Giles":
+		print(currentPupil)
+
+#installLib.writeFile(config["outputFolder"] + os.sep + "pupils.csv", pupils.to_csv(index=False))
+print(pandas.DataFrame(pupils).to_csv(index=False))
