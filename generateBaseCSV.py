@@ -31,7 +31,7 @@ for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember
 	staff["Title"].append(currentStaffMember.find("Title").text)
 	staff["GivenName"].append(currentStaffMember.find("PreferredName").text)
 	staff["FamilyName"].append(currentStaffMember.find("Surname").text)
-	staff["DateOfBirth"].append(currentStaffMember.find("DOB").text.split("T")[0])
+	staff["DateOfBirth"].append(getValue(currentStaffMember, "DOB").split("T")[0])
 	staff["Username"].append(getValue(currentStaffMember, "SchoolEmailAddress").split("@")[0])
 	staff["Identifier"].append(getValue(currentStaffMember, "Username"))
 	staff["Form"].append("")
