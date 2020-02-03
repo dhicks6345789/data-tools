@@ -37,7 +37,7 @@ print(pandas.DataFrame(staff).to_csv(index=False))
 # Output format:
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
 pupils = {"PupilID":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Gender":[],"Username":[],"YearGroup":[],"Form":[],"Tutor":[]}
-for currentPupil in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember"):
+for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	if currentPupil.find("Surname").text == "Giles":
 		print(currentPupil)
 
