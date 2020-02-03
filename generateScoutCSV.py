@@ -14,15 +14,11 @@ for requiredConfigParameter in requiredConfigParameters:
 		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
 		sys.exit(1)
 
-print(config["pupilsCSVInputFile"])
-print(config["outputFolder"] + "\\Scout\\allUsersForBorrowerImport.csv")
-
-# Input:
-#Date,person_id,UserName,Forename,Surname,PreferredForename,PreferredSurname,Password,RegistrationGroup,Year,DOB
-#2020-01-27,,a.astudent16,AaSal,astudent,AaSal,aStudent,KS160311!,S4L,4,16/03/2011
-
-# Output: P1949,ksbsmith5,Student,Library,OPAC Only,Pupils, Bob,Smith,S5C,28/01/2014
-
+# Input data headings:
+# Date,person_id,UserName,Forename,Surname,PreferredForename,PreferredSurname,Password,RegistrationGroup,Year,DOB
+# 2020-01-27,,a.astudent16,AaSal,astudent,AaSal,aStudent,kfkbhrg!,S4L,4,16/03/2011
+# Example output:
+# P1949,ksbsmith5,Student,Library,OPAC Only,Pupils,Bob,Smith,S5C,28/01/2014
 pupils = pandas.read_csv(config["pupilsCSVInputFile"], header=0)
 for pupilIndex, pupil in pupils.iterrows():
 	print(str(pupil["person_id"]) + "," + pupil["UserName"] + ",Student,Library,OPAC Only,Pupils," + pupil["PreferredForename"] + "," + pupil["PreferredSurname"]+ "," + pupil["RegistrationGroup"]+ "," + str(pupil["DOB"]))
