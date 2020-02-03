@@ -72,16 +72,14 @@ if os.name == "nt":
 		"\"" + rclonePath + "\" sync \"drive:" + installLib.userOptions["-configFolder"] + "\" config",
 		"\"" + rclonePath + "\" sync \"drive:" + installLib.userOptions["-dataFolder"] + "\" \"..\\Documents\\User Tools Data\""])
 	
+	print(installLib.pythonVersion)
 	# Make sure XLRD (Python library for handling Excel files, required for Excel support in Pandas) is installed.
 	installLib.runIfPathMissing("C:\\Program Files\\"+installLib.pythonVersion+"\\Lib\\site-packages\\xlrd", "py -m pip install xlrd")
 
 	# Make sure Pandas (Python data-analysis library) is installed.
-	installLib.runIfPathMissing("/usr/local/lib/"+installLib.pythonVersion+"/dist-packages/pandas", "py -m pip install pandas")
+	installLib.runIfPathMissing("C:\\Program Files\\"+installLib.pythonVersion+"\\Lib\\site-packages\\pandas", "py -m pip install pandas")
 
 	# Make sure Numpy (Python maths library) is installed.
-	installLib.runIfPathMissing("/usr/local/lib/"+installLib.pythonVersion+"/dist-packages/numpy", "py -m pip install numpy")
-
-
-
-
+	installLib.runIfPathMissing("C:\\Program Files\\"+installLib.pythonVersion+"\\Lib\\site-packages\\numpy", "py -m pip install numpy")
+	
 # Code goes here - check for GAM, install it and set it up if needed.
