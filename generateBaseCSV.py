@@ -17,7 +17,8 @@ for requiredConfigParameter in requiredConfigParameters:
 
 iSAMSXML = xml.etree.ElementTree.fromstring(installLib.readFile("iSAMSData.xml"))
 for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember"):
-	print(currentStaffMember.find("Surname").text)
+	if currentStaffMember.find("Surname").text == "Hicks":
+		print("Me!")
 	
 # Output format:
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
