@@ -27,20 +27,18 @@ iSAMSXML = xml.etree.ElementTree.fromstring(installLib.readFile("iSAMSData.xml")
 # StaffID,Title,GivenName,FamilyName,DateOfBirth,Username,Identifier,Form,JobTitle
 staff = {"StaffID":[],"Title":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Username":[],"Identifier":[],"Form":[],"JobTitle":[]}
 for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember"):
-	if currentStaffMember.find("Surname").text == "Hicks":
-		staff["StaffID"].append(currentStaffMember.find("UserCode").text)
-		staff["Title"].append(currentStaffMember.find("Title").text)
-		staff["GivenName"].append(currentStaffMember.find("PreferredName").text)
-		staff["FamilyName"].append(currentStaffMember.find("Surname").text)
-		staff["DateOfBirth"].append(currentStaffMember.find("DOB").text.split("T")[0])
-		staff["Username"].append(currentStaffMember.find("SchoolEmailAddress").text.split("@")[0])
-		staff["Identifier"].append(currentStaffMember.find("UserName").text)
-		staff["Form"].append("")
-		staff["JobTitle"].append("")
-		
-print(pandas.DataFrame(staff).to_csv(index=False))
+	staff["StaffID"].append(currentStaffMember.find("UserCode").text)
+	staff["Title"].append(currentStaffMember.find("Title").text)
+	staff["GivenName"].append(currentStaffMember.find("PreferredName").text)
+	staff["FamilyName"].append(currentStaffMember.find("Surname").text)
+	staff["DateOfBirth"].append(currentStaffMember.find("DOB").text.split("T")[0])
+	staff["Username"].append(currentStaffMember.find("SchoolEmailAddress").text.split("@")[0])
+	staff["Identifier"].append(currentStaffMember.find("UserName").text)
+	staff["Form"].append("")
+	staff["JobTitle"].append("")
+installLib.writeFile(config["outputFolder"] + os.sep + "pupils.csv", pandas.DataFrame(staff).to_csv(index=False))
 
-# Output format:
+# Pupils - previous output format:
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
 pupils = {"PupilID":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Gender":[],"Username":[],"YearGroup":[],"Form":[],"Tutor":[]}
 for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
@@ -53,5 +51,4 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["YearGroup"].append(currentPupil.find("EmailAddress").text.split("@")[0][-2:])
 	pupils["Form"].append(currentPupil.find("Form").text)
 	pupils["Tutor"].append(getValue(currentPupil, "Tutor"))
-	
 installLib.writeFile(config["outputFolder"] + os.sep + "pupils.csv", pandas.DataFrame(pupils).to_csv(index=False))
