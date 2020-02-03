@@ -19,7 +19,27 @@ iSAMSXML = xml.etree.ElementTree.fromstring(installLib.readFile("iSAMSData.xml")
 for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember"):
 	if currentStaffMember.find("Surname").text == "Hicks":
 		for currentStaffMemberAttribute in currentStaffMember:
-			print(currentStaffMemberAttribute.tag, currentStaffMemberAttribute.attrib)
+			print(currentStaffMemberAttribute.tag, currentStaffMemberAttribute.text)
+			#PreviousMISId {}
+			#Initials {}
+			#UserCode {}
+			#UserName {}
+			#Title {}
+			#Forename {}
+			#MiddleNames {}
+			#Surname {}
+			#FullName {}
+			#NameInitials {}
+			#PreferredName {}
+			#Salutation {}
+			#DOB {}
+			#Gender {}
+			#SchoolEmailAddress {}
+			#SchoolMobileNumber {}
+			#PersonalMobileNumber {}
+			#TeachingStaff {}
+			#Divisions {}
+			#Roles {}
 
 # Output format:
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
