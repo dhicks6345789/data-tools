@@ -43,7 +43,7 @@ installLib.writeFile(config["outputFolder"] + os.sep + "staff.csv", pandas.DataF
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
 pupils = {"GUID":[],"UserCode":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Gender":[],"Username":[],"YearGroup":[],"Form":[],"Tutor":[]}
 for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
-	pupils["GUID"].append(getValue(currentPupil, "PersonGuid"))
+	pupils["GUID"].append(currentPupil.attrib["PersonGuid"])
 	pupils["UserCode"].append(getValue(currentPupil, "UserCode"))
 	pupils["GivenName"].append(currentPupil.find("Preferredname").text)
 	pupils["FamilyName"].append(currentPupil.find("Surname").text)
