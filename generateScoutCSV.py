@@ -5,7 +5,7 @@ import json
 import pandas
 import installLib
 
-requiredConfigParameters = ["pupilsCSVInputFile", "outputFolder"]
+requiredConfigParameters = ["pupilsCSVInputFile", "staffCSVInputFile", "outputFolder"]
 
 # Load the configuration file.
 config = json.loads(installLib.readFile("config/config.json"))
@@ -15,10 +15,20 @@ for requiredConfigParameter in requiredConfigParameters:
 		sys.exit(1)
 
 # Input data headings:
-# Date,person_id,UserName,Forename,Surname,PreferredForename,PreferredSurname,Password,RegistrationGroup,Year,DOB
+# Pupils: GUID,UserCode,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
+# Staff: GUID,UserCode,Title,GivenName,FamilyName,DateOfBirth,Username,Identifier,Form,JobTitle
 # 2020-01-27,,a.astudent16,AaSal,astudent,AaSal,aStudent,kfkbhrg!,S4L,4,16/03/2011
 # Example output:
-# P1949,ksbsmith5,Student,Library,OPAC Only,Pupils,Bob,Smith,S5C,28/01/2014
+# Pupils: P1949,ksbsmith15,Student,Library,OPAC Only,Pupils,Bob,Smith,S5C,xx/yy/zzzz
+# Staff: S145,b.smith,Staff,Library,Staff,Staff,Bob,Smith,,xx/yy/zzzz
+outputString = ""
+
 pupils = pandas.read_csv(config["pupilsCSVInputFile"], header=0)
 for pupilIndex, pupil in pupils.iterrows():
-	print(str(pupil["person_id"]) + "," + pupil["UserName"] + ",Student,Library,OPAC Only,Pupils," + pupil["PreferredForename"] + "," + pupil["PreferredSurname"]+ "," + pupil["RegistrationGroup"]+ "," + str(pupil["DOB"]))
+	outputString = outputString + str(pupil["GUID"]) + "," + pupil["Username"] + ",Student,Library,OPAC Only,Pupils," + pupil["GivenName"] + "," + pupil["FamilyName"]+ "," + pupil["Form"]+ "," + str(pupil["DateOfBirth"]) + "\n"
+
+staff = pandas.read_csv(config["staffCSVInputFile"], header=0)
+for staffIndex, staff in staff.iterrows():
+	outputString = outputStrintg + str(staff["GUID"]) + "," + staff["Username"] + ",Staff,Library,Staff,Staff," + staff["GivenName"] + "," + staff["FamilyName"]+ ",," + str(staff["DateOfBirth"]) + "\n"
+	
+installLib.writeFile(config["outputFolder"] + os.sep + "Scout" + os.sep + "allUsersForBorrowerImport.csv", outputString)
