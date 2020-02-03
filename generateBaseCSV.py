@@ -23,7 +23,7 @@ iSAMSXML = xml.etree.ElementTree.fromstring(installLib.readFile("iSAMSData.xml")
 staff = pandas.DataFrame()
 for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember"):
 	if currentStaffMember.find("Surname").text == "Hicks":
-		staff.append({"StaffID": currentStaffMember.find("UserCode").text})
+		staff.append({"StaffID": currentStaffMember.find("UserCode").text}, ignore_index=True)
 		#print(currentStaffMember.find("UserCode").text)
 		#print(currentStaffMember.find("PreferredName").text)
 		#print(currentStaffMember.find("Surname").text)
