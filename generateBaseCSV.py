@@ -16,6 +16,7 @@ for requiredConfigParameter in requiredConfigParameters:
 		sys.exit(1)
 
 pupilsXML = xml.etree.ElementTree.fromstring(installLib.readFile("iSAMSData.xml"))
+print(pupilsXML.tag)
 
 # Output format:
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
