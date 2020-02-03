@@ -38,18 +38,14 @@ print(pandas.DataFrame(staff).to_csv(index=False))
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
 pupils = {"PupilID":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Gender":[],"Username":[],"YearGroup":[],"Form":[],"Tutor":[]}
 for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
-	if currentPupil.find("Surname").text == "Giles":
-		for childTag in currentPupil:
-			print(childTag.tag)
-		pupils["PupilID"].append(currentPupil.find("UserCode").text)
-		pupils["GivenName"].append(currentPupil.find("Preferredname").text)
-		pupils["FamilyName"].append(currentPupil.find("Surname").text)
-		pupils["DateOfBirth"].append(currentPupil.find("DOB").text.split("T")[0])
-		pupils["Gender"].append(currentPupil.find("Gender").text)
-		pupils["Username"].append(currentPupil.find("EmailAddress").text.split("@")[0])
-		pupils["YearGroup"].append(currentPupil.find("EmailAddress").text.split("@")[0][-2:])
-		pupils["Form"].append(currentPupil.find("Form").text)
-		pupils["Tutor"].append(currentPupil.find("Tutor").text)
-
-#installLib.writeFile(config["outputFolder"] + os.sep + "pupils.csv", pupils.to_csv(index=False))
-print(pandas.DataFrame(pupils).to_csv(index=False))
+	pupils["PupilID"].append(currentPupil.find("UserCode").text)
+	pupils["GivenName"].append(currentPupil.find("Preferredname").text)
+	pupils["FamilyName"].append(currentPupil.find("Surname").text)
+	pupils["DateOfBirth"].append(currentPupil.find("DOB").text.split("T")[0])
+	pupils["Gender"].append(currentPupil.find("Gender").text)
+	pupils["Username"].append(currentPupil.find("EmailAddress").text.split("@")[0])
+	pupils["YearGroup"].append(currentPupil.find("EmailAddress").text.split("@")[0][-2:])
+	pupils["Form"].append(currentPupil.find("Form").text)
+	pupils["Tutor"].append(currentPupil.find("Tutor").text)
+	
+installLib.writeFile(config["outputFolder"] + os.sep + "pupils.csv", pandas.DataFrame(pupils).to_csv(index=False))
