@@ -19,20 +19,19 @@ iSAMSXML = xml.etree.ElementTree.fromstring(installLib.readFile("iSAMSData.xml")
 
 # Staff - previous output format:
 # StaffID,Title,GivenName,FamilyName,DateOfBirth,Username,Identifier,Form,JobTitle
-staff = pandas.DataFrame({"StaffID":[],"GivenName":[]})
+#staff = pandas.DataFrame({"StaffID":[],"GivenName":[]})
+staff = pandas.DataFrame()
 for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember"):
 	if currentStaffMember.find("Surname").text == "Hicks":
-		print(currentStaffMember.find("UserCode").text)
-		print(currentStaffMember.find("PreferredName").text)
-		print(currentStaffMember.find("Surname").text)
-		print(currentStaffMember.find("DOB").text.split("T")[0])
-		print(currentStaffMember.find("Gender").text)
-		print(currentStaffMember.find("SchoolEmailAddress").text.split("@")[0])
-		
-			
+		staff.append({"StaffID": currentStaffMember.find("UserCode").text})
+		#print(currentStaffMember.find("UserCode").text)
+		#print(currentStaffMember.find("PreferredName").text)
+		#print(currentStaffMember.find("Surname").text)
+		#print(currentStaffMember.find("DOB").text.split("T")[0])
+		#print(currentStaffMember.find("Gender").text)
+		#print(currentStaffMember.find("SchoolEmailAddress").text.split("@")[0])
+print(staff)
 
-
-			
 # Output format:
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
 pupils = pandas.DataFrame({"PupilID":[],"GivenName":[]})
