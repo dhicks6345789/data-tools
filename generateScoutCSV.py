@@ -30,6 +30,6 @@ for pupilIndex, pupil in pupils.iterrows():
 
 staff = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 for staffIndex, staff in staff.iterrows():
-	outputString = outputStrintg + str(staff["GUID"]) + "," + staff["Username"] + ",Staff,Library,Staff,Staff," + staff["GivenName"] + "," + staff["FamilyName"]+ ",," + str(staff["DateOfBirth"]) + "\n"
+	outputString = outputString + str(staff["GUID"]) + "," + staff["Username"] + ",Staff,Library,Staff,Staff," + staff["GivenName"] + "," + staff["FamilyName"]+ ",," + str(staff["DateOfBirth"]) + "\n"
 	
 installLib.writeFile(config["dataFolder"] + os.sep + "Scout" + os.sep + "allUsersForBorrowerImport.csv", outputString)
