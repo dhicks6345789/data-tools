@@ -14,6 +14,8 @@ for requiredConfigParameter in requiredConfigParameters:
 		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
 		sys.exit(1)
 
+pupilsXML = installLib.readFile("iSAMSData.xml")
+		
 # Output format:
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
 pupils = pandas.DataFrame({"PupilID":[],"GivenName":[]})
