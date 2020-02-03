@@ -72,7 +72,6 @@ if os.name == "nt":
 		"\"" + rclonePath + "\" sync \"drive:" + installLib.userOptions["-configFolder"] + "\" config",
 		"\"" + rclonePath + "\" sync \"drive:" + installLib.userOptions["-dataFolder"] + "\" \"..\\Documents\\User Tools Data\""])
 	
-	print(installLib.pythonVersion)
 	# Make sure XLRD (Python library for handling Excel files, required for Excel support in Pandas) is installed.
 	installLib.runIfPathMissing("C:\\Program Files\\"+installLib.pythonVersion+"\\Lib\\site-packages\\xlrd", "py -m pip install xlrd")
 
