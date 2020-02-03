@@ -25,7 +25,8 @@ print(config["outputFolder"] + "\\Scout\\allUsersForBorrowerImport.csv")
 
 
 pupils = pandas.read_csv(config["pupilsCSVInputFile"], header=0)
-print(pupils)
+for index, row in pupils.iterrows():
+	print(row)
 
 #pupils = open(config["pupilsCSVInputFile"])
 #pupilsReader = csv.reader(pupils, delimiter=',')
