@@ -22,14 +22,13 @@ iSAMSXML = xml.etree.ElementTree.fromstring(installLib.readFile("iSAMSData.xml")
 staff = {"StaffID":[],"Title":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Username":[],"Identifier":[],"Form":[],"JobTitle":[]}
 for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember"):
 	if currentStaffMember.find("Surname").text == "Hicks":
-		print(currentStaffMember)
 		staff["StaffID"].append(currentStaffMember.find("UserCode").text)
 		staff["Title"].append(currentStaffMember.find("Title").text)
 		staff["GivenName"].append(currentStaffMember.find("PreferredName").text)
 		staff["FamilyName"].append(currentStaffMember.find("Surname").text)
 		staff["DateOfBirth"].append(currentStaffMember.find("DOB").text.split("T")[0])
 		staff["Username"].append(currentStaffMember.find("SchoolEmailAddress").text.split("@")[0])
-		staff["Identifier"].append("")
+		staff["Identifier"].append(currentStaffMember.find("UserName").text)
 		staff["Form"].append("")
 		staff["JobTitle"].append("")
 		
