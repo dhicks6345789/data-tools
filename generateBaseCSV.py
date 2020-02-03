@@ -23,7 +23,7 @@ for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember
 		print(currentStaffMember.find("Surname").text)
 		print(currentStaffMember.find("DOB").text.split("T")[0])
 		print(currentStaffMember.find("Gender").text)
-		print(currentStaffMember.find("UserName").text)
+		print(currentStaffMember.find("SchoolEmailAddress").text.split("@")[0])
 		for currentStaffMemberAttribute in currentStaffMember:
 			print(currentStaffMemberAttribute.tag, currentStaffMemberAttribute.text)
 			#PreviousMISId {}
