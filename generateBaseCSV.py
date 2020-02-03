@@ -15,9 +15,10 @@ for requiredConfigParameter in requiredConfigParameters:
 		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
 		sys.exit(1)
 
-pupilsXML = xml.etree.ElementTree.fromstring(installLib.readFile("iSAMSData.xml"))
-print(pupilsXML.tag)
-
+iSAMSXML = xml.etree.ElementTree.fromstring(installLib.readFile("iSAMSData.xml"))
+for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember"):
+	print(currentStaffMember.tag)
+	
 # Output format:
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
 pupils = pandas.DataFrame({"PupilID":[],"GivenName":[]})
