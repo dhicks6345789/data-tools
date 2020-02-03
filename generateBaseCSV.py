@@ -29,7 +29,7 @@ for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember
 		#print(currentStaffMember.find("DOB").text.split("T")[0])
 		#print(currentStaffMember.find("Gender").text)
 		#print(currentStaffMember.find("SchoolEmailAddress").text.split("@")[0])
-print(pandas.DataFrame(staff))
+print(pandas.DataFrame(staff).to_csv())
 
 # Output format:
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
