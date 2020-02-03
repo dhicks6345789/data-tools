@@ -6,7 +6,7 @@ import pandas
 import installLib
 import xml.etree.ElementTree
 
-requiredConfigParameters = ["outputFolder"]
+requiredConfigParameters = ["dataFolder"]
 
 def getValue(theXMLNode, theTag):
 	findResult = theXMLNode.find(theTag) 
@@ -37,7 +37,7 @@ for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember
 	staff["Identifier"].append(getValue(currentStaffMember, "Username"))
 	staff["Form"].append("")
 	staff["JobTitle"].append("")
-installLib.writeFile(config["outputFolder"] + os.sep + "staff.csv", pandas.DataFrame(staff).to_csv(index=False))
+installLib.writeFile(config["dataFolder"] + os.sep + "staff.csv", pandas.DataFrame(staff).to_csv(index=False))
 
 # Pupils - previous output format:
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
@@ -53,4 +53,4 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["YearGroup"].append(currentPupil.find("EmailAddress").text.split("@")[0][-2:])
 	pupils["Form"].append(currentPupil.find("Form").text)
 	pupils["Tutor"].append(getValue(currentPupil, "Tutor"))
-installLib.writeFile(config["outputFolder"] + os.sep + "pupils.csv", pandas.DataFrame(pupils).to_csv(index=False))
+installLib.writeFile(config["dataFolder"] + os.sep + "pupils.csv", pandas.DataFrame(pupils).to_csv(index=False))
