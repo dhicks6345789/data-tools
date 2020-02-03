@@ -25,9 +25,10 @@ iSAMSXML = xml.etree.ElementTree.fromstring(installLib.readFile("iSAMSData.xml")
 
 # Staff - previous output format:
 # StaffID,Title,GivenName,FamilyName,DateOfBirth,Username,Identifier,Form,JobTitle
-staff = {"StaffID":[],"Title":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Username":[],"Identifier":[],"Form":[],"JobTitle":[]}
+staff = {"GUID":[],"UserCode":[],"Title":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Username":[],"Identifier":[],"Form":[],"JobTitle":[]}
 for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember"):
-	staff["StaffID"].append(currentStaffMember.find("UserCode").text)
+	staff["GUID"].append(currentStaffMember.find("PersonGuid").text)
+	staff["UserCode"].append(currentStaffMember.find("UserCode").text)
 	staff["Title"].append(currentStaffMember.find("Title").text)
 	staff["GivenName"].append(currentStaffMember.find("PreferredName").text)
 	staff["FamilyName"].append(currentStaffMember.find("Surname").text)
@@ -40,9 +41,10 @@ installLib.writeFile(config["outputFolder"] + os.sep + "pupils.csv", pandas.Data
 
 # Pupils - previous output format:
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
-pupils = {"PupilID":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Gender":[],"Username":[],"YearGroup":[],"Form":[],"Tutor":[]}
+pupils = {"GUID":[],"UserCode":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Gender":[],"Username":[],"YearGroup":[],"Form":[],"Tutor":[]}
 for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
-	pupils["PupilID"].append(getValue(currentPupil, "UserCode"))
+	pupils["GUID"].append(getValue(currentPupil, "PersonGuid"))
+	pupils["UserCode"].append(getValue(currentPupil, "UserCode"))
 	pupils["GivenName"].append(currentPupil.find("Preferredname").text)
 	pupils["FamilyName"].append(currentPupil.find("Surname").text)
 	pupils["DateOfBirth"].append(currentPupil.find("DOB").text.split("T")[0])
