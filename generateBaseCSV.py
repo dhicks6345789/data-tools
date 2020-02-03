@@ -8,7 +8,7 @@ import xml.etree.ElementTree
 
 requiredConfigParameters = ["outputFolder"]
 
-getValue(theXMLNode, theTag):
+def getValue(theXMLNode, theTag):
 	findResult = theXMLNode.find(theTag) 
 	if findResult == None:
 		print "ERROR - " + theTag " not found."
