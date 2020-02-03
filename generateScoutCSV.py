@@ -5,7 +5,7 @@ import json
 import pandas
 import installLib
 
-requiredConfigParameters = ["pupilsCSVInputFile", "staffCSVInputFile", "outputFolder"]
+requiredConfigParameters = ["dataFolder"]
 
 # Load the configuration file.
 config = json.loads(installLib.readFile("config/config.json"))
@@ -23,12 +23,12 @@ for requiredConfigParameter in requiredConfigParameters:
 # Staff: S145,b.smith,Staff,Library,Staff,Staff,Bob,Smith,,xx/yy/zzzz
 outputString = ""
 
-pupils = pandas.read_csv(config["pupilsCSVInputFile"], header=0)
+pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 for pupilIndex, pupil in pupils.iterrows():
 	outputString = outputString + str(pupil["GUID"]) + "," + pupil["Username"] + ",Student,Library,OPAC Only,Pupils," + pupil["GivenName"] + "," + pupil["FamilyName"]+ "," + pupil["Form"]+ "," + str(pupil["DateOfBirth"]) + "\n"
 
-staff = pandas.read_csv(config["staffCSVInputFile"], header=0)
+staff = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 for staffIndex, staff in staff.iterrows():
 	outputString = outputStrintg + str(staff["GUID"]) + "," + staff["Username"] + ",Staff,Library,Staff,Staff," + staff["GivenName"] + "," + staff["FamilyName"]+ ",," + str(staff["DateOfBirth"]) + "\n"
 	
-installLib.writeFile(config["outputFolder"] + os.sep + "Scout" + os.sep + "allUsersForBorrowerImport.csv", outputString)
+installLib.writeFile(config["dataFolder"] + os.sep + "Scout" + os.sep + "allUsersForBorrowerImport.csv", outputString)
