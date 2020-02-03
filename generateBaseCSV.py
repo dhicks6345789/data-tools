@@ -48,7 +48,7 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 		pupils["Username"].append("")
 		pupils["YearGroup"].append("")
 		pupils["Form"].append(currentPupil.find("Form").text)
-		pupils["Tutor"].append()
+		pupils["Tutor"].append("")
 
 #installLib.writeFile(config["outputFolder"] + os.sep + "pupils.csv", pupils.to_csv(index=False))
 print(pandas.DataFrame(pupils).to_csv(index=False))
