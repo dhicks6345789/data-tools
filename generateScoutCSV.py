@@ -28,7 +28,7 @@ pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 for pupilIndex, pupil in pupils.iterrows():
 	outputString = outputString + str(pupil["GUID"]) + "," + pupil["Username"] + ",Student,Library,OPAC Only,Pupils," + pupil["GivenName"] + "," + pupil["FamilyName"]+ "," + pupil["Form"]+ "," + str(pupil["DateOfBirth"]) + "\n"
 
-staff = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
+staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 for staffIndex, staff in staff.iterrows():
 	outputString = outputString + str(staff["GUID"]) + "," + staff["Username"] + ",Staff,Library,Staff,Staff," + staff["GivenName"] + "," + staff["FamilyName"]+ ",," + str(staff["DateOfBirth"]) + "\n"
 	
