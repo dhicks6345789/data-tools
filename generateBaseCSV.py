@@ -29,9 +29,9 @@ for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember
 		#print(currentStaffMember.find("DOB").text.split("T")[0])
 		#print(currentStaffMember.find("Gender").text)
 		#print(currentStaffMember.find("SchoolEmailAddress").text.split("@")[0])
-print(pandas.DataFrame(staff).to_csv())
+print(pandas.DataFrame(staff).to_csv(index=False))
 
 # Output format:
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
 pupils = pandas.DataFrame({"PupilID":[],"GivenName":[]})
-installLib.writeFile(config["outputFolder"] + os.sep + "pupils.csv", pupils.to_csv())
+installLib.writeFile(config["outputFolder"] + os.sep + "pupils.csv", pupils.to_csv(index=False))
