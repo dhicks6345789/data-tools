@@ -39,7 +39,15 @@ print(pandas.DataFrame(staff).to_csv(index=False))
 pupils = {"PupilID":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Gender":[],"Username":[],"YearGroup":[],"Form":[],"Tutor":[]}
 for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	if currentPupil.find("Surname").text == "Giles":
-		print(currentPupil)
+		pupils["PupilID"].append(currentPupil.find("UserCode").text)
+		pupils["GivenName"].append(currentPupil.find("Preferredname").text)
+		pupils["FamilyName"].append(currentPupil.find("Surname").text)
+		pupils["DateOfBirth"].append(currentPupil.find("DOB").text)
+		pupils["Gender"].append(currentPupil.find("Gender").text)
+		pupils["Username"].append("")
+		pupils["YearGroup"].append("")
+		pupils["Form"].append("")
+		pupils["Tutor"].append("")
 
 #installLib.writeFile(config["outputFolder"] + os.sep + "pupils.csv", pupils.to_csv(index=False))
 print(pandas.DataFrame(pupils).to_csv(index=False))
