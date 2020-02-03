@@ -2,6 +2,7 @@
 import sys
 import csv
 import json
+import pandas
 import installLib
 
 requiredConfigParameters = ["pupilsCSVInputFile", "outputFolder"]
@@ -22,7 +23,11 @@ print(config["outputFolder"] + "\\Scout\\allUsersForBorrowerImport.csv")
 
 # Output: P1949,ksbsmith5,Student,Library,OPAC Only,Pupils,Bob,Smith,S5C,28/01/2014
 
-pupils = open(config["pupilsCSVInputFile"])
-pupilsReader = csv.reader(pupils, delimiter=',')
-for pupilRow in pupilsReader:
-	print(pupilRow[0] + "," + pupilRow[6].split("@")[0] + ",Student,Library,OPAC Only,Pupils," + pupilRow[2] + "," + pupilRow[4] + "," + pupilRow[5])
+
+pupils = pandas.read_csv(config["pupilsCSVInputFile"], header=0)
+print(pupils)
+
+#pupils = open(config["pupilsCSVInputFile"])
+#pupilsReader = csv.reader(pupils, delimiter=',')
+#for pupilRow in pupilsReader:
+#	print(pupilRow[0] + "," + pupilRow[6].split("@")[0] + ",Student,Library,OPAC Only,Pupils," + pupilRow[2] + "," + pupilRow[4] + "," + pupilRow[5])
