@@ -37,7 +37,7 @@ for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember
 	staff["Identifier"].append(getValue(currentStaffMember, "Username"))
 	staff["Form"].append("")
 	staff["JobTitle"].append("")
-installLib.writeFile(config["outputFolder"] + os.sep + "pupils.csv", pandas.DataFrame(staff).to_csv(index=False))
+installLib.writeFile(config["outputFolder"] + os.sep + "staff.csv", pandas.DataFrame(staff).to_csv(index=False))
 
 # Pupils - previous output format:
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
