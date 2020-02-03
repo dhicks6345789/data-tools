@@ -75,3 +75,12 @@ if os.name == "nt":
 
 
 # Code goes here - check for GAM, install it and set it up if needed.
+
+# Make sure XLRD (Python library for handling Excel files, required for Excel support in Pandas) is installed.
+runIfPathMissing("/usr/local/lib/"+pythonVersion+"/dist-packages/xlrd", "pip3 install xlrd")
+
+# Make sure Pandas (Python data-analysis library) is installed.
+runIfPathMissing("/usr/local/lib/"+pythonVersion+"/dist-packages/pandas", "pip3 install pandas")
+
+# Make sure Numpy (Python maths library) is installed.
+runIfPathMissing("/usr/local/lib/"+pythonVersion+"/dist-packages/numpy", "pip3 install numpy")
