@@ -8,6 +8,13 @@ import xml.etree.ElementTree
 
 requiredConfigParameters = ["outputFolder"]
 
+getValue(theXMLNode, theTag):
+	findResult = theXMLNode.find(theTag) 
+	if findResult == None:
+		print "ERROR - " + theTag " not found."
+		return ""
+	return findResult.text
+
 # Load the configuration file.
 config = json.loads(installLib.readFile("config/config.json"))
 for requiredConfigParameter in requiredConfigParameters:
@@ -38,7 +45,7 @@ print(pandas.DataFrame(staff).to_csv(index=False))
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
 pupils = {"PupilID":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Gender":[],"Username":[],"YearGroup":[],"Form":[],"Tutor":[]}
 for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
-	pupils["PupilID"].append(currentPupil.find("UserCode").text)
+	pupils["PupilID"].append(getValue(currentPupil, "UserCode"))
 	pupils["GivenName"].append(currentPupil.find("Preferredname").text)
 	pupils["FamilyName"].append(currentPupil.find("Surname").text)
 	pupils["DateOfBirth"].append(currentPupil.find("DOB").text.split("T")[0])
@@ -46,6 +53,6 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["Username"].append(currentPupil.find("EmailAddress").text.split("@")[0])
 	pupils["YearGroup"].append(currentPupil.find("EmailAddress").text.split("@")[0][-2:])
 	pupils["Form"].append(currentPupil.find("Form").text)
-	pupils["Tutor"].append(currentPupil.find("Tutor").text)
+	pupils["Tutor"].append(getValue(currentPupil, "Tutor"))
 	
 installLib.writeFile(config["outputFolder"] + os.sep + "pupils.csv", pandas.DataFrame(pupils).to_csv(index=False))
