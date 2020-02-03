@@ -71,16 +71,17 @@ if os.name == "nt":
 	runAsBatchFile(["echo Getting data from Google Drive.",
 		"\"" + rclonePath + "\" sync \"drive:" + installLib.userOptions["-configFolder"] + "\" config",
 		"\"" + rclonePath + "\" sync \"drive:" + installLib.userOptions["-dataFolder"] + "\" \"..\\Documents\\User Tools Data\""])
+	
+	# Make sure XLRD (Python library for handling Excel files, required for Excel support in Pandas) is installed.
+	installLib.runIfPathMissing("/usr/local/lib/"+installLib.pythonVersion+"/dist-packages/xlrd", "py -m pip install xlrd")
+
+	# Make sure Pandas (Python data-analysis library) is installed.
+	installLib.runIfPathMissing("/usr/local/lib/"+installLib.pythonVersion+"/dist-packages/pandas", "py -m pip install pandas")
+
+	# Make sure Numpy (Python maths library) is installed.
+	installLib.runIfPathMissing("/usr/local/lib/"+installLib.pythonVersion+"/dist-packages/numpy", "py -m pip install numpy")
+
 
 
 
 # Code goes here - check for GAM, install it and set it up if needed.
-
-# Make sure XLRD (Python library for handling Excel files, required for Excel support in Pandas) is installed.
-installLib.runIfPathMissing("/usr/local/lib/"+installLib.pythonVersion+"/dist-packages/xlrd", "pip3 install xlrd")
-
-# Make sure Pandas (Python data-analysis library) is installed.
-installLib.runIfPathMissing("/usr/local/lib/"+installLib.pythonVersion+"/dist-packages/pandas", "pip3 install pandas")
-
-# Make sure Numpy (Python maths library) is installed.
-installLib.runIfPathMissing("/usr/local/lib/"+installLib.pythonVersion+"/dist-packages/numpy", "pip3 install numpy")
