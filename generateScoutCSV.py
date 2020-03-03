@@ -24,8 +24,10 @@ for requiredConfigParameter in requiredConfigParameters:
 # Staff: S145,b.smith,Staff,Library,Staff,Staff,Bob,Smith,,xx/yy/zzzz
 outputString = ""
 
+forms = {}
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 for pupilIndex, pupil in pupils.iterrows():
+	forms[pupil["Form"]] = 1
 	outputString = outputString + str(pupil["GUID"]) + "," + pupil["Username"] + ",Student,Library,OPAC Only,Pupils," + pupil["GivenName"] + "," + pupil["FamilyName"]+ "," + pupil["Form"]+ "," + str(pupil["DateOfBirth"]) + "\n"
 
 staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
@@ -33,3 +35,5 @@ for staffIndex, staff in staff.iterrows():
 	outputString = outputString + str(staff["GUID"]) + "," + str(staff["Username"]) + ",Staff,Library,Staff,Staff," + str(staff["GivenName"]) + "," + str(staff["FamilyName"]) + ",," + str(staff["DateOfBirth"]) + "\n"
 	
 installLib.writeFile(config["dataFolder"] + os.sep + "Scout" + os.sep + "allUsersForBorrowerImport.csv", outputString)
+
+print(forms.keys())
