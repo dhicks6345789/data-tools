@@ -57,4 +57,4 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["Tutor"].append(getValue(currentPupil, "Tutor"))
 installLib.writeFile(config["dataFolder"] + os.sep + "pupils.csv", pandas.DataFrame(pupils).to_csv(index=False))
 
-installLib.writeFile(config["dataFolder"] + os.sep + "forms.csv", sorted(forms.keys())))
+installLib.writeFile(config["dataFolder"] + os.sep + "forms.csv", sorted(forms.keys()))
