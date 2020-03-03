@@ -8,7 +8,7 @@ import installLib
 
 requiredConfigParameters = ["dataFolder"]
 
-shortenGUID(theGUID):
+def shortenGUID(theGUID):
 	theGUID = theGUID.replace("-","")
 	result = ""
 	for pl in [0,4,8,12,16,20,24,28]:
