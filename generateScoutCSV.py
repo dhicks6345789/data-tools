@@ -8,6 +8,13 @@ import installLib
 
 requiredConfigParameters = ["dataFolder"]
 
+shortenGUID(theGUID):
+	theGUID = theGUID.replace("-","")
+	result = ""
+	for pl in [0,4,8,12,16,20,24,28]:
+		result = result + theGUID[pl]
+	return(result)
+	
 # Load the configuration file.
 config = json.loads(installLib.readFile("config/config.json"))
 for requiredConfigParameter in requiredConfigParameters:
@@ -26,10 +33,10 @@ outputString = ""
 
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 for pupilIndex, pupil in pupils.iterrows():
-	outputString = outputString + str(pupil["GUID"]) + "," + pupil["Username"] + ",Student,Library,OPAC Only,Pupils," + pupil["GivenName"] + "," + pupil["FamilyName"]+ "," + pupil["Form"]+ "," + str(pupil["DateOfBirth"]) + "\n"
+	outputString = outputString + shortenGUID(str(pupil["GUID"])) + "," + pupil["Username"] + ",Student,Library,OPAC Only,Pupils," + pupil["GivenName"] + "," + pupil["FamilyName"]+ "," + pupil["Form"]+ "," + str(pupil["DateOfBirth"]) + "\n"
 
 staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 for staffIndex, staff in staff.iterrows():
-	outputString = outputString + str(staff["GUID"]) + "," + str(staff["Username"]) + ",Staff,Library,Staff,Staff," + str(staff["GivenName"]) + "," + str(staff["FamilyName"]) + ",," + str(staff["DateOfBirth"]) + "\n"
+	outputString = outputString + shortenGUID(str(staff["GUID"])) + "," + str(staff["Username"]) + ",Staff,Library,Staff,Staff," + str(staff["GivenName"]) + "," + str(staff["FamilyName"]) + ",," + str(staff["DateOfBirth"]) + "\n"
 	
 installLib.writeFile(config["dataFolder"] + os.sep + "Scout" + os.sep + "allUsersForBorrowerImport.csv", outputString)
