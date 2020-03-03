@@ -36,4 +36,4 @@ for staffIndex, staff in staff.iterrows():
 	
 installLib.writeFile(config["dataFolder"] + os.sep + "Scout" + os.sep + "allUsersForBorrowerImport.csv", outputString)
 
-print(forms.keys())
+print(sorted(forms.keys()))
