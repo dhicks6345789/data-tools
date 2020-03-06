@@ -28,8 +28,7 @@ iSAMSXML = xml.etree.ElementTree.fromstring(installLib.readFile("iSAMSData.xml")
 staff = {"GUID":[],"ID":[],"UserCode":[],"Title":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Username":[],"Identifier":[],"Form":[],"JobTitle":[]}
 for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember"):
 	staff["GUID"].append(currentStaffMember.attrib["PersonGuid"])
-	print(currentStaffMember.find("Id").text)
-	staff["ID"].append(currentStaffMember.find("Id").text)
+	staff["ID"].append(currentStaffMember.attrib["Id"])
 	staff["UserCode"].append(currentStaffMember.find("UserCode").text)
 	staff["Title"].append(currentStaffMember.find("Title").text)
 	staff["GivenName"].append(currentStaffMember.find("PreferredName").text)
@@ -47,8 +46,8 @@ forms = {}
 pupils = {"GUID":[],"ID":[],"UserCode":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Gender":[],"Username":[],"YearGroup":[],"Form":[],"Tutor":[]}
 for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["GUID"].append(currentPupil.attrib["PersonGuid"])
+	pupils["ID"].append(currentStaffMember.attrib["Id"])
 	pupils["UserCode"].append(getValue(currentPupil, "UserCode"))
-	pupils["ID"].append(currentStaffMember.find("Id").text)
 	pupils["GivenName"].append(currentPupil.find("Preferredname").text)
 	pupils["FamilyName"].append(currentPupil.find("Surname").text)
 	pupils["DateOfBirth"].append(currentPupil.find("DOB").text.split("T")[0])
