@@ -46,7 +46,7 @@ forms = {}
 pupils = {"GUID":[],"ID":[],"UserCode":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Gender":[],"Username":[],"YearGroup":[],"Form":[],"Tutor":[]}
 for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["GUID"].append(currentPupil.attrib["PersonGuid"])
-	pupils["ID"].append(currentStaffMember.attrib["Id"])
+	pupils["ID"].append(currentPupil.attrib["Id"])
 	pupils["UserCode"].append(getValue(currentPupil, "UserCode"))
 	pupils["GivenName"].append(currentPupil.find("Preferredname").text)
 	pupils["FamilyName"].append(currentPupil.find("Surname").text)
