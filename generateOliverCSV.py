@@ -45,4 +45,4 @@ staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 for staffIndex, staff in staff.iterrows():
 	outputString = outputString + "S" + padString(str(staff["ID"])) + "," + str(staff["Username"]) + ",Staff,Library,Staff,Staff," + str(staff["GivenName"]) + "," + str(staff["FamilyName"]) + ",," + str(staff["DateOfBirth"]) + "\n"
 	
-installLib.writeFile(config["dataFolder"] + os.sep + "Scout" + os.sep + "allUsersForBorrowerImport.csv", outputString)
+installLib.writeFile(config["dataFolder"] + os.sep + "Oliver" + os.sep + "allUsersForBorrowerImport.csv", outputString)
