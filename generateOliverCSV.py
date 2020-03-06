@@ -17,7 +17,7 @@ def shortenGUID(theGUID):
 
 def padString(theString):
 	result = theString
-	for pl in 8 - len(theString):
+	for pl in range(0, 8 - len(theString)):
 		result = "0" + result
 	return result
 	
