@@ -28,6 +28,7 @@ iSAMSXML = xml.etree.ElementTree.fromstring(installLib.readFile("iSAMSData.xml")
 staff = {"GUID":[],"ID":[],"UserCode":[],"Title":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Username":[],"Identifier":[],"Form":[],"JobTitle":[]}
 for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember"):
 	staff["GUID"].append(currentStaffMember.attrib["PersonGuid"])
+	currentStaffMember.find("Id").text
 	staff["ID"].append(currentStaffMember.find("Id").text)
 	staff["UserCode"].append(currentStaffMember.find("UserCode").text)
 	staff["Title"].append(currentStaffMember.find("Title").text)
