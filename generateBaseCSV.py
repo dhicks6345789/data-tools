@@ -28,6 +28,7 @@ iSAMSXML = xml.etree.ElementTree.fromstring(installLib.readFile("iSAMSData.xml")
 staff = {"GUID":[],"UserCode":[],"Title":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Username":[],"Identifier":[],"Form":[],"JobTitle":[]}
 for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember"):
 	staff["GUID"].append(currentStaffMember.attrib["PersonGuid"])
+	staff["ID"].append(currentStaffMember.find("Id").text)
 	staff["UserCode"].append(currentStaffMember.find("UserCode").text)
 	staff["Title"].append(currentStaffMember.find("Title").text)
 	staff["GivenName"].append(currentStaffMember.find("PreferredName").text)
@@ -46,6 +47,7 @@ pupils = {"GUID":[],"UserCode":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[
 for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["GUID"].append(currentPupil.attrib["PersonGuid"])
 	pupils["UserCode"].append(getValue(currentPupil, "UserCode"))
+	pupils["ID"].append(currentStaffMember.find("Id").text)
 	pupils["GivenName"].append(currentPupil.find("Preferredname").text)
 	pupils["FamilyName"].append(currentPupil.find("Surname").text)
 	pupils["DateOfBirth"].append(currentPupil.find("DOB").text.split("T")[0])
