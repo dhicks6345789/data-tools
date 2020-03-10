@@ -8,7 +8,10 @@ import pandas
 import installLib
 
 requiredConfigParameters = ["dataFolder"]
-groupDetails = {"KS-SEC-PUPILS-S8":{"Email":"s8pupils@knightsbridgeschool.com","Form":"8"}}
+groupDetails = {
+	"KS-SEC-PUPILS-S7":{"Email":"s7pupils@knightsbridgeschool.com","Form":"7"},
+	"KS-SEC-PUPILS-S8":{"Email":"s8pupils@knightsbridgeschool.com","Form":"8"}
+}
 
 # Load the configuration file.
 config = json.loads(installLib.readFile("config/config.json"))
