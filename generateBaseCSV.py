@@ -53,6 +53,12 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["DateOfBirth"].append(currentPupil.find("DOB").text.split("T")[0])
 	pupils["Gender"].append(currentPupil.find("Gender").text)
 	pupils["Username"].append(currentPupil.find("EmailAddress").text.split("@")[0])
+	
+	oldUsername = "ks" + currentPupil.find("Surname").text[:4].lower()
+	oldUsername = oldUsername + currentPupil.find("Preferredname").text[:3].lower()
+	oldUsername = oldUsername + currentPupil.find("EmailAddress").text.split("@")[0][2:]
+	pupils["OldUsername"].append(oldUsername)
+	
 	pupils["YearGroup"].append(currentPupil.find("EmailAddress").text.split("@")[0][-2:])
 	pupils["Form"].append(currentPupil.find("Form").text)
 	forms[currentPupil.find("Form").text] = 1
