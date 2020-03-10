@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import os
+import re
 import sys
 import csv
 import json
@@ -22,16 +23,18 @@ for requiredConfigParameter in requiredConfigParameters:
 # Output format (for Google Groups upload):
 # Group Email [Required],Member Email,Member Type,Member Role
 
+# Read the existing basic pupils data.
+pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
+
 os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
 for group in groupDetails.keys():
   print(group)
   outputString = ""
+  for pupilIndex, pupil in pupils.iterrows():
+    if (not re.match(groupDetails[group]["Form"], pupil["Form"]) == None)
+      outputString = outputString + pupil["OldUsername"] + "\n"
   installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
-  
-#pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
-#for pupilIndex, pupil in pupils.iterrows():
-#	outputString = outputString + "P" + padString(str(pupil["ID"])) + "," + pupil["Username"] + ",Student,Library,OPAC Only,Pupils," + pupil["GivenName"] + "," + pupil["FamilyName"]+ "," + pupil["Form"]+ "," + str(pupil["DateOfBirth"]) + "\n"
-
+	
 #staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 #for staffIndex, staff in staff.iterrows():
 #	outputString = outputString + "S" + padString(str(staff["ID"])) + "," + str(staff["Username"]) + ",Staff,Library,Staff,Staff," + str(staff["GivenName"]) + "," + str(staff["FamilyName"]) + ",," + str(staff["DateOfBirth"]) + "\n"
