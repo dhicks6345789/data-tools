@@ -12,7 +12,7 @@ def normaliseName(theName):
 	return theName.strip().replace("\\","")
 
 def normaliseUserName(theName):
-	return theName.strip().lower().replace(" ","").replace("-","").replace("\\","")
+	return theName.strip().lower().replace(" ","").replace("-","").replace("\\","").replace("'","")
 
 def getValue(theXMLNode, theTag):
 	findResult = theXMLNode.find(theTag) 
