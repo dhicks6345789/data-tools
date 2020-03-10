@@ -31,12 +31,10 @@ for group in groupDetails.keys():
   print(group)
   outputString = ""
   for pupilIndex, pupil in pupils.iterrows():
-    if (not re.match(groupDetails[group]["Form"], pupil["Form"]) == None)
+    if not re.match(groupDetails[group]["Form"], pupil["Form"]) == None:
       outputString = outputString + pupil["OldUsername"] + "\n"
   installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
 	
 #staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 #for staffIndex, staff in staff.iterrows():
-#	outputString = outputString + "S" + padString(str(staff["ID"])) + "," + str(staff["Username"]) + ",Staff,Library,Staff,Staff," + str(staff["GivenName"]) + "," + str(staff["FamilyName"]) + ",," + str(staff["DateOfBirth"]) + "\n"
-	
-#installLib.writeFile(config["dataFolder"] + os.sep + "Oliver" + os.sep + "allUsersForBorrowerImport.csv", outputString)
+#. outputString = outputString + "S" + padString(str(staff["ID"])) + "," + str(staff["Username"]) + ",Staff,Library,Staff,Staff," + str(staff["GivenName"]) + "," + str(staff["FamilyName"]) + ",," + str(staff["DateOfBirth"]) + "\n"
