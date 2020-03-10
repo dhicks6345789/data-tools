@@ -9,10 +9,10 @@ import xml.etree.ElementTree
 requiredConfigParameters = ["dataFolder"]
 
 def normaliseName(theName):
-	return theName.strip().replace("\\","")
+	return theName.strip().replace("\\","").replace("(","").replace(")","")
 
 def normaliseUserName(theName):
-	return theName.strip().lower().replace(" ","").replace("-","").replace("\\","").replace("'","")
+	return normaliseName(theName).lower().replace(" ","").replace("-","").replace("'","")
 
 def getValue(theXMLNode, theTag):
 	findResult = theXMLNode.find(theTag) 
