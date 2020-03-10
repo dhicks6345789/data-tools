@@ -8,6 +8,9 @@ import xml.etree.ElementTree
 
 requiredConfigParameters = ["dataFolder"]
 
+def normaliseName(theName):
+	return theName.strip().lower().replace(" ","").replace("-","")
+
 def getValue(theXMLNode, theTag):
 	findResult = theXMLNode.find(theTag) 
 	if findResult == None:
@@ -54,9 +57,9 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["Gender"].append(currentPupil.find("Gender").text)
 	pupils["Username"].append(currentPupil.find("EmailAddress").text.split("@")[0])
 	
-	oldUsername = "ks" + currentPupil.find("Surname").text[:4].lower()
-	oldUsername = oldUsername + currentPupil.find("Preferredname").text[:3].lower()
-	oldUsername = oldUsername + currentPupil.find("EmailAddress").text.split("@")[0][-2:]
+	oldUsername = "ks" + normaliseName(currentPupil.find("Surname").text)[:4]
+	oldUsername = oldUsername + normaliseName(currentPupil.find("Preferredname").text)[:3]
+	oldUsername = oldUsername + normaliseName(currentPupil.find("EmailAddress").text).split("@")[0][-2:]
 	pupils["OldUsername"].append(oldUsername)
 	
 	pupils["YearGroup"].append(currentPupil.find("EmailAddress").text.split("@")[0][-2:])
