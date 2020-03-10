@@ -7,7 +7,8 @@ import pandas
 import installLib
 
 requiredConfigParameters = ["dataFolder"]
-	
+groupDetails = {"KS-SEC-PUPILS-S8":{"Form":"8"}}
+
 # Load the configuration file.
 config = json.loads(installLib.readFile("config/config.json"))
 for requiredConfigParameter in requiredConfigParameters:
@@ -22,7 +23,7 @@ for requiredConfigParameter in requiredConfigParameters:
 # Group Email [Required],Member Email,Member Type,Member Role
 
 os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
-for group in ["KS-SEC-PUPILS-S8"]:
+for group in groupDetails.keys():
   print(group)
   outputString = ""
   installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
