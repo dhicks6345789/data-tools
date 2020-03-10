@@ -32,7 +32,7 @@ for group in groupDetails.keys():
   outputString = ""
   for pupilIndex, pupil in pupils.iterrows():
     print(groupDetails[group]["Form"] + " == " + pupil["Form"])
-    if not re.match(groupDetails[group]["Form"], pupil["Form"]) == None:
+    if not re.match(".*" + groupDetails[group]["Form"] + ".*", pupil["Form"]) == None:
       outputString = outputString + pupil["OldUsername"] + "\n"
   installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
 	
