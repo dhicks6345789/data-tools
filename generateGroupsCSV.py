@@ -21,6 +21,7 @@ for requiredConfigParameter in requiredConfigParameters:
 # Output format (for Google Groups upload):
 # Group Email [Required],Member Email,Member Type,Member Role
 
+os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
 for group in ["KS-SEC-PUPILS-S8"]:
   print(group)
   outputString = ""
