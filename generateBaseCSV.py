@@ -9,7 +9,10 @@ import xml.etree.ElementTree
 requiredConfigParameters = ["dataFolder"]
 
 def normaliseName(theName):
-	return theName.strip().lower().replace(" ","").replace("-","").replace("'","")
+	return theName.strip().replace("\\","")
+
+def normaliseUserName(theName):
+	return theName.strip().lower().replace(" ","").replace("-","").replace("\\","")
 
 def getValue(theXMLNode, theTag):
 	findResult = theXMLNode.find(theTag) 
@@ -34,8 +37,8 @@ for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember
 	staff["ID"].append(currentStaffMember.attrib["Id"])
 	staff["UserCode"].append(currentStaffMember.find("UserCode").text)
 	staff["Title"].append(currentStaffMember.find("Title").text)
-	staff["GivenName"].append(currentStaffMember.find("PreferredName").text)
-	staff["FamilyName"].append(currentStaffMember.find("Surname").text)
+	staff["GivenName"].append(normaliseName(currentStaffMember.find("PreferredName").text))
+	staff["FamilyName"].append(normaliseName(currentStaffMember.find("Surname").text))
 	staff["DateOfBirth"].append(getValue(currentStaffMember, "DOB").split("T")[0])
 	staff["Username"].append(getValue(currentStaffMember, "SchoolEmailAddress").split("@")[0])
 	staff["Identifier"].append(getValue(currentStaffMember, "Username"))
@@ -51,15 +54,15 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["GUID"].append(currentPupil.attrib["PersonGuid"])
 	pupils["ID"].append(currentPupil.attrib["Id"])
 	pupils["UserCode"].append(getValue(currentPupil, "UserCode"))
-	pupils["GivenName"].append(currentPupil.find("Preferredname").text)
-	pupils["FamilyName"].append(currentPupil.find("Surname").text)
+	pupils["GivenName"].append(normaliseName(currentPupil.find("Preferredname").text))
+	pupils["FamilyName"].append(normaliseName(currentPupil.find("Surname").text))
 	pupils["DateOfBirth"].append(currentPupil.find("DOB").text.split("T")[0])
 	pupils["Gender"].append(currentPupil.find("Gender").text)
 	pupils["Username"].append(currentPupil.find("EmailAddress").text.split("@")[0])
 	
-	oldUsername = "ks" + normaliseName(currentPupil.find("Surname").text)[:4]
-	oldUsername = oldUsername + normaliseName(currentPupil.find("Preferredname").text)[:3]
-	oldUsername = oldUsername + normaliseName(currentPupil.find("EmailAddress").text).split("@")[0][-2:]
+	oldUsername = "ks" + normaliseUserName(currentPupil.find("Surname").text)[:4]
+	oldUsername = oldUsername + normaliseUserName(currentPupil.find("Preferredname").text)[:3]
+	oldUsername = oldUsername + normaliseUserName(currentPupil.find("EmailAddress").text).split("@")[0][-2:]
 	pupils["OldUsername"].append(oldUsername)
 	
 	pupils["YearGroup"].append(currentPupil.find("EmailAddress").text.split("@")[0][-2:])
