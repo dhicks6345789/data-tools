@@ -31,7 +31,6 @@ for group in groupDetails.keys():
   print(group)
   outputString = "Group Email [Required],Member Email [Required],Member Type,Member Role\n"
   for pupilIndex, pupil in pupils.iterrows():
-    print(groupDetails[group]["Form"] + " == " + pupil["Form"])
     if not re.match(".*" + groupDetails[group]["Form"] + ".*", pupil["Form"]) == None:
       outputString = outputString + groupDetails[group]["Email"] + "," + pupil["OldUsername"] + "@knightsbridgeschool.com,USER,MEMBER\n"
   installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
