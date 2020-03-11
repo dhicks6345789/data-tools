@@ -11,16 +11,16 @@ requiredConfigParameters = ["dataFolder"]
 
 # Set up yeargroups.
 groupDetails = {
-	"KS-SEC-PUPILS-NURSERY":{"Email":"nurserypupils@knightsbridgeschool.com","Form":"Lions"},
-	"KS-SEC-PUPILS-RECEPTION":{"Email":"receptionpupils@knightsbridgeschool.com","Form":"Rec"},
-	"KS-SEC-PUPILS-J1":{"Email":"j1pupils@knightsbridgeschool.com","Form":"1"},
-	"KS-SEC-PUPILS-J2":{"Email":"j2pupils@knightsbridgeschool.com","Form":"2"},
-	"KS-SEC-PUPILS-J3":{"Email":"j3pupils@knightsbridgeschool.com","Form":"3"},
-	"KS-SEC-PUPILS-S4":{"Email":"s4pupils@knightsbridgeschool.com","Form":"4"},
-	"KS-SEC-PUPILS-S5":{"Email":"s5pupils@knightsbridgeschool.com","Form":"5"},
-	"KS-SEC-PUPILS-S6":{"Email":"s6pupils@knightsbridgeschool.com","Form":"6"},
-	"KS-SEC-PUPILS-S7":{"Email":"s7pupils@knightsbridgeschool.com","Form":"7"},
-	"KS-SEC-PUPILS-S8":{"Email":"s8pupils@knightsbridgeschool.com","Form":"8"}
+	#"KS-SEC-PUPILS-NURSERY":{"Email":"nurserypupils@knightsbridgeschool.com","Form":"Lions"},
+	#"KS-SEC-PUPILS-RECEPTION":{"Email":"receptionpupils@knightsbridgeschool.com","Form":"Rec"},
+	"KS-SEC-PUPILS-J1":{"Email":"j1pupils@knightsbridgeschool.com","Form":"1"}
+	#"KS-SEC-PUPILS-J2":{"Email":"j2pupils@knightsbridgeschool.com","Form":"2"},
+	#"KS-SEC-PUPILS-J3":{"Email":"j3pupils@knightsbridgeschool.com","Form":"3"},
+	#"KS-SEC-PUPILS-S4":{"Email":"s4pupils@knightsbridgeschool.com","Form":"4"},
+	#"KS-SEC-PUPILS-S5":{"Email":"s5pupils@knightsbridgeschool.com","Form":"5"},
+	#"KS-SEC-PUPILS-S6":{"Email":"s6pupils@knightsbridgeschool.com","Form":"6"},
+	#"KS-SEC-PUPILS-S7":{"Email":"s7pupils@knightsbridgeschool.com","Form":"7"},
+	#"KS-SEC-PUPILS-S8":{"Email":"s8pupils@knightsbridgeschool.com","Form":"8"}
 }
 
 # Load the configuration file.
@@ -40,11 +40,11 @@ for requiredConfigParameter in requiredConfigParameters:
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
 # Get a list of forms (excluding Nursery and Year 7 and 8, as they only have the one class).
-forms={}
-for pupilIndex, pupil in pupils.iterrows():
-	for yearGroup in ["Rec","1","2","3","4","5","6"]:
-		if yearGroup in pupil["Form"]:
-			forms[pupil["Form"]] = 1
+#forms={}
+#for pupilIndex, pupil in pupils.iterrows():
+#	for yearGroup in ["Rec","1","2","3","4","5","6"]:
+#		if yearGroup in pupil["Form"]:
+#			forms[pupil["Form"]] = 1
 
 # Set up to create a CSV file for each form.
 for form in forms.keys():
