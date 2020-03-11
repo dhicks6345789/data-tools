@@ -62,16 +62,21 @@ for group in groupDetails.keys():
     for infoLine in infoResult:
       if infoLine.strip().startswith("member:"):
         currentMembers.append(infoLine.strip().split(" ")[1])
-  membersShouldBe = []
+  futureMembers = []
   outputString = "Group Email [Required],Member Email [Required],Member Type,Member Role\n"
   for pupilIndex, pupil in pupils.iterrows():
     if not re.match(".*" + groupDetails[group]["Form"] + ".*", pupil["Form"]) == None:
-      membersShouldBe.append(pupil["OldUsername"] + "@knightsbridgeschool.com")
+      futureMembers.append(pupil["OldUsername"] + "@knightsbridgeschool.com")
       outputString = outputString + groupDetails[group]["Email"].lower() + "," + pupil["OldUsername"] + "@knightsbridgeschool.com,USER,MEMBER\n"
   installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
   print(currentMembers)
-  print(membersShouldBe)
-  #print("gam group add members " + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv")
+  print(futureMembers)
+  for futureMember in futureMembers:
+    if not futureMember in currentMembers:
+	print("gam update group " + group + " add member " + futureMember)
+  for currentMember in currentMembers:
+    if not currentMember in futureMembers:
+	print("gam update group " + group + " remove user " + currentMember)
 	
 #staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 #for staffIndex, staff in staff.iterrows():
