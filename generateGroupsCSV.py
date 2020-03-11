@@ -62,12 +62,15 @@ for group in groupDetails.keys():
     for infoLine in infoResult:
       if infoLine.strip().startswith("member:"):
         currentMembers.append(infoLine.strip().split(" ")[1])
-  print(currentMembers)
+  membersShouldBe = []
   outputString = "Group Email [Required],Member Email [Required],Member Type,Member Role\n"
   for pupilIndex, pupil in pupils.iterrows():
     if not re.match(".*" + groupDetails[group]["Form"] + ".*", pupil["Form"]) == None:
+      membersShouldBe.append(pupil["OldUsername"] + "@knightsbridgeschool.com")
       outputString = outputString + groupDetails[group]["Email"].lower() + "," + pupil["OldUsername"] + "@knightsbridgeschool.com,USER,MEMBER\n"
   installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
+  print(currentMembers)
+  print(membersShouldBe)
   #print("gam group add members " + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv")
 	
 #staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
