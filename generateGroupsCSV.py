@@ -57,8 +57,9 @@ for group in groupDetails.keys():
   infoResult = installLib.runCommand("gam info group " + groupDetails[group]["Email"].lower() + " 2>&1")
   currentMembers = []
   if infoResult[0].strip().endswith("Does not exist"):
-    os.system("gam create group " + groupDetails[group]["Email"].lower() + " name " + group + " description \"All members of " + group + "\" who_can_join all_in_domain_can_join who_can_post_message all_managers_can_post who_can_view_membership all_managers_can_view allow_external_members false who_can_invite none_can_invite 2>&1")
+    os.system("gam create group " + groupDetails[group]["Email"].lower() + " name " + group + " description \"All members of " + group + "\" who_can_join all_in_domain_can_join who_can_post_message all_members_can_post who_can_view_membership all_managers_can_view allow_external_members false who_can_invite none_can_invite 2>&1")
   else:
+    print("gam update group " + groupDetails[group]["Email"].lower() + " name " + group + " description \"All members of " + group + "\" who_can_join all_in_domain_can_join who_can_post_message all_members_can_post who_can_view_membership all_managers_can_view allow_external_members false who_can_invite none_can_invite 2>&1")
     for infoLine in infoResult:
       if infoLine.strip().startswith("member:"):
         currentMembers.append(infoLine.strip().split(" ")[1])
