@@ -73,8 +73,8 @@ for form in forms.keys():
 #  for futureMember in futureMembers:
 #    if not futureMember in currentMembers:
 #      os.system("gam update group " + groupDetails[group]["Email"].lower() + " add member " + futureMember + " 2>&1")
-##  for currentMember in currentMembers:
-    if not currentMember in futureMembers:
+#  for currentMember in currentMembers:
+#    if not currentMember in futureMembers:
 #      os.system("gam update group " + groupDetails[group]["Email"].lower() + " remove user " + currentMember + " 2>&1")
 #  os.system("gam update group " + groupDetails[group]["Email"].lower() + " add manager user j.croxford@knightsbridgeschool.com 2>&1")
 	
