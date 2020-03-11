@@ -51,32 +51,32 @@ for form in forms.keys():
   groupDetails["KS-SEC-PUPILS-" + form] = {"Email":form + "pupils@knightsbridgeschool.com","Form":form}
 
 # Create a CSV file for each group (i.e. Year Group or Form).
-os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
-for group in groupDetails.keys():
-  print("Syncing members and generating CSV file for group " + group + " (" + groupDetails[group]["Email"].lower() + ")...")
-  infoResult = installLib.runCommand("gam info group " + groupDetails[group]["Email"].lower() + " 2>&1")
-  currentMembers = []
-  if infoResult[0].strip().endswith("Does not exist"):
-    os.system("gam create group " + groupDetails[group]["Email"].lower() + " name " + group + " description \"All members of " + group + "\" who_can_join all_in_domain_can_join who_can_post_message all_members_can_post who_can_view_membership all_managers_can_view allow_external_members false who_can_invite none_can_invite 2>&1")
-  else:
-    os.system("gam update group " + groupDetails[group]["Email"].lower() + " name " + group + " description \"All members of " + group + "\" who_can_join all_in_domain_can_join who_can_post_message all_members_can_post who_can_view_membership all_managers_can_view allow_external_members false who_can_invite none_can_invite 2>&1")
-    for infoLine in infoResult:
-      if infoLine.strip().startswith("member:"):
-        currentMembers.append(infoLine.strip().split(" ")[1])
-  futureMembers = []
-  outputString = "Group Email [Required],Member Email [Required],Member Type,Member Role\n"
-  for pupilIndex, pupil in pupils.iterrows():
-    if not re.match(".*" + groupDetails[group]["Form"] + ".*", pupil["Form"]) == None:
-      futureMembers.append(pupil["OldUsername"] + "@knightsbridgeschool.com")
-      outputString = outputString + groupDetails[group]["Email"].lower() + "," + pupil["OldUsername"] + "@knightsbridgeschool.com,USER,MEMBER\n"
-  installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
-  for futureMember in futureMembers:
-    if not futureMember in currentMembers:
-      os.system("gam update group " + groupDetails[group]["Email"].lower() + " add member " + futureMember + " 2>&1")
-  for currentMember in currentMembers:
+#os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
+#for group in groupDetails.keys():
+#  print("Syncing members and generating CSV file for group " + group + " (" + groupDetails[group]["Email"].lower() + ")...")
+#  infoResult = installLib.runCommand("gam info group " + groupDetails[group]["Email"].lower() + " 2>&1")
+#  currentMembers = []
+#  if infoResult[0].strip().endswith("Does not exist"):
+#    os.system("gam create group " + groupDetails[group]["Email"].lower() + " name " + group + " description \"All members of " + group + "\" who_can_join all_in_domain_can_join who_can_post_message all_members_can_post who_can_view_membership all_managers_can_view allow_external_members false who_can_invite none_can_invite 2>&1")
+#  else:
+#    os.system("gam update group " + groupDetails[group]["Email"].lower() + " name " + group + " description \"All members of " + group + "\" who_can_join all_in_domain_can_join who_can_post_message all_members_can_post who_can_view_membership all_managers_can_view allow_external_members false who_can_invite none_can_invite 2>&1")
+#    for infoLine in infoResult:
+#      if infoLine.strip().startswith("member:"):
+#        currentMembers.append(infoLine.strip().split(" ")[1])
+#  futureMembers = []
+#  outputString = "Group Email [Required],Member Email [Required],Member Type,Member Role\n"
+#  for pupilIndex, pupil in pupils.iterrows():
+#    if not re.match(".*" + groupDetails[group]["Form"] + ".*", pupil["Form"]) == None:
+#      futureMembers.append(pupil["OldUsername"] + "@knightsbridgeschool.com")
+#      outputString = outputString + groupDetails[group]["Email"].lower() + "," + pupil["OldUsername"] + "@knightsbridgeschool.com,USER,MEMBER\n"
+#  installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
+#  for futureMember in futureMembers:
+#    if not futureMember in currentMembers:
+#      os.system("gam update group " + groupDetails[group]["Email"].lower() + " add member " + futureMember + " 2>&1")
+##  for currentMember in currentMembers:
     if not currentMember in futureMembers:
-      os.system("gam update group " + groupDetails[group]["Email"].lower() + " remove user " + currentMember + " 2>&1")
-  os.system("gam update group " + groupDetails[group]["Email"].lower() + " add manager user j.croxford@knightsbridgeschool.com 2>&1")
+#      os.system("gam update group " + groupDetails[group]["Email"].lower() + " remove user " + currentMember + " 2>&1")
+#  os.system("gam update group " + groupDetails[group]["Email"].lower() + " add manager user j.croxford@knightsbridgeschool.com 2>&1")
 	
 # Read the existing basic staff details.
 staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
