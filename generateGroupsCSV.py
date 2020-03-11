@@ -53,13 +53,13 @@ for form in forms.keys():
 # Create a CSV file for each group (i.e. Year Group or Form).
 os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
 for group in groupDetails.keys():
+  print("gam create group " + groupDetails[group]["Email"].lower() + "name " + group + " description \"All members of \"" + group)
   outputString = "Group Email [Required],Member Email [Required],Member Type,Member Role\n"
   for pupilIndex, pupil in pupils.iterrows():
     if not re.match(".*" + groupDetails[group]["Form"] + ".*", pupil["Form"]) == None:
       outputString = outputString + groupDetails[group]["Email"].lower() + "," + pupil["OldUsername"] + "@knightsbridgeschool.com,USER,MEMBER\n"
   installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
-  print("gam group add " + group)
-  print("gam group add members " + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv")
+  #print("gam group add members " + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv")
 	
 #staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 #for staffIndex, staff in staff.iterrows():
