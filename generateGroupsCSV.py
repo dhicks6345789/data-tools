@@ -55,7 +55,7 @@ os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
 for group in groupDetails.keys():
   print("Group: " + group)
   infoResult = installLib.runCommand("gam info group " + groupDetails[group]["Email"].lower() + " 2>&1")
-  currentMember = []
+  currentMembers = []
   if infoResult[0].strip().endswith("Does not exist"):
     print("gam create group " + groupDetails[group]["Email"].lower() + " name " + group + " description \"All members of " + group + "\"")
   else:
