@@ -82,5 +82,6 @@ for form in forms.keys():
 staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 outputString = "Group Email [Required],Member Email [Required],Member Type,Member Role\n"
 for staffIndex, staff in staff.iterrows():
-  outputString = outputString + "staff@knightsbridgeschool.com," + str(staff["Username"]) + "@knightsbridgeschool.com,USER,MEMBER\n"
-installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "staff.csv", outputString)
+  if not str(staff["Username"]) == "nan":
+    outputString = outputString + "staff@knightsbridgeschool.com," + str(staff["Username"]) + "@knightsbridgeschool.com,USER,MEMBER\n"
+installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "KS-SEC-STAFF.csv", outputString)
