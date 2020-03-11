@@ -46,7 +46,7 @@ for pupilIndex, pupil in pupils.iterrows():
 
 # Set up to create a CSV file for each form.
 for form in forms.keys():
-	groupDetails["KS-SEC-PUPILS-" + form] = {"Email":form.lower() + "pupils@knightsbridgeschool.com","Form":form.lower()}
+	groupDetails["KS-SEC-PUPILS-" + form] = {"Email":form + "pupils@knightsbridgeschool.com","Form":form}
 	
 print(groupDetails.keys())
 
