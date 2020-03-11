@@ -53,7 +53,7 @@ for form in forms.keys():
 # Create a CSV file for each group (i.e. Year Group or Form).
 os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
 for group in groupDetails.keys():
-  infoResult = installlib.runCommand("gam info group " + groupDetails[group]["Email"].lower()).strip()
+  infoResult = installLib.runCommand("gam info group " + groupDetails[group]["Email"].lower()).strip()
   if infoResult.endswith("Does not exist"):
     print("gam create group " + groupDetails[group]["Email"].lower() + " name " + group + " description \"All members of \"" + group)
   outputString = "Group Email [Required],Member Email [Required],Member Type,Member Role\n"
