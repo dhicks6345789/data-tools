@@ -78,6 +78,9 @@ for group in groupDetails.keys():
       os.system("gam update group " + groupDetails[group]["Email"].lower() + " remove user " + currentMember + " 2>&1")
   os.system("gam update group " + groupDetails[group]["Email"].lower() + " add manager user j.croxford@knightsbridgeschool.com 2>&1")
 	
-#staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
-#for staffIndex, staff in staff.iterrows():
-#. outputString = outputString + "S" + padString(str(staff["ID"])) + "," + str(staff["Username"]) + ",Staff,Library,Staff,Staff," + str(staff["GivenName"]) + "," + str(staff["FamilyName"]) + ",," + str(staff["DateOfBirth"]) + "\n"
+# Read the existing basic staff details.
+staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
+outputString = "Group Email [Required],Member Email [Required],Member Type,Member Role\n"
+for staffIndex, staff in staff.iterrows():
+  outputString = outputString + groupDetails[group]["Email"].lower() + "," + staff["username"] + "@knightsbridgeschool.com,USER,MEMBER\n"
+installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "staff.csv", outputString)
