@@ -13,14 +13,14 @@ requiredConfigParameters = ["dataFolder"]
 groupDetails = {
 	#"KS-SEC-PUPILS-NURSERY":{"Email":"nurserypupils@knightsbridgeschool.com","Form":"Lions"},
 	#"KS-SEC-PUPILS-RECEPTION":{"Email":"receptionpupils@knightsbridgeschool.com","Form":"Rec"},
-	"KS-SEC-PUPILS-J1":{"Email":"j1pupils@knightsbridgeschool.com","Form":"1"}
+	"KS-SEC-PUPILS-J1":{"Email":"j1pupils@knightsbridgeschool.com","Form":"1"},
 	#"KS-SEC-PUPILS-J2":{"Email":"j2pupils@knightsbridgeschool.com","Form":"2"},
 	#"KS-SEC-PUPILS-J3":{"Email":"j3pupils@knightsbridgeschool.com","Form":"3"},
 	#"KS-SEC-PUPILS-S4":{"Email":"s4pupils@knightsbridgeschool.com","Form":"4"},
 	#"KS-SEC-PUPILS-S5":{"Email":"s5pupils@knightsbridgeschool.com","Form":"5"},
 	#"KS-SEC-PUPILS-S6":{"Email":"s6pupils@knightsbridgeschool.com","Form":"6"},
-	#"KS-SEC-PUPILS-S7":{"Email":"s7pupils@knightsbridgeschool.com","Form":"7"},
-	#"KS-SEC-PUPILS-S8":{"Email":"s8pupils@knightsbridgeschool.com","Form":"8"}
+	"KS-SEC-PUPILS-S7":{"Email":"s7pupils@knightsbridgeschool.com","Form":"7"},
+	"KS-SEC-PUPILS-S8":{"Email":"s8pupils@knightsbridgeschool.com","Form":"8"}
 }
 
 # Load the configuration file.
@@ -53,7 +53,6 @@ for form in forms.keys():
 # Create a CSV file for each group (i.e. Year Group or Form).
 os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
 for group in groupDetails.keys():
-  print("Group: " + group)
   infoResult = installLib.runCommand("gam info group " + groupDetails[group]["Email"].lower() + " 2>&1")
   currentMembers = []
   if infoResult[0].strip().endswith("Does not exist"):
@@ -69,8 +68,6 @@ for group in groupDetails.keys():
       futureMembers.append(pupil["OldUsername"] + "@knightsbridgeschool.com")
       outputString = outputString + groupDetails[group]["Email"].lower() + "," + pupil["OldUsername"] + "@knightsbridgeschool.com,USER,MEMBER\n"
   installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
-  print(currentMembers)
-  print(futureMembers)
   for futureMember in futureMembers:
     if not futureMember in currentMembers:
       os.system("gam update group " + groupDetails[group]["Email"].lower() + " add member " + futureMember + " 2>&1")
