@@ -82,5 +82,5 @@ for group in groupDetails.keys():
 staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 outputString = "Group Email [Required],Member Email [Required],Member Type,Member Role\n"
 for staffIndex, staff in staff.iterrows():
-  outputString = outputString + groupDetails[group]["Email"].lower() + "," + staff["username"] + "@knightsbridgeschool.com,USER,MEMBER\n"
+  outputString = outputString + "staff@knightsbridgeschool.com," + staff["username"] + "@knightsbridgeschool.com,USER,MEMBER\n"
 installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "staff.csv", outputString)
