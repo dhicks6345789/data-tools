@@ -53,7 +53,7 @@ for form in forms.keys():
 # Create a CSV file for each group (i.e. Year Group or Form).
 os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
 for group in groupDetails.keys():
-  print("gam info group groupDetails[group]["Email"].lower())
+  print("gam info group " + groupDetails[group]["Email"].lower())
   #print("gam create group " + groupDetails[group]["Email"].lower() + " name " + group + " description \"All members of \"" + group)
   outputString = "Group Email [Required],Member Email [Required],Member Type,Member Role\n"
   for pupilIndex, pupil in pupils.iterrows():
