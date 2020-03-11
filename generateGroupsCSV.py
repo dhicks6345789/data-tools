@@ -53,9 +53,16 @@ for form in forms.keys():
 # Create a CSV file for each group (i.e. Year Group or Form).
 os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
 for group in groupDetails.keys():
+  print("Group: " + group)
   infoResult = installLib.runCommand("gam info group " + groupDetails[group]["Email"].lower() + " 2>&1")
+  currentMember = []
   if infoResult[0].strip().endswith("Does not exist"):
-    print("gam create group " + groupDetails[group]["Email"].lower() + " name " + group + " description \"All members of \"" + group)
+    print("gam create group " + groupDetails[group]["Email"].lower() + " name " + group + " description \"All members of " + group + "\"")
+  else:
+    for infoLine in infoResult:
+      if infoLine.strip().startwith("member:")
+        currentMembers.append(infoLine.strip().split(" ")[1])
+  print(currentMembers)
   outputString = "Group Email [Required],Member Email [Required],Member Type,Member Role\n"
   for pupilIndex, pupil in pupils.iterrows():
     if not re.match(".*" + groupDetails[group]["Form"] + ".*", pupil["Form"]) == None:
