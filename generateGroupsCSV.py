@@ -96,5 +96,9 @@ for staffIndex, staff in staff.iterrows():
 for futureMember in futureMembers:
   if not futureMember in currentMembers:
     os.system("gam update group staff add member " + futureMember + " 2>&1")
+
+for currentMember in currentMembers:
+  if not currentMember in futureMembers:
+    os.system("gam update group staff remove user " + currentMember + " 2>&1")
 	
 installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "KS-SEC-STAFF.csv", outputString)
