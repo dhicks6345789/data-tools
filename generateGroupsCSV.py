@@ -40,7 +40,7 @@ for requiredConfigParameter in requiredConfigParameters:
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
 # Get a list of forms (excluding Nursery and Year 7 and 8, as they only have the one class).
-#forms={}
+forms={}
 #for pupilIndex, pupil in pupils.iterrows():
 #	for yearGroup in ["Rec","1","2","3","4","5","6"]:
 #		if yearGroup in pupil["Form"]:
