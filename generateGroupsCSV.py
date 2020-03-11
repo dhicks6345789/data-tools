@@ -73,10 +73,10 @@ for group in groupDetails.keys():
   print(futureMembers)
   for futureMember in futureMembers:
     if not futureMember in currentMembers:
-      print("gam update group " + groupDetails[group]["Email"].lower() + " add member " + futureMember)
+      os.system("gam update group " + groupDetails[group]["Email"].lower() + " add member " + futureMember + " 2>&1")
   for currentMember in currentMembers:
     if not currentMember in futureMembers:
-      print("gam update group " + groupDetails[group]["Email"].lower() + " remove user " + currentMember)
+      os.system("gam update group " + groupDetails[group]["Email"].lower() + " remove user " + currentMember + " 2>&1")
 	
 #staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 #for staffIndex, staff in staff.iterrows():
