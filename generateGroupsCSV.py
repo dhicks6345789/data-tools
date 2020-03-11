@@ -60,7 +60,7 @@ for group in groupDetails.keys():
     print("gam create group " + groupDetails[group]["Email"].lower() + " name " + group + " description \"All members of " + group + "\"")
   else:
     for infoLine in infoResult:
-      if infoLine.strip().startwith("member:")
+      if infoLine.strip().startwith("member:"):
         currentMembers.append(infoLine.strip().split(" ")[1])
   print(currentMembers)
   outputString = "Group Email [Required],Member Email [Required],Member Type,Member Role\n"
