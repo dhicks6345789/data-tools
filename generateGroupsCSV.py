@@ -42,7 +42,7 @@ forms={}
 for pupilIndex, pupil in pupils.iterrows():
 	for yearGroup in ["1","2","3","4","5","6"]:
 		if yearGroup in pupil["Form"]:
-			forms[pupil["Form"]] = 1
+			forms[pupil["Form"].lower()] = 1
 
 # Set up to create a CSV file for each form.
 for form in forms.keys():
