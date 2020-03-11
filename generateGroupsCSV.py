@@ -42,7 +42,7 @@ pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 # Get a list of forms (excluding Nursery and Year 7 and 8, as they only have the one class).
 forms={}
 for pupilIndex, pupil in pupils.iterrows():
-  for yearGroup in ["Rec","1","2","3","4","5","6"]:
+  for yearGroup in ["Rec","1","2","3","4","5","6","7"]:
     if yearGroup in pupil["Form"]:
       forms[pupil["Form"]] = 1
 
@@ -80,8 +80,21 @@ for form in forms.keys():
 	
 # Read the existing basic staff details.
 staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
+
+currentMembers = []
+for infoLine in installLib.runCommand("gam info group staff 2>&1"):
+  if infoLine.strip().startswith("member:"):
+    currentMembers.append(infoLine.strip().split(" ")[1])
+
+futureMembers = []
 outputString = "Group Email [Required],Member Email [Required],Member Type,Member Role\n"
 for staffIndex, staff in staff.iterrows():
   if not str(staff["Username"]) == "nan":
     outputString = outputString + "staff@knightsbridgeschool.com," + str(staff["Username"]).lower() + "@knightsbridgeschool.com,USER,MEMBER\n"
+    futureMembers.append(str(staff["Username"]).lower() + "@knightsbridgeschool.com")
+
+for futureMember in futureMembers:
+  if not futureMember in currentMembers:
+    os.system("gam update group staff add member " + futureMember + " 2>&1")
+	
 installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "KS-SEC-STAFF.csv", outputString)
