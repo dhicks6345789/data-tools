@@ -54,7 +54,7 @@ for form in forms.keys():
 os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
 for group in groupDetails.keys():
   infoResult = installLib.runCommand("gam info group " + groupDetails[group]["Email"].lower())
-  if infoResult[0].strip().endswith("Does not exist"):
+  if len(infoResult) == 0 or infoResult[0].strip().endswith("Does not exist"):
     print("gam create group " + groupDetails[group]["Email"].lower() + " name " + group + " description \"All members of \"" + group)
   outputString = "Group Email [Required],Member Email [Required],Member Type,Member Role\n"
   for pupilIndex, pupil in pupils.iterrows():
