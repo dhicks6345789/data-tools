@@ -40,7 +40,7 @@ for courseIndex, course in courses.iterrows():
   if course["courseState"] == "ACTIVE":
     groupFound = False
     for group in groups:
-      if group in normaliseYearNames(course["name"]):
+      if groupFound == False and group in normaliseYearNames(course["name"]):
         groupFound = True
         print(str(course["id"]) + ",ACTIVE," + str(course["name"]))
         #print("gam course " + str(course["id"]) + " sync students group " + group.lower() + "pupils@knightsbridgeschool.com 2>&1")
