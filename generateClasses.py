@@ -7,7 +7,7 @@ import json
 import pandas
 import installLib
 
-yearNames = {"Year 1":"J1","Year 2":"J2","Year 3":"J3","Year 4":"S4","Year 5":"S5","Year 6":"S6","Year 7":"S7","Year 8":"S8","Yr 1":"J1","Yr 2":"J2","Yr 3":"J3","Yr 4":"S4","Yr 5":"S5","Yr 6":"S6","Yr 7":"S7","Yr 8":"S8"}
+yearNames = {"Year 1":"J1","Year 2":"J2","Year 3":"J3","Year 4":"S4","Year 5":"S5","Year 6":"S6","Year 7":"S7","Year 8":"S8","Yr 1":"J1","Yr 2":"J2","Yr 3":"J3","Yr 4":"S4","Yr 5":"S5","Yr 6":"S6","Yr 7":"S7","Yr 8":"S8","Y1":"J1","Y2":"J2","Y3":"J3","Y4":"S4","Y5":"S5","Y6":"S6","Y7":"S7","Y8":"S8"}
 def normaliseYearNames(theString):
   for wrongString in yearNames.keys():
     theString = re.sub(".*" + wrongString + ".*", yearNames[wrongString], theString)
