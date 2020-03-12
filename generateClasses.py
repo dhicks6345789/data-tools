@@ -26,7 +26,7 @@ for requiredConfigParameter in requiredConfigParameters:
 groups = []
 for item in os.listdir(config["dataFolder"] + os.sep + "Groups"):
   if item.startswith("KS-SEC-PUPILS-"):
-    groups.append(item[14:])
+    groups.append(item[14:].split(".")[0])
     
 print(groups)
 
@@ -38,7 +38,7 @@ unHandledCourses = []
 for courseIndex, course in courses.iterrows():
   if course["courseState"] == "ACTIVE":
     formFound = False
-    for group in group:
+    for group in groups:
       if group in normaliseYearNames(course["name"]):
         groupFound = True
         print("Assign " + group + " to " + course["name"])
