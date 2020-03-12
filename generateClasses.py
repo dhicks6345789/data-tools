@@ -21,13 +21,12 @@ for requiredConfigParameter in requiredConfigParameters:
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
-# Get a list of forms (excluding Nursery and Year 7 and 8, as they only have the one class).
-forms={}
+# Get a list of years and forms.
+forms={"NUSERY":1,"RECEPTION":1,"J1":1,"J2":1,"J3":1,"S4":1,"S5":1,"S6":1,"S7":1,"S8":1}
 for pupilIndex, pupil in pupils.iterrows():
-  for yearGroup in ["Rec","1","2","3","4","5","6","7","8"]:
-    if yearGroup in pupil["Form"]:
-      forms[pupil["Form"]] = 1
+  forms[pupil["Form"]] = 1  
+forms = forms.keys()
 
-print(forms.keys())
+print(forms)
       
 #installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "KS-SEC-STAFF.csv", outputString)
