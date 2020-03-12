@@ -41,9 +41,7 @@ for courseIndex, course in courses.iterrows():
     for group in groups:
       if group in normaliseYearNames(course["name"]):
         groupFound = True
-        print("Assign " + group + " to " + course["name"])
-        # Read the existing basic pupils data.
-        #pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
+        print("gam course " + course["id"] + " sync students group " + group)
     if groupFound == False:
       unHandledCourses.append(course["name"])
 
