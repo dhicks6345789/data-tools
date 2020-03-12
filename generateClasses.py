@@ -42,6 +42,7 @@ for courseIndex, course in courses.iterrows():
       if group in normaliseYearNames(course["name"]):
         groupFound = True
         os.system("gam course " + str(course["id"]) + " sync students group " + group.lower() + "pupils@knightsbridgeschool.com 2>&1")
+        os.system("gam course " + str(course["id"]) + " add teacher j.croxford@knightsbridgeschool.com")
     if groupFound == False:
       unHandledCourses.append(course["name"])
 
