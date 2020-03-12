@@ -58,30 +58,16 @@ for group in groupDetails.keys():
     if not re.match(".*" + groupDetails[group]["Form"] + ".*", pupil["Form"]) == None:
       outputString = outputString + pupil["OldUsername"] + "@knightsbridgeschool.com\n"
   installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
-  print("gam update group " + groupDetails[group]["Email"].lower() + " sync member file " + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv 2>&1")
+  print("gam update group " + groupDetails[group]["Email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
   os.system("gam update group " + groupDetails[group]["Email"].lower() + " remove manager user j.croxford@knightsbridgeschool.com 2>&1")
 	
 # Read the existing basic staff details.
 staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 
-currentMembers = []
-for infoLine in installLib.runCommand("gam info group staff 2>&1"):
-  if infoLine.strip().startswith("member:"):
-    currentMembers.append(infoLine.strip().split(" ")[1])
-
-futureMembers = []
-outputString = "Group Email [Required],Member Email [Required],Member Type,Member Role\n"
+outputString = ""
 for staffIndex, staff in staff.iterrows():
   if not str(staff["Username"]) == "nan":
-    outputString = outputString + "staff@knightsbridgeschool.com," + str(staff["Username"]).lower() + "@knightsbridgeschool.com,USER,MEMBER\n"
-    futureMembers.append(str(staff["Username"]).lower() + "@knightsbridgeschool.com")
-
-for futureMember in futureMembers:
-  if not futureMember in currentMembers:
-    os.system("gam update group staff add member " + futureMember + " 2>&1")
-
-for currentMember in currentMembers:
-  if not currentMember in futureMembers:
-    os.system("gam update group staff remove user " + currentMember + " 2>&1")
-	
+    outputString = outputString + str(staff["Username"]).lower() + "@knightsbridgeschool.com\n"
 installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "KS-SEC-STAFF.csv", outputString)
+print("gam update group staff@knightsbridgeschool.com sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "KS-SEC-STAFF.csv\" 2>&1")
+					 
