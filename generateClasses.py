@@ -39,6 +39,13 @@ courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=
 
 for courseIndex, course in courses.iterrows():
   if course["courseState"] == "ACTIVE":
-    print(normaliseYearNames(course["name"]))
+    formFound = False
+    for form in forms:
+      if form in normaliseYearNames(course["name"]):
+        formFound = True
+        print("Assign " + form + " to " + course["name"])
+    if formFound == False:
+      unHandledCourses.append(course["name"])
 
+print(unHandledCourses)
 #installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "KS-SEC-STAFF.csv", outputString)
