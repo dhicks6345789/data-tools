@@ -48,11 +48,11 @@ for courseIndex, course in courses.iterrows():
         #print("gam course " + str(course["id"]) + " add teacher j.croxford@knightsbridgeschool.com")
     if groupFound == False:
       unHandledCourses.append(course["name"])
-    else:
-      print("Archived course:")
-      print("  " + str(course["id"]) + " - " + str(course["name"]))
-      for infoLine in installLib.runCommand("gam info course " + str(course["id"])):
-        print(infoLine)
+  else:
+    print("Archived course:")
+    print("  " + str(course["id"]) + " - " + str(course["name"]))
+    for infoLine in installLib.runCommand("gam info course " + str(course["id"])):
+      print(infoLine)
       
 # A summary of un-handled courses for the logs.
 print("Unhandled courses:")
