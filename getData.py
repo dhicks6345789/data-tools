@@ -21,4 +21,4 @@ installLib.writeFile("iSAMSData.xml", str(response.read())[2:-1])
 
 # Get a list of all courses, output in CSV format directly from GAM.
 print("Getting course list from Google Classroom.")
-os.system("gam print courses > " + config["dataFolder"] + os.sep + "courses.csv")
+os.system("gam print courses > \"" + config["dataFolder"] + os.sep + "courses.csv\"")
