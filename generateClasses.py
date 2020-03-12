@@ -28,5 +28,8 @@ for pupilIndex, pupil in pupils.iterrows():
 forms = forms.keys()
 
 print(forms)
+
+for courseLine in installLib.runCommand("gam print courses"):
+  print courseLine.strip()
       
 #installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "KS-SEC-STAFF.csv", outputString)
