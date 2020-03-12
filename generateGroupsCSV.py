@@ -58,8 +58,7 @@ for group in groupDetails.keys():
     if not re.match(".*" + groupDetails[group]["Form"] + ".*", pupil["Form"]) == None:
       outputString = outputString + pupil["OldUsername"] + "@knightsbridgeschool.com\n"
   installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
-  print("gam update group " + groupDetails[group]["Email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
-  os.system("gam update group " + groupDetails[group]["Email"].lower() + " remove manager user j.croxford@knightsbridgeschool.com 2>&1")
+  os.system("gam update group " + groupDetails[group]["Email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
 	
 # Read the existing basic staff details.
 staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
@@ -69,5 +68,4 @@ for staffIndex, staff in staff.iterrows():
   if not str(staff["Username"]) == "nan":
     outputString = outputString + str(staff["Username"]).lower() + "@knightsbridgeschool.com\n"
 installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "KS-SEC-STAFF.csv", outputString)
-print("gam update group staff@knightsbridgeschool.com sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "KS-SEC-STAFF.csv\" 2>&1")
-					 
+os.system("gam update group staff@knightsbridgeschool.com sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "KS-SEC-STAFF.csv\" 2>&1")					
