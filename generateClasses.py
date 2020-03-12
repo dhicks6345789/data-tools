@@ -37,7 +37,7 @@ courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=
 unHandledCourses = []
 for courseIndex, course in courses.iterrows():
   if course["courseState"] == "ACTIVE":
-    formFound = False
+    groupFound = False
     for group in groups:
       if group in normaliseYearNames(course["name"]):
         groupFound = True
