@@ -42,16 +42,14 @@ for courseIndex, course in courses.iterrows():
     for group in groups:
       if group in normaliseYearNames(course["name"]):
         groupFound = True
-        print("Active course:")
-        print("  " + str(course["id"]) + " - " + str(course["name"]))
+        print(str(course["id"]) + ",ACTIVE," + str(course["name"]))
         #print("gam course " + str(course["id"]) + " sync students group " + group.lower() + "pupils@knightsbridgeschool.com 2>&1")
         #print("gam course " + str(course["id"]) + " add teacher j.croxford@knightsbridgeschool.com")
     if groupFound == False:
       unHandledCourses.append(course["name"])
   else:
-    print("Archived course:")
-    print("  " + str(course["id"]) + " - " + str(course["name"]))
-    os.system("gam print course-participants course " + str(course["id"]) + " 2>&1")
+    print(str(course["id"]) + ",ARCHIVED," + str(course["name"]))
+    #os.system("gam print course-participants course " + str(course["id"]) + " 2>&1")
     #for infoLine in installLib.runCommand("gam info course " + str(course["id"])):
       #print(infoLine)
       
