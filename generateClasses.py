@@ -31,7 +31,7 @@ print(forms)
 courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=0)
 
 for courseIndex, course in courses.iterrows():
-  if course["courseState"] == "ACTIVE"
+  if course["courseState"] == "ACTIVE":
     print(course["name"])
 
 #installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "KS-SEC-STAFF.csv", outputString)
