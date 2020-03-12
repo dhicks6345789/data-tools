@@ -51,7 +51,7 @@ for courseIndex, course in courses.iterrows():
   else:
     print("Archived course:")
     print("  " + str(course["id"]) + " - " + str(course["name"]))
-  print("gam info course " + str(course["id"]))
+  os.system("gam info course " + str(course["id"]) + " 2>&1")
     #for infoLine in installLib.runCommand("gam info course " + str(course["id"])):
       #print(infoLine)
       
