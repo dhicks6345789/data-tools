@@ -26,8 +26,11 @@ forms = forms.keys()
 
 print(forms)
 
-# Courses CSV headings:
+# Read the Courses list. Courses CSV headings:
 # id,name,courseState,descriptionHeading,description,section,room,enrollmentCode,guardiansEnabled,alternateLink,ownerId,creationTime,updateTime,calendarId,courseGroupEmail,teacherGroupEmail,teacherFolder.id,teacherFolder.title,teacherFolder.alternateLink,courseMaterialSets,courseMaterialSets.0.materials.0.driveFile.alternateLink,courseMaterialSets.0.materials.0.driveFile.id,courseMaterialSets.0.materials.0.driveFile.title,courseMaterialSets.0.title
 courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=0)
+
+for courseIndex, course in courses.iterrows():
+  print(course)
 
 #installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "KS-SEC-STAFF.csv", outputString)
