@@ -1,10 +1,17 @@
 #!/usr/bin/python
 import os
+import re
 import sys
 import csv
 import json
 import pandas
 import installLib
+
+yearNames = {"Year 1":"J1","Year 2":"J2","Year 3":"J3","Year 4":"S4","Year 5":"S5","Year 6":"S6","Year 7":"S7","Year 8":"S8"}
+def normaliseYearNames(theString):
+  for wrongString in yearNames.keys():
+    theString = re.sub(".*" + wrongString + ".*", yearNames[wrongString], theString)
+  return(theString)
 
 requiredConfigParameters = ["dataFolder"]
 
@@ -32,6 +39,6 @@ courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=
 
 for courseIndex, course in courses.iterrows():
   if course["courseState"] == "ACTIVE":
-    print(course["name"])
+    print(normaliseYearNames(course["name"]))
 
 #installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "KS-SEC-STAFF.csv", outputString)
