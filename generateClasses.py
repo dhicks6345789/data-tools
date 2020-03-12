@@ -37,6 +37,7 @@ print(forms)
 # id,name,courseState,descriptionHeading,description,section,room,enrollmentCode,guardiansEnabled,alternateLink,ownerId,creationTime,updateTime,calendarId,courseGroupEmail,teacherGroupEmail,teacherFolder.id,teacherFolder.title,teacherFolder.alternateLink,courseMaterialSets,courseMaterialSets.0.materials.0.driveFile.alternateLink,courseMaterialSets.0.materials.0.driveFile.id,courseMaterialSets.0.materials.0.driveFile.title,courseMaterialSets.0.title
 courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=0)
 
+unHandledCourses = []
 for courseIndex, course in courses.iterrows():
   if course["courseState"] == "ACTIVE":
     formFound = False
