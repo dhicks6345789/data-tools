@@ -24,4 +24,4 @@ print("Getting course list from Google Classroom.")
 os.system("gam print courses > \"" + config["dataFolder"] + os.sep + "courses.csv\"")
 
 print("Getting groups list from GSuite.")
-os.system("gam print groups name description admincreated id aliases members owners managers settings > \"" + config["dataFolder"] + os.sep + "groups.csv\""
+os.system("gam print groups name description admincreated id aliases members owners managers settings > \"" + config["dataFolder"] + os.sep + "groups.csv\"")
