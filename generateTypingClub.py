@@ -16,12 +16,19 @@ for requiredConfigParameter in requiredConfigParameters:
     print("Error - required value " + requiredConfigParameter + " not set in config.json.")
     sys.exit(1)
 
-# Output format:
+# Output format: CSV file with header row -  First Name,Last Name,Student ID,Grade,Email Address
 
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
-print("Test one.")
+print("Generating CSV files ready for upload to Typing Club's system.")
+
+# Generate the allUsers.csv file.
+outputString = "First Name,Last Name,Student ID,Grade,Email Address\n"
+for pupilIndex, pupil in pupils.iterrows():
+    outputString = outputString + pupil["OldUsername"] + "@knightsbridgeschool.com\n"
+    
+print outputString
 
 # Set up to create a CSV file for each form.
 #for form in forms.keys():
