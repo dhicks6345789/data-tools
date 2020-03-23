@@ -11,16 +11,16 @@ requiredConfigParameters = ["dataFolder"]
 
 # Set up yeargroups.
 groupDetails = {
-  "KS-SEC-PUPILS-NURSERY":{"Email":"nurserypupils@knightsbridgeschool.com","Form":"Lions"},
-  "KS-SEC-PUPILS-RECEPTION":{"Email":"receptionpupils@knightsbridgeschool.com","Form":"Rec"},
-  "KS-SEC-PUPILS-J1":{"Email":"j1pupils@knightsbridgeschool.com","Form":"1"},
-  "KS-SEC-PUPILS-J2":{"Email":"j2pupils@knightsbridgeschool.com","Form":"2"},
-  "KS-SEC-PUPILS-J3":{"Email":"j3pupils@knightsbridgeschool.com","Form":"3"},
-  "KS-SEC-PUPILS-S4":{"Email":"s4pupils@knightsbridgeschool.com","Form":"4"},
-  "KS-SEC-PUPILS-S5":{"Email":"s5pupils@knightsbridgeschool.com","Form":"5"},
-  "KS-SEC-PUPILS-S6":{"Email":"s6pupils@knightsbridgeschool.com","Form":"6"},
-  "KS-SEC-PUPILS-S7":{"Email":"s7pupils@knightsbridgeschool.com","Form":"7"},
-  "KS-SEC-PUPILS-S8":{"Email":"s8pupils@knightsbridgeschool.com","Form":"8"}
+  "Nusery Pupils":{"Email":"nurserypupils@knightsbridgeschool.com","Form":"Lions"},
+  "Reception Pupils":{"Email":"receptionpupils@knightsbridgeschool.com","Form":"Rec"},
+  "J1 Pupils":{"Email":"j1pupils@knightsbridgeschool.com","Form":"1"},
+  "J2 Pupils":{"Email":"j2pupils@knightsbridgeschool.com","Form":"2"},
+  "J3 Pupils":{"Email":"j3pupils@knightsbridgeschool.com","Form":"3"},
+  "S4 Pupils":{"Email":"s4pupils@knightsbridgeschool.com","Form":"4"},
+  "S5 Pupils":{"Email":"s5pupils@knightsbridgeschool.com","Form":"5"},
+  "S6 Pupils":{"Email":"s6pupils@knightsbridgeschool.com","Form":"6"},
+  "S7 Pupils":{"Email":"s7pupils@knightsbridgeschool.com","Form":"7"},
+  "S8 Pupils":{"Email":"s8pupils@knightsbridgeschool.com","Form":"8"}
 }
 
 # Load the configuration file.
@@ -47,25 +47,29 @@ for pupilIndex, pupil in pupils.iterrows():
 
 # Set up to create a CSV file for each form.
 for form in forms.keys():
-  groupDetails["KS-SEC-PUPILS-" + form] = {"Email":form + "pupils@knightsbridgeschool.com","Form":form}
+  groupDetails[form + " Pupils"] = {"Email":form + "pupils@knightsbridgeschool.com","Form":form}
 
-# Create a CSV file for each group (i.e. Year Group or Form).
-os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
-for group in groupDetails.keys():
-  print("Generating CSV file and syncing members for group " + group + " (" + groupDetails[group]["Email"].lower() + ")...")
-  outputString = ""
-  for pupilIndex, pupil in pupils.iterrows():
-    if not re.match(".*" + groupDetails[group]["Form"] + ".*", pupil["Form"]) == None:
-      outputString = outputString + pupil["OldUsername"] + "@knightsbridgeschool.com\n"
-  installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
-  os.system("gam update group " + groupDetails[group]["Email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
+print groupDetails
+
+sys.exit(0)
+
+## Create a CSV file for each group (i.e. Year Group or Form).
+#os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
+#for group in groupDetails.keys():
+#  print("Generating CSV file and syncing members for group " + group + " (" + groupDetails[group]["Email"].lower() + ")...")
+#  outputString = ""
+#  for pupilIndex, pupil in pupils.iterrows():
+#    if not re.match(".*" + groupDetails[group]["Form"] + ".*", pupil["Form"]) == None:
+#      outputString = outputString + pupil["OldUsername"] + "@knightsbridgeschool.com\n"
+#  installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
+#  os.system("gam update group " + groupDetails[group]["Email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
 	
-# Read the existing basic staff details.
-staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
+## Read the existing basic staff details.
+#staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 
-outputString = ""
-for staffIndex, staff in staff.iterrows():
-  if not str(staff["Username"]) == "nan":
-    outputString = outputString + str(staff["Username"]).lower() + "@knightsbridgeschool.com\n"
-installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "KS-SEC-STAFF.csv", outputString)
-os.system("gam update group staff@knightsbridgeschool.com sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "KS-SEC-STAFF.csv\" 2>&1")					
+#outputString = ""
+#for staffIndex, staff in staff.iterrows():
+#  if not str(staff["Username"]) == "nan":
+#    outputString = outputString + str(staff["Username"]).lower() + "@knightsbridgeschool.com\n"
+#installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "KS-SEC-STAFF.csv", outputString)
+#os.system("gam update group staff@knightsbridgeschool.com sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "KS-SEC-STAFF.csv\" 2>&1")					
