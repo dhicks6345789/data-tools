@@ -30,17 +30,16 @@ for pupilIndex, pupil in pupils.iterrows():
     
 installLib.writeFile(config["dataFolder"] + os.sep + "TypingClub" + os.sep + "allUsers.csv", outputString)
 
-# Set up to create a CSV file for each form.
-#for form in forms.keys():
-#  groupDetails["KS-SEC-PUPILS-" + form] = {"Email":form + "pupils@knightsbridgeschool.com","Form":form}
+# Get a list of forms from the basic pupil data.
+forms={}
+for pupilIndex, pupil in pupils.iterrows():
+  forms[pupil["Form"]] = 1
 
-# Create a CSV file for each group (i.e. Year Group or Form).
-#os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
-#for group in groupDetails.keys():
-#  print("Generating CSV file and syncing members for group " + group + " (" + groupDetails[group]["Email"].lower() + ")...")
-#  outputString = ""
-#  for pupilIndex, pupil in pupils.iterrows():
-#    if not re.match(".*" + groupDetails[group]["Form"] + ".*", pupil["Form"]) == None:
-#      outputString = outputString + pupil["OldUsername"] + "@knightsbridgeschool.com\n"
-#  installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
-#  os.system("gam update group " + groupDetails[group]["Email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
+# Set up to create a CSV file for each form.
+for form in forms.keys():
+  outputString = "First Name,Last Name,Student ID,Grade,Email Address\n"
+  for pupilIndex, pupil in pupils.iterrows():
+    if pupil["Form"] == form:
+      outputString = outputString + pupil["GivenName"] + "," + pupil["FamilyName"] + ",P" + str(pupil["ID"]) + "," + str(20 - pupil["YearGroup"]) + "," + pupil["OldUsername"] + "@knightsbridgeschool.com\n"
+  installLib.writeFile(config["dataFolder"] + os.sep + "TypingClub" + os.sep + form + ".csv", outputString)
+  
