@@ -24,4 +24,4 @@ staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 
 outputString = ""
 for staffIndex, staff in staff.iterrows():
-  print(staff["Username"])
+  print("gam set emailsignature " + staff["Username"] + "@knightsbridgeschool.com MoreStuffGoesHere")
