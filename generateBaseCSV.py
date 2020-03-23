@@ -33,25 +33,27 @@ iSAMSXML = xml.etree.ElementTree.fromstring(installLib.readFile("iSAMSData.xml")
 # StaffID,Title,GivenName,FamilyName,DateOfBirth,Username,Identifier,Form,JobTitle
 staff = {"GUID":[],"ID":[],"UserCode":[],"Title":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Username":[],"Identifier":[],"Form":[],"Role":[],"JobTitle":[]}
 for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember"):
-	staff["GUID"].append(currentStaffMember.attrib["PersonGuid"])
-	staff["ID"].append(currentStaffMember.attrib["Id"])
-	staff["UserCode"].append(currentStaffMember.find("UserCode").text)
-	staff["Title"].append(currentStaffMember.find("Title").text)
-	staff["GivenName"].append(normaliseName(currentStaffMember.find("PreferredName").text))
-	staff["FamilyName"].append(normaliseName(currentStaffMember.find("Surname").text))
-	staff["DateOfBirth"].append(getValue(currentStaffMember, "DOB").split("T")[0])
-	staff["Username"].append(getValue(currentStaffMember, "SchoolEmailAddress").split("@")[0].lower())
-	staff["Identifier"].append(getValue(currentStaffMember, "Username"))
-	staff["Form"].append("")
-	roleName = ""
-	roles = currentStaffMember.find("Roles")
-	if not roles == None:
-		for role in roles:
-			roleName = role.find("Name").text.strip()
-			if "-" in roleName:
-				roleName = roleName.split("-")[1].strip()
-	staff["Role"].append(roleName)
-	staff["JobTitle"].append("")
+	username = getValue(currentStaffMember, "SchoolEmailAddress").split("@")[0].lower().strip()
+	if not username == "":
+		staff["GUID"].append(currentStaffMember.attrib["PersonGuid"])
+		staff["ID"].append(currentStaffMember.attrib["Id"])
+		staff["UserCode"].append(currentStaffMember.find("UserCode").text)
+		staff["Title"].append(currentStaffMember.find("Title").text)
+		staff["GivenName"].append(normaliseName(currentStaffMember.find("PreferredName").text))
+		staff["FamilyName"].append(normaliseName(currentStaffMember.find("Surname").text))
+		staff["DateOfBirth"].append(getValue(currentStaffMember, "DOB").split("T")[0])
+		staff["Username"].append(username)
+		staff["Identifier"].append(getValue(currentStaffMember, "Username"))
+		staff["Form"].append("")
+		roleName = ""
+		roles = currentStaffMember.find("Roles")
+		if not roles == None:
+			for role in roles:
+				roleName = role.find("Name").text.strip()
+				if "-" in roleName:
+					roleName = roleName.split("-")[1].strip()
+		staff["Role"].append(roleName)
+		staff["JobTitle"].append("")
 installLib.writeFile(config["dataFolder"] + os.sep + "staff.csv", pandas.DataFrame(staff).to_csv(index=False))
 
 forms = {}
