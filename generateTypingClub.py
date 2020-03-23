@@ -28,7 +28,7 @@ outputString = "First Name,Last Name,Student ID,Grade,Email Address\n"
 for pupilIndex, pupil in pupils.iterrows():
     outputString = outputString + pupil["GivenName"] + "," + pupil["FamilyName"] + ",P" + str(pupil["ID"]) + "," + str(20 - pupil["YearGroup"]) + "," + pupil["OldUsername"] + "@knightsbridgeschool.com\n"
     
-print(outputString)
+installLib.writeFile(config["dataFolder"] + os.sep + "TypingClub" + os.sep + "allUsers.csv", outputString)
 
 # Set up to create a CSV file for each form.
 #for form in forms.keys():
