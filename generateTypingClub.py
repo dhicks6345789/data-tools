@@ -28,7 +28,7 @@ outputString = "First Name,Last Name,Student ID,Grade,Email Address\n"
 for pupilIndex, pupil in pupils.iterrows():
     outputString = outputString + pupil["OldUsername"] + "@knightsbridgeschool.com\n"
     
-print outputString
+print(outputString)
 
 # Set up to create a CSV file for each form.
 #for form in forms.keys():
