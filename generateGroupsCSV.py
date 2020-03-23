@@ -45,12 +45,13 @@ for requiredConfigParameter in requiredConfigParameters:
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
 # Get a list of forms (excluding Nursery and Year 7 and 8, as they only have the one class).
-#forms={}
-#for pupilIndex, pupil in pupils.iterrows():
-#  form = pupil["Form"].lower()
-#  if not form in 
-#    if yearGroup in pupil["Form"]:
-#      forms[form] = 1
+forms={}
+for pupilIndex, pupil in pupils.iterrows():
+  form = pupil["Form"].lower()
+  if not form in yeargroups:
+    forms[form] = 1
+
+print(forms)
 
 # Set up to create a CSV file for each form.
 #for form in forms.keys():
