@@ -51,7 +51,7 @@ for pupilIndex, pupil in pupils.iterrows():
   if not form in yeargroups:
     forms[form] = 1
 
-print(forms)
+print(forms.keys())
 
 # Set up to create a CSV file for each form.
 #for form in forms.keys():
