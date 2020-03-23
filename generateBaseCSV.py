@@ -42,6 +42,7 @@ for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember
 	staff["DateOfBirth"].append(getValue(currentStaffMember, "DOB").split("T")[0])
 	staff["Username"].append(getValue(currentStaffMember, "SchoolEmailAddress").split("@")[0])
 	staff["Identifier"].append(getValue(currentStaffMember, "Username"))
+	print("Role:")
 	for role in currentStaffMember.find("Roles").find("Role"):
 		print(role.find("Name").text)
 	staff["Form"].append("")
