@@ -26,7 +26,7 @@ print("Generating CSV files ready for upload to Typing Club's system.")
 # Generate the allUsers.csv file.
 outputString = "First Name,Last Name,Student ID,Grade,Email Address\n"
 for pupilIndex, pupil in pupils.iterrows():
-    outputString = outputString + pupil["GivenName"] + "," + pupil["FamilyName"] + ",P" + pupil["ID"] + "," + str(pupil["YearGroup"]-7) + "," + pupil["OldUsername"] + "@knightsbridgeschool.com\n"
+    outputString = outputString + pupil["GivenName"] + "," + pupil["FamilyName"] + ",P" + str(pupil["ID"]) + "," + str(pupil["YearGroup"]-7) + "," + pupil["OldUsername"] + "@knightsbridgeschool.com\n"
     
 print(outputString)
 
