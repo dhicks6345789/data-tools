@@ -46,7 +46,7 @@ for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember
 	for role in currentStaffMember.find("Roles"):
 		if not role == None:
 			role = role.find("Name").text
-	print role
+	print(role)
 	staff["Form"].append("")
 	staff["JobTitle"].append("")
 installLib.writeFile(config["dataFolder"] + os.sep + "staff.csv", pandas.DataFrame(staff).to_csv(index=False))
