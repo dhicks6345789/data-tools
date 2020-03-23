@@ -49,7 +49,7 @@ for pupilIndex, pupil in pupils.iterrows():
 for form in forms.keys():
   groupDetails[form + " Pupils"] = {"Email":form + "pupils@knightsbridgeschool.com","Form":form}
 
-print groupDetails
+print(groupDetails)
 
 sys.exit(0)
 
