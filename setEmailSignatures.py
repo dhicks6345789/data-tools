@@ -24,4 +24,6 @@ staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 
 outputString = ""
 for staffIndex, staff in staff.iterrows():
-  print("gam set emailsignature " + staff["Username"] + "@knightsbridgeschool.com MoreStuffGoesHere")
+  # gam user [signature <signature text>] [file <signature file>] [replyto <EmailAddress>] (replace <Tag> <String>)*
+  if staff["Username"] == "d.hicks":
+    print("gam user " + staff["Username"] + "@knightsbridgeschool.com signature signature.html replyto " + staff["Username"] + "@knightsbridgeschool.com (replace <tag> string)")
