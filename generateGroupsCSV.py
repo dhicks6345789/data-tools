@@ -27,7 +27,7 @@ yeargroups = []
 for group in yeargroupDetails.keys():
   yeargroups.append(yeargroupDetails[group]["Yeargroup"].lower())
 
-print yeargroups
+print(yeargroups)
 
 # Load the configuration file.
 config = json.loads(installLib.readFile("config/config.json"))
