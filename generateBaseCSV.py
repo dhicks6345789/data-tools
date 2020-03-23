@@ -47,6 +47,8 @@ for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember
 	if not roles == None:
 		for role in roles:
 			roleName = role.find("Name").text
+			if "-" in rolName:
+				roleName = roleName.split("-")[1].strip()
 	print(roleName)
 	staff["Form"].append("")
 	staff["JobTitle"].append("")
