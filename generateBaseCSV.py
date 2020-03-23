@@ -40,7 +40,7 @@ for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember
 	staff["GivenName"].append(normaliseName(currentStaffMember.find("PreferredName").text))
 	staff["FamilyName"].append(normaliseName(currentStaffMember.find("Surname").text))
 	staff["DateOfBirth"].append(getValue(currentStaffMember, "DOB").split("T")[0])
-	staff["Username"].append(getValue(currentStaffMember, "SchoolEmailAddress").split("@")[0])
+	staff["Username"].append(getValue(currentStaffMember, "SchoolEmailAddress").split("@")[0].lower())
 	staff["Identifier"].append(getValue(currentStaffMember, "Username"))
 	staff["Form"].append("")
 	roleName = ""
