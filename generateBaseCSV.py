@@ -42,9 +42,8 @@ for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember
 	staff["DateOfBirth"].append(getValue(currentStaffMember, "DOB").split("T")[0])
 	staff["Username"].append(getValue(currentStaffMember, "SchoolEmailAddress").split("@")[0])
 	staff["Identifier"].append(getValue(currentStaffMember, "Username"))
-	print("Role:")
-	for roles in currentStaffMember.find("Roles"):
-		print(roles.attrib)
+	for role in currentStaffMember.find("Roles"):
+		print(role.find("Name"))
 	staff["Form"].append("")
 	staff["JobTitle"].append("")
 installLib.writeFile(config["dataFolder"] + os.sep + "staff.csv", pandas.DataFrame(staff).to_csv(index=False))
