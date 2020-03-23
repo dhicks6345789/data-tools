@@ -10,18 +10,24 @@ import installLib
 requiredConfigParameters = ["dataFolder"]
 
 # Set up yeargroups.
-groupDetails = {
-  "Nusery Pupils":{"Email":"nurserypupils@knightsbridgeschool.com","Form":"Lions"},
-  "Reception Pupils":{"Email":"receptionpupils@knightsbridgeschool.com","Form":"Rec"},
-  "J1 Pupils":{"Email":"j1pupils@knightsbridgeschool.com","Form":"1"},
-  "J2 Pupils":{"Email":"j2pupils@knightsbridgeschool.com","Form":"2"},
-  "J3 Pupils":{"Email":"j3pupils@knightsbridgeschool.com","Form":"3"},
-  "S4 Pupils":{"Email":"s4pupils@knightsbridgeschool.com","Form":"4"},
-  "S5 Pupils":{"Email":"s5pupils@knightsbridgeschool.com","Form":"5"},
-  "S6 Pupils":{"Email":"s6pupils@knightsbridgeschool.com","Form":"6"},
-  "S7 Pupils":{"Email":"s7pupils@knightsbridgeschool.com","Form":"7"},
-  "S8 Pupils":{"Email":"s8pupils@knightsbridgeschool.com","Form":"8"}
+yeargroupDetails = {
+  "Nusery Pupils":{"Email":"nurserypupils@knightsbridgeschool.com","Yeargroup":"Lions"},
+  "Reception Pupils":{"Email":"receptionpupils@knightsbridgeschool.com","Yeargroup":"Rec"},
+  "J1 Pupils":{"Email":"j1pupils@knightsbridgeschool.com","Yeargroup":"J1"},
+  "J2 Pupils":{"Email":"j2pupils@knightsbridgeschool.com","Yeargroup":"J2"},
+  "J3 Pupils":{"Email":"j3pupils@knightsbridgeschool.com","Yeargroup":"J3"},
+  "S4 Pupils":{"Email":"s4pupils@knightsbridgeschool.com","Yeargroup":"S4"},
+  "S5 Pupils":{"Email":"s5pupils@knightsbridgeschool.com","Yeargroup":"S5"},
+  "S6 Pupils":{"Email":"s6pupils@knightsbridgeschool.com","Yeargroup":"S6"},
+  "S7 Pupils":{"Email":"s7pupils@knightsbridgeschool.com","Yeargroup":"S7"},
+  "S8 Pupils":{"Email":"s8pupils@knightsbridgeschool.com","Yeargroup":"S8"}
 }
+
+yeargroups = []
+for group in yeargroupDetails.keys():
+  yeargroups.append(yeargroupDetails[group]["Yeargroup"].lower())
+
+print yeargroups
 
 # Load the configuration file.
 config = json.loads(installLib.readFile("config/config.json"))
