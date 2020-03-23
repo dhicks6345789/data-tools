@@ -10,7 +10,7 @@ import installLib
 requiredConfigParameters = ["dataFolder"]
 
 # Set up yeargroups.
-yeargroupDetails = {
+groupDetails = {
   "Nusery Pupils":{"Email":"nurserypupils@knightsbridgeschool.com","Yeargroup":"Lions"},
   "Reception Pupils":{"Email":"receptionpupils@knightsbridgeschool.com","Yeargroup":"Rec"},
   "J1 Pupils":{"Email":"j1pupils@knightsbridgeschool.com","Yeargroup":"J1"},
@@ -24,10 +24,8 @@ yeargroupDetails = {
 }
 
 yeargroups = []
-for group in yeargroupDetails.keys():
-  yeargroups.append(yeargroupDetails[group]["Yeargroup"].lower())
-
-print(yeargroups)
+for group in groupDetails.keys():
+  yeargroups.append(groupDetails[group]["Yeargroup"].lower())
 
 # Load the configuration file.
 config = json.loads(installLib.readFile("config/config.json"))
@@ -51,13 +49,11 @@ for pupilIndex, pupil in pupils.iterrows():
   if not form in yeargroups:
     forms[form] = 1
 
-print(forms.keys())
-
 # Set up to create a CSV file for each form.
-#for form in forms.keys():
-#  groupDetails[form + " Pupils"] = {"Email":form + "pupils@knightsbridgeschool.com","Form":form}
+for form in forms.keys():
+  groupDetails[form + " Pupils"] = {"Email":form + "pupils@knightsbridgeschool.com","Form":form}
 
-#print(groupDetails)
+print(groupDetails)
 
 sys.exit(0)
 
