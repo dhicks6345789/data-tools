@@ -43,8 +43,8 @@ for staffIndex, staffMember in staff.iterrows():
   for sigLine in installLib.runCommand("gam user " + staffMember["Username"] + " show signature"):
     matchResult = re.match(".*bold..(.*)..span. \| (.*)..div..*", sigLine.strip())
     if not matchResult == None:
-      staffName = matchResult[1]
-      staffJobTitle = matchResult[2]
+      staffName = matchResult[1].strip()
+      staffJobTitle = matchResult[2].strip().replace("&amp;", "&")
     matchResult = re.match(".*blank..(.*)@knightsbridgeschool.com./a..*", sigLine.strip())
     if not matchResult == None:
       staffUsername = matchResult[1]
