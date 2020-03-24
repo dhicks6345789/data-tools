@@ -38,7 +38,7 @@ for staffIndex, staff in staff.iterrows():
       if not matchResult == None:
         staffEmail = matchResult[1] + "@knightsbridgeschool.com"
         print(staffEmail)
-      matchResult = re.match("(.*)</div>$", sigLine.strip())
+      matchResult = re.match("([ \d]*)</div>$", sigLine.strip())
       if not matchResult == None:
         staffTelephone = matchResult[1]
         print(staffTelephone)
