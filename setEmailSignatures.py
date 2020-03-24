@@ -49,7 +49,6 @@ for staffIndex, staffMember in staff.iterrows():
       print("Username mismatch: " + staffUsername)
     else:
       staffMember["JobTitle"] = staffJobTitle
-print(staff.to_csv(index=False))
-#installLib.writeFile(config["dataFolder"] + os.sep + "staff.csv", staff.to_csv(index=False))
+installLib.writeFile(config["dataFolder"] + os.sep + "staff.csv", staff.to_csv(index=False))
 #  if staff["Username"] == "d.hicks":
 #    print("gam user " + staff["Username"] + "@knightsbridgeschool.com signature file config/emailSignature.html replyto " + staff["Username"] + "@knightsbridgeschool.com replace name \"" + staff["GivenName"] + " " + staff["FamilyName"] + "\" replace role \"" + staff["Role"] + "\"")
