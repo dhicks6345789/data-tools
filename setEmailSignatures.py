@@ -36,7 +36,11 @@ for staffIndex, staff in staff.iterrows():
         staffJobTitle = matchResult[2]
       matchResult = re.match(".*blank..(.*)@knightsbridgeschool.com./a..*", sigLine.strip())
       if not matchResult == None:
-        staffEmail = matchResult[1]
+        staffEmail = matchResult[1] + "@knightsbridgeschool.com"
         print(staffEmail)
+      matchResult = re.match(".*</div>$", sigLine.strip())
+      if not matchResult == None:
+        staffTelephone = matchResult[1]
+        print(staffTelephone)
 #  if staff["Username"] == "d.hicks":
 #    print("gam user " + staff["Username"] + "@knightsbridgeschool.com signature file config/emailSignature.html replyto " + staff["Username"] + "@knightsbridgeschool.com replace name \"" + staff["GivenName"] + " " + staff["FamilyName"] + "\" replace role \"" + staff["Role"] + "\"")
