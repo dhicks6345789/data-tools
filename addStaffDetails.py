@@ -51,8 +51,13 @@ for staffIndex, staffMember in staff.iterrows():
     if not matchResult == None:
       if not matchResult[1] == "":
         staffTelephone = matchResult[1]
+  if staffUsername == "":
+    staffUsername = staffMember["Username"]
+  if staffTelephone == "":
+    staffTelephone = "020 7590 9000"
   if not staffMember["Username"] == staffUsername:
     print("Username mismatch: " + staffMember["Username"] + " not equal to " + staffUsername)
   else:
     staff.at[staffIndex, "JobTitle"] = staffJobTitle
+    staff.at[staffIndex, "TelephoneNumber"] = staffTelephone
 installLib.writeFile(config["dataFolder"] + os.sep + "staff.csv", staff.to_csv(index=False))
