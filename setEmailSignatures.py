@@ -26,14 +26,14 @@ staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 # retrive the existing signature and extract the "job title" value, updating the "staff" records reqd from CSV above. Use the job
 # Role if no other value is present, then write out the updated "staff.csv" again with the added values.
 outputString = ""
-for staffIndex, staff in staff.iterrows():
+for staffIndex, staffMember in staff.iterrows():
   # gam user [signature <signature text>] [file <signature file>] [replyto <EmailAddress>] (replace <Tag> <String>)*
-  if staff["Username"] == "s.colaco":
+  if staffMember["Username"] == "s.colaco":
     staffName = ""
     staffJobTitle = ""
     staffUsername = ""
     staffTelephone = ""
-    for sigLine in installLib.runCommand("gam user " + staff["Username"] + " show signature"):
+    for sigLine in installLib.runCommand("gam user " + staffMember["Username"] + " show signature"):
       matchResult = re.match(".*bold..(.*)..span. \| (.*)..div..*", sigLine.strip())
       if not matchResult == None:
         staffName = matchResult[1]
@@ -45,10 +45,10 @@ for staffIndex, staff in staff.iterrows():
       if not matchResult == None:
         if not matchResult[1] == "":
           staffTelephone = matchResult[1]
-    if not staff["Username"] == staffUsername:
+    if not staffMember["Username"] == staffUsername:
       print("Username mismatch: " + staffUsername)
     else:
-      staff["JobTitle"] = staffJobTitle
+      staffMember["JobTitle"] = staffJobTitle
 print(staff.to_csv(index=False))
 #installLib.writeFile(config["dataFolder"] + os.sep + "staff.csv", staff.to_csv(index=False))
 #  if staff["Username"] == "d.hicks":
