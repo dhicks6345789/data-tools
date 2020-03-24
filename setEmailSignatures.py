@@ -32,8 +32,7 @@ for staffIndex, staff in staff.iterrows():
     for sigLine in installLib.runCommand("gam user " + staff["Username"] + " show signature"):
       matchResult = re.match(".*bold..(.*)..span. \| (.*)..div..*", sigLine.strip())
       if not matchResult == None:
-        print("Found!")
-        print(matchResult[1])
-        print(matchResult[2])
+        staffName = matchResult[1]
+        staffJobTitle = matchResult[2]
 #  if staff["Username"] == "d.hicks":
 #    print("gam user " + staff["Username"] + "@knightsbridgeschool.com signature file config/emailSignature.html replyto " + staff["Username"] + "@knightsbridgeschool.com replace name \"" + staff["GivenName"] + " " + staff["FamilyName"] + "\" replace role \"" + staff["Role"] + "\"")
