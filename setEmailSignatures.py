@@ -28,7 +28,7 @@ staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 outputString = ""
 for staffIndex, staff in staff.iterrows():
   # gam user [signature <signature text>] [file <signature file>] [replyto <EmailAddress>] (replace <Tag> <String>)*
-  if staff["Username"] == "s.harrison":
+  if staff["Username"] == "s.colaco":
     signature = installLib.runcommand("gam user " + staff["Username"] + " show signature")
     print(signature)
 #  if staff["Username"] == "d.hicks":
