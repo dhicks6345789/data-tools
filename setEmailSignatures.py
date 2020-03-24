@@ -21,6 +21,8 @@ for requiredConfigParameter in requiredConfigParameters:
 
 # Read the existing basic staff details.
 staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
+# Tell Pandas that the (currently empty) JobTitle column is actually meant to be a String, not Float.
+df.astype({"JobTitle":"str"}).dtypes
 
 # Staff job titles: not recorded by iSAMS, but instead set manually in GSuite for each signature. Therefore, for each user, first
 # retrive the existing signature and extract the "job title" value, updating the "staff" records reqd from CSV above. Use the job
