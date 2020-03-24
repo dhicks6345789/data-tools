@@ -31,6 +31,7 @@ for staffIndex, staff in staff.iterrows():
   if staff["Username"] == "s.colaco":
     for sigLine in installLib.runCommand("gam user " + staff["Username"] + " show signature"):
       matchResult = re.match("font-weight:bold\">(.*)</span> | (.*)</div>", sigLine.strip())
+      print(matchResult)
       if not matchResult == None:
         print(matchResult[0])
 #  if staff["Username"] == "d.hicks":
