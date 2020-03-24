@@ -30,7 +30,7 @@ for staffIndex, staff in staff.iterrows():
   # gam user [signature <signature text>] [file <signature file>] [replyto <EmailAddress>] (replace <Tag> <String>)*
   if staff["Username"] == "s.colaco":
     for sigLine in installLib.runCommand("gam user " + staff["Username"] + " show signature"):
-      matchResult = re.match("bold\"\>(.*)\</span\> | (.*)\</div\>", sigLine.strip())
+      matchResult = re.match("\>(.*)\</span\> | (.*)\</div\>", sigLine.strip())
       if not matchResult == None:
         print(matchResult[1])
 #  if staff["Username"] == "d.hicks":
