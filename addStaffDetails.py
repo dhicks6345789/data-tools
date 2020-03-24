@@ -56,6 +56,8 @@ for staffIndex, staffMember in staff.iterrows():
     staffUsername = staffMember["Username"]
   if staffTelephone == "":
     staffTelephone = "020 7590 9000"
+  if staffJobTitle == "":
+    staffJobTitle = staffMember["Role"]
   if not staffMember["Username"] == staffUsername:
     print("Username mismatch: " + staffMember["Username"] + " not equal to " + staffUsername)
   else:
