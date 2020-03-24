@@ -32,14 +32,17 @@ for staffIndex, staff in staff.iterrows():
     for sigLine in installLib.runCommand("gam user " + staff["Username"] + " show signature"):
       matchResult = re.match(".*bold..(.*)..span. \| (.*)..div..*", sigLine.strip())
       if not matchResult == None:
+        print("Title")
         staffName = matchResult[1]
         staffJobTitle = matchResult[2]
       matchResult = re.match(".*blank..(.*)@knightsbridgeschool.com./a..*", sigLine.strip())
       if not matchResult == None:
+        print("Email!")
         staffEmail = matchResult[1] + "@knightsbridgeschool.com"
         print(staffEmail)
       matchResult = re.match("([ \d]*)</div>$", sigLine.strip())
       if not matchResult == None:
+        print("Phone!")
         staffTelephone = matchResult[1]
         print(staffTelephone)
 #  if staff["Username"] == "d.hicks":
