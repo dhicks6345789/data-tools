@@ -46,8 +46,8 @@ for staffIndex, staff in staff.iterrows():
         if not matchResult[1] == "":
           staffTelephone = matchResult[1]
       if not staff["Username"] == staffUsername:
-        print "Username mismatch: " + staffUsername
+        print("Username mismatch: " + staffUsername)
       else:
-        print staffJobTitle
+        print(staffJobTitle)
 #  if staff["Username"] == "d.hicks":
 #    print("gam user " + staff["Username"] + "@knightsbridgeschool.com signature file config/emailSignature.html replyto " + staff["Username"] + "@knightsbridgeschool.com replace name \"" + staff["GivenName"] + " " + staff["FamilyName"] + "\" replace role \"" + staff["Role"] + "\"")
