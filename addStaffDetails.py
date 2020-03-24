@@ -15,11 +15,9 @@ for requiredConfigParameter in requiredConfigParameters:
   if not requiredConfigParameter in config.keys():
     print("Error - required value " + requiredConfigParameter + " not set in config.json.")
     sys.exit(1)
-
-# Input data headings:
-# Staff: GUID,UserCode,Title,GivenName,FamilyName,DateOfBirth,Username,Identifier,Form,Role,JobTitle,TelephoneNumber
-
-# Read the existing basic staff details.
+    
+# Read the existing basic staff details. Headings:
+# GUID,UserCode,Title,GivenName,FamilyName,DateOfBirth,Username,Identifier,Form,Role,JobTitle,TelephoneNumber
 staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 # Tell Pandas that the (currently empty) JobTitle and TelephoneNumber columns are actually meant to be String, not Float.
 staff["JobTitle"] = staff["JobTitle"].astype(str)
@@ -35,7 +33,6 @@ for staffIndex, staffMember in staff.iterrows():
     staff.at[staffIndex, "JobTitle"] = ""
   if staff.at[staffIndex, "TelephoneNumber"] == "nan":
     staff.at[staffIndex, "TelephoneNumber"] = ""
-  # gam user [signature <signature text>] [file <signature file>] [replyto <EmailAddress>] (replace <Tag> <String>)*
   staffName = ""
   staffJobTitle = ""
   staffUsername = ""
