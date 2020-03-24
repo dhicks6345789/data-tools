@@ -25,4 +25,4 @@ staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 outputString = ""
 for staffIndex, staffMember in staff.iterrows():
   if staffMember["Username"] == "d.hicks":
-    print("gam user " + staffMember["Username"] + "@knightsbridgeschool.com signature file config/emailSignature.html replyto " + staffMember["Username"] + "@knightsbridgeschool.com replace email \"" + staffMember["Username"] + "@knightsbridgeschool.com replace name \"" + staffMember["GivenName"] + " " + staffMember["FamilyName"] + "\" replace title \"" + staffMember["JobTitle"] + "\"")
+    print("gam user " + staffMember["Username"] + "@knightsbridgeschool.com signature file config/emailSignature.html replyto " + staffMember["Username"] + "@knightsbridgeschool.com replace email \"" + staffMember["Username"] + "@knightsbridgeschool.com\" replace name \"" + staffMember["GivenName"] + " " + staffMember["FamilyName"] + "\" replace title \"" + staffMember["JobTitle"] + "\"")
