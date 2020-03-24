@@ -30,6 +30,7 @@ staff["TelephoneNumber"] = staff["TelephoneNumber"].astype(str)
 # Role if no other value is present, then write out the updated "staff.csv" again with the added values.
 outputString = ""
 for staffIndex, staffMember in staff.iterrows():
+  print("Adding details for staff member " + staffMember["GivenName"] + " " + staffMember["FamilyName"])
   if staff.at[staffIndex, "JobTitle"] == "nan":
     staff.at[staffIndex, "JobTitle"] = ""
   if staff.at[staffIndex, "TelephoneNumber"] == "nan":
