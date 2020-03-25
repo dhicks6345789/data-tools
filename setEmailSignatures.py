@@ -24,5 +24,7 @@ staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 # testing and debugging.
 outputString = ""
 for staffIndex, staffMember in staff.iterrows():
-  os.system("gam user " + staffMember["Username"] + "@knightsbridgeschool.com signature file config/emailSignature/emailSignature.html html replyto " + staffMember["Username"] + "@knightsbridgeschool.com replace email \"" + staffMember["Username"] + "@knightsbridgeschool.com\" replace name \"" + staffMember["GivenName"] + " " + staffMember["FamilyName"] + "\" replace title \"" + staffMember["JobTitle"] + "\" replace telephone \"" + staffMember["TelephoneNumber"] + "\"")
-  
+  jobTitle = str(staffMember["JobTitle"])
+  telephoneNumber = str(staffMember["TelephoneNumber"])
+  if not "nan" in [jobTitle, telephoneNumber]:
+    os.system("gam user " + staffMember["Username"] + "@knightsbridgeschool.com signature file config/emailSignature/emailSignature.html html replyto " + staffMember["Username"] + "@knightsbridgeschool.com replace email \"" + staffMember["Username"] + "@knightsbridgeschool.com\" replace name \"" + staffMember["GivenName"] + " " + staffMember["FamilyName"] + "\" replace title \"" + staffMember["JobTitle"] + "\" replace telephone \"" + staffMember["TelephoneNumber"] + "\"")
