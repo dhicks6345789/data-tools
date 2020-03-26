@@ -60,20 +60,15 @@ for group in groupDetails.keys():
 	for pupilIndex, pupil in pupils.iterrows():
 		if groupDetails[group]["group"] in pupil["Form"]:
 			groupDetails[group]["Members"].append(pupil["OldUsername"] + "@knightsbridgeschool.com")
-	print(groupDetails[group])
-	
-sys.exit(0)
 
-## Create a CSV file for each group (i.e. Year Group or Form).
-#os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
-#for group in groupDetails.keys():
-#  print("Generating CSV file and syncing members for group " + group + " (" + groupDetails[group]["Email"].lower() + ")...")
-#  outputString = ""
-#  for pupilIndex, pupil in pupils.iterrows():
-#    if not re.match(".*" + groupDetails[group]["Form"] + ".*", pupil["Form"]) == None:
-#      outputString = outputString + pupil["OldUsername"] + "@knightsbridgeschool.com\n"
-#  installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
-#  os.system("gam update group " + groupDetails[group]["Email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
+# Create a CSV file for each group (i.e. Year Group or Form).
+os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
+for group in groupDetails.keys():
+	outputString = ""
+	for member in groupDetails[group]["Members"]:
+		outputString = outputString + member + "\n"
+	installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
+	#os.system("gam update group " + groupDetails[group]["Email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
 	
 ## Read the existing basic staff details.
 #staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
