@@ -80,4 +80,4 @@ for staffIndex, staff in staff.iterrows():
 		outputString = outputString + str(staff["Username"]).lower() + "@knightsbridgeschool.com\n"
 installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "Staff.csv", outputString)
 print("Sync group Staff from CSV to GSuite.")
-print("gam update group staff@knightsbridgeschool.com sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "KS-SEC-STAFF.csv\" 2>&1")					
+print("gam update group staff@knightsbridgeschool.com sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "Staff.csv\" 2>&1")					
