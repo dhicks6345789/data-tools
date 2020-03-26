@@ -15,7 +15,12 @@ for requiredConfigParameter in requiredConfigParameters:
 	if not requiredConfigParameter in config.keys():
 		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
 		sys.exit(1)
+		
+# Read the existing basic groups data.
+groups = pandas.read_csv(config["dataFolder"] + os.sep + "groups.csv", header=0)
+for groupIndex, group in pupils.iterrows():
+	print(group)
 
 # Create a CSV file for each group (i.e. Year Group or Form).
 #os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
-print("gam update group " + groupDetails[group]["email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
+#print("gam update group " + groupDetails[group]["email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
