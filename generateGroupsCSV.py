@@ -68,7 +68,7 @@ for group in groupDetails.keys():
 	for member in groupDetails[group]["Members"]:
 		outputString = outputString + member + "\n"
 	installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
-	#os.system("gam update group " + groupDetails[group]["Email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
+	print("gam update group " + groupDetails[group]["Email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
 	
 ## Read the existing basic staff details.
 #staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
