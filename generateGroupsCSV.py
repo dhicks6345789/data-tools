@@ -54,8 +54,12 @@ for pupilIndex, pupil in pupils.iterrows():
 for form in forms.keys():
 	groupDetails[form + " Pupils"] = {"Email":form + "pupils@knightsbridgeschool.com","Form":form}
 
-os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
+# Add the members of each pupil group.
 for group in groupDetails.keys():
+	groupDetails[group]["Members"] = []
+	for pupilIndex, pupil in pupils.iterrows():
+		if groupDetails[group]["Form"] == pupil["Form"]:
+			groupDetails[group]["Members"].append(pupil["OldUsername"] + "@knightsbridgeschool.com")
 	print(groupDetails[group])
 	
 sys.exit(0)
