@@ -69,9 +69,10 @@ for group in groupDetails.keys():
 		outputString = outputString + member + "\n"
 	installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
 	print("Sync group " + group + " from CSV to GSuite.")
-	os.system("gam update group " + groupDetails[group]["email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
+	print("gam update group " + groupDetails[group]["email"].lower() + " name \"" + group + "\"")
+	print("gam update group " + groupDetails[group]["email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
 	
-## Read the existing basic staff details.
+# Read the existing basic staff details.
 staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 
 outputString = ""
@@ -80,4 +81,4 @@ for staffIndex, staff in staff.iterrows():
 		outputString = outputString + str(staff["Username"]).lower() + "@knightsbridgeschool.com\n"
 installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "Staff.csv", outputString)
 print("Sync group Staff from CSV to GSuite.")
-os.system("gam update group staff@knightsbridgeschool.com sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "Staff.csv\" 2>&1")					
+#os.system("gam update group staff@knightsbridgeschool.com sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "Staff.csv\" 2>&1")					
