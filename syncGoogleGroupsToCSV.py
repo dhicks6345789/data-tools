@@ -19,7 +19,7 @@ for requiredConfigParameter in requiredConfigParameters:
 # Read the existing basic groups data.
 groups = pandas.read_csv(config["dataFolder"] + os.sep + "groups.csv", header=0)
 for groupIndex, group in groups.iterrows():
-	print(group)
+	print(group["Members"])
 
 # Create a CSV file for each group (i.e. Year Group or Form).
 #os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
