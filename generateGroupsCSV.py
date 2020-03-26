@@ -11,8 +11,8 @@ requiredConfigParameters = ["dataFolder"]
 
 # Set up the initial set of groups - one per yeargroup.
 groupDetails = {
-	"Nusery Pupils":{"Email":"nurserypupils@knightsbridgeschool.com","Yeargroup":"Lions"},
-	"Reception Pupils":{"Email":"receptionpupils@knightsbridgeschool.com","Yeargroup":"Rec"},
+	"Nusery Pupils":{"Email":"nurserypupils@knightsbridgeschool.com","group":"Lions"},
+	"Reception Pupils":{"Email":"receptionpupils@knightsbridgeschool.com","group":"Rec"},
 	"J1 Pupils":{"email":"j1pupils@knightsbridgeschool.com","group":"J1"},
 	"J2 Pupils":{"email":"j2pupils@knightsbridgeschool.com","group":"J2"},
 	"J3 Pupils":{"email":"j3pupils@knightsbridgeschool.com","group":"J3"},
