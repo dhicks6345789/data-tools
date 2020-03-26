@@ -58,7 +58,7 @@ for form in forms.keys():
 for group in groupDetails.keys():
 	groupDetails[group]["Members"] = []
 	for pupilIndex, pupil in pupils.iterrows():
-		if groupDetails[group]["group"] == pupil["Form"]:
+		if groupDetails[group]["group"] in pupil["Form"]:
 			groupDetails[group]["Members"].append(pupil["OldUsername"] + "@knightsbridgeschool.com")
 	print(groupDetails[group])
 	
