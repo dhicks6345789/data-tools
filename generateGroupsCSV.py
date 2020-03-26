@@ -26,7 +26,7 @@ groupDetails = {
 # Get a list of yeargroups.
 yeargroups = []
 for group in groupDetails.keys():
-	yeargroups.append(groupDetails[group]["group"].lower())
+	yeargroups.append(groupDetails[group]["group"])
 
 # Load the configuration file.
 config = json.loads(installLib.readFile("config/config.json"))
@@ -46,7 +46,7 @@ pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 # Get a list of forms - a "form" here is any sub-yeargroup sized group of pupils, we skip any forms which are simply a whole yeargroup.
 forms = {}
 for pupilIndex, pupil in pupils.iterrows():
-	form = pupil["Form"].lower()
+	form = pupil["Form"]
 	if not form in yeargroups:
 		forms[form] = 1
 
