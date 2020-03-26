@@ -11,29 +11,29 @@ requiredConfigParameters = ["dataFolder"]
 
 # Set up the initial set of groups - one per yeargroup.
 groupDetails = {
-  "Nusery Pupils":{"Email":"nurserypupils@knightsbridgeschool.com","Yeargroup":"Lions"},
-  "Reception Pupils":{"Email":"receptionpupils@knightsbridgeschool.com","Yeargroup":"Rec"},
-  "J1 Pupils":{"Email":"j1pupils@knightsbridgeschool.com","Yeargroup":"J1"},
-  "J2 Pupils":{"Email":"j2pupils@knightsbridgeschool.com","Yeargroup":"J2"},
-  "J3 Pupils":{"Email":"j3pupils@knightsbridgeschool.com","Yeargroup":"J3"},
-  "S4 Pupils":{"Email":"s4pupils@knightsbridgeschool.com","Yeargroup":"S4"},
-  "S5 Pupils":{"Email":"s5pupils@knightsbridgeschool.com","Yeargroup":"S5"},
-  "S6 Pupils":{"Email":"s6pupils@knightsbridgeschool.com","Yeargroup":"S6"},
-  "S7 Pupils":{"Email":"s7pupils@knightsbridgeschool.com","Yeargroup":"S7"},
-  "S8 Pupils":{"Email":"s8pupils@knightsbridgeschool.com","Yeargroup":"S8"}
+	"Nusery Pupils":{"Email":"nurserypupils@knightsbridgeschool.com","Yeargroup":"Lions"},
+	"Reception Pupils":{"Email":"receptionpupils@knightsbridgeschool.com","Yeargroup":"Rec"},
+	"J1 Pupils":{"Email":"j1pupils@knightsbridgeschool.com","Yeargroup":"J1"},
+	"J2 Pupils":{"Email":"j2pupils@knightsbridgeschool.com","Yeargroup":"J2"},
+	"J3 Pupils":{"Email":"j3pupils@knightsbridgeschool.com","Yeargroup":"J3"},
+	"S4 Pupils":{"Email":"s4pupils@knightsbridgeschool.com","Yeargroup":"S4"},
+	"S5 Pupils":{"Email":"s5pupils@knightsbridgeschool.com","Yeargroup":"S5"},
+	"S6 Pupils":{"Email":"s6pupils@knightsbridgeschool.com","Yeargroup":"S6"},
+	"S7 Pupils":{"Email":"s7pupils@knightsbridgeschool.com","Yeargroup":"S7"},
+	"S8 Pupils":{"Email":"s8pupils@knightsbridgeschool.com","Yeargroup":"S8"}
 }
 
 # Get a list of yeargroups.
 yeargroups = []
 for group in groupDetails.keys():
-  yeargroups.append(groupDetails[group]["Yeargroup"].lower())
+	yeargroups.append(groupDetails[group]["Yeargroup"].lower())
 
 # Load the configuration file.
 config = json.loads(installLib.readFile("config/config.json"))
 for requiredConfigParameter in requiredConfigParameters:
-  if not requiredConfigParameter in config.keys():
-    print("Error - required value " + requiredConfigParameter + " not set in config.json.")
-    sys.exit(1)
+	if not requiredConfigParameter in config.keys():
+		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
+		sys.exit(1)
 
 # Input data headings:
 # Pupils: GUID,UserCode,GivenName,FamilyName,DateOfBirth,Gender,Username,OldUsername,YearGroup,Form,Tutor
@@ -46,16 +46,18 @@ pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 # Get a list of forms - a "form" here is any sub-yeargroup sized group of pupils, we skip any forms which are simply a whole yeargroup.
 forms = {}
 for pupilIndex, pupil in pupils.iterrows():
-  form = pupil["Form"].lower()
-  if not form in yeargroups:
-    forms[form] = 1
+	form = pupil["Form"].lower()
+	if not form in yeargroups:
+		forms[form] = 1
 
 # Add the list of forms to groupDetails.
 for form in forms.keys():
-  groupDetails[form + " Pupils"] = {"Email":form + "pupils@knightsbridgeschool.com","Form":form}
+	groupDetails[form + " Pupils"] = {"Email":form + "pupils@knightsbridgeschool.com","Form":form}
 
-print(groupDetails)
-
+os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
+for group in groupDetails.keys():
+	print(groupDetails[group])
+	
 sys.exit(0)
 
 ## Create a CSV file for each group (i.e. Year Group or Form).
