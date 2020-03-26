@@ -13,20 +13,20 @@ requiredConfigParameters = ["dataFolder"]
 groupDetails = {
 	"Nusery Pupils":{"Email":"nurserypupils@knightsbridgeschool.com","Yeargroup":"Lions"},
 	"Reception Pupils":{"Email":"receptionpupils@knightsbridgeschool.com","Yeargroup":"Rec"},
-	"J1 Pupils":{"Email":"j1pupils@knightsbridgeschool.com","Yeargroup":"J1"},
-	"J2 Pupils":{"Email":"j2pupils@knightsbridgeschool.com","Yeargroup":"J2"},
-	"J3 Pupils":{"Email":"j3pupils@knightsbridgeschool.com","Yeargroup":"J3"},
-	"S4 Pupils":{"Email":"s4pupils@knightsbridgeschool.com","Yeargroup":"S4"},
-	"S5 Pupils":{"Email":"s5pupils@knightsbridgeschool.com","Yeargroup":"S5"},
-	"S6 Pupils":{"Email":"s6pupils@knightsbridgeschool.com","Yeargroup":"S6"},
-	"S7 Pupils":{"Email":"s7pupils@knightsbridgeschool.com","Yeargroup":"S7"},
-	"S8 Pupils":{"Email":"s8pupils@knightsbridgeschool.com","Yeargroup":"S8"}
+	"J1 Pupils":{"email":"j1pupils@knightsbridgeschool.com","group":"J1"},
+	"J2 Pupils":{"email":"j2pupils@knightsbridgeschool.com","group":"J2"},
+	"J3 Pupils":{"email":"j3pupils@knightsbridgeschool.com","group":"J3"},
+	"S4 Pupils":{"email":"s4pupils@knightsbridgeschool.com","group":"S4"},
+	"S5 Pupils":{"email":"s5pupils@knightsbridgeschool.com","group":"S5"},
+	"S6 Pupils":{"email":"s6pupils@knightsbridgeschool.com","group":"S6"},
+	"S7 Pupils":{"email":"s7pupils@knightsbridgeschool.com","group":"S7"},
+	"S8 Pupils":{"email":"s8pupils@knightsbridgeschool.com","group":"S8"}
 }
 
 # Get a list of yeargroups.
 yeargroups = []
 for group in groupDetails.keys():
-	yeargroups.append(groupDetails[group]["Yeargroup"].lower())
+	yeargroups.append(groupDetails[group]["group"].lower())
 
 # Load the configuration file.
 config = json.loads(installLib.readFile("config/config.json"))
@@ -52,13 +52,13 @@ for pupilIndex, pupil in pupils.iterrows():
 
 # Add the list of forms to groupDetails.
 for form in forms.keys():
-	groupDetails[form + " Pupils"] = {"Email":form + "pupils@knightsbridgeschool.com","Form":form}
+	groupDetails[form + " Pupils"] = {"email":form + "pupils@knightsbridgeschool.com","group":form}
 
 # Add the members of each pupil group.
 for group in groupDetails.keys():
 	groupDetails[group]["Members"] = []
 	for pupilIndex, pupil in pupils.iterrows():
-		if groupDetails[group]["Form"] == pupil["Form"]:
+		if groupDetails[group]["group"] == pupil["Form"]:
 			groupDetails[group]["Members"].append(pupil["OldUsername"] + "@knightsbridgeschool.com")
 	print(groupDetails[group])
 	
