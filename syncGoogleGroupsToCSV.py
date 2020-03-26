@@ -18,9 +18,12 @@ for requiredConfigParameter in requiredConfigParameters:
 		
 # Read the existing basic groups data.
 groups = pandas.read_csv(config["dataFolder"] + os.sep + "groups.csv", header=0)
-for groupIndex, group in groups.iterrows():
-	print(group["Members"])
 
 # Create a CSV file for each group (i.e. Year Group or Form).
-#os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
-#print("gam update group " + groupDetails[group]["email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
+os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
+print("erase " + config["dataFolder"] + os.sep + "Groups" + os.sep + "*.*")
+for groupIndex, group in groups.iterrows():
+	outputString = ""
+	for member in group["Members"]:
+		outputString = outputString + member + ",\n"
+	print(outputString)
