@@ -11,8 +11,8 @@ requiredConfigParameters = ["dataFolder"]
 
 # Set up the initial set of groups - one per yeargroup.
 groupDetails = {
-	"Nusery Pupils":{"Email":"nurserypupils@knightsbridgeschool.com","group":"Lions"},
-	"Reception Pupils":{"Email":"receptionpupils@knightsbridgeschool.com","group":"Rec"},
+	"Nusery Pupils":{"email":"nurserypupils@knightsbridgeschool.com","group":"Lions"},
+	"Reception Pupils":{"email":"receptionpupils@knightsbridgeschool.com","group":"Rec"},
 	"J1 Pupils":{"email":"j1pupils@knightsbridgeschool.com","group":"J1"},
 	"J2 Pupils":{"email":"j2pupils@knightsbridgeschool.com","group":"J2"},
 	"J3 Pupils":{"email":"j3pupils@knightsbridgeschool.com","group":"J3"},
@@ -68,7 +68,7 @@ for group in groupDetails.keys():
 	for member in groupDetails[group]["Members"]:
 		outputString = outputString + member + "\n"
 	installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
-	print("gam update group " + groupDetails[group]["Email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
+	print("gam update group " + groupDetails[group]["email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
 	
 ## Read the existing basic staff details.
 #staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
