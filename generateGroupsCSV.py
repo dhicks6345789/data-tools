@@ -9,7 +9,7 @@ import installLib
 
 requiredConfigParameters = ["dataFolder"]
 
-# Set up yeargroups.
+# Set up the initial set of groups - one per yeargroup.
 groupDetails = {
   "Nusery Pupils":{"Email":"nurserypupils@knightsbridgeschool.com","Yeargroup":"Lions"},
   "Reception Pupils":{"Email":"receptionpupils@knightsbridgeschool.com","Yeargroup":"Rec"},
@@ -23,6 +23,7 @@ groupDetails = {
   "S8 Pupils":{"Email":"s8pupils@knightsbridgeschool.com","Yeargroup":"S8"}
 }
 
+# Get a list of yeargroups.
 yeargroups = []
 for group in groupDetails.keys():
   yeargroups.append(groupDetails[group]["Yeargroup"].lower())
@@ -42,14 +43,14 @@ for requiredConfigParameter in requiredConfigParameters:
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
-# Get a list of forms (excluding Nursery and Year 7 and 8, as they only have the one class).
-forms={}
+# Get a list of forms - a "form" here is any sub-yeargroup sized group of pupils, we skip any forms which are simply a whole yeargroup.
+forms = {}
 for pupilIndex, pupil in pupils.iterrows():
   form = pupil["Form"].lower()
   if not form in yeargroups:
     forms[form] = 1
 
-# Set up to create a CSV file for each form.
+# Add the list of forms to groupDetails.
 for form in forms.keys():
   groupDetails[form + " Pupils"] = {"Email":form + "pupils@knightsbridgeschool.com","Form":form}
 
