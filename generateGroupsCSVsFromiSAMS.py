@@ -75,9 +75,9 @@ for group in groupDetails.keys():
 	os.system("gam update group " + groupDetails[group]["email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
 	
 # Write out the All Pupils CSV file.
-installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "pupils.csv", allPupils)
-print("gam update group pupils@knightsbridgeschool.com name pupils 2>&1")
-print("gam update group pupils@knightsbridgeschool.com sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "pupils.csv\" 2>&1")
+installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "Pupils.csv", allPupils)
+os.system("gam update group pupils@knightsbridgeschool.com name pupils 2>&1")
+os.system("gam update group pupils@knightsbridgeschool.com sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "Pupils.csv\" 2>&1")
 	
 # Read the existing basic staff details.
 staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
