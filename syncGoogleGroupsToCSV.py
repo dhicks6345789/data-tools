@@ -23,8 +23,7 @@ groups = pandas.read_csv(config["dataFolder"] + os.sep + "groups.csv", header=0)
 os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
 print("erase " + config["dataFolder"] + os.sep + "Groups" + os.sep + "*.*")
 for groupIndex, group in groups.iterrows():
-	print(group["name"] + ":")
 	outputString = ""
 	for member in str(group["Members"]).split():
 		outputString = outputString + member + ",\n"
-	print(outputString)
+	installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group["name"] + ".csv", outputString)
