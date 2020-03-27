@@ -23,4 +23,4 @@ for requiredConfigParameter in requiredConfigParameters:
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
 for pupilIndex, pupil in pupils.iterrows():
-	print(pupil["Email"])
+	print(pupil["Username"])
