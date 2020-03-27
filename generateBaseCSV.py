@@ -81,10 +81,13 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	forms[currentPupil.find("Form").text] = 1
 	pupils["Tutor"].append(getValue(currentPupil, "Tutor"))
 	pupils["Contacts"].append("")
+	
+relationships = {}
 pupilsDataFrame = pandas.DataFrame(pupils)
 for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 	contactEmailAddress = contact.find("EmailAddress")
 	if not contactEmailAddress == None and not contactEmailAddress.text == None and contact.attrib["IsFirstPersonContact"] == "True":
+		relationships[contact.find("RelationshipRaw").text] = 1
 		for contactPupil in contact.find("Pupils"):
 			pupilID = contactPupil.attrib["Id"]
 			for pupilIndex, pupil in pupilsDataFrame.iterrows():
@@ -96,5 +99,7 @@ for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 						contactsRecord = contactsRecord + " " + contactEmailAddress.text.strip()
 					pupilsDataFrame.at[pupilIndex, "Contacts"] = contactsRecord
 installLib.writeFile(config["dataFolder"] + os.sep + "pupils.csv", pupilsDataFrame.to_csv(index=False))
+
+print relationships.keys()
 
 installLib.writeFile(config["dataFolder"] + os.sep + "forms.csv", sorted(forms.keys()))
