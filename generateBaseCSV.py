@@ -80,6 +80,7 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["Form"].append(currentPupil.find("Form").text)
 	forms[currentPupil.find("Form").text] = 1
 	pupils["Tutor"].append(getValue(currentPupil, "Tutor"))
+	pupils["Guardian"].append("")
 pupilsDataFrame = pandas.DataFrame(pupils)
 for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 	emailAddress = contact.find("EmailAddress")
