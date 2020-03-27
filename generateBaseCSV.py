@@ -100,6 +100,6 @@ for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 					pupilsDataFrame.at[pupilIndex, "Contacts"] = contactsRecord
 installLib.writeFile(config["dataFolder"] + os.sep + "pupils.csv", pupilsDataFrame.to_csv(index=False))
 
-print relationships.keys()
+print(relationships.keys())
 
 installLib.writeFile(config["dataFolder"] + os.sep + "forms.csv", sorted(forms.keys()))
