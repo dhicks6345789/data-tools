@@ -80,6 +80,10 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["Form"].append(currentPupil.find("Form").text)
 	forms[currentPupil.find("Form").text] = 1
 	pupils["Tutor"].append(getValue(currentPupil, "Tutor"))
+for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
+	emailAddress = contact.find("EmailAddress").text
+	for contactPupil in contact.find("Pupils"):
+		print(contactPupil.attrib["Id"])
 installLib.writeFile(config["dataFolder"] + os.sep + "pupils.csv", pandas.DataFrame(pupils).to_csv(index=False))
 
 installLib.writeFile(config["dataFolder"] + os.sep + "forms.csv", sorted(forms.keys()))
