@@ -60,7 +60,7 @@ installLib.writeFile(config["dataFolder"] + os.sep + "staff.csv", pandas.DataFra
 forms = {}
 # Pupils - previous output format:
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
-pupils = {"GUID":[],"ID":[],"UserCode":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Gender":[],"Username":[],"OldUsername":[],"YearGroup":[],"Form":[],"Tutor":[]}
+pupils = {"GUID":[],"ID":[],"UserCode":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Gender":[],"Username":[],"OldUsername":[],"YearGroup":[],"Form":[],"Tutor":[],"Guardian":[]}
 for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["GUID"].append(currentPupil.attrib["PersonGuid"])
 	pupils["ID"].append(currentPupil.attrib["Id"])
@@ -88,7 +88,7 @@ for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 			pupilID = contactPupil.attrib["Id"]
 			for pupilIndex, pupil in pupilsDataFrame.iterrows():
 				if pupil["ID"] == pupilID:
-					print(pupil)
+					print(pupil["Username"])
 installLib.writeFile(config["dataFolder"] + os.sep + "pupils.csv", pupilsDataFrame.to_csv(index=False))
 
 installLib.writeFile(config["dataFolder"] + os.sep + "forms.csv", sorted(forms.keys()))
