@@ -84,7 +84,10 @@ for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 	emailAddress = contact.find("EmailAddress")
 	if not emailAddress == None:
 		for contactPupil in contact.find("Pupils"):
-			print(contactPupil.attrib["Id"])
+			pupilID = contactPupil.attrib["Id"]
+			for pupil in pupils:
+				if pupil["ID"] == pupilID:
+					print(pupil)
 installLib.writeFile(config["dataFolder"] + os.sep + "pupils.csv", pandas.DataFrame(pupils).to_csv(index=False))
 
 installLib.writeFile(config["dataFolder"] + os.sep + "forms.csv", sorted(forms.keys()))
