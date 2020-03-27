@@ -19,11 +19,12 @@ for requiredConfigParameter in requiredConfigParameters:
 # Read the existing basic groups data.
 groups = pandas.read_csv(config["dataFolder"] + os.sep + "groups.csv", header=0)
 
-# Create a CSV file for each group (i.e. Year Group or Form).
+# Create a CSV file for each GSuite group.
 os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
 print("erase " + config["dataFolder"] + os.sep + "Groups" + os.sep + "*.*")
 for groupIndex, group in groups.iterrows():
-	outputString = ""
-	for member in group["Members"]:
-		outputString = outputString + member + ",\n"
-	print(outputString)
+	print(group)
+	#outputString = ""
+	#for member in group["Members"]:
+	#	outputString = outputString + member + ",\n"
+	#print(outputString)
