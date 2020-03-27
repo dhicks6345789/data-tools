@@ -60,7 +60,7 @@ installLib.writeFile(config["dataFolder"] + os.sep + "staff.csv", pandas.DataFra
 forms = {}
 # Pupils - previous output format:
 # PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
-pupils = {"GUID":[],"ID":[],"UserCode":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Gender":[],"Username":[],"OldUsername":[],"YearGroup":[],"Form":[],"Tutor":[],"Guardian":[]}
+pupils = {"GUID":[],"ID":[],"UserCode":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Gender":[],"Username":[],"OldUsername":[],"YearGroup":[],"Form":[],"Tutor":[],"Contacts":[]}
 for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["GUID"].append(currentPupil.attrib["PersonGuid"])
 	pupils["ID"].append(currentPupil.attrib["Id"])
@@ -80,7 +80,7 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["Form"].append(currentPupil.find("Form").text)
 	forms[currentPupil.find("Form").text] = 1
 	pupils["Tutor"].append(getValue(currentPupil, "Tutor"))
-	pupils["Guardian"].append("")
+	pupils["Contacts"].append("")
 pupilsDataFrame = pandas.DataFrame(pupils)
 for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 	contactEmailAddress = contact.find("EmailAddress")
@@ -89,7 +89,12 @@ for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 			pupilID = contactPupil.attrib["Id"]
 			for pupilIndex, pupil in pupilsDataFrame.iterrows():
 				if pupil["ID"] == pupilID:
-					print(contactEmailAddress.text.strip() + ": " + pupil["Username"])
+					contactsRecord = pupilsDataFrame.at[pupilIndex, "Contacts"]
+					if contactsRecord == "":
+						contactsRecord = contactEmailAddress.text.strip()
+					elif not contactEmailAddress.text.strip() in contactsRecord:
+						contactsRecord = contactsRecord + " " + contactEmailAddress.text.strip()
+					pupilsDataFrame.at[pupilIndex, "Contacts"] = contactsRecord
 installLib.writeFile(config["dataFolder"] + os.sep + "pupils.csv", pupilsDataFrame.to_csv(index=False))
 
 installLib.writeFile(config["dataFolder"] + os.sep + "forms.csv", sorted(forms.keys()))
