@@ -89,7 +89,7 @@ for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 			pupilID = contactPupil.attrib["Id"]
 			for pupilIndex, pupil in pupilsDataFrame.iterrows():
 				if pupil["ID"] == pupilID:
-					print(contactEmailAddress.text + ": " + pupil["Username"])
+					print(contactEmailAddress.text.strip() + ": " + pupil["Username"])
 installLib.writeFile(config["dataFolder"] + os.sep + "pupils.csv", pupilsDataFrame.to_csv(index=False))
 
 installLib.writeFile(config["dataFolder"] + os.sep + "forms.csv", sorted(forms.keys()))
