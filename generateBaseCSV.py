@@ -83,13 +83,13 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["Guardian"].append("")
 pupilsDataFrame = pandas.DataFrame(pupils)
 for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
-	emailAddress = contact.find("EmailAddress")
-	if not emailAddress == None:
+	contactEmailAddress = contact.find("EmailAddress")
+	if not contactEmailAddress == None:
 		for contactPupil in contact.find("Pupils"):
 			pupilID = contactPupil.attrib["Id"]
 			for pupilIndex, pupil in pupilsDataFrame.iterrows():
 				if pupil["ID"] == pupilID:
-					print(pupil["Username"])
+					print(contactEmailAddress + ": " + pupil["Username"])
 installLib.writeFile(config["dataFolder"] + os.sep + "pupils.csv", pupilsDataFrame.to_csv(index=False))
 
 installLib.writeFile(config["dataFolder"] + os.sep + "forms.csv", sorted(forms.keys()))
