@@ -24,6 +24,6 @@ os.makedirs(config["dataFolder"] + os.sep + "Groups", exist_ok=True)
 print("erase " + config["dataFolder"] + os.sep + "Groups" + os.sep + "*.*")
 for groupIndex, group in groups.iterrows():
 	outputString = ""
-	for member in group["Members"]:
+	for member in str(group["Members"]).split():
 		outputString = outputString + member + ",\n"
 	print(outputString)
