@@ -22,7 +22,5 @@ for requiredConfigParameter in requiredConfigParameters:
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
-#for pupilIndex, pupil in pupils.iterrows():
-#	form = pupil["Form"]
-#	if not form in yeargroups:
-#		forms[form] = 1
+for pupilIndex, pupil in pupils.iterrows():
+	print(pupil["Email"])
