@@ -84,7 +84,7 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 pupilsDataFrame = pandas.DataFrame(pupils)
 for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 	contactEmailAddress = contact.find("EmailAddress")
-	if not contactEmailAddress == None and not contactEmailAddress.text == None:
+	if not contactEmailAddress == None and not contactEmailAddress.text == None and contact.attrib["IsirstPersonContact"] == "True":
 		for contactPupil in contact.find("Pupils"):
 			pupilID = contactPupil.attrib["Id"]
 			for pupilIndex, pupil in pupilsDataFrame.iterrows():
