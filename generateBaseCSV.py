@@ -120,9 +120,11 @@ for pupilIndex, pupil in pupilsDataFrame.iterrows():
 			if mainContact == "":
 				mainContact = pupilRelationships[pupil["ID"]][validRelationship]
 			else:
-				otherContacts = otherContacts + pupilRelationships[pupil["ID"]][validRelationship] + " "
+				contactEmail = pupilRelationships[pupil["ID"]][validRelationship]
+				if contactEmail not in otherContacts:
+					otherContacts = otherContacts + contactEmail + " "
 	pupilsDataFrame.at[pupilIndex, "MainContact"] = mainContact
-	pupilsDataFrame.at[pupilIndex, "OtherContacts"] = otherContacts
+	pupilsDataFrame.at[pupilIndex, "OtherContacts"] = otherContacts.strip()
 
 # Write out pupils.csv.
 installLib.writeFile(config["dataFolder"] + os.sep + "pupils.csv", pupilsDataFrame.to_csv(index=False))
