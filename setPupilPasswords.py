@@ -45,7 +45,7 @@ for form in readFile(config["dataFolder"] + os.sep + "forms.csv").split("\n"):
 		
 os.makedirs(config["dataFolder"] + os.sep + "DefaultPupilPasswords", exist_ok=True)
 if not os.path.exists(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv"):
-	installLib.writeFile(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", "ID,DefaultPassword")
+	installLib.writeFile(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", "ID,Username,OldUsername,Form,DefaultPassword")
 
 # Read the existing pupil default passwords.
 defaultPasswords = pandas.read_csv(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", header=0)
@@ -55,6 +55,9 @@ for pupilIndex, pupil in pupils.iterrows():
 	for passwordIndex, passwordEntry in defaultPasswords.iterrows():
 		if pupil["ID"] == passwordEntry["ID"]:
 			pupilFound = True
+			defaultPasswords.at[passwordIndex, "Username"] = pupil["Username"]
+			defaultPasswords.at[passwordIndex, "OldUsername"] = pupil["OldUsername"]
+			defaultPasswords.at[passwordIndex, "Form"] = pupil["Form"]
 	if not pupilFound:
 		defaultPasswords = defaultPasswords.append({"ID":pupil["ID"],"DefaultPassword":generatePassword()} , ignore_index=True)
 
