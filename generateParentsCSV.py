@@ -28,9 +28,15 @@ def readFile(theFilename):
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
-yeargroups = readFile(config["dataFolder"] + os.sep + "yeargroups.csv").split("\n")
-forms = readFile(config["dataFolder"] + os.sep + "forms.csv").split("\n")
-for group in yeargroups + forms:
+groups = []
+for yeargroup in readFile(config["dataFolder"] + os.sep + "yeargroups.csv").split("\n"):
+	if not yeargroup == "" and not yeargroup in groups:
+		groups.append(yeargroup)
+for form in readFile(config["dataFolder"] + os.sep + "forms.csv").split("\n"):
+	if not form == "" and not form in groups:
+		groups.append(form)
+
+for group in groups:
 	print(group)
 	
 #for pupilIndex, pupil in pupils.iterrows():
