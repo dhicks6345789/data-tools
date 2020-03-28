@@ -57,9 +57,8 @@ for currentStaffMember in iSAMSXML.findall("./HRManager/CurrentStaff/StaffMember
 		staff["TelephoneNumber"].append("")
 installLib.writeFile(config["dataFolder"] + os.sep + "staff.csv", pandas.DataFrame(staff).to_csv(index=False))
 
+print("Generating the base pupils.csv file...")
 forms = {}
-# Pupils - previous output format:
-# PupilID,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
 pupils = {"GUID":[],"ID":[],"UserCode":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Gender":[],"Username":[],"OldUsername":[],"YearGroup":[],"Form":[],"Tutor":[],"MainContact":[],"OtherContacts":[]}
 for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["GUID"].append(currentPupil.attrib["PersonGuid"])
@@ -80,29 +79,34 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["Form"].append(currentPupil.find("Form").text)
 	forms[currentPupil.find("Form").text] = 1
 	pupils["Tutor"].append(getValue(currentPupil, "Tutor"))
-	pupils["Contacts"].append("")
+	pupils["MainContact"].append("")
+	pupils["OtherContacts"].append("")
 	
-# Possible relationships:
+print("Adding pupil contact information to pupils.csv...")
+pupilRelationships = {}
+for pupilIndex, pupil in pupilsDataFrame.iterrows():
+	pupilRelationships[pupil["ID"]] = {}
+				
 validRalationships = ["guardian", "parent", "mother", "father", "stepmother", "stepfather", "security", "nanny", "au pair", "babysitter", "tutor", "childminder", "aunt", "uncle", "pa", "grandmother", "grandfather", "godmother", "godfather", "sister", "brother", "cousin", "other family member", "friend", "contact", "company", "personal"]
 relationshipsMap = {"mother_copy":"mother", "father_copy":"father", "family friend":"friend", "pa (harry)":"pa", "pa to parent":"pa", "step mother":"step mother", "step-mother":"step mother", "step father":"step father", "step-father":"step father", "other contact":"contact", "parents_copy":"parent", "parents":"parent"}
-# .strip().lower()...
 pupilsDataFrame = pandas.DataFrame(pupils)
 for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 	contactEmailAddress = contact.find("EmailAddress")
 	if not contactEmailAddress == None and not contactEmailAddress.text == None and contact.attrib["IsFirstPersonContact"] == "True":
-		relationships[contact.find("RelationshipRaw").text.strip().lower()] = contact.find("Relationship").text
 		for contactPupil in contact.find("Pupils"):
 			pupilID = contactPupil.attrib["Id"]
 			for pupilIndex, pupil in pupilsDataFrame.iterrows():
 				if pupil["ID"] == pupilID:
-					contactsRecord = pupilsDataFrame.at[pupilIndex, "Contacts"]
-					if contactsRecord == "":
-						contactsRecord = contactEmailAddress.text.strip()
-					elif not contactEmailAddress.text.strip() in contactsRecord:
-						contactsRecord = contactsRecord + " " + contactEmailAddress.text.strip()
-					pupilsDataFrame.at[pupilIndex, "Contacts"] = contactsRecord
+					pupilRelationships[pupilID][contact.find("RelationshipRaw").text.strip().lower()] = contactEmailAddress.text.strip()
 installLib.writeFile(config["dataFolder"] + os.sep + "pupils.csv", pupilsDataFrame.to_csv(index=False))
 
-print(relationships)
+print(pupilRelationships)
+
+#contactsRecord = pupilsDataFrame.at[pupilIndex, "Contacts"]
+#	if contactsRecord == "":
+#		contactsRecord = contactEmailAddress.text.strip()
+#	elif not contactEmailAddress.text.strip() in contactsRecord:
+#		contactsRecord = contactsRecord + " " + contactEmailAddress.text.strip()
+#pupilsDataFrame.at[pupilIndex, "Contacts"] = contactsRecord
 
 installLib.writeFile(config["dataFolder"] + os.sep + "forms.csv", sorted(forms.keys()))
