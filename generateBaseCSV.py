@@ -121,7 +121,7 @@ for pupilIndex, pupil in pupilsDataFrame.iterrows():
 				mainContact = pupilRelationships[pupil["ID"]][validRelationship]
 			else:
 				contactEmail = pupilRelationships[pupil["ID"]][validRelationship]
-				if contactEmail not in otherContacts:
+				if not contactEmail == mainContact and contactEmail not in otherContacts:
 					otherContacts = otherContacts + contactEmail + " "
 	pupilsDataFrame.at[pupilIndex, "MainContact"] = mainContact
 	pupilsDataFrame.at[pupilIndex, "OtherContacts"] = otherContacts.strip()
