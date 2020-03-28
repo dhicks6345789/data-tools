@@ -41,5 +41,6 @@ for group in groups:
 	groupMembers = []
 	for pupilIndex, pupil in pupils.iterrows():
 		if group in pupil["Form"]:
-			groupMembers.append(pupil["MainContact"])
+			if not str(pupil["MainContact"]) == "nan":
+				groupMembers.append(pupil["MainContact"])
 	installLib.writeFile(config["dataFolder"] + os.sep + "Parents" + os.sep + group + ".csv", groupMembers)
