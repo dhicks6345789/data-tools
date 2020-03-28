@@ -16,14 +16,20 @@ for requiredConfigParameter in requiredConfigParameters:
 		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
 		sys.exit(1)
 
+def readFile(theFilename):
+	inHandle = open(theFilename)
+	inData = inHandle.read()
+	inHandle.close()
+	return inHandle
+
 # Input data headings:
 # Pupils: GUID,UserCode,GivenName,FamilyName,DateOfBirth,Gender,Username,OldUsername,YearGroup,Form,Tutor
 
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
-yeargroups = installLib.readFile(config["dataFolder"] + os.sep + "yeargroups.csv").encode().split("\n")
-forms = installLib.readFile(config["dataFolder"] + os.sep + "forms.csv").encode().split("\n")
+yeargroups = readFile(config["dataFolder"] + os.sep + "yeargroups.csv").split("\n")
+forms = readFile(config["dataFolder"] + os.sep + "forms.csv").split("\n")
 for group in yeargroups + forms:
 	print(group)
 	
