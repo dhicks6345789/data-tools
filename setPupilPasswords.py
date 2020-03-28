@@ -56,6 +56,6 @@ for pupilIndex, pupil in pupils.iterrows():
 		if pupil["ID"] == passwordEntry["ID"]:
 			pupilFound = True
 	if not pupilFound:
-		defaultPasswords = defaultPasswords.append([pupil["ID"],generatePassword()])
+		defaultPasswords = defaultPasswords.append({"ID":pupil["ID"],"DefaultPassword":generatePassword()} , ignore_index=True)
 
 print(defaultPasswords)
