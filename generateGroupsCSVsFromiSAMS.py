@@ -27,6 +27,7 @@ groupDetails = {
 yeargroups = []
 for group in groupDetails.keys():
 	yeargroups.append(groupDetails[group]["group"])
+installLib.writeFile(config["dataFolder"] + os.sep + "yeargroups.csv", sorted(yeargroups.keys()))
 
 # Load the configuration file.
 config = json.loads(installLib.readFile("config/config.json"))
