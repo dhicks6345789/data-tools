@@ -8,6 +8,11 @@ import xml.etree.ElementTree
 
 requiredConfigParameters = ["dataFolder"]
 
+# Define a list of relationships a pupil can have with a contact, ordered by importance for use as a primary contact.
+validRalationships = ["guardian", "parent", "mother", "father", "stepmother", "stepfather", "security", "nanny", "au pair", "babysitter", "tutor", "childminder", "aunt", "uncle", "pa", "grandmother", "grandfather", "godmother", "godfather", "sister", "brother", "cousin", "other family member", "friend", "contact", "company", "personal"]
+# A map to regularise some of the data coming out of the "relationship" field.
+relationshipsMap = {"mother_copy":"mother", "father_copy":"father", "family friend":"friend", "pa (harry)":"pa", "pa to parent":"pa", "step mother":"step mother", "step-mother":"step mother", "step father":"step father", "step-father":"step father", "other contact":"contact", "parents_copy":"parent", "parents":"parent"}
+
 def normaliseName(theName):
 	return theName.strip().replace("\\","").replace("(","").replace(")","")
 
@@ -82,14 +87,15 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["MainContact"].append("")
 	pupils["OtherContacts"].append("")
 	
-print("Adding pupil contact information to pupils.csv...")
+print("Adding pupil contact information to pupils.csv...")				
+
+# Set up an empty dict-of-dicts for pupil relationships.
 pupilRelationships = {}
+pupilsDataFrame = pandas.DataFrame(pupils)
 for pupilIndex, pupil in pupilsDataFrame.iterrows():
 	pupilRelationships[pupil["ID"]] = {}
-				
-validRalationships = ["guardian", "parent", "mother", "father", "stepmother", "stepfather", "security", "nanny", "au pair", "babysitter", "tutor", "childminder", "aunt", "uncle", "pa", "grandmother", "grandfather", "godmother", "godfather", "sister", "brother", "cousin", "other family member", "friend", "contact", "company", "personal"]
-relationshipsMap = {"mother_copy":"mother", "father_copy":"father", "family friend":"friend", "pa (harry)":"pa", "pa to parent":"pa", "step mother":"step mother", "step-mother":"step mother", "step father":"step father", "step-father":"step father", "other contact":"contact", "parents_copy":"parent", "parents":"parent"}
-pupilsDataFrame = pandas.DataFrame(pupils)
+
+# Extract each pupil contact and their relationship with the pupil.
 for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 	contactEmailAddress = contact.find("EmailAddress")
 	if not contactEmailAddress == None and not contactEmailAddress.text == None and contact.attrib["IsFirstPersonContact"] == "True":
@@ -98,9 +104,11 @@ for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 			for pupilIndex, pupil in pupilsDataFrame.iterrows():
 				if pupil["ID"] == pupilID:
 					pupilRelationships[pupilID][contact.find("RelationshipRaw").text.strip().lower()] = contactEmailAddress.text.strip()
-installLib.writeFile(config["dataFolder"] + os.sep + "pupils.csv", pupilsDataFrame.to_csv(index=False))
 
 print(pupilRelationships)
+
+# Write out pupils.csv.
+installLib.writeFile(config["dataFolder"] + os.sep + "pupils.csv", pupilsDataFrame.to_csv(index=False))
 
 #contactsRecord = pupilsDataFrame.at[pupilIndex, "Contacts"]
 #	if contactsRecord == "":
