@@ -38,6 +38,7 @@ for form in readFile(config["dataFolder"] + os.sep + "forms.csv").split("\n"):
 		
 # Read the existing (GSuite) groups data.
 groups = pandas.read_csv(config["dataFolder"] + os.sep + "groups.csv", header=0)
+print(groups["email"])
 
 os.makedirs(config["dataFolder"] + os.sep + "Parents", exist_ok=True)
 for classGroup in classGroups:
@@ -49,5 +50,5 @@ for classGroup in classGroups:
 	installLib.writeFile(config["dataFolder"] + os.sep + "Parents" + os.sep + classGroup + ".csv", groupMembers)
 	groupEmail = classGroup.lower() + "parents@knightsbridgeschool.com"
 	if not groupEmail in groups["email"]:
-		os.system("gam create group " + groupEmail + " name \"" + classGroup + " Parents\" description \"Parents of " + classGroup + "\" 2>&1")
-	os.system("gam update group " + groupEmail + " sync member file \"" + config["dataFolder"] + os.sep + "Parents" + os.sep + classGroup + ".csv\" 2>&1")
+		print("gam create group " + groupEmail + " name \"" + classGroup + " Parents\" description \"Parents of " + classGroup + "\" 2>&1")
+	print("gam update group " + groupEmail + " sync member file \"" + config["dataFolder"] + os.sep + "Parents" + os.sep + classGroup + ".csv\" 2>&1")
