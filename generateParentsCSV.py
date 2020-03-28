@@ -36,6 +36,7 @@ for form in readFile(config["dataFolder"] + os.sep + "forms.csv").split("\n"):
 	if not form == "" and not form in groups:
 		groups.append(form)
 
+os.makedirs(config["dataFolder"] + os.sep + "Parents", exist_ok=True)
 for group in groups:
 	groupMembers = []
 	for pupilIndex, pupil in pupils.iterrows():
