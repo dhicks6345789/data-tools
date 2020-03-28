@@ -34,7 +34,7 @@ for requiredConfigParameter in requiredConfigParameters:
 yeargroups = []
 for group in groupDetails.keys():
 	yeargroups.append(groupDetails[group]["group"])
-installLib.writeFile(config["dataFolder"] + os.sep + "yeargroups.csv", sorted(yeargroups.keys()))
+installLib.writeFile(config["dataFolder"] + os.sep + "yeargroups.csv", sorted(yeargroups))
 
 # Input data headings:
 # Pupils: GUID,UserCode,GivenName,FamilyName,DateOfBirth,Gender,Username,OldUsername,YearGroup,Form,Tutor
