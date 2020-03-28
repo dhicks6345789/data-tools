@@ -34,8 +34,7 @@ for yeargroup in readFile(config["dataFolder"] + os.sep + "yeargroups.csv").spli
 for form in readFile(config["dataFolder"] + os.sep + "forms.csv").split("\n"):
 	if not form == "" and not form in classGroups:
 		classGroups.append(form)
-
-os.makedirs(config["dataFolder"] + os.sep + "DefaultPupilPasswords", exist_ok=True)
+		
 for pupilIndex, pupil in pupils.iterrows():
 	print(pupil["OldUsername"])
 
