@@ -5,6 +5,7 @@ import sys
 import csv
 import json
 import pandas
+import random
 import installLib
 
 requiredConfigParameters = ["dataFolder"]
