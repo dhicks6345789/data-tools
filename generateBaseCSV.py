@@ -10,8 +10,14 @@ requiredConfigParameters = ["dataFolder"]
 
 # Define a list of relationships a pupil can have with a contact, ordered by importance for use as a primary contact.
 validRalationships = ["guardian", "parent", "mother", "father", "stepmother", "stepfather", "security", "nanny", "au pair", "babysitter", "tutor", "childminder", "aunt", "uncle", "pa", "grandmother", "grandfather", "godmother", "godfather", "sister", "brother", "cousin", "other family member", "friend", "contact", "company", "personal"]
-# A map to regularise some of the data coming out of the "relationship" field.
+
+# A map and function to regularise some of the data coming out of the "relationship" field.
 relationshipsMap = {"mother_copy":"mother", "father_copy":"father", "family friend":"friend", "pa (harry)":"pa", "pa to parent":"pa", "step mother":"step mother", "step-mother":"step mother", "step father":"step father", "step-father":"step father", "other contact":"contact", "parents_copy":"parent", "parents":"parent"}
+def normaliseRelationship(theRelationship):
+	result = theRelationship
+	for item in relationshipsMap.keys():
+		result = result.replace(item, relationshipsMap[item])
+	return result
 
 def normaliseName(theName):
 	return theName.strip().replace("\\","").replace("(","").replace(")","")
@@ -105,16 +111,20 @@ for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 				if pupil["ID"] == pupilID:
 					pupilRelationships[pupilID][contact.find("RelationshipRaw").text.strip().lower()] = contactEmailAddress.text.strip()
 
-print(pupilRelationships)
+# print(pupilRelationships)
+for pupilIndex, pupil in pupilsDataFrame.iterrows():
+	mainContact = ""
+	otherContacts = ""
+	for validRelationship in validRelationships:
+		if validRelationship in pupilRelationships[pupil["ID"]].keys():
+			if mainContact == "":
+				mainContact = pupilRelationships[pupil["ID"]][validRelationship]
+			else:
+				otherContacts = otherContacts + pupilRelationships[pupil["ID"]][validRelationship] + " "
+	pupilsDataFrame.at[pupilIndex, "MainContact"] = mainContact
+	pupilsDataFrame.at[pupilIndex, "OtherContacts"] = otherContacts
 
 # Write out pupils.csv.
 installLib.writeFile(config["dataFolder"] + os.sep + "pupils.csv", pupilsDataFrame.to_csv(index=False))
-
-#contactsRecord = pupilsDataFrame.at[pupilIndex, "Contacts"]
-#	if contactsRecord == "":
-#		contactsRecord = contactEmailAddress.text.strip()
-#	elif not contactEmailAddress.text.strip() in contactsRecord:
-#		contactsRecord = contactsRecord + " " + contactEmailAddress.text.strip()
-#pupilsDataFrame.at[pupilIndex, "Contacts"] = contactsRecord
 
 installLib.writeFile(config["dataFolder"] + os.sep + "forms.csv", sorted(forms.keys()))
