@@ -28,19 +28,26 @@ def readFile(theFilename):
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
-groups = []
+classGroups = []
 for yeargroup in readFile(config["dataFolder"] + os.sep + "yeargroups.csv").split("\n"):
-	if not yeargroup == "" and not yeargroup in groups:
-		groups.append(yeargroup)
+	if not yeargroup == "" and not yeargroup in classGroups:
+		classGroups.append(yeargroup)
 for form in readFile(config["dataFolder"] + os.sep + "forms.csv").split("\n"):
-	if not form == "" and not form in groups:
-		groups.append(form)
+	if not form == "" and not form in classGroups:
+		classGroups.append(form)
+		
+# Read the existing (GSuite) groups data.
+groups = pandas.read_csv(config["dataFolder"] + os.sep + "groups.csv", header=0)
 
 os.makedirs(config["dataFolder"] + os.sep + "Parents", exist_ok=True)
-for group in groups:
+for classGroup in classGroups:
 	groupMembers = []
 	for pupilIndex, pupil in pupils.iterrows():
-		if group in pupil["Form"]:
+		if classGroup in pupil["Form"]:
 			if not str(pupil["MainContact"]) == "nan":
 				groupMembers.append(pupil["MainContact"])
-	installLib.writeFile(config["dataFolder"] + os.sep + "Parents" + os.sep + group + ".csv", groupMembers)
+	installLib.writeFile(config["dataFolder"] + os.sep + "Parents" + os.sep + classGroup + ".csv", groupMembers)
+	groupEmail = classGroup.lower() + "parents@knightsbridgeschool.com"
+	if not groupEmail in groups["email"]:
+		print("gam create group " + groupEmail + " name \"" + classGroup + " Parents\" description \"Parents of " + classGroup + "\"")
+	
