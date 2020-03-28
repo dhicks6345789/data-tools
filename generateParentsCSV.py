@@ -20,7 +20,7 @@ def readFile(theFilename):
 	inHandle = open(theFilename)
 	inData = inHandle.read()
 	inHandle.close()
-	return inHandle
+	return inData
 
 # Input data headings:
 # Pupils: GUID,UserCode,GivenName,FamilyName,DateOfBirth,Gender,Username,OldUsername,YearGroup,Form,Tutor
