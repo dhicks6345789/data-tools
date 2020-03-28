@@ -34,15 +34,20 @@ for yeargroup in readFile(config["dataFolder"] + os.sep + "yeargroups.csv").spli
 for form in readFile(config["dataFolder"] + os.sep + "forms.csv").split("\n"):
 	if not form == "" and not form in classGroups:
 		classGroups.append(form)
-
-#for pupilIndex, pupil in pupils.iterrows():
-#	print(pupil["OldUsername"])
-
+		
 os.makedirs(config["dataFolder"] + os.sep + "DefaultPupilPasswords", exist_ok=True)
 if not os.path.exists(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv"):
 	installLib.writeFile(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", "ID,DefaultPassword")
 
 # Read the existing pupil default passwords.
 defaultPasswords = pandas.read_csv(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", header=0)
+
+for pupilIndex, pupil in pupils.iterrows():
+	pupilFound = False
+	for passwordIndex, passwordEntry in defaultPasswords.iterrows():
+		if pupil["ID"] == passwordEntry["ID"]:
+			pupilFound = True
+	if not pupilFound:
+		print(pupil["OldUsername"])
 
 print(defaultPasswords)
