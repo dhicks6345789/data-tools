@@ -23,18 +23,18 @@ groupDetails = {
 	"S8 Pupils":{"email":"s8pupils@knightsbridgeschool.com","group":"S8"}
 }
 
-# Get a list of yeargroups.
-yeargroups = []
-for group in groupDetails.keys():
-	yeargroups.append(groupDetails[group]["group"])
-installLib.writeFile(config["dataFolder"] + os.sep + "yeargroups.csv", sorted(yeargroups.keys()))
-
 # Load the configuration file.
 config = json.loads(installLib.readFile("config/config.json"))
 for requiredConfigParameter in requiredConfigParameters:
 	if not requiredConfigParameter in config.keys():
 		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
 		sys.exit(1)
+
+# Get a list of yeargroups.
+yeargroups = []
+for group in groupDetails.keys():
+	yeargroups.append(groupDetails[group]["group"])
+installLib.writeFile(config["dataFolder"] + os.sep + "yeargroups.csv", sorted(yeargroups.keys()))
 
 # Input data headings:
 # Pupils: GUID,UserCode,GivenName,FamilyName,DateOfBirth,Gender,Username,OldUsername,YearGroup,Form,Tutor
