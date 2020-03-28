@@ -56,6 +56,7 @@ for pupilIndex, pupil in pupils.iterrows():
 		if pupil["ID"] == passwordEntry["ID"]:
 			pupilFound = True
 	if not pupilFound:
+		print(pupil["OldUsername"])
 		defaultPasswords.append([pupil["ID"],generatePassword()])
 
 print(defaultPasswords)
