@@ -22,8 +22,8 @@ for requiredConfigParameter in requiredConfigParameters:
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
-yeargroups = str(installLib.readFile(config["dataFolder"] + os.sep + "yeargroups.csv")).split("\n")
-forms = str(installLib.readFile(config["dataFolder"] + os.sep + "forms.csv")).split("\n")
+yeargroups = installLib.readFile(config["dataFolder"] + os.sep + "yeargroups.csv").encode().split("\n")
+forms = installLib.readFile(config["dataFolder"] + os.sep + "forms.csv").encode().split("\n")
 for group in yeargroups + forms:
 	print(group)
 	
