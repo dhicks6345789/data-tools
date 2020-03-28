@@ -37,7 +37,8 @@ for form in readFile(config["dataFolder"] + os.sep + "forms.csv").split("\n"):
 		groups.append(form)
 
 for group in groups:
-	print(group)
-	
-#for pupilIndex, pupil in pupils.iterrows():
-#	print(pupil["Username"])
+	groupMembers = []
+	for pupilIndex, pupil in pupils.iterrows():
+		if group in pupil["Form"]:
+			groupMembers.append(pupil["MainContact"])
+	installLib.writeFile(config["dataFolder"] + os.sep + "Parents" + os.sep + group + ".csv", groupMembers)
