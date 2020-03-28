@@ -50,4 +50,4 @@ for classGroup in classGroups:
 	groupEmail = classGroup.lower() + "parents@knightsbridgeschool.com"
 	if not groupEmail in groups["email"]:
 		print("gam create group " + groupEmail + " name \"" + classGroup + " Parents\" description \"Parents of " + classGroup + "\" 2>&1")
-	print("gam update group " + groupEmail + " sync member file \"" + config["dataFolder"] + os.sep + "Parents" + os.sep + classGroup + ".csv"\" 2>&1")
+	print("gam update group " + groupEmail + " sync member file \"" + config["dataFolder"] + os.sep + "Parents" + os.sep + classGroup + ".csv\" 2>&1")
