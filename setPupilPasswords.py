@@ -40,9 +40,10 @@ def setPassword(theUser, thePassword):
 	for pupilIndex, pupilEntry in pupils.iterrows():
 		if pupilEntry["OldUsername"] == theUser:
 			print("gam change password -user " + theUser + " -password " + thePassword)
-			#pupilEntry["MainContact"]
-			#os.system("gam sendemail " + "d.hicks@knightsbridgeschool.com" + " from itsupport@knightsbridgeschool.com replyto itsupport@knightsbridgeschool.com subject \"Knightsbridge School - Pupil Account Password Reset\" file fullEmailTemplate.html replace PupilName \"" + pupilEntry["GivenName"] + " " + pupilEntry["FamilyName"] + "\" html 2>&1")
-			os.system("gam sendemail " + "d.hicks@knightsbridgeschool.com" + " subject \"Knightsbridge School - Pupil Account Password Reset\" file fullEmailTemplate.html replace childName \"" + pupilEntry["GivenName"] + " " + pupilEntry["FamilyName"] + "\" replace childUsername " + pupilEntry["OldUsername"] + " replace childPassword " + thePassword + " replace name \"David Hicks\" replace title \"IT Helpdesk\" replace email ithelpdesk@knightsbridgeschool.com replace telephone \"020 7590 9004\" html 2>&1")
+			emailAddress = pupilEntry["MainContact"]
+			emailAddress = "f.hall@knightsbridgeschool.com"
+			# from itsupport@knightsbridgeschool.com replyto itsupport@knightsbridgeschool.com
+			os.system("gam sendemail " + emailAddress + " subject \"Knightsbridge School - Pupil Account Password Reset\" file fullEmailTemplate.html replace childName \"" + pupilEntry["GivenName"] + " " + pupilEntry["FamilyName"] + "\" replace childUsername " + pupilEntry["OldUsername"] + " replace childPassword " + thePassword + " replace name \"David Hicks\" replace title \"IT Helpdesk\" replace email ithelpdesk@knightsbridgeschool.com replace telephone \"020 7590 9004\" html 2>&1")
 
 # Read the Forms and Yeargroups into one list.
 classGroups = []
