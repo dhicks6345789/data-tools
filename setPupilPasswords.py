@@ -36,7 +36,7 @@ pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
 def setPassword(theUser, thePassword):
 	for pupilIndex, pupilEntry in pupils.iterrows():
-		if pupilEntry["Username"] == theUser:
+		if pupilEntry["OldUsername"] == theUser:
 			print("gam change password -user " + theUser + " -password " + thePassword)
 			print("gam sendmail " + theGuardian + " from itsupport@knightsbridgeschool.com replyto itsupport@knightsbridgeschool.com subject \"Knightsbridge School - Pupil Account Password Reset\" file config" + os.sep + "passwordReset" + os.sep + "emailTemplate.html replace PupilName Bananas html")
 
