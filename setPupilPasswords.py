@@ -62,8 +62,8 @@ for pupilIndex, pupil in pupils.iterrows():
 	if not pupilFound:
 		defaultPasswords = defaultPasswords.append({"ID":pupil["ID"],"DefaultPassword":generatePassword()} , ignore_index=True)
 
-if len(sys.argv) >= 2:
-	print(len(sys.argv))
-	print(sys.argv[1])
+if len(sys.argv) >= 3:
+	if len(sys.argv) == 3 and sys.argv[1] == "-user":
+		print("gam change password -user " + sys.argv[2])
 		
 installLib.writeFile(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", defaultPasswords.to_csv(index=False))
