@@ -28,7 +28,7 @@ if len(sys.argv) >= 3:
 		username = sys.argv[2]
 		for pupilIndex, pupilEntry in pupils.iterrows():
 			if pupilEntry["OldUsername"] == username:
-				inviteGaurdian(username, pupilEntry["MainContact"])
+				inviteGuardian(username, pupilEntry["MainContact"])
 	elif len(sys.argv) == 3 and sys.argv[1] == "-group":
 		groupname = sys.argv[2]
 		for passwordIndex, passwordEntry in defaultPasswords.iterrows():
