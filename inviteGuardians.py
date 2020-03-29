@@ -31,6 +31,6 @@ if len(sys.argv) >= 3:
 				inviteGuardian(username, pupilEntry["MainContact"])
 	elif len(sys.argv) == 3 and sys.argv[1] == "-group":
 		groupname = sys.argv[2]
-		for pupilIndex, pupilEntry in pupil.iterrows():
+		for pupilIndex, pupilEntry in pupils.iterrows():
 			if groupname in pupilEntry["Form"]:
 				inviteGuardian(pupilEntry["OldUsername"], pupilEntry["MainContact"])
