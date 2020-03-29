@@ -31,11 +31,14 @@ def readFile(theFilename):
 	inHandle.close()
 	return inData
 
-def setPassword(theUser, thePassword):
-	print("gam change password -user " + theUser + " -password " + thePassword)
-
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
+
+def setPassword(theUser, thePassword):
+	for pupilIndex, pupilEntry in pupils.iterrows():
+		if pupilEntry["Username"] == theUser:
+			print("gam change password -user " + theUser + " -password " + thePassword)
+			print("gam sendmail " + theGuardian + " from itsupport@knightsbridgeschool.com replyto itsupport@knightsbridgeschool.com subject \"Knightsbridge School - Pupil Account Password Reset\" file config" + os.sep + "passwordReset" + os.sep + "emailTemplate.html replace PupilName Bananas html")
 
 # Read the Forms and Yeargroups into one list.
 classGroups = []
@@ -62,6 +65,7 @@ for pupilIndex, pupil in pupils.iterrows():
 			defaultPasswords.at[passwordIndex, "Username"] = pupil["Username"]
 			defaultPasswords.at[passwordIndex, "OldUsername"] = pupil["OldUsername"]
 			defaultPasswords.at[passwordIndex, "Form"] = pupil["Form"]
+
 	if not pupilFound:
 		defaultPasswords = defaultPasswords.append({"ID":pupil["ID"],"DefaultPassword":generatePassword()} , ignore_index=True)
 
@@ -70,7 +74,7 @@ if len(sys.argv) >= 3:
 		username = sys.argv[2]
 		for passwordIndex, passwordEntry in defaultPasswords.iterrows():
 			if passwordEntry["OldUsername"] == username:
-				setPassword(sys.argv[2], passwordEntry["DefaultPassword"])
+				setPassword(username, passwordEntry["DefaultPassword"])
 	elif len(sys.argv) == 3 and sys.argv[1] == "-group":
 		groupname = sys.argv[2]
 		for passwordIndex, passwordEntry in defaultPasswords.iterrows():
