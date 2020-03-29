@@ -31,6 +31,9 @@ def readFile(theFilename):
 	inHandle.close()
 	return inData
 
+def setPassword(theUser, thePassword):
+	print("gam change password -user " + theUser + " -password " + thePassword)
+
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
@@ -67,6 +70,11 @@ if len(sys.argv) >= 3:
 		username = sys.argv[2]
 		for passwordIndex, passwordEntry in defaultPasswords.iterrows():
 			if passwordEntry["OldUsername"] == username:
-				print("gam change password -user " + sys.argv[2] + " -password " + passwordEntry["DefaultPassword"])
+				setPassword(sys.argv[2], passwordEntry["DefaultPassword"])
+	elif len(sys.argv) == 3 and sys.argv[1] == "-group":
+		groupname = sys.argv[2]
+		for passwordIndex, passwordEntry in defaultPasswords.iterrows():
+			if groupname in passwordEntry["Form"]:
+				setPassword(sys.argv[2], passwordEntry["DefaultPassword"])		
 		
 installLib.writeFile(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", defaultPasswords.to_csv(index=False))
