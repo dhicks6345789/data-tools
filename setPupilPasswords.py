@@ -31,7 +31,7 @@ def readFile(theFilename):
 	inHandle.close()
 	return inData
 
-installLib.writeFile("fullEmailTemplate.html", readFile("config" + os.sep + "passwordReset" + os.sep + "emailTemplate.html") + "\n" + readFile("config" + os.sep + "emailSignature" + os.sep + "emailSignature.html"))
+installLib.writeFile("fullEmailTemplate.html", readFile("config" + os.sep + "passwordReset" + os.sep + "emailTemplate.html") + "<br/>\n--<br/>\n<br/>\n" + readFile("config" + os.sep + "emailSignature" + os.sep + "emailSignature.html"))
 
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
