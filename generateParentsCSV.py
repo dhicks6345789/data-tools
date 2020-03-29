@@ -42,15 +42,24 @@ groups = pandas.read_csv(config["dataFolder"] + os.sep + "groups.csv", header=0)
 for groupIndex, group in groups.iterrows():
 	groupEmails.append(groups.at[groupIndex, "email"])
 
-os.makedirs(config["dataFolder"] + os.sep + "Parents", exist_ok=True)
+os.makedirs(config["dataFolder"] + os.sep + "Parents" + os.sep + "ByClassOrYearGroup", exist_ok=True)
 for classGroup in classGroups:
 	groupMembers = []
 	for pupilIndex, pupil in pupils.iterrows():
 		if classGroup in pupil["Form"]:
 			if not str(pupil["MainContact"]) == "nan":
 				groupMembers.append(pupil["MainContact"])
-	installLib.writeFile(config["dataFolder"] + os.sep + "Parents" + os.sep + classGroup + ".csv", groupMembers)
+	installLib.writeFile(config["dataFolder"] + os.sep + "Parents" + os.sep + "ByClassOrYearGroup" + os.sep + classGroup + ".csv", groupMembers)
 	groupEmail = classGroup.lower() + "parents@knightsbridgeschool.com"
 	if not groupEmail in groupEmails:
 		os.system("gam create group " + groupEmail + " name \"" + classGroup + " Parents\" description \"Parents of " + classGroup + "\" 2>&1")
-	os.system("gam update group " + groupEmail + " sync member file \"" + config["dataFolder"] + os.sep + "Parents" + os.sep + classGroup + ".csv\" 2>&1")
+	os.system("gam update group " + groupEmail + " sync member file \"" + config["dataFolder"] + os.sep + "Parents" + os.sep + "ByClassOrYearGroup" + os.sep + classGroup + ".csv\" 2>&1")
+
+os.makedirs(config["dataFolder"] + os.sep + "Parents" + os.sep + "Guardians", exist_ok=True)
+for classGroup in classGroups:
+	CSVString = "ID,Name,Username,OldUsername,Guardian\n"
+	for pupilIndex, pupil in pupils.iterrows():
+		if classGroup in pupil["Form"]:
+			if not str(pupil["MainContact"]) == "nan":
+				CSVString = CSVString + pupil["ID"] + "," + pupil["Name"] + "," + pupil["Username"] + "," + pupil["OldUsername"] + "," + pupil["MainContact"]
+	installLib.writeFile(config["dataFolder"] + os.sep + "Parents" + os.sep + "Guardians" + os.sep + classGroup + ".csv", CSVString)
