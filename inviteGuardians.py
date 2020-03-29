@@ -34,5 +34,3 @@ if len(sys.argv) >= 3:
 		for passwordIndex, passwordEntry in defaultPasswords.iterrows():
 			if groupname in passwordEntry["Form"]:
 				inviteGuardian(pupilEntry["OldUsername"], pupilEntry["MainContact"])
-		
-installLib.writeFile(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", defaultPasswords.to_csv(index=False))
