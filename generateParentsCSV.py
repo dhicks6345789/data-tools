@@ -61,5 +61,5 @@ for classGroup in classGroups:
 	for pupilIndex, pupil in pupils.iterrows():
 		if classGroup in pupil["Form"]:
 			if not str(pupil["MainContact"]) == "nan":
-				CSVString = CSVString + str(pupil["ID"]) + "," + pupil["GivenName"] + " " + pupil["FamilyName"] + "," + pupil["Username"] + "," + pupil["OldUsername"] + "," + pupil["MainContact"]
+				CSVString = CSVString + str(pupil["ID"]) + "," + pupil["GivenName"] + " " + pupil["FamilyName"] + "," + pupil["Username"] + "," + pupil["OldUsername"] + "," + pupil["MainContact"] + "\n"
 	installLib.writeFile(config["dataFolder"] + os.sep + "Parents" + os.sep + "Guardians" + os.sep + classGroup + ".csv", CSVString)
