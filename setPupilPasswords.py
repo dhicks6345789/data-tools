@@ -31,6 +31,8 @@ def readFile(theFilename):
 	inHandle.close()
 	return inData
 
+installLib.writeFile("fullEmailTemplate.html", readFile("config" + os.sep + "passwordReset" + os.sep + "emailTemplate.html") + "\n" + readFile("config" + os.sep + "emailSignature" + os.sep + "emailSignature.html"))
+
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
@@ -38,7 +40,7 @@ def setPassword(theUser, thePassword):
 	for pupilIndex, pupilEntry in pupils.iterrows():
 		if pupilEntry["OldUsername"] == theUser:
 			print("gam change password -user " + theUser + " -password " + thePassword)
-			print("gam sendmail " + pupilEntry["MainContact"] + " from itsupport@knightsbridgeschool.com replyto itsupport@knightsbridgeschool.com subject \"Knightsbridge School - Pupil Account Password Reset\" file config" + os.sep + "passwordReset" + os.sep + "emailTemplate.html replace PupilName Bananas html")
+			print("gam sendmail " + pupilEntry["MainContact"] + " from itsupport@knightsbridgeschool.com replyto itsupport@knightsbridgeschool.com subject \"Knightsbridge School - Pupil Account Password Reset\" file fullEmailTemplate.html replace PupilName \"" + pupilEntry["GivenName"] + " " + pupilEntry["FamilyName"] + "\" html")
 
 # Read the Forms and Yeargroups into one list.
 classGroups = []
@@ -82,3 +84,4 @@ if len(sys.argv) >= 3:
 				setPassword(passwordEntry["OldUsername"], passwordEntry["DefaultPassword"])		
 		
 installLib.writeFile(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", defaultPasswords.to_csv(index=False))
+os.remove("fullEmailTemplate.html")
