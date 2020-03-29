@@ -41,7 +41,7 @@ def setPassword(theUser, thePassword):
 		if pupilEntry["OldUsername"] == theUser:
 			print("gam change password -user " + theUser + " -password " + thePassword)
 			emailAddress = pupilEntry["MainContact"]
-			emailAddress = "f.hall@knightsbridgeschool.com"
+			emailAddress = "c.edkins@knightsbridgeschool.com"
 			# from itsupport@knightsbridgeschool.com replyto itsupport@knightsbridgeschool.com
 			os.system("gam sendemail " + emailAddress + " subject \"Knightsbridge School - Pupil Account Password Reset\" file fullEmailTemplate.html replace childName \"" + pupilEntry["GivenName"] + " " + pupilEntry["FamilyName"] + "\" replace childUsername " + pupilEntry["OldUsername"] + " replace childPassword " + thePassword + " replace name \"David Hicks\" replace title \"IT Helpdesk\" replace email ithelpdesk@knightsbridgeschool.com replace telephone \"020 7590 9004\" html 2>&1")
 
