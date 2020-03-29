@@ -65,8 +65,8 @@ for pupilIndex, pupil in pupils.iterrows():
 if len(sys.argv) >= 3:
 	if len(sys.argv) == 3 and sys.argv[1] == "-user":
 		username = sys.argv[2]
-		for pupilIndex, pupil in pupils.iterrows():
-			if pupil["OldUsername"] == username:
-				print("gam change password -user " + sys.argv[2] + " -password " + pupil["DefaultPassword"])
+		for passwordIndex, passwordEntry in defaultPasswords.iterrows():
+			if passwordEntry["OldUsername"] == username:
+				print("gam change password -user " + sys.argv[2] + " -password " + passwordEntry["DefaultPassword"])
 		
 installLib.writeFile(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", defaultPasswords.to_csv(index=False))
