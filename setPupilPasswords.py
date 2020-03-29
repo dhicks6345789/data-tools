@@ -75,6 +75,6 @@ if len(sys.argv) >= 3:
 		groupname = sys.argv[2]
 		for passwordIndex, passwordEntry in defaultPasswords.iterrows():
 			if groupname in passwordEntry["Form"]:
-				setPassword(sys.argv[2], passwordEntry["DefaultPassword"])		
+				setPassword(passwordEntry["OldUsername"], passwordEntry["DefaultPassword"])		
 		
 installLib.writeFile(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", defaultPasswords.to_csv(index=False))
