@@ -26,7 +26,7 @@ pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 if len(sys.argv) >= 3:
 	if len(sys.argv) == 3 and sys.argv[1] == "-user":
 		username = sys.argv[2]
-		for pupilIndex, pupilEntry in defaultPasswords.iterrows():
+		for pupilIndex, pupilEntry in pupils.iterrows():
 			if pupilEntry["OldUsername"] == username:
 				inviteGaurdian(username, pupilEntry["MainContact"])
 	elif len(sys.argv) == 3 and sys.argv[1] == "-group":
