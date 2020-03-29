@@ -41,7 +41,8 @@ def setPassword(theUser, thePassword):
 		if pupilEntry["OldUsername"] == theUser:
 			print("gam change password -user " + theUser + " -password " + thePassword)
 			#pupilEntry["MainContact"]
-			os.system("gam sendemail " + "d.hicks@knightsbridgeschool.com" + " from itsupport@knightsbridgeschool.com replyto itsupport@knightsbridgeschool.com subject \"Knightsbridge School - Pupil Account Password Reset\" file fullEmailTemplate.html replace PupilName \"" + pupilEntry["GivenName"] + " " + pupilEntry["FamilyName"] + "\" html 2>&1")
+			#os.system("gam sendemail " + "d.hicks@knightsbridgeschool.com" + " from itsupport@knightsbridgeschool.com replyto itsupport@knightsbridgeschool.com subject \"Knightsbridge School - Pupil Account Password Reset\" file fullEmailTemplate.html replace PupilName \"" + pupilEntry["GivenName"] + " " + pupilEntry["FamilyName"] + "\" html 2>&1")
+			os.system("gam sendemail " + "d.hicks@knightsbridgeschool.com" + " subject \"Knightsbridge School - Pupil Account Password Reset\" file fullEmailTemplate.html replace PupilName \"" + pupilEntry["GivenName"] + " " + pupilEntry["FamilyName"] + "\" html 2>&1")
 
 # Read the Forms and Yeargroups into one list.
 classGroups = []
