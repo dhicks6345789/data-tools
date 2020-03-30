@@ -18,7 +18,7 @@ for requiredConfigParameter in requiredConfigParameters:
 		sys.exit(1)
 
 def inviteGuardian(theUsername, theGuardian):
-	os.system("gam create guardianinvite " + theGuardian + " " + theUsername + "@knightsbridgeschool.com")
+	os.system("gam create guardianinvite " + str(theGuardian) + " " + theUsername + "@knightsbridgeschool.com")
 		
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
