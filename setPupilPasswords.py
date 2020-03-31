@@ -113,7 +113,7 @@ topBorder = 10
 lineImage = PIL.Image.new("RGB", (pageWidth-(leftBorder*2), lineHeight), (200, 200, 200))
 
 
-for group in readFile(config["dataFolder"] + os.sep + "yeargroups.csv").split("\n") + readFile(config["dataFolder"] + os.sep + "forms.csv").split("\n"):
+for group in ["J1"]:#readFile(config["dataFolder"] + os.sep + "yeargroups.csv").split("\n") + readFile(config["dataFolder"] + os.sep + "forms.csv").split("\n"):
 	if not group == "":
 		# Create the blank PDF document to start drawing page elements on.
 		pdfCanvas = reportlab.pdfgen.canvas.Canvas(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + group + ".pdf")
@@ -127,8 +127,10 @@ for group in readFile(config["dataFolder"] + os.sep + "yeargroups.csv").split("\
 		for pupilIndex, pupil in pupils.iterrows():
 			for passwordIndex, passwordEntry in defaultPasswords.iterrows():
 				if pupil["ID"] == passwordEntry["ID"]:
-					if group in pupil["Form"] and group == "J1":
+					if group in pupil["Form"]:
 						passwordEntry["FullName"] = pupil["GivenName"] + " " + pupil["FamilyName"]
+						if pupilCount % 36 == 0:
+							pdfCanvas.showPage()
 						if pupilCount % 2 == 0:
 							pdfCanvas.drawInlineImage(lineImage, leftBorder*reportlab.lib.units.mm, ((pageHeight-(lineHeight*pupilCount))-(topBorder+lineHeight/4))*reportlab.lib.units.mm, (pageWidth-(leftBorder*2))*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
 						for (columnName, xPos) in [["FullName", 0],["OldUsername", 110],["DefaultPassword", 150]]:
