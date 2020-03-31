@@ -81,4 +81,7 @@ if os.name == "nt":
 	# Make sure Numpy (Python maths library) is installed.
 	installLib.runIfPathMissing("C:\\Program Files\\"+installLib.pythonVersion+"\\Lib\\site-packages\\numpy", "py -m pip install numpy")
 	
+	# Make sure ReportLab (Python PDF creation library) is installed.
+	installLib.runIfPathMissing("C:\\Program Files\\"+installLib.pythonVersion+"\\Lib\\site-packages\\reportlab", "py -m pip install reportlab")
+	
 # Code goes here - check for GAM, install it and set it up if needed.
