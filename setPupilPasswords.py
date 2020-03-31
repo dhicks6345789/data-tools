@@ -129,7 +129,7 @@ for group in readFile(config["dataFolder"] + os.sep + "yeargroups.csv").split("\
 				if pupilIndex % 2 == 0:
 					pdfCanvas.drawInlineImage(lineImage, leftBorder*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(userIndex+2)))-(topBorder+lineHeight/4))*reportlab.lib.units.mm, (pageWidth-(leftBorder*2))*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
 				for (columnName, xPos) in [["FullName", 0],["OldUsername", 110],["DefaultPassword", 150]]:
-					pdfCanvas.drawString((leftBorder+xPos)*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(userIndex+2)))-topBorder)*reportlab.lib.units.mm, pupil[columnName])
+					pdfCanvas.drawString((leftBorder+xPos)*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(pupilIndex+2)))-topBorder)*reportlab.lib.units.mm, pupil[columnName])
 					
 		# Save the PDF document.
 		pdfCanvas.save()
