@@ -125,7 +125,7 @@ for group in readFile(config["dataFolder"] + os.sep + "yeargroups.csv").split("\
 		
 		for pupilIndex, pupil in pupils.iterrows():
 			if group in pupil["Form"]:
-				pupil["FullName"] = print(pupil["GivenName"] + " " + pupil["FamilyName"])
+				pupil["FullName"] = pupil["GivenName"] + " " + pupil["FamilyName"]
 				if pupilIndex % 2 == 0:
 					pdfCanvas.drawInlineImage(lineImage, leftBorder*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(userIndex+2)))-(topBorder+lineHeight/4))*reportlab.lib.units.mm, (pageWidth-(leftBorder*2))*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
 				for (columnName, xPos) in [["FullName", 0],["OldUsername", 110],["DefaultPassword", 150]]:
