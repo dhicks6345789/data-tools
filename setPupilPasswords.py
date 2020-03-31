@@ -112,8 +112,7 @@ topBorder = 10
 # A mid-gray background to make following lines on the page a bit easier.
 lineImage = PIL.Image.new("RGB", (pageWidth-(leftBorder*2), lineHeight), (200, 200, 200))
 
-
-for group in ["J1"]:#readFile(config["dataFolder"] + os.sep + "yeargroups.csv").split("\n") + readFile(config["dataFolder"] + os.sep + "forms.csv").split("\n"):
+for group in readFile(config["dataFolder"] + os.sep + "yeargroups.csv").split("\n") + readFile(config["dataFolder"] + os.sep + "forms.csv").split("\n"):
 	if not group == "":
 		# Create the blank PDF document to start drawing page elements on.
 		pdfCanvas = reportlab.pdfgen.canvas.Canvas(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + group + ".pdf")
