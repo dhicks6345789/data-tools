@@ -8,6 +8,19 @@ import pandas
 import random
 import installLib
 
+# PIL - the Python Image Library, used for bitmap image manipulation.
+import PIL
+import PIL.ImageFont
+import PIL.ImageDraw
+
+# ReportLab - used for PDF document generation.
+import reportlab.lib.units
+import reportlab.lib.utils
+import reportlab.lib.colors
+import reportlab.pdfgen.canvas
+import reportlab.lib.pagesizes
+import reportlab.graphics.renderPM
+
 requiredConfigParameters = ["dataFolder"]
 
 # Load the configuration file.
@@ -88,6 +101,36 @@ if len(sys.argv) >= 3:
 installLib.writeFile(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", defaultPasswords.to_csv(index=False))
 os.remove("fullEmailTemplate.html")
 
+# Get ready to write out a formatted PDF document per year / form group listing usernames and passwords.
+# We are printing on A4 paper - set the page size and borders, in mm.
+pageWidth = 210
+pageHeight = 297
+lineHeight = 8
+leftBorder = 10
+topBorder = 10
+
+# A mid-gray background to make following lines on the page a bit easier.
+lineImage = PIL.Image.new("RGB", (pageWidth-(leftBorder*2), lineHeight), (200, 200, 200))
+
+
 for group in readFile(config["dataFolder"] + os.sep + "yeargroups.csv").split("\n") + readFile(config["dataFolder"] + os.sep + "forms.csv").split("\n"):
 	if not group == "":
-		print(group)
+		# Create the blank PDF document to start drawing page elements on.
+		pdfCanvas = reportlab.pdfgen.canvas.Canvas(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "" group + ".pdf")
+		# Draw the form name and column headers.
+		pdfCanvas.drawString(leftBorder*reportlab.lib.units.mm, (pageHeight-topBorder)*reportlab.lib.units.mm, "Group: " + group)
+		pdfCanvas.drawString(leftBorder*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, "Name")
+		pdfCanvas.drawString((leftBorder+110)*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, "Username")
+		pdfCanvas.drawString((leftBorder+150)*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, "Default Password")
+		
+		for pupilIndex, pupil in pupils.iterrows():
+			if group in pupil["Form"]:
+				# usersByForm[form][userIndex]["FullName"] = usersByForm[form][userIndex]["GivenName"] + " " + usersByForm[form][userIndex]["FamilyName"]
+				# if userIndex % 2 == 0:
+				#     pdfCanvas.drawInlineImage(lineImage, leftBorder*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(userIndex+2)))-(topBorder+lineHeight/4))*reportlab.lib.units.mm, (pageWidth-(leftBorder*2))*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
+				# for (columnName, xPos) in [["FullName", 0],["Username", 110],["Password", 150]]:
+				#     pdfCanvas.drawString((leftBorder+xPos)*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(userIndex+2)))-topBorder)*reportlab.lib.units.mm, usersByForm[form][userIndex][columnName])
+				print pupil
+		
+		# Save the PDF document.
+		pdfCanvas.save()
