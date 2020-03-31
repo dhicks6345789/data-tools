@@ -130,7 +130,7 @@ for group in readFile(config["dataFolder"] + os.sep + "yeargroups.csv").split("\
 				#     pdfCanvas.drawInlineImage(lineImage, leftBorder*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(userIndex+2)))-(topBorder+lineHeight/4))*reportlab.lib.units.mm, (pageWidth-(leftBorder*2))*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
 				# for (columnName, xPos) in [["FullName", 0],["Username", 110],["Password", 150]]:
 				#     pdfCanvas.drawString((leftBorder+xPos)*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(userIndex+2)))-topBorder)*reportlab.lib.units.mm, usersByForm[form][userIndex][columnName])
-				print pupil
+				print(pupil)
 		
 		# Save the PDF document.
 		pdfCanvas.save()
