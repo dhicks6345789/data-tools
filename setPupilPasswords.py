@@ -123,7 +123,7 @@ for group in ["J1"]:#readFile(config["dataFolder"] + os.sep + "yeargroups.csv").
 		pdfCanvas.drawString((leftBorder+110)*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, "Username")
 		pdfCanvas.drawString((leftBorder+150)*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, "Default Password")
 		
-		pupilCount = 0
+		pupilCount = 2
 		pageCount = 0
 		for pupilIndex, pupil in pupils.iterrows():
 			for passwordIndex, passwordEntry in defaultPasswords.iterrows():
