@@ -90,4 +90,4 @@ os.remove("fullEmailTemplate.html")
 
 for group in readFile(config["dataFolder"] + os.sep + "yeargroups.csv").split("\n") + readFile(config["dataFolder"] + os.sep + "forms.csv").split("\n"):
 	if not group == "":
-		print group
+		print(group)
