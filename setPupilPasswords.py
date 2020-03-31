@@ -124,12 +124,14 @@ for group in readFile(config["dataFolder"] + os.sep + "yeargroups.csv").split("\
 		pdfCanvas.drawString((leftBorder+150)*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, "Default Password")
 		
 		for pupilIndex, pupil in pupils.iterrows():
-			if group in pupil["Form"]:
-				pupil["FullName"] = pupil["GivenName"] + " " + pupil["FamilyName"]
-				if pupilIndex % 2 == 0:
-					pdfCanvas.drawInlineImage(lineImage, leftBorder*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(userIndex+2)))-(topBorder+lineHeight/4))*reportlab.lib.units.mm, (pageWidth-(leftBorder*2))*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
-				for (columnName, xPos) in [["FullName", 0],["OldUsername", 110],["DefaultPassword", 150]]:
-					pdfCanvas.drawString((leftBorder+xPos)*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(pupilIndex+2)))-topBorder)*reportlab.lib.units.mm, pupil[columnName])
+			for passwordIndex, passwordEntry in defaultPasswords.iterrows():
+				if pupil["ID"] == passwordEntry["ID"]:
+					if group in pupil["Form"]:
+						passwordEntry["FullName"] = pupil["GivenName"] + " " + pupil["FamilyName"]
+						if pupilIndex % 2 == 0:
+							pdfCanvas.drawInlineImage(lineImage, leftBorder*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(userIndex+2)))-(topBorder+lineHeight/4))*reportlab.lib.units.mm, (pageWidth-(leftBorder*2))*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
+						for (columnName, xPos) in [["FullName", 0],["OldUsername", 110],["DefaultPassword", 150]]:
+							pdfCanvas.drawString((leftBorder+xPos)*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(pupilIndex+2)))-topBorder)*reportlab.lib.units.mm, passwordEntry[columnName])
 					
 		# Save the PDF document.
 		pdfCanvas.save()
