@@ -95,37 +95,22 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	
 print("Adding pupil contact information to pupils.csv...")
 
-# Set up an empty dict-of-dicts for pupil relationships.
-pupilRelationships = {}
-pupilsDataFrame = pandas.DataFrame(pupils)
-for pupilIndex, pupil in pupilsDataFrame.iterrows():
-	pupilRelationships[pupil["ID"]] = {}
+## Set up an empty dict-of-dicts for pupil relationships.
+#pupilRelationships = {}
+#pupilsDataFrame = pandas.DataFrame(pupils)
+#for pupilIndex, pupil in pupilsDataFrame.iterrows():
+#	pupilRelationships[pupil["ID"]] = {}
 
-# Extract each pupil contact and their relationship with the pupil.
+# Extract each pupil contact and their relationship with the pupil. Only keep a contact if their relationship with the pupil is in the agreed
+# list (parent / guardian or nanny) and if that contact is listed as being available for correspondance.
 for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 	contactEmailAddress = contact.find("EmailAddress")
 	if not contactEmailAddress == None and not contactEmailAddress.text == None and (contact.find("CorrespondenceMailMerge").text == "1" or contact.find("MailMergeAll").text == "1") and normaliseRelationship(contact.find("RelationshipRaw").text.strip().lower()) in mainRelationships:
 		contactEmailAddress = contactEmailAddress.text.strip()
 		for contactPupil in contact.find("Pupils"):
-			pupilID = contactPupil.attrib["Id"]
 			for pupilIndex, pupil in pupilsDataFrame.iterrows():
-				if pupil["ID"] == pupilID:
-					if contactEmailAddress not in pupilsDataFrame.at[pupilIndex, "Contacts"]:
-						pupilsDataFrame.at[pupilIndex, "Contacts"] = (pupilsDataFrame.at[pupilIndex, "Contacts"] + " " + contactEmailAddress).strip()
-# Explnation goes here.
-#for pupilIndex, pupil in pupilsDataFrame.iterrows():
-#	mainContact = ""
-#	otherContacts = ""
-#	for validRelationship in validRelationships:
-#		if validRelationship in pupilRelationships[pupil["ID"]].keys():
-#			if mainContact == "":
-#				mainContact = pupilRelationships[pupil["ID"]][validRelationship]
-#			else:
-#				contactEmail = pupilRelationships[pupil["ID"]][validRelationship]
-#				if not contactEmail == mainContact and contactEmail not in otherContacts:
-#					otherContacts = otherContacts + contactEmail + " "
-#	pupilsDataFrame.at[pupilIndex, "MainContact"] = mainContact
-#	pupilsDataFrame.at[pupilIndex, "OtherContacts"] = otherContacts.strip()
+				if pupil["ID"] == contactPupil.attrib["Id"] and contactEmailAddress not in pupilsDataFrame.at[pupilIndex, "Contacts"]:
+					pupilsDataFrame.at[pupilIndex, "Contacts"] = (pupilsDataFrame.at[pupilIndex, "Contacts"] + " " + contactEmailAddress).strip()
 
 # Write out pupils.csv.
 installLib.writeFile(config["dataFolder"] + os.sep + "pupils.csv", pupilsDataFrame.to_csv(index=False))
