@@ -92,15 +92,9 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	forms[currentPupil.find("Form").text] = 1
 	pupils["Tutor"].append(getValue(currentPupil, "Tutor"))
 	pupils["Contacts"].append("")
-	
-print("Adding pupil contact information to pupils.csv...")
-
-## Set up an empty dict-of-dicts for pupil relationships.
-#pupilRelationships = {}
 pupilsDataFrame = pandas.DataFrame(pupils)
-#for pupilIndex, pupil in pupilsDataFrame.iterrows():
-#	pupilRelationships[pupil["ID"]] = {}
 
+print("Adding pupil contact information to pupils.csv...")
 # Extract each pupil contact and their relationship with the pupil. Only keep a contact if their relationship with the pupil is in the agreed
 # list (parent / guardian or nanny) and if that contact is listed as being available for correspondance.
 for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
@@ -115,4 +109,5 @@ for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 # Write out pupils.csv.
 installLib.writeFile(config["dataFolder"] + os.sep + "pupils.csv", pupilsDataFrame.to_csv(index=False))
 
+# Write out forms.csv.
 installLib.writeFile(config["dataFolder"] + os.sep + "forms.csv", sorted(forms.keys()))
