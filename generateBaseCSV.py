@@ -104,7 +104,7 @@ for pupilIndex, pupil in pupilsDataFrame.iterrows():
 # Extract each pupil contact and their relationship with the pupil.
 for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 	contactEmailAddress = contact.find("EmailAddress")
-	if not contactEmailAddress == None and not contactEmailAddress.text == None and contact.find("CorrespondenceMailMerge").text == "1" and normaliseRelationship(contact.find("RelationshipRaw").text.strip().lower()) in mainRelationships:
+	if not contactEmailAddress == None and not contactEmailAddress.text == None and (contact.find("CorrespondenceMailMerge").text == "1" or contact.find("MailMergeAll").text == "1") and normaliseRelationship(contact.find("RelationshipRaw").text.strip().lower()) in mainRelationships:
 		contactEmailAddress = contactEmailAddress.text.strip()
 		for contactPupil in contact.find("Pupils"):
 			pupilID = contactPupil.attrib["Id"]
