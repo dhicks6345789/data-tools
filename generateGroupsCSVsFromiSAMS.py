@@ -88,5 +88,5 @@ for staffIndex, staff in staff.iterrows():
 	if not str(staff["Username"]) == "nan":
 		outputString = outputString + str(staff["Username"]).lower() + "@knightsbridgeschool.com\n"
 installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "Staff.csv", outputString)
-print("Sync group Staff from CSV to GSuite.")
+#print("Sync group Staff from CSV to GSuite.")
 #os.system("gam update group staff@knightsbridgeschool.com sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "Staff.csv\" 2>&1")					
