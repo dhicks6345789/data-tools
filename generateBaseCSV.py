@@ -97,7 +97,7 @@ print("Adding pupil contact information to pupils.csv...")
 
 ## Set up an empty dict-of-dicts for pupil relationships.
 #pupilRelationships = {}
-#pupilsDataFrame = pandas.DataFrame(pupils)
+pupilsDataFrame = pandas.DataFrame(pupils)
 #for pupilIndex, pupil in pupilsDataFrame.iterrows():
 #	pupilRelationships[pupil["ID"]] = {}
 
