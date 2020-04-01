@@ -52,10 +52,10 @@ pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 def setPassword(theUser, thePassword):
 	for pupilIndex, pupilEntry in pupils.iterrows():
 		if pupilEntry["OldUsername"] == theUser:
-			os.system("gam update user " + theUser + "@knightsbridgeschool.com password " + thePassword)
+			# os.system("gam update user " + theUser + "@knightsbridgeschool.com password " + thePassword)
 			emailAddress = str(pupilEntry["MainContact"])
 			# from itsupport@knightsbridgeschool.com replyto itsupport@knightsbridgeschool.com
-			os.system("gam sendemail " + emailAddress + " subject \"Knightsbridge School - Pupil Account Password Reset\" file fullEmailTemplate.html replace childName \"" + pupilEntry["GivenName"] + " " + pupilEntry["FamilyName"] + "\" replace childUsername " + pupilEntry["OldUsername"] + " replace childPassword " + thePassword + " replace name \"David Hicks\" replace title \"IT Helpdesk\" replace email ithelpdesk@knightsbridgeschool.com replace telephone \"020 7590 9004\" html 2>&1")
+			print("gam sendemail " + emailAddress + " subject \"Knightsbridge School - Pupil Account Password Reset\" file fullEmailTemplate.html replace childName \"" + pupilEntry["GivenName"] + " " + pupilEntry["FamilyName"] + "\" replace childUsername " + pupilEntry["OldUsername"] + " replace childPassword " + thePassword + " replace name \"David Hicks\" replace title \"IT Helpdesk\" replace email ithelpdesk@knightsbridgeschool.com replace telephone \"020 7590 9004\" html 2>&1")
 
 # Read the Forms and Yeargroups into one list.
 classGroups = []
@@ -100,6 +100,8 @@ if len(sys.argv) >= 3:
 		
 installLib.writeFile(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", defaultPasswords.to_csv(index=False))
 os.remove("fullEmailTemplate.html")
+
+sys.exit(0)
 
 # Get ready to write out a formatted PDF document per year / form group listing usernames and passwords.
 # We are printing on A4 paper - set the page size and borders, in mm.
