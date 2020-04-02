@@ -47,8 +47,9 @@ for classGroup in classGroups:
 	groupMembers = []
 	for pupilIndex, pupil in pupils.iterrows():
 		if classGroup in pupil["Form"]:
-			if not str(pupil["MainContact"]) == "nan":
-				groupMembers.append(pupil["MainContact"])
+			if not str(pupil["Contacts"]) == "nan":
+				for contact in str(pupil["Contacts"]).split():
+					groupMembers.append(contact)
 	installLib.writeFile(config["dataFolder"] + os.sep + "Parents" + os.sep + "ByClassOrYearGroup" + os.sep + classGroup + ".csv", groupMembers)
 	groupEmail = classGroup.lower() + "parents@knightsbridgeschool.com"
 	if not groupEmail in groupEmails:
@@ -60,6 +61,7 @@ for classGroup in classGroups:
 	CSVString = "ID,Name,Username,OldUsername,Guardian\n"
 	for pupilIndex, pupil in pupils.iterrows():
 		if classGroup in pupil["Form"]:
-			if not str(pupil["MainContact"]) == "nan":
-				CSVString = CSVString + str(pupil["ID"]) + "," + pupil["GivenName"] + " " + pupil["FamilyName"] + "," + pupil["Username"] + "," + pupil["OldUsername"] + "," + pupil["MainContact"] + "\n"
+			if not str(pupil["Contacts"]) == "nan":
+				for contact in str(pupil["Contacts"]).split():
+					CSVString = CSVString + str(pupil["ID"]) + "," + pupil["GivenName"] + " " + pupil["FamilyName"] + "," + pupil["Username"] + "," + pupil["OldUsername"] + "," + contact + "\n"
 	installLib.writeFile(config["dataFolder"] + os.sep + "Parents" + os.sep + "Guardians" + os.sep + classGroup + ".csv", CSVString)
