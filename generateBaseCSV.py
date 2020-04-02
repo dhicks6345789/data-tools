@@ -113,7 +113,7 @@ for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 		for contactPupil in contact.find("Pupils"):
 			for pupilIndex, pupil in pupilsDataFrame.iterrows():
 				for contactEmailAddressValue in multisplit(contactEmailAddress.text.strip(), " ;"):
-					if pupil["ID"] == contactPupil.attrib["Id"] and contactEmailAddress not in pupilsDataFrame.at[pupilIndex, "Contacts"]:
+					if pupil["ID"] == contactPupil.attrib["Id"] and contactEmailAddressValue not in pupilsDataFrame.at[pupilIndex, "Contacts"]:
 						pupilsDataFrame.at[pupilIndex, "Contacts"] = (pupilsDataFrame.at[pupilIndex, "Contacts"] + " " + contactEmailAddressValue).strip()
 
 # Write out pupils.csv.
