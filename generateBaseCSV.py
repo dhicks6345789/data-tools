@@ -110,11 +110,11 @@ print("Adding pupil contact information to pupils.csv...")
 for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 	contactEmailAddress = contact.find("EmailAddress")
 	if not contactEmailAddress == None and not contactEmailAddress.text == None and (contact.find("CorrespondenceMailMerge").text == "1" or contact.find("MailMergeAll").text == "1") and normaliseRelationship(contact.find("RelationshipRaw").text.strip().lower()) in mainRelationships:
-		contactEmailAddress = multisplit(contactEmailAddress.text.strip(), " ;")
 		for contactPupil in contact.find("Pupils"):
 			for pupilIndex, pupil in pupilsDataFrame.iterrows():
-				if pupil["ID"] == contactPupil.attrib["Id"] and contactEmailAddress not in pupilsDataFrame.at[pupilIndex, "Contacts"]:
-					pupilsDataFrame.at[pupilIndex, "Contacts"] = (pupilsDataFrame.at[pupilIndex, "Contacts"] + " " + contactEmailAddress).strip()
+				for contactEmailAddress in multisplit(contactEmailAddress.text.strip(), " ;"):
+					if pupil["ID"] == contactPupil.attrib["Id"] and contactEmailAddress not in pupilsDataFrame.at[pupilIndex, "Contacts"]:
+						pupilsDataFrame.at[pupilIndex, "Contacts"] = (pupilsDataFrame.at[pupilIndex, "Contacts"] + " " + contactEmailAddress).strip()
 
 # Write out pupils.csv.
 installLib.writeFile(config["dataFolder"] + os.sep + "pupils.csv", pupilsDataFrame.to_csv(index=False))
