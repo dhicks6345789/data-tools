@@ -24,7 +24,7 @@ def readFile(theFilename):
 
 def multisplit(theString, theSplit):
 	result = theString.split(theSplit[0])
-	for pl in range(1, len(theSplit):
+	for pl in range(1, len(theSplit)):
 		tempResult = result
 		for resultItem in result:
 			for splitItem in resultItem.split(theSplit[pl]):
