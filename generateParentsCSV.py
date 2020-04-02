@@ -22,6 +22,18 @@ def readFile(theFilename):
 	inHandle.close()
 	return inData
 
+def multisplit(theString, theSplit):
+	result = theString.split(theSplit[0])
+	theSplit = theSplit[1:]
+	while len(theSplit) > 0:
+		tempResult = result
+		for resultItem in result:
+			for splitItem in resultItem.split(theSplit[0]):
+				tempResult.append(splitItem)
+		result = tempResult
+		theSplit = theSplit[1:]
+	return result
+
 # Input data headings:
 # Pupils: GUID,UserCode,GivenName,FamilyName,DateOfBirth,Gender,Username,OldUsername,YearGroup,Form,Tutor
 
@@ -42,6 +54,9 @@ groups = pandas.read_csv(config["dataFolder"] + os.sep + "groups.csv", header=0)
 for groupIndex, group in groups.iterrows():
 	groupEmails.append(groups.at[groupIndex, "email"])
 
+print(multisplit("abc;def ghi"))
+sys.exit(0)
+	
 os.makedirs(config["dataFolder"] + os.sep + "Parents" + os.sep + "ByClassOrYearGroup", exist_ok=True)
 for classGroup in classGroups:
 	groupMembers = []
