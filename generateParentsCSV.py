@@ -54,7 +54,7 @@ groups = pandas.read_csv(config["dataFolder"] + os.sep + "groups.csv", header=0)
 for groupIndex, group in groups.iterrows():
 	groupEmails.append(groups.at[groupIndex, "email"])
 
-print(multisplit("abc;def ghi"))
+print(multisplit("abc;def ghi", " ;"))
 sys.exit(0)
 	
 os.makedirs(config["dataFolder"] + os.sep + "Parents" + os.sep + "ByClassOrYearGroup", exist_ok=True)
