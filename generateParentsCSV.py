@@ -25,10 +25,11 @@ def readFile(theFilename):
 def multisplit(theString, theSplit):
 	result = theString.split(theSplit[0])
 	for pl in range(1, len(theSplit)):
-		tempResult = result
+		tempResult = []
 		for resultItem in result:
 			for splitItem in resultItem.split(theSplit[pl]):
 				tempResult.append(splitItem)
+				print "one"
 		result = tempResult
 	return result
 
