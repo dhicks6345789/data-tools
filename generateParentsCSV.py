@@ -51,9 +51,6 @@ groupEmails = []
 groups = pandas.read_csv(config["dataFolder"] + os.sep + "groups.csv", header=0)
 for groupIndex, group in groups.iterrows():
 	groupEmails.append(groups.at[groupIndex, "email"])
-
-print(multisplit("abc;def ghi", " ;"))
-sys.exit(0)
 	
 os.makedirs(config["dataFolder"] + os.sep + "Parents" + os.sep + "ByClassOrYearGroup", exist_ok=True)
 for classGroup in classGroups:
@@ -61,7 +58,7 @@ for classGroup in classGroups:
 	for pupilIndex, pupil in pupils.iterrows():
 		if classGroup in pupil["Form"]:
 			if not str(pupil["Contacts"]) == "nan":
-				for contact in str(pupil["Contacts"]).split():
+				for contact in multisplit(str(pupil["Contacts"]), " ;"):
 					groupMembers.append(contact)
 	installLib.writeFile(config["dataFolder"] + os.sep + "Parents" + os.sep + "ByClassOrYearGroup" + os.sep + classGroup + ".csv", groupMembers)
 	groupEmail = classGroup.lower() + "parents@knightsbridgeschool.com"
@@ -75,6 +72,6 @@ for classGroup in classGroups:
 	for pupilIndex, pupil in pupils.iterrows():
 		if classGroup in pupil["Form"]:
 			if not str(pupil["Contacts"]) == "nan":
-				for contact in str(pupil["Contacts"]).split():
+				for contact in multisplit(str(pupil["Contacts"]), " ;"):
 					CSVString = CSVString + str(pupil["ID"]) + "," + pupil["GivenName"] + " " + pupil["FamilyName"] + "," + pupil["Username"] + "," + pupil["OldUsername"] + "," + contact + "\n"
 	installLib.writeFile(config["dataFolder"] + os.sep + "Parents" + os.sep + "Guardians" + os.sep + classGroup + ".csv", CSVString)
