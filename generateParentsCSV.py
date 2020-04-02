@@ -24,14 +24,12 @@ def readFile(theFilename):
 
 def multisplit(theString, theSplit):
 	result = theString.split(theSplit[0])
-	theSplit = theSplit[1:]
-	while len(theSplit) > 0:
+	for pl in range(1, len(theSplit):
 		tempResult = result
 		for resultItem in result:
-			for splitItem in resultItem.split(theSplit[0]):
+			for splitItem in resultItem.split(theSplit[pl]):
 				tempResult.append(splitItem)
 		result = tempResult
-		theSplit = theSplit[1:]
 	return result
 
 # Input data headings:
