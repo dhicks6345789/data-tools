@@ -26,6 +26,16 @@ def normaliseName(theName):
 def normaliseUserName(theName):
 	return normaliseName(theName).lower().replace(" ","").replace("-","").replace("'","")
 
+def multisplit(theString, theSplit):
+	result = theString.split(theSplit[0])
+	for pl in range(1, len(theSplit)):
+		tempResult = []
+		for resultItem in result:
+			for splitItem in resultItem.split(theSplit[pl]):
+				tempResult.append(splitItem.strip())
+		result = tempResult
+	return result
+
 def getValue(theXMLNode, theTag):
 	findResult = theXMLNode.find(theTag) 
 	if findResult == None:
@@ -100,7 +110,7 @@ print("Adding pupil contact information to pupils.csv...")
 for contact in iSAMSXML.findall("./PupilManager/Contacts/Contact"):
 	contactEmailAddress = contact.find("EmailAddress")
 	if not contactEmailAddress == None and not contactEmailAddress.text == None and (contact.find("CorrespondenceMailMerge").text == "1" or contact.find("MailMergeAll").text == "1") and normaliseRelationship(contact.find("RelationshipRaw").text.strip().lower()) in mainRelationships:
-		contactEmailAddress = contactEmailAddress.text.strip()
+		contactEmailAddress = multisplit(contactEmailAddress.text.strip(), " ;")
 		for contactPupil in contact.find("Pupils"):
 			for pupilIndex, pupil in pupilsDataFrame.iterrows():
 				if pupil["ID"] == contactPupil.attrib["Id"] and contactEmailAddress not in pupilsDataFrame.at[pupilIndex, "Contacts"]:
