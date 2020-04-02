@@ -29,7 +29,7 @@ def multisplit(theString, theSplit):
 		for resultItem in result:
 			for splitItem in resultItem.split(theSplit[pl]):
 				tempResult.append(splitItem)
-				print "one"
+				print(tempResult)
 		result = tempResult
 	return result
 
