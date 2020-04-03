@@ -52,10 +52,9 @@ for requiredConfigParameter in requiredConfigParameters:
 iSAMSXML = xml.etree.ElementTree.fromstring(installLib.readFile("iSAMSData.xml"))
 
 # Get a list of Yeargroups / Form / Teaching Sets from iSAMS.
-for teachingForm in iSAMSXML.findall("./TeachingManager/TeachingForms/TeachingForm"):
-	timetableCode = teachingForm.find("TimetableCode")
-	if not timetableCode == None:
-		print(timetableCode.text)
+for currentSet in iSAMSXML.findall("./TeachingManager/Sets/Set"):
+	print(currentSet.find("Name").text)
+	print(currentSet.find("SetCode").text)
 sys.exit(0)
 	
 # Staff - previous output format:
