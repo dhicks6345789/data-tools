@@ -28,6 +28,9 @@ for requiredConfigParameter in requiredConfigParameters:
 		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
 		sys.exit(1)
 
+# Make sure the output folder exists.
+os.makedirs(config["dataFolder"] + os.sep + "Twig", exist_ok=True)
+
 # Pupils, input: GUID,UserCode,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
 # Pupils, output: Unique ID (optional),Teacher Name (required),Email (required),Class (optional),Student Group (optional),Password (required),Username (optional)
 outputString = ""
