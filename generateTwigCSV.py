@@ -36,7 +36,7 @@ os.makedirs(config["dataFolder"] + os.sep + "Twig", exist_ok=True)
 outputString = "Unique ID,Teacher Name,Email,Class,Student Group,Password,Username"
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 for pupilIndex, pupil in pupils.iterrows():
-	outputString = outputString + "P" + padString(str(pupil["ID"])) + "," + pupil["GivenName"]) + " " + str(pupil["FamilyName"]) + "," + pupil["Username"] + "@knightsbridgeschool.com," + pupil["Form"] + ",StudentGroup,Password,Username\n"
+	outputString = outputString + "P" + padString(str(pupil["ID"])) + "," + pupil["GivenName"] + " " + pupil["FamilyName"] + "," + pupil["Username"] + "@knightsbridgeschool.com," + pupil["Form"] + ",StudentGroup,Password,Username\n"
 installLib.writeFile(config["dataFolder"] + os.sep + "Twig" + os.sep + "pupils.csv", outputString)
 
 # Staff, input: GUID,UserCode,Title,GivenName,FamilyName,DateOfBirth,Username,Identifier,Form,JobTitle
