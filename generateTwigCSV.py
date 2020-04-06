@@ -41,7 +41,7 @@ installLib.writeFile(config["dataFolder"] + os.sep + "Twig" + os.sep + "pupils.c
 
 # Staff, input: GUID,UserCode,Title,GivenName,FamilyName,DateOfBirth,Username,Identifier,Form,JobTitle
 # Staff, output: Unique ID (optional),Teacher Name (required),Email (required),Class (optional),Student Group (optional),Password (required),Username (optional)
-outputString = ""
+outputString = "Unique ID,Teacher Name,Email,Class,Student Group,Password,Username\n"
 staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 for staffIndex, staff in staff.iterrows():
 	outputString = outputString + "S" + padString(str(staff["ID"])) + "," + staff["GivenName"] + " " + staff["FamilyName"] + "," + staff["Username"] + "@knightsbridgeschool.com,,,,\n"
