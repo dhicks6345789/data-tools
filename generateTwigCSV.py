@@ -35,8 +35,13 @@ os.makedirs(config["dataFolder"] + os.sep + "Twig", exist_ok=True)
 # Pupils, output: Unique ID (optional),Teacher Name (required),Email (required),Class (optional),Student Group (optional),Password (required),Username (optional)
 outputString = "Unique ID,Student Name,Email,Class,Student Group,Password,Username\n"
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
+passwords = pandas.read_csv(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", header=0)
 for pupilIndex, pupil in pupils.iterrows():
-	outputString = outputString + "P" + padString(str(pupil["ID"])) + "," + pupil["GivenName"] + " " + pupil["FamilyName"] + "," + pupil["OldUsername"] + "@knightsbridgeschool.com," + pupil["Form"] + ",,,\n"
+	pupilPassword = ""
+	for passwordIndex, passwordEntry in passwords.iterrows():
+		if pupil["ID"] == passwordEntry["ID"]:
+			pupilPassword = passwordEntry["DefaultPassword"]
+	outputString = outputString + "P" + padString(str(pupil["ID"])) + "," + pupil["GivenName"] + " " + pupil["FamilyName"] + "," + pupil["OldUsername"] + "@knightsbridgeschool.com," + pupil["Form"] + ",," + pupilPassword + "," + pupil["OldUsername"] + "\n"
 installLib.writeFile(config["dataFolder"] + os.sep + "Twig" + os.sep + "pupils.csv", outputString)
 
 # Staff, input: GUID,UserCode,Title,GivenName,FamilyName,DateOfBirth,Username,Identifier,Form,JobTitle
