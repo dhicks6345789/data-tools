@@ -33,7 +33,7 @@ os.makedirs(config["dataFolder"] + os.sep + "Twig", exist_ok=True)
 
 # Pupils, input: GUID,UserCode,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
 # Pupils, output: Unique ID (optional),Teacher Name (required),Email (required),Class (optional),Student Group (optional),Password (required),Username (optional)
-outputString = "Unique ID,Teacher Name,Email,Class,Student Group,Password,Username\n"
+outputString = "Unique ID,Student Name,Email,Class,Student Group,Password,Username\n"
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 for pupilIndex, pupil in pupils.iterrows():
 	outputString = outputString + "P" + padString(str(pupil["ID"])) + "," + pupil["GivenName"] + " " + pupil["FamilyName"] + "," + pupil["Username"] + "@knightsbridgeschool.com," + pupil["Form"] + ",,,\n"
@@ -44,5 +44,5 @@ installLib.writeFile(config["dataFolder"] + os.sep + "Twig" + os.sep + "pupils.c
 outputString = ""
 staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 for staffIndex, staff in staff.iterrows():
-	outputString = outputString + "S" + padString(str(staff["ID"])) + "," + str(staff["Username"]) + ",Staff,Library,Staff,Staff," + str(staff["GivenName"]) + "," + str(staff["FamilyName"]) + ",," + str(staff["DateOfBirth"]) + "\n"
+	outputString = outputString + "S" + padString(str(staff["ID"])) + "," + staff["GivenName"] + " " + staff["FamilyName"] + "," + staff["Username"] + "@knightsbridgeschool.com,,,,\n"
 installLib.writeFile(config["dataFolder"] + os.sep + "Twig" + os.sep + "staff.csv", outputString)
