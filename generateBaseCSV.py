@@ -54,7 +54,6 @@ iSAMSXML = xml.etree.ElementTree.fromstring(installLib.readFile("iSAMSData.xml")
 # Get a list of Yeargroups / Form / Teaching Sets from iSAMS.
 for currentSet in iSAMSXML.findall("./TeachingManager/Sets/Set"):
 	print(currentSet.find("SetCode").text)
-sys.exit(0)
 	
 # Staff - previous output format:
 # StaffID,Title,GivenName,FamilyName,DateOfBirth,Username,Identifier,Form,JobTitle
