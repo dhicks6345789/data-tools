@@ -71,7 +71,7 @@ for group in groupDetails.keys():
 		outputString = outputString + member + "\n"
 		allPupils = allPupils + member + "\n"
 	installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
-	#print("Sync group " + group + " from CSV to GSuite.")
+	print("Sync group " + group + " from CSV to GSuite.")
 	#os.system("gam update group " + groupDetails[group]["email"].lower() + " name \"" + group + "\" 2>&1")
 	#os.system("gam update group " + groupDetails[group]["email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
 	
@@ -88,5 +88,5 @@ for staffIndex, staff in staff.iterrows():
 	if not str(staff["Username"]) == "nan":
 		outputString = outputString + str(staff["Username"]).lower() + "@knightsbridgeschool.com\n"
 installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "Staff.csv", outputString)
-#print("Sync group Staff from CSV to GSuite.")
+print("Sync group Staff from CSV to GSuite.")
 #os.system("gam update group staff@knightsbridgeschool.com sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "Staff.csv\" 2>&1")					
