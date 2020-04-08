@@ -41,6 +41,23 @@ installLib.writeFile(config["dataFolder"] + os.sep + "yeargroups.csv", sorted(ye
 # Staff: GUID,UserCode,Title,GivenName,FamilyName,DateOfBirth,Username,Identifier,Form,JobTitle
 # Output format: simply one user email address per line (yes, a valid CSV file), for use with GAM's import / sync function.
 
+
+
+# Read the existing basic staff details.
+staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
+
+# First, generate the staff lists (all staff, all teaching staff, staff members by role for each yeargroup, etc).
+# We need to update the staff CSV files first as we use those as Manager lists for pupil groups.
+outputString = ""
+for staffIndex, staff in staff.iterrows():
+	if not str(staff["Username"]) == "nan":
+		outputString = outputString + str(staff["Username"]).lower() + "@knightsbridgeschool.com\n"
+installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "Staff.csv", outputString)
+print("Sync group Staff from CSV to GSuite.")
+os.system("gam update group staff@knightsbridgeschool.com sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "Staff.csv\" 2>&1")					
+
+
+
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
@@ -72,21 +89,12 @@ for group in groupDetails.keys():
 		allPupils = allPupils + member + "\n"
 	installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv", outputString)
 	print("Sync group " + group + " from CSV to GSuite.")
-	#os.system("gam update group " + groupDetails[group]["email"].lower() + " name \"" + group + "\" 2>&1")
-	#os.system("gam update group " + groupDetails[group]["email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
-	
+	os.system("gam update group " + groupDetails[group]["email"].lower() + " name \"" + group + "\" 2>&1")
+	os.system("gam update group " + groupDetails[group]["email"].lower() + " sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + group + ".csv\" 2>&1")
+	os.system("gam update group " + groupDetails[group]["email"].lower() + " sync manager file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "Staff.csv\" 2>&1")
+
 # Write out the All Pupils CSV file.
 installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "Pupils.csv", allPupils)
-#os.system("gam update group pupils@knightsbridgeschool.com name pupils 2>&1")
-#os.system("gam update group pupils@knightsbridgeschool.com sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "Pupils.csv\" 2>&1")
-	
-# Read the existing basic staff details.
-staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
-
-outputString = ""
-for staffIndex, staff in staff.iterrows():
-	if not str(staff["Username"]) == "nan":
-		outputString = outputString + str(staff["Username"]).lower() + "@knightsbridgeschool.com\n"
-installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "Staff.csv", outputString)
-print("Sync group Staff from CSV to GSuite.")
-#os.system("gam update group staff@knightsbridgeschool.com sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "Staff.csv\" 2>&1")					
+os.system("gam update group pupils@knightsbridgeschool.com name pupils 2>&1")
+os.system("gam update group pupils@knightsbridgeschool.com sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "Pupils.csv\" 2>&1")
+os.system("gam update group pupils@knightsbridgeschool.com sync manager file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "Staff.csv\" 2>&1")
