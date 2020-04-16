@@ -52,6 +52,10 @@ for emailFilePath in os.listdir(filenameRoot):
 	parentEmail = ""
 	itemDescription = ""
 	itemCode = ""
+	firstChildName = ""
+	firstChildClass = ""
+	secondChildName = ""
+	secondChildClass = ""
 	emailText = readFile(filenameRoot + os.sep + emailFilePath)
 	matchResult = re.match(".*Order #(\d*?)\. Placed on (.*?) at (\d*?:\d*? ..).*", emailText, re.DOTALL)
 	if not matchResult == None:
@@ -66,6 +70,12 @@ for emailFilePath in os.listdir(filenameRoot):
 	if not matchResult == None:
 		itemDescription = matchResult[1].strip()
 		itemCode = matchResult[2].strip()
+	matchResult = re.match(".*Name of your Child:\n(.*?)\nClass/Year:\n(.*?)\nName of Second Child:(.*?)\nClass/Year:\n(.*?)\n.*", emailText, re.DOTALL)
+	if not matchResult == None:
+		firstChildName = matchResult[1].strip()
+		firstChildClass = matchResult[2].strip()
+		secondChildName = matchResult[3].strip()
+		secondChildClass = matchResult[3].strip()
 	print(orderNumber)
 	print(orderDate)
 	print(orderTime)
@@ -73,4 +83,8 @@ for emailFilePath in os.listdir(filenameRoot):
 	print(parentEmail)
 	print(itemDescription)
 	print(itemCode)
+	print(firstChildName)
+	print(firstChildClass)
+	print(secondChildName)
+	print(secondChildClass)
 	print("---")
