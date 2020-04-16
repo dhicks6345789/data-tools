@@ -12,7 +12,7 @@ def readFile(theFilename):
 	inHandle = open(theFilename)
 	result = inHandle.read()
 	inHandle.close()
-	return result
+	return u"" + result
 
 def runCommand(theCommand):
 	commandHandle = os.popen(theCommand)
