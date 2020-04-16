@@ -12,7 +12,7 @@ def readFile(theFilename):
 	inHandle = open(theFilename)
 	result = inHandle.read()
 	inHandle.close()
-	return u"" + result
+	return result
 
 def runCommand(theCommand):
 	commandHandle = os.popen(theCommand)
@@ -51,7 +51,7 @@ for emailFilePath in os.listdir(filenameRoot):
 	parentName = ""
 	parentEmail = ""
 	emailText = readFile(filenameRoot + os.sep + emailFilePath)
-	matchResult = re.match(u".*(\d*).*", emailText)
+	matchResult = re.match("(.*)", emailText)
 	if not matchResult == None:
 		orderNumber = matchResult[1]
 	#matchResult = re.match(".*Order #(\d*?)\. Placed on (.*?) at (\d*?:\d*? ..).*", emailText)
