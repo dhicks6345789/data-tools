@@ -9,7 +9,7 @@ import installLib
 requiredConfigParameters = ["dataFolder"]
 
 def readFile(theFilename):
-	inHandle = opne(theFilename)
+	inHandle = open(theFilename)
 	result = inHandle.read()
 	inHandle.close()
 	return result
