@@ -50,7 +50,7 @@ for emailFilePath in os.listdir(filenameRoot):
 		orderNumber = matchResult[1]
 		orderDate = matchResult[2]
 		orderTime = matchResult[3]
-	matchResult = re.match(".*SHIPPING TO:(.*?)ITEM.*", emailText)
+	matchResult = re.match(".*SHIPPING TO:\n(.*?)\n.*ITEM.*", emailText)
 	if not matchResult == None:
 		parentName = matchResult[1]
 	print(orderNumber)
