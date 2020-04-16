@@ -50,19 +50,27 @@ for emailFilePath in os.listdir(filenameRoot):
 	orderTime = ""
 	parentName = ""
 	parentEmail = ""
+	itemDescription = ""
+	itemCode = ""
 	emailText = readFile(filenameRoot + os.sep + emailFilePath)
 	matchResult = re.match(".*Order #(\d*?)\. Placed on (.*?) at (\d*?:\d*? ..).*", emailText, re.DOTALL)
 	if not matchResult == None:
-		orderNumber = matchResult[1]
-		orderDate = matchResult[2]
-		orderTime = matchResult[3]
+		orderNumber = matchResult[1].strip()
+		orderDate = matchResult[2].strip()
+		orderTime = matchResult[3].strip()
 	matchResult = re.match(".*TO:\n(.*?)\n.*\n(.*?@.*?)\n.*ITEM.*", emailText, re.DOTALL)
 	if not matchResult == None:
 		parentName = matchResult[1].strip()
 		parentEmail = matchResult[2].strip()
+	matchResult = re.match(".*SUBTOTAL\n(.*?)\n(.*?)\n.*", emailText, re.DOTALL)
+	if not matchResult == None:
+		itemDescription = matchResult[1].strip()
+		itemCode = matchResult[2].strip()
 	print(orderNumber)
 	print(orderDate)
 	print(orderTime)
 	print(parentName)
 	print(parentEmail)
+	print(itemDescription)
+	print(itemCode)
 	print("---")
