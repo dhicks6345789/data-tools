@@ -39,7 +39,7 @@ os.makedirs(config["dataFolder"] + os.sep + "Clubs", exist_ok=True)
 os.makedirs(config["dataFolder"] + os.sep + "Clubs" + os.sep + "Emails", exist_ok=True)
 
 filenameRoot = config["dataFolder"] + os.sep + "Clubs" + os.sep + "Emails"
-for email in csv.DictReader(runCommand("gam user f.hall print messages query \"newer_than:5m AND from:no-reply@squarespace.com AND subject:'Knightsbridge School: A New Order has Arrived'\"")):
+for email in csv.DictReader(runCommand("gam user f.hall print messages query \"newer_than:6m AND from:no-reply@squarespace.com AND subject:'Knightsbridge School: A New Order has Arrived'\"")):
 	filenamePath = filenameRoot + os.sep + email["id"] + ".txt"
 	if not os.path.exists(filenamePath):
 		for emailWithBody in csv.DictReader(runCommand("gam user f.hall print messages ids " + email["id"] + " showbody")):
