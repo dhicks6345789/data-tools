@@ -44,6 +44,8 @@ for email in csv.DictReader(runCommand("gam user f.hall print messages query \"n
 	if not os.path.exists(filenamePath):
 		for emailWithBody in csv.DictReader(runCommand("gam user f.hall print messages ids " + email["id"] + " showbody")):
 			installLib.writeFile(filenamePath, removeBlanks(emailWithBody["Body"]))
+
+csvOutput = "orderNumber,orderDate,orderTime,parentName,parentEmail,itemDescription,itemCode,firstChildName,firstChildClass,secondChildName,secondChildClass\n"
 for emailFilePath in os.listdir(filenameRoot):
 	orderNumber = ""
 	orderDate = ""
@@ -76,15 +78,5 @@ for emailFilePath in os.listdir(filenameRoot):
 		firstChildClass = matchResult[2].strip()
 		secondChildName = matchResult[3].strip()
 		secondChildClass = matchResult[3].strip()
-	print(orderNumber)
-	print(orderDate)
-	print(orderTime)
-	print(parentName)
-	print(parentEmail)
-	print(itemDescription)
-	print(itemCode)
-	print(firstChildName)
-	print(firstChildClass)
-	print(secondChildName)
-	print(secondChildClass)
-	print("---")
+	csvOutput = csvOutput + orderNumber + "," + orderDate + "," + orderTime + "," + parentName + "," + parentEmail + "," + itemDescription + "," + itemCode + "," + firstChildName + "," + firstChildClass + "," + secondChildName + "," + secondChildClass + "\n"
+print(csvOutput)
