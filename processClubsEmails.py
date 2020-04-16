@@ -41,7 +41,7 @@ for email in csv.DictReader(runCommand("gam user f.hall print messages query \"n
 for emailFilePath in os.listdir(filenameRoot):
 	orderNumber = ""
 	orderDate = ""
-	emailText = installLib.readFile(filenameRoot + os.sep + emailFilePath)
+	emailText = installLib.readFile(filenameRoot + os.sep + emailFilePath).encode("utf-8")
 	#Order #02248. Placed on January 27, 2020 at 3:56 PM GMT
 	matchResult = re.match("^Order #(\d*?)\.", emailText)
 	if not matchResult == None:
