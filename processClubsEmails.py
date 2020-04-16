@@ -51,7 +51,7 @@ for emailFilePath in os.listdir(filenameRoot):
 	parentName = ""
 	parentEmail = ""
 	emailText = readFile(filenameRoot + os.sep + emailFilePath)
-	matchResult = re.match(u".*Order.*(\d*).*", emailText)
+	matchResult = re.match(u".*(\d*).*", emailText)
 	if not matchResult == None:
 		orderNumber = matchResult[1]
 	#matchResult = re.match(".*Order #(\d*?)\. Placed on (.*?) at (\d*?:\d*? ..).*", emailText)
