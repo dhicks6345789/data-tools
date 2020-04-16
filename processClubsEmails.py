@@ -42,13 +42,18 @@ for emailFilePath in os.listdir(filenameRoot):
 	orderNumber = ""
 	orderDate = ""
 	orderTime = ""
+	parentName = ""
+	parentEmail = ""
 	emailText = str(installLib.readFile(filenameRoot + os.sep + emailFilePath))
-	#Order #02248. Placed on January 27, 2020 at 3:56 PM GMT
 	matchResult = re.match(".*Order #(\d*?)\. Placed on (.*?) at (\d*?:\d*? ..).*", emailText)
 	if not matchResult == None:
 		orderNumber = matchResult[1]
 		orderDate = matchResult[2]
 		orderTime = matchResult[3]
+	matchResult = re.match(".*SHIPPING TO:\n(.*?)\n.*?\n(.*?@.*?)\n.*?ITEM.*", emailText)
+	if not matchResult == None:
+		parentName = matchResult[1]
+		parentEmail = matchResult[2]
 	print(orderNumber)
 	print(orderDate)
 	print(orderTime)
