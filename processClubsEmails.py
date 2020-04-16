@@ -32,15 +32,16 @@ for requiredConfigParameter in requiredConfigParameters:
 os.makedirs(config["dataFolder"] + os.sep + "Clubs", exist_ok=True)
 os.makedirs(config["dataFolder"] + os.sep + "Clubs" + os.sep + "Emails", exist_ok=True)
 
+filenameRoot = config["dataFolder"] + os.sep + "Clubs" + os.sep + "Emails"
 for email in csv.DictReader(runCommand("gam user f.hall print messages query \"newer_than:4m AND from:no-reply@squarespace.com AND subject:'Knightsbridge School: A New Order has Arrived'\" max_to_print 5")):
-	filenamePath = config["dataFolder"] + os.sep + "Clubs" + os.sep + "Emails" + os.sep + email["id"] + ".txt"
+	filenamePath = filenameRoot + os.sep + email["id"] + ".txt"
 	if not os.path.exists(filenamePath):
 		for emailWithBody in csv.DictReader(runCommand("gam user f.hall print messages ids " + email["id"] + " showbody")):
 			installLib.writeFile(filenamePath, removeBlanks(emailWithBody["Body"]))
-for emailFilePath in os.listdir(config["dataFolder"] + os.sep + "Clubs" + os.sep + "Emails"):
+for emailFilePath in os.listdir(filenameRoot):
 	orderNumber = ""
 	orderDate = ""
-	emailText = installLib.readFile(emailFilePath)
+	emailText = installLib.readFile(filenameRoot + os.sep + emailFilePath)
 	#Order #02248. Placed on January 27, 2020 at 3:56 PM GMT
 	matchResult = re.match("^Order #(\d*?)\.", emailText)
 	if not matchResult == None:
