@@ -17,4 +17,4 @@ for requiredConfigParameter in requiredConfigParameters:
 		sys.exit(1)
     
 for emailLine in installLib.runCommand("gam user f.hall print messages max_to_print 1000"):
-	print(emailLine.strip())
+	print(emailLine.strip().encode("utf-8"))
