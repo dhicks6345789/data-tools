@@ -13,6 +13,14 @@ def runCommand(theCommand):
 	commandHandle.close()
 	return result
 
+def removeBlanks(theString):
+	result = ""
+	for line in theString.split("\n"):
+		line = line.strip()
+		if not line == "":
+			result = result + line + "\n"
+	return result.strip()
+
 # Load the configuration file.
 config = json.loads(installLib.readFile("config/config.json"))
 for requiredConfigParameter in requiredConfigParameters:
@@ -27,4 +35,4 @@ for email in csv.DictReader(runCommand("gam user f.hall print messages query \"n
 	filenamePath = config["dataFolder"] + os.sep + "Clubs" + os.sep + "Emails" + os.sep + email["id"] + ".txt"
 	if not os.path.exists(filenamePath):
 		for emailWithBody in csv.DictReader(runCommand("gam user f.hall print messages ids " + email["id"] + " showbody")):
-			installLib.writeFile(filenamePath, emailWithBody["Body"])
+			installLib.writeFile(filenamePath, removeBlanks(emailWithBody["Body"]))
