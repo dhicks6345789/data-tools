@@ -16,4 +16,5 @@ for requiredConfigParameter in requiredConfigParameters:
 		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
 		sys.exit(1)
     
-print("Hello, world! - process emails")
+for emailLine in installLib.runCommand("gam user f.hall print messages max_to_print 1000"):
+	print(emailLine.strip())
