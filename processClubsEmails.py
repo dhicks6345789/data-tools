@@ -21,6 +21,6 @@ for requiredConfigParameter in requiredConfigParameters:
 		sys.exit(1)
 
 emails = csv.reader(runCommand("gam user f.hall print messages query \"from:no-reply@squarespace.com AND subject:'Knightsbridge School: A New Order has Arrived'\" max_to_print 100"))
-header = next(email)
+header = next(emails)
 for email in emails:
 	print(email["id"])
