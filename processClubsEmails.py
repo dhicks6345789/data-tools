@@ -45,5 +45,5 @@ for emailFilePath in os.listdir(filenameRoot):
 	#Order #02248. Placed on January 27, 2020 at 3:56 PM GMT
 	matchResult = re.match(".*Order #(\d*?)\..*", emailText)
 	if not matchResult == None:
-		orderNumber = matchResult[0]
+		orderNumber = matchResult[1]
 	print(orderNumber)
