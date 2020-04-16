@@ -51,12 +51,12 @@ for emailFilePath in os.listdir(filenameRoot):
 	parentName = ""
 	parentEmail = ""
 	emailText = readFile(filenameRoot + os.sep + emailFilePath)
-	matchResult = re.match(".*Order #(\d*?)\. Placed on (.*?) at (\d*?:\d*? ..).*", emailText)
+	matchResult = re.match(".*Order #(\d*?)\. Placed on (.*?) at (\d*?:\d*? ..).*", emailText, re.DOTALL)
 	if not matchResult == None:
 		orderNumber = matchResult[1]
 		orderDate = matchResult[2]
 		orderTime = matchResult[3]
-	matchResult = re.match(".*SHIPPING TO:(.*)ITEM.*", emailText, re.DOTALL)
+	matchResult = re.match(".*TO:(.*)ITEM.*", emailText, re.DOTALL)
 	if not matchResult == None:
 		parentName = matchResult[1]
 	print(orderNumber)
