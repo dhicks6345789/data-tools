@@ -21,6 +21,6 @@ for requiredConfigParameter in requiredConfigParameters:
 	if not requiredConfigParameter in config.keys():
 		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
 		sys.exit(1)
-    
-for emailLine in runCommand("gam user f.hall print messages max_to_print 1000"):
+
+for emailLine in runCommand("gam user f.hall print messages max_to_print 100"):
 	print(emailLine.strip())
