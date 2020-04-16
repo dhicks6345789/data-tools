@@ -60,9 +60,9 @@ for emailFilePath in os.listdir(filenameRoot):
 	if not matchResult == None:
 		parentName = matchResult[1].strip()
 		parentEmail = matchResult[2].strip()
-	#print(orderNumber)
-	#print(orderDate)
-	#print(orderTime)
-	#print(parentName)
+	print(orderNumber)
+	print(orderDate)
+	print(orderTime)
+	print(parentName)
 	print(parentEmail)
 	print("---")
