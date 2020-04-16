@@ -8,6 +8,12 @@ import installLib
 
 requiredConfigParameters = ["dataFolder"]
 
+def readFile(theFilename):
+	inHandle = opne(theFilename)
+	result = inHandle.read()
+	inHandle.close()
+	return result
+
 def runCommand(theCommand):
 	commandHandle = os.popen(theCommand)
 	result = commandHandle.readlines()
@@ -44,13 +50,13 @@ for emailFilePath in os.listdir(filenameRoot):
 	orderTime = ""
 	parentName = ""
 	parentEmail = ""
-	emailText = str(installLib.readFile(filenameRoot + os.sep + emailFilePath))
+	emailText = readFile(filenameRoot + os.sep + emailFilePath)
 	matchResult = re.match(".*Order #(\d*?)\. Placed on (.*?) at (\d*?:\d*? ..).*", emailText)
 	if not matchResult == None:
 		orderNumber = matchResult[1]
 		orderDate = matchResult[2]
 		orderTime = matchResult[3]
-	matchResult = re.match(".*SHIPPING TO:.n(.*?).n.*ITEM.*", emailText)
+	matchResult = re.match(".*SHIPPING TO:(.*)ITEM.*", emailText)
 	if not matchResult == None:
 		parentName = matchResult[1]
 	print(orderNumber)
