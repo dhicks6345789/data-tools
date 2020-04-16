@@ -46,7 +46,7 @@ for email in csv.DictReader(runCommand("gam user f.hall print messages query \"n
 			installLib.writeFile(filenamePath, removeBlanks(emailWithBody["Body"]))
 
 csvOutputHandle = open(config["dataFolder"] + os.sep + "Clubs" + os.sep + "clubsEmailsRawData.csv", 'w', newline='')
-csvOutputWriter = csv.writer(csvOutputHandle, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+csvOutputWriter = csv.writer(csvOutputHandle, delimiter=",", quotechar="\"", quoting=csv.QUOTE_ALL)
 csvOutputWriter.writerow(["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","secondChildName","secondChildClass"])
 for emailFilePath in os.listdir(filenameRoot):
 	orderNumber = ""
