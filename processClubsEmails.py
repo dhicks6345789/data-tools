@@ -79,5 +79,6 @@ for emailFilePath in os.listdir(filenameRoot):
 		firstChildName = matchResult[1].strip()
 		firstChildClass = matchResult[2].strip()
 		secondChildName = matchResult[3].strip()
-		secondChildClass = matchResult[4].strip()
+		if not matchResult[4].startswith("blog <"):
+			secondChildClass = matchResult[4].strip()
 		csvOutputWriter.writerow([orderNumber,orderDate,orderTime,parentName,parentEmail,itemDescription,itemCode,firstChildName,firstChildClass,secondChildName,secondChildClass])
