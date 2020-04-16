@@ -57,3 +57,6 @@ for emailFilePath in os.listdir(filenameRoot):
 	print(orderNumber)
 	print(orderDate)
 	print(orderTime)
+	print(parentName)
+	print(parentEmail)
+	print("---")
