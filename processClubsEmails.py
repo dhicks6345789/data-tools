@@ -45,7 +45,9 @@ for email in csv.DictReader(runCommand("gam user f.hall print messages query \"n
 		for emailWithBody in csv.DictReader(runCommand("gam user f.hall print messages ids " + email["id"] + " showbody")):
 			installLib.writeFile(filenamePath, removeBlanks(emailWithBody["Body"]))
 
-csvOutput = "orderNumber,orderDate,orderTime,parentName,parentEmail,itemDescription,itemCode,firstChildName,firstChildClass,secondChildName,secondChildClass\n"
+csvOutputHandle = open(config["dataFolder"] + os.sep + "Clubs" + os.sep + "clubsEmailsRawData.csv", 'w', newline='')
+csvOutputWriter = csv.writer(csvOutputHandle, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+csvOutputWriter.writerow(["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","secondChildName","secondChildClass"])
 for emailFilePath in os.listdir(filenameRoot):
 	orderNumber = ""
 	orderDate = ""
@@ -78,5 +80,4 @@ for emailFilePath in os.listdir(filenameRoot):
 		firstChildClass = matchResult[2].strip()
 		secondChildName = matchResult[3].strip()
 		secondChildClass = matchResult[3].strip()
-	csvOutput = csvOutput + orderNumber + "," + orderDate + "," + orderTime + "," + parentName + "," + parentEmail + "," + itemDescription + "," + itemCode + "," + firstChildName + "," + firstChildClass + "," + secondChildName + "," + secondChildClass + "\n"
-print(csvOutput)
+		csvOutputWriter.writerow([orderNumber,orderDate,orderTime,parentName,parentEmail,itemDescription,itemCode,firstChildName,firstChildClass,secondChildName,secondChildClass])
