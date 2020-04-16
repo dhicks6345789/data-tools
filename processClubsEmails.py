@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import os
+import re
 import sys
 import csv
 import json
@@ -36,3 +37,12 @@ for email in csv.DictReader(runCommand("gam user f.hall print messages query \"n
 	if not os.path.exists(filenamePath):
 		for emailWithBody in csv.DictReader(runCommand("gam user f.hall print messages ids " + email["id"] + " showbody")):
 			installLib.writeFile(filenamePath, removeBlanks(emailWithBody["Body"]))
+for emailFilePath in os.listdir(config["dataFolder"] + os.sep + "Clubs" + os.sep + "Emails"):
+	orderNumber = ""
+	orderDate = ""
+	emailText = installLib.reaadFile(emailFilePath)
+	#Order #02248. Placed on January 27, 2020 at 3:56 PM GMT
+	matchResult = re.match("^Order #(\d*)\.", emailText)
+	if not matchResult == None:
+		orderNumber = matchResult[0]
+	print(matchResult)
