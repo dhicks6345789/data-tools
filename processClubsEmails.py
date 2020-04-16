@@ -1,11 +1,8 @@
 #!/usr/bin/python
 import os
-import re
 import sys
 import csv
 import json
-import pandas
-import installLib
 
 requiredConfigParameters = ["dataFolder"]
 
@@ -22,5 +19,4 @@ for requiredConfigParameter in requiredConfigParameters:
 		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
 		sys.exit(1)
 
-for emailLine in runCommand("gam user f.hall print messages query \"from:no-reply@squarespace.com AND subject:'Knightsbridge School: A New Order has Arrived'\" max_to_print 100"):
-	print(emailLine.strip())
+print(csv.reader(runCommand("gam user f.hall print messages query \"from:no-reply@squarespace.com AND subject:'Knightsbridge School: A New Order has Arrived'\" max_to_print 100")))
