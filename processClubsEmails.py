@@ -56,9 +56,10 @@ for emailFilePath in os.listdir(filenameRoot):
 		orderNumber = matchResult[1]
 		orderDate = matchResult[2]
 		orderTime = matchResult[3]
-	matchResult = re.match(".*TO:\n(.*?)\n.*ITEM.*", emailText, re.DOTALL)
+	matchResult = re.match(".*TO:\n(.*?)\n.*\n(.*?@.*?)\nITEM.*", emailText, re.DOTALL)
 	if not matchResult == None:
-		parentName = matchResult[1]
+		parentName = matchResult[1].strip()
+		parentEmail = matchResult[2].strip()
 	print(orderNumber)
 	print(orderDate)
 	print(orderTime)
