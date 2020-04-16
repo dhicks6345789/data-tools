@@ -23,8 +23,8 @@ for requiredConfigParameter in requiredConfigParameters:
 os.makedirs(config["dataFolder"] + os.sep + "Clubs", exist_ok=True)
 os.makedirs(config["dataFolder"] + os.sep + "Clubs" + os.sep + "Emails", exist_ok=True)
 
-for email in csv.DictReader(runCommand("gam user f.hall print messages query \"newer_than:4m AND from:no-reply@squarespace.com AND subject:'Knightsbridge School: A New Order has Arrived'\" max_to_print 5")):
+for email in csv.DictReader(runCommand("gam user f.hall print messages query \"newer_than:4m AND from:no-reply@squarespace.com AND subject:'Knightsbridge School: A New Order has Arrived'\" max_to_print 1")):
 	filenamePath = config["dataFolder"] + os.sep + "Clubs" + os.sep + "Emails" + os.sep + email["id"]
 	if not os.path.exists(filenamePath):
 		for emailWithBody in csv.DictReader(runCommand("gam user f.hall print messages ids " + email["id"] + " showbody")):
-			print(emailWithBody["Body"])
+			installLib.writeFile(filenamePath, emailWithBody["Body"])
