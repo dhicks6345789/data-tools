@@ -16,7 +16,7 @@ def readFile(theFilename):
 def writeFile(theFilename, theFileData):
 	fileDataHandle = open(theFilename, "w")
 	if isinstance(theFileData, str):
-		fileDataHandle.write(theFileData.encode())
+		fileDataHandle.write(theFileData)
 	else:
 		for dataLine in theFileData:
 			fileDataHandle.write((str(dataLine) + "\n").encode())
