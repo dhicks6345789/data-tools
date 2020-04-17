@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import os
+import json
 
 # A set of utility functions to help with general data manipulation.
 
@@ -27,7 +28,7 @@ def removeBlanks(theString):
 	return result.strip()
 
 # Load the configuration file.
-config = json.loads(dataLib.readFile("config/config.json"))
+config = json.loads(readFile("config/config.json"))
 for requiredConfigParameter in requiredConfigParameters:
 	if not requiredConfigParameter in config.keys():
 		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
