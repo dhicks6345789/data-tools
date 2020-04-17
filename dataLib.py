@@ -11,6 +11,17 @@ def readFile(theFilename):
 	inHandle.close()
 	return result
 
+# Handy utility function to write a file. Takes a file path and either a single string or an array of strings. If an array, will write each
+# string to the given file path with a newline at the end.
+def writeFile(theFilename, theFileData):
+	fileDataHandle = open(theFilename, "w")
+	if isinstance(theFileData, str):
+		fileDataHandle.write(theFileData.encode())
+	else:
+		for dataLine in theFileData:
+			fileDataHandle.write((str(dataLine) + "\n").encode())
+	fileDataHandle.close()
+
 # Runs the given command, returns the entire output as a single string.
 def runCommand(theCommand):
 	commandHandle = os.popen(theCommand)
