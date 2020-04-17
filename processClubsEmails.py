@@ -16,8 +16,9 @@ os.makedirs(emailsRoot, exist_ok=True)
 options = {}
 optionsDataframe = pandas.read_excel(clubsRoot + os.sep + "options.xlsx", header=None)
 for optionIndex, optionValue in optionsDataframe.iterrows():
-	options[optionsDataframe.at[optionIndex, 0]] = optionsDataframe.at[optionIndex, 1]
-print(options)
+	options[optionsDataframe.at[optionIndex, 0].replace(":","").strip()] = optionsDataframe.at[optionIndex, 1]
+
+print(options["dateFrom"])
 sys.exit(0)
 
 for email in csv.DictReader(runCommand("gam user f.hall print messages query \"newer_than:6m AND from:no-reply@squarespace.com AND subject:'Knightsbridge School: A New Order has Arrived'\"").split("\n")):
