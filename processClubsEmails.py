@@ -6,7 +6,7 @@ import csv
 import pandas
 import dataLib
 
-config = loadConfig(["dataFolder"])
+config = dataLib.loadConfig(["dataFolder"])
 
 clubsRoot = config["dataFolder"] + os.sep + "Clubs"
 os.makedirs(clubsRoot, exist_ok=True)
