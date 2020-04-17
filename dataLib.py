@@ -27,9 +27,13 @@ def removeBlanks(theString):
 			result = result + line + "\n"
 	return result.strip()
 
-# Load the configuration file.
-config = json.loads(readFile("config/config.json"))
-for requiredConfigParameter in requiredConfigParameters:
-	if not requiredConfigParameter in config.keys():
-		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
-		sys.exit(1)
+# Takes an array of strings, then checks the JSON config file to make sure the required parameters are indeed set.
+# Returns an array of configuration values.
+loadConfig(requiredConfigParameters):
+	# Load the configuration file.
+	config = json.loads(readFile("config/config.json"))
+	for requiredConfigParameter in requiredConfigParameters:
+		if not requiredConfigParameter in config.keys():
+			print("Error - required value " + requiredConfigParameter + " not set in config.json.")
+			sys.exit(1)
+	return config
