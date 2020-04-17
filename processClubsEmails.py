@@ -38,6 +38,9 @@ for emailIndex, emailValue in pandas.read_csv(io.StringIO(dataLib.runCommand("ga
 for cachedEmail in os.listdir(emailsRoot):
 	if not cachedEmail in cachedEmails:
 		os.remove(emailsRoot + os.sep + cachedEmail)
+		
+clubs = pandas.DataFrame(columns=["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","secondChildName","secondChildClass"])
+print(clubs)
 
 sys.exit(0)
 
