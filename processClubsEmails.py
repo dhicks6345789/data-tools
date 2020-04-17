@@ -5,6 +5,7 @@ import sys
 import csv
 import json
 import pandas
+import dataLib
 
 requiredConfigParameters = ["dataFolder"]
 
@@ -29,7 +30,7 @@ def removeBlanks(theString):
 	return result.strip()
 
 # Load the configuration file.
-config = json.loads(readFile("config/config.json"))
+config = json.loads(dataLib.readFile("config/config.json"))
 for requiredConfigParameter in requiredConfigParameters:
 	if not requiredConfigParameter in config.keys():
 		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
