@@ -39,10 +39,12 @@ for cachedEmail in os.listdir(emailsRoot):
 	if not cachedEmail in cachedEmails:
 		os.remove(emailsRoot + os.sep + cachedEmail)
 		
+rawDataChanged = False
 rawDataRoot = clubsRoot + os.sep + "clubsEmailsRawData.xlsx"
 if os.path.exists(rawDataRoot):
 	clubs = pandas.read_excel(rawDataRoot)
 else:
+	rawDataChanged = True
 	clubs = pandas.DataFrame(columns=["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","firstChildUsername","secondChildName","secondChildClass","secondChildUsername"])
 
 # Go through each email and extract data.
@@ -54,6 +56,7 @@ for emailFilePath in os.listdir(emailsRoot):
 	if not matchResult == None:
 		orderNumber = matchResult[1].strip()
 	if not orderNumber == "" and not orderNumber in clubs["orderNumber"].tolist():
+		rawDataChanged = True
 		clubs.at[emailIndex, "orderNumber"] = matchResult[1].strip()
 		clubs.at[emailIndex, "orderDate"] = matchResult[2].strip()
 		clubs.at[emailIndex, "orderTime"] = matchResult[3].strip()
@@ -76,4 +79,5 @@ for emailFilePath in os.listdir(emailsRoot):
 				clubs.at[emailIndex, "secondChildClass"] = matchResult[4].strip()
 		emailIndex = emailIndex + 1
 
-clubs.to_excel(rawDataRoot)
+if rawDataChanged:
+	clubs.to_excel(rawDataRoot)
