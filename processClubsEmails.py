@@ -13,7 +13,7 @@ os.makedirs(clubsRoot, exist_ok=True)
 emailsRoot = clubsRoot + os.sep + "Emails"
 os.makedirs(emailsRoot, exist_ok=True)
 
-options = pandas.read_excel(clubsRoot + os.sep + "options.xlsx")
+options = pandas.read_excel(clubsRoot + os.sep + "options.xlsx", header=None)
 print(options)
 sys.exit(0)
 
