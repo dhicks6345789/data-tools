@@ -49,7 +49,7 @@ else:
 
 # Go through each email and extract data.
 emailIndex = len(clubs.index)
-print(clubs["orderNumber"].tolist())
+existingOrderNumbers = clubs["orderNumber"].tolist()
 for emailFilePath in os.listdir(emailsRoot):
 	orderNumber = 0
 	emailText = dataLib.readFile(emailsRoot + os.sep + emailFilePath)
@@ -59,7 +59,7 @@ for emailFilePath in os.listdir(emailsRoot):
 			orderNumber = int(matchResult[1].strip())
 		except ValueError:
 			orderNumber = 0
-	if not orderNumber == 0 and not orderNumber in clubs["orderNumber"].tolist():
+	if not orderNumber == 0 and not orderNumber in existingOrderNumbers:
 		rawDataChanged = True
 		clubs.at[emailIndex, "orderNumber"] = matchResult[1].strip()
 		clubs.at[emailIndex, "orderDate"] = matchResult[2].strip()
