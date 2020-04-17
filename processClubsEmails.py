@@ -18,15 +18,13 @@ optionsDataframe = pandas.read_excel(clubsRoot + os.sep + "options.xlsx", header
 for optionIndex, optionValue in optionsDataframe.iterrows():
 	options[optionsDataframe.at[optionIndex, 0].replace(":","").strip()] = optionsDataframe.at[optionIndex, 1]
 
-# after:2004/04/16
-print(str(options["dateFrom"].year) + "/" + str(options["dateFrom"].month) + "/" + str(options["dateFrom"].day))
-sys.exit(0)
-
-for email in csv.DictReader(runCommand("gam user f.hall print messages query \"newer_than:6m AND from:no-reply@squarespace.com AND subject:'Knightsbridge School: A New Order has Arrived'\"").split("\n")):
-	filenamePath = filenameRoot + os.sep + email["id"] + ".txt"
+for email in csv.DictReader(runCommand("gam user f.hall print messages query \"after:" + str(options["dateFrom"].year) + "/" + str(options["dateFrom"].month) + "/" + str(options["dateFrom"].day) + " AND from:no-reply@squarespace.com AND subject:'Knightsbridge School: A New Order has Arrived'\"").split("\n")):
+	filenamePath = emailsRoot + os.sep + email["id"] + ".txt"
 	if not os.path.exists(filenamePath):
 		for emailWithBody in csv.DictReader(runCommand("gam user f.hall print messages ids " + email["id"] + " showbody").split("\n")):
-			installLib.writeFile(filenamePath, removeBlanks(emailWithBody["Body"]))
+			dataLib.writeFile(filenamePath, removeBlanks(emailWithBody["Body"]))
+			
+sys.exit(0)
 
 csvOutputHandle = open(config["dataFolder"] + os.sep + "Clubs" + os.sep + "clubsEmailsRawData.csv", 'w', newline='')
 csvOutputWriter = csv.writer(csvOutputHandle, delimiter=",", quotechar="\"", quoting=csv.QUOTE_ALL)
