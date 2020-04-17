@@ -74,6 +74,9 @@ if os.name == "nt":
 	
 	# Make sure XLRD (Python library for handling Excel files, required for Excel support in Pandas) is installed.
 	installLib.runIfPathMissing("C:\\Program Files\\"+installLib.pythonVersion+"\\Lib\\site-packages\\xlrd", "py -m pip install xlrd")
+	
+	# Make sure OpenPyXL (Python library for handling Excel files, required for Excel support in Pandas) is installed.
+	installLib.runIfPathMissing("C:\\Program Files\\"+installLib.pythonVersion+"\\Lib\\site-packages\\openpyxl", "py -m pip install openpyxl")
 
 	# Make sure Pandas (Python data-analysis library) is installed.
 	installLib.runIfPathMissing("C:\\Program Files\\"+installLib.pythonVersion+"\\Lib\\site-packages\\pandas", "py -m pip install pandas")
