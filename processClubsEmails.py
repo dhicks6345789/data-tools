@@ -32,7 +32,7 @@ for emailIndex, emailValue in pandas.read_csv(io.StringIO(dataLib.runCommand("ga
 	cachedEmails.append(emailValue["id"] + ".txt")
 	if not os.path.exists(filenamePath):
 		for emailWithBodyIndex, emailWithBodyValue in pandas.read_csv(io.StringIO(dataLib.runCommand("gam user " + options["user"] + " print messages ids " + emailValue["id"] + " showbody"))).iterrows():
-			dataLib.writeFile(filenamePath, removeBlanks(emailWithBodyValue["Body"]))
+			dataLib.writeFile(filenamePath, dataLib.removeBlanks(emailWithBodyValue["Body"]))
 # Clear out any un-used emails from the local cache.
 for cachedEmail in os.listdir(emailsRoot):
 	if not cachedEmail in cachedEmails:
