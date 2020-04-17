@@ -51,12 +51,15 @@ else:
 emailIndex = len(clubs.index)
 print(clubs["orderNumber"].tolist())
 for emailFilePath in os.listdir(emailsRoot):
-	orderNumber = ""
+	orderNumber = 0
 	emailText = dataLib.readFile(emailsRoot + os.sep + emailFilePath)
 	matchResult = re.match(".*Order #(\d*?)\. Placed on (.*?) at (\d*?:\d*? ..).*", emailText, re.DOTALL)
 	if not matchResult == None:
-		orderNumber = matchResult[1].strip()
-	if not orderNumber == "" and not orderNumber in clubs["orderNumber"].tolist():
+		try:
+			orderNumber = int(matchResult[1].strip())
+		except ValueError:
+			orderNumber = 0
+	if not orderNumber == 0 and not orderNumber in clubs["orderNumber"].tolist():
 		rawDataChanged = True
 		#print(orderNumber)
 		clubs.at[emailIndex, "orderNumber"] = matchResult[1].strip()
