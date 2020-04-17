@@ -28,11 +28,9 @@ for optionIndex, optionValue in optionsDataframe.iterrows():
 # Use GAM to get a set of emails from GMail. The content of each email is cached locally so we don't have to query GMail for every single
 # email each time the script runs.
 cachedEmails = []
-#for email in csv.DictReader(dataLib.runCommand("gam user " + options["user"] + " print messages query \"after:" + str(options["dateFrom"].year) + "/" + str(options["dateFrom"].month) + "/" + str(options["dateFrom"].day) + " AND from:no-reply@squarespace.com AND subject:'Knightsbridge School: A New Order has Arrived'\"").split("\n")):
 for emailIndex, emailValue in pandas.read_csv(io.StringIO(dataLib.runCommand("gam user " + options["user"] + " print messages query \"after:" + str(options["dateFrom"].year) + "/" + str(options["dateFrom"].month) + "/" + str(options["dateFrom"].day) + " AND from:no-reply@squarespace.com AND subject:'Knightsbridge School: A New Order has Arrived'\""))).iterrows():
-	print(emailValue)
-	print("\n---\n")
 	filenamePath = emailsRoot + os.sep + emailValue["id"] + ".txt"
+	print(filenamePath)
 	#if not os.path.exists(filenamePath):
 	#	for emailWithBody in csv.DictReader(dataLib.runCommand("gam " + options["user"] + " f.hall print messages ids " + email["id"] + " showbody").split("\n")):
 	#		dataLib.writeFile(filenamePath, removeBlanks(emailWithBody["Body"]))
