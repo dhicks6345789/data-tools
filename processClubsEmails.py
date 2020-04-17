@@ -41,8 +41,7 @@ for cachedEmail in os.listdir(emailsRoot):
 		
 clubs = pandas.DataFrame(columns=["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","secondChildName","secondChildClass"])
 
-#csvOutputHandle = open(config["dataFolder"] + os.sep + "Clubs" + os.sep + "clubsEmailsRawData.csv", 'w', newline='')
-#csvOutputWriter = csv.writer(csvOutputHandle, delimiter=",", quotechar="\"", quoting=csv.QUOTE_ALL)
+# Go through each email and extract data.
 emailIndex = 0
 for emailFilePath in os.listdir(emailsRoot):
 	emailText = dataLib.readFile(emailsRoot + os.sep + emailFilePath)
@@ -69,4 +68,5 @@ for emailFilePath in os.listdir(emailsRoot):
 		else:
 			clubs.at[emailIndex, "secondChildClass"] = matchResult[4].strip()
 	emailIndex = emailIndex + 1
-print(clubs)
+
+clubs.to_excel(clubsRoot + os.sep + "clubsEmailsRawData.xlsx")
