@@ -3,13 +3,12 @@ import os
 import re
 import sys
 import csv
-import json
 import pandas
 import dataLib
 
-requiredConfigParameters = ["dataFolder"]
+config = loadConfig(["dataFolder"])
 
-clubsRoot = dataLib.config["dataFolder"] + os.sep + "Clubs"
+clubsRoot = config["dataFolder"] + os.sep + "Clubs"
 os.makedirs(clubsRoot, exist_ok=True)
 emailsRoot = clubsRoot + os.sep + "Emails"
 os.makedirs(emailsRoot, exist_ok=True)
