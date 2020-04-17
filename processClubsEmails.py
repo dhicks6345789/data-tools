@@ -4,7 +4,7 @@ import re
 import sys
 import csv
 import json
-import installLib
+import pandas
 
 requiredConfigParameters = ["dataFolder"]
 
@@ -29,16 +29,20 @@ def removeBlanks(theString):
 	return result.strip()
 
 # Load the configuration file.
-config = json.loads(installLib.readFile("config/config.json"))
+config = json.loads(readFile("config/config.json"))
 for requiredConfigParameter in requiredConfigParameters:
 	if not requiredConfigParameter in config.keys():
 		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
 		sys.exit(1)
 
-os.makedirs(config["dataFolder"] + os.sep + "Clubs", exist_ok=True)
-os.makedirs(config["dataFolder"] + os.sep + "Clubs" + os.sep + "Emails", exist_ok=True)
+clubsRoot = config["dataFolder"] + os.sep + "Clubs"
+os.makedirs(clubsRoot, exist_ok=True)
+emailsRoot = clubsRoot + os.sep + "Emails"
+os.makedirs(emailsRoot, exist_ok=True)
 
-filenameRoot = config["dataFolder"] + os.sep + "Clubs" + os.sep + "Emails"
+pandas.read_excel(clubsRoot + os.sep + "options.xslx")
+sys.exit(0)
+
 for email in csv.DictReader(runCommand("gam user f.hall print messages query \"newer_than:6m AND from:no-reply@squarespace.com AND subject:'Knightsbridge School: A New Order has Arrived'\"")):
 	filenamePath = filenameRoot + os.sep + email["id"] + ".txt"
 	if not os.path.exists(filenamePath):
