@@ -14,12 +14,11 @@ emailsRoot = clubsRoot + os.sep + "Emails"
 os.makedirs(emailsRoot, exist_ok=True)
 
 optionsDataframe = pandas.read_excel(clubsRoot + os.sep + "options.xlsx", header=None)
-print(optionsDataframe)
 for optionIndex, optionValue in optionsDataframe.iterrows():
 	print("AAA")
-	print(optionIndex)
+	print(optionsDataframe.at[optionIndex, 0])
 	print("BBB")
-	print(optionValue)
+	print(optionsDataframe.at[optionIndex, 1])
 	print("CCC")
 sys.exit(0)
 
