@@ -68,4 +68,5 @@ for emailFilePath in os.listdir(emailsRoot):
 			clubs.at[emailIndex, "secondChildClass"] = ""
 		else:
 			clubs.at[emailIndex, "secondChildClass"] = matchResult[4].strip()
+	emailIndex = emailIndex + 1
 print(clubs)
