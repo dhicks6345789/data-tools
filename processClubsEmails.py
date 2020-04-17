@@ -40,6 +40,7 @@ for cachedEmail in os.listdir(emailsRoot):
 		os.remove(emailsRoot + os.sep + cachedEmail)
 		
 clubs = pandas.DataFrame(columns=["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","secondChildName","secondChildClass"])
+clubs.at[1, "orderNumber"] = "123abc"
 print(clubs)
 
 sys.exit(0)
