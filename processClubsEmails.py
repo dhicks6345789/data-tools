@@ -57,6 +57,7 @@ for emailFilePath in os.listdir(emailsRoot):
 		orderNumber = matchResult[1].strip()
 	if not orderNumber == "" and not orderNumber in clubs["orderNumber"].tolist():
 		rawDataChanged = True
+		print(orderNumber)
 		clubs.at[emailIndex, "orderNumber"] = matchResult[1].strip()
 		clubs.at[emailIndex, "orderDate"] = matchResult[2].strip()
 		clubs.at[emailIndex, "orderTime"] = matchResult[3].strip()
