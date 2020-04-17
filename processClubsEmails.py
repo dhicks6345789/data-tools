@@ -39,34 +39,41 @@ for cachedEmail in os.listdir(emailsRoot):
 	if not cachedEmail in cachedEmails:
 		os.remove(emailsRoot + os.sep + cachedEmail)
 		
-clubs = pandas.DataFrame(columns=["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","secondChildName","secondChildClass"])
+rawDataRoot = clubsRoot + os.sep + "clubsEmailsRawData.xlsx"
+if os.path.exists(rawDataRoot):
+	clubs = pandas.read_excel(rawDataRoot)
+else:
+	clubs = pandas.DataFrame(columns=["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","firstChildUsername","secondChildName","secondChildClass","secondChildUsername"])
 
 # Go through each email and extract data.
-emailIndex = 0
+emailIndex = len(clubs.index)
 for emailFilePath in os.listdir(emailsRoot):
+	orderNumber = ""
 	emailText = dataLib.readFile(emailsRoot + os.sep + emailFilePath)
 	matchResult = re.match(".*Order #(\d*?)\. Placed on (.*?) at (\d*?:\d*? ..).*", emailText, re.DOTALL)
 	if not matchResult == None:
+		orderNumber = matchResult[1].strip()
+	if not orderNumber == "" and not orderNumber in clubs["orderNumber"].tolist():
 		clubs.at[emailIndex, "orderNumber"] = matchResult[1].strip()
 		clubs.at[emailIndex, "orderDate"] = matchResult[2].strip()
 		clubs.at[emailIndex, "orderTime"] = matchResult[3].strip()
-	matchResult = re.match(".*TO:\n(.*?)\n.*\n(.*?@.*?)\n.*ITEM.*", emailText, re.DOTALL)
-	if not matchResult == None:
-		clubs.at[emailIndex, "parentName"] = matchResult[1].strip()
-		clubs.at[emailIndex, "parentEmail"] = matchResult[2].strip()
-	matchResult = re.match(".*SUBTOTAL\n(.*?)\n(.*?)\n.*", emailText, re.DOTALL)
-	if not matchResult == None:
-		clubs.at[emailIndex, "itemDescription"] = matchResult[1].strip()
-		clubs.at[emailIndex, "itemCode"] = matchResult[2].strip()
-	matchResult = re.match(".*Name of your Child:\n(.*?)\nClass/Year:\n(.*?)\nName of Second Child:(.*?)\nClass/Year:\n(.*?)\n.*", emailText, re.DOTALL)
-	if not matchResult == None:
-		clubs.at[emailIndex, "firstChildName"] = matchResult[1].strip()
-		clubs.at[emailIndex, "firstChildClass"] = matchResult[2].strip()
-		clubs.at[emailIndex, "secondChildName"] = matchResult[3].strip()
-		if matchResult[4].startswith("blog <"):
-			clubs.at[emailIndex, "secondChildClass"] = ""
-		else:
-			clubs.at[emailIndex, "secondChildClass"] = matchResult[4].strip()
-	emailIndex = emailIndex + 1
+		matchResult = re.match(".*TO:\n(.*?)\n.*\n(.*?@.*?)\n.*ITEM.*", emailText, re.DOTALL)
+		if not matchResult == None:
+			clubs.at[emailIndex, "parentName"] = matchResult[1].strip()
+			clubs.at[emailIndex, "parentEmail"] = matchResult[2].strip()
+		matchResult = re.match(".*SUBTOTAL\n(.*?)\n(.*?)\n.*", emailText, re.DOTALL)
+		if not matchResult == None:
+			clubs.at[emailIndex, "itemDescription"] = matchResult[1].strip()
+			clubs.at[emailIndex, "itemCode"] = matchResult[2].strip()
+		matchResult = re.match(".*Name of your Child:\n(.*?)\nClass/Year:\n(.*?)\nName of Second Child:(.*?)\nClass/Year:\n(.*?)\n.*", emailText, re.DOTALL)
+		if not matchResult == None:
+			clubs.at[emailIndex, "firstChildName"] = matchResult[1].strip()
+			clubs.at[emailIndex, "firstChildClass"] = matchResult[2].strip()
+			clubs.at[emailIndex, "secondChildName"] = matchResult[3].strip()
+			if matchResult[4].startswith("blog <"):
+				clubs.at[emailIndex, "secondChildClass"] = ""
+			else:
+				clubs.at[emailIndex, "secondChildClass"] = matchResult[4].strip()
+		emailIndex = emailIndex + 1
 
-clubs.to_excel(clubsRoot + os.sep + "clubsEmailsRawData.xlsx")
+clubs.to_excel(rawDataRoot)
