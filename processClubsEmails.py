@@ -3,7 +3,6 @@ import os
 import re
 import io
 import sys
-import csv
 import pandas
 import dataLib
 
@@ -18,7 +17,7 @@ os.makedirs(emailsRoot, exist_ok=True)
 
 # Load the user options. These are a set of simple key:values in an Excel spreadsheet. Available options:
 # dateFrom: The date at which to start processing emails from. Means the user can define which emails to process rather than simply
-# processing all emails from years back.
+#    processing all emails from years back.
 # User: The username of the inbox to extract emails from.
 options = {}
 optionsDataframe = pandas.read_excel(clubsRoot + os.sep + "options.xlsx", header=None)
@@ -30,15 +29,14 @@ for optionIndex, optionValue in optionsDataframe.iterrows():
 cachedEmails = []
 for emailIndex, emailValue in pandas.read_csv(io.StringIO(dataLib.runCommand("gam user " + options["user"] + " print messages query \"after:" + str(options["dateFrom"].year) + "/" + str(options["dateFrom"].month) + "/" + str(options["dateFrom"].day) + " AND from:no-reply@squarespace.com AND subject:'Knightsbridge School: A New Order has Arrived'\""))).iterrows():
 	filenamePath = emailsRoot + os.sep + emailValue["id"] + ".txt"
-	print(filenamePath)
-	#if not os.path.exists(filenamePath):
-	#	for emailWithBody in csv.DictReader(dataLib.runCommand("gam " + options["user"] + " f.hall print messages ids " + email["id"] + " showbody").split("\n")):
-	#		dataLib.writeFile(filenamePath, removeBlanks(emailWithBody["Body"]))
-	#cachedEmails.append(email["id"] + ".txt")
+	cachedEmails.append(emailValue["id"] + ".txt")
+	if not os.path.exists(filenamePath):
+		for emailWithBodyIndex, emailWithBodyValue in pandas.read_csv(io.StringIO(dataLib.runCommand("gam " + options["user"] + " f.hall print messages ids " + emailValue["id"] + " showbody"))).iterrows():
+			dataLib.writeFile(filenamePath, removeBlanks(emailWithBodyValue["Body"]))
 # Clear out any un-used emails from the local cache.
-#for cachedEmail in os.listdir(emailsRoot):
-#	if not cachedEmail in cachedEmails:
-#		print(emailsRoot + os.sep + cachedEmail)
+for cachedEmail in os.listdir(emailsRoot):
+	if not cachedEmail in cachedEmails:
+		print(emailsRoot + os.sep + cachedEmail)
 
 sys.exit(0)
 
