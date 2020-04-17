@@ -20,7 +20,7 @@ sys.exit(0)
 for email in csv.DictReader(runCommand("gam user f.hall print messages query \"newer_than:6m AND from:no-reply@squarespace.com AND subject:'Knightsbridge School: A New Order has Arrived'\"").split("\n")):
 	filenamePath = filenameRoot + os.sep + email["id"] + ".txt"
 	if not os.path.exists(filenamePath):
-		for emailWithBody in csv.DictReader(runCommand("gam user f.hall print messages ids " + email["id"] + " showbody").split("\n)):
+		for emailWithBody in csv.DictReader(runCommand("gam user f.hall print messages ids " + email["id"] + " showbody").split("\n")):
 			installLib.writeFile(filenamePath, removeBlanks(emailWithBody["Body"]))
 
 csvOutputHandle = open(config["dataFolder"] + os.sep + "Clubs" + os.sep + "clubsEmailsRawData.csv", 'w', newline='')
