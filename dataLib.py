@@ -10,10 +10,10 @@ def readFile(theFilename):
 	inHandle.close()
 	return result
 
-# Runs the given command, returns the entire output as an array of strings.
+# Runs the given command, returns the entire output as a single string.
 def runCommand(theCommand):
 	commandHandle = os.popen(theCommand)
-	result = commandHandle.readlines()
+	result = commandHandle.read()
 	commandHandle.close()
 	return result
 
