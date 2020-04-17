@@ -13,7 +13,8 @@ os.makedirs(clubsRoot, exist_ok=True)
 emailsRoot = clubsRoot + os.sep + "Emails"
 os.makedirs(emailsRoot, exist_ok=True)
 
-pandas.read_excel(clubsRoot + os.sep + "options.xlsx")
+options = pandas.read_excel(clubsRoot + os.sep + "options.xlsx")
+print(options.at[1, 1])
 sys.exit(0)
 
 for email in csv.DictReader(runCommand("gam user f.hall print messages query \"newer_than:6m AND from:no-reply@squarespace.com AND subject:'Knightsbridge School: A New Order has Arrived'\"").split("\n")):
