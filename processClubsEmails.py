@@ -36,7 +36,7 @@ for emailIndex, emailValue in pandas.read_csv(io.StringIO(dataLib.runCommand("ga
 # Clear out any un-used emails from the local cache.
 for cachedEmail in os.listdir(emailsRoot):
 	if not cachedEmail in cachedEmails:
-		print(emailsRoot + os.sep + cachedEmail)
+		os.remove(emailsRoot + os.sep + cachedEmail)
 
 sys.exit(0)
 
