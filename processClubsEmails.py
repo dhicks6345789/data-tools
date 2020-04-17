@@ -45,7 +45,7 @@ clubs = pandas.DataFrame(columns=["orderNumber","orderDate","orderTime","parentN
 #csvOutputWriter = csv.writer(csvOutputHandle, delimiter=",", quotechar="\"", quoting=csv.QUOTE_ALL)
 emailIndex = 0
 for emailFilePath in os.listdir(emailsRoot):
-	emailText = readFile(filenameRoot + os.sep + emailFilePath)
+	emailText = dataLib.readFile(filenameRoot + os.sep + emailFilePath)
 	matchResult = re.match(".*Order #(\d*?)\. Placed on (.*?) at (\d*?:\d*? ..).*", emailText, re.DOTALL)
 	if not matchResult == None:
 		clubs.at[emailIndex, "orderNumber"] = matchResult[1].strip()
