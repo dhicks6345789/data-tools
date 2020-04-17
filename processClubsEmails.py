@@ -40,45 +40,32 @@ for cachedEmail in os.listdir(emailsRoot):
 		os.remove(emailsRoot + os.sep + cachedEmail)
 		
 clubs = pandas.DataFrame(columns=["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","secondChildName","secondChildClass"])
-clubs.at[1, "orderNumber"] = "123abc"
-print(clubs)
 
-sys.exit(0)
-
-csvOutputHandle = open(config["dataFolder"] + os.sep + "Clubs" + os.sep + "clubsEmailsRawData.csv", 'w', newline='')
-csvOutputWriter = csv.writer(csvOutputHandle, delimiter=",", quotechar="\"", quoting=csv.QUOTE_ALL)
-csvOutputWriter.writerow(["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","secondChildName","secondChildClass"])
+#csvOutputHandle = open(config["dataFolder"] + os.sep + "Clubs" + os.sep + "clubsEmailsRawData.csv", 'w', newline='')
+#csvOutputWriter = csv.writer(csvOutputHandle, delimiter=",", quotechar="\"", quoting=csv.QUOTE_ALL)
+emailIndex = 0
 for emailFilePath in os.listdir(filenameRoot):
-	orderNumber = ""
-	orderDate = ""
-	orderTime = ""
-	parentName = ""
-	parentEmail = ""
-	itemDescription = ""
-	itemCode = ""
-	firstChildName = ""
-	firstChildClass = ""
-	secondChildName = ""
-	secondChildClass = ""
 	emailText = readFile(filenameRoot + os.sep + emailFilePath)
 	matchResult = re.match(".*Order #(\d*?)\. Placed on (.*?) at (\d*?:\d*? ..).*", emailText, re.DOTALL)
 	if not matchResult == None:
-		orderNumber = matchResult[1].strip()
-		orderDate = matchResult[2].strip()
-		orderTime = matchResult[3].strip()
+		clubs.at[emailIndex, "orderNumber"] = matchResult[1].strip()
+		clubs.at[emailIndex, "orderDate"] = matchResult[2].strip()
+		clubs.at[emailIndex, "orderTime"] = matchResult[3].strip()
 	matchResult = re.match(".*TO:\n(.*?)\n.*\n(.*?@.*?)\n.*ITEM.*", emailText, re.DOTALL)
 	if not matchResult == None:
-		parentName = matchResult[1].strip()
-		parentEmail = matchResult[2].strip()
+		clubs.at[emailIndex, "parentName"] = matchResult[1].strip()
+		clubs.at[emailIndex, "parentEmail"] = matchResult[2].strip()
 	matchResult = re.match(".*SUBTOTAL\n(.*?)\n(.*?)\n.*", emailText, re.DOTALL)
 	if not matchResult == None:
-		itemDescription = matchResult[1].strip()
-		itemCode = matchResult[2].strip()
+		clubs.at[emailIndex, "itemDescription"] = matchResult[1].strip()
+		clubs.at[emailIndex, "itemCode"] = matchResult[2].strip()
 	matchResult = re.match(".*Name of your Child:\n(.*?)\nClass/Year:\n(.*?)\nName of Second Child:(.*?)\nClass/Year:\n(.*?)\n.*", emailText, re.DOTALL)
 	if not matchResult == None:
-		firstChildName = matchResult[1].strip()
-		firstChildClass = matchResult[2].strip()
-		secondChildName = matchResult[3].strip()
-		if not matchResult[4].startswith("blog <"):
-			secondChildClass = matchResult[4].strip()
-		csvOutputWriter.writerow([orderNumber,orderDate,orderTime,parentName,parentEmail,itemDescription,itemCode,firstChildName,firstChildClass,secondChildName,secondChildClass])
+		clubs.at[emailIndex, "firstChildName"] = matchResult[1].strip()
+		clubs.at[emailIndex, "firstChildClass"] = matchResult[2].strip()
+		clubs.at[emailIndex, "secondChildName"] = matchResult[3].strip()
+		if matchResult[4].startswith("blog <"):
+			clubs.at[emailIndex, "secondChildClass"] = ""
+		else:
+			clubs.at[emailIndex, "secondChildClass"] = matchResult[4].strip()
+print(clubs)
