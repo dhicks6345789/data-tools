@@ -29,7 +29,7 @@ def removeBlanks(theString):
 
 # Takes an array of strings, then checks the JSON config file to make sure the required parameters are indeed set.
 # Returns an array of configuration values.
-loadConfig(requiredConfigParameters):
+def loadConfig(requiredConfigParameters):
 	# Load the configuration file.
 	config = json.loads(readFile("config/config.json"))
 	for requiredConfigParameter in requiredConfigParameters:
