@@ -32,7 +32,6 @@ for optionIndex, optionValue in optionsDataframe.iterrows():
 		optionName = noNan(optionsDataframe.at[optionIndex, 0]).replace(":","").strip()
 		if not optionName == "":
 			options[optionName] = optionsDataframe.at[optionIndex, 1]
-print(options)
 
 # Use GAM to get a set of emails from GMail. The content of each email is cached locally so we don't have to query GMail for every single
 # email each time the script runs.
