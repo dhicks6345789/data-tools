@@ -25,10 +25,10 @@ os.makedirs(emailsRoot, exist_ok=True)
 #    processing all emails from years back.
 # User: The username of the inbox to extract emails from.
 options = {}
-optionsDataframe = pandas.read_excel(clubsRoot + os.sep + "options.xlsx", header=None)
+optionsDataframe = pandas.read_excel(clubsRoot + os.sep + "options.xlsx", header=None, dtype=str)
 for optionIndex, optionValue in optionsDataframe.iterrows():
 	if not optionIndex == 0:
-		optionName = noNan(optionsDataframe.at[optionIndex, 0]).replace(":","").strip()
+		optionName = optionsDataframe.at[optionIndex, 0].replace(":","").strip()
 		if not optionName == "":
 			options[optionName] = optionsDataframe.at[optionIndex, 1]
 
@@ -46,7 +46,7 @@ for emailIndex, emailValue in pandas.read_csv(io.StringIO(dataLib.runCommand("ga
 for cachedEmail in os.listdir(emailsRoot):
 	if not cachedEmail in cachedEmails:
 		os.remove(emailsRoot + os.sep + cachedEmail)
-		
+
 rawDataChanged = False
 rawDataRoot = clubsRoot + os.sep + "clubsEmailsRawData.xlsx"
 clubsColumns = ["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","firstChildUsername","secondChildName","secondChildClass","secondChildUsername"]
@@ -55,11 +55,6 @@ if os.path.exists(rawDataRoot):
 else:
 	rawDataChanged = True
 	clubs = pandas.DataFrame(columns=clubsColumns)
-
-#clubs = clubs.astype(str)
-#for clubIndex, clubValue in clubs.iterrows():
-#	for clubsColumn in clubsColumns:
-#		clubs.at[clubIndex, clubsColumn] = noNan(clubs.at[clubIndex, clubsColumn])
 
 # Go through each email and extract data.
 emailIndex = len(clubs.index)
@@ -114,5 +109,7 @@ for clubIndex, clubValue in clubs.iterrows():
 			clubs.at[clubIndex, "secondChildUsername"] = pupilValue["OldUsername"]
 			rawDataChanged = True
 
+# We only write out a new Excel file if some data has actually changed, that way we don't re-sync an identical file to Google Drive
+# every time we run.
 if rawDataChanged:
 	clubs.to_excel(rawDataRoot,index=False)
