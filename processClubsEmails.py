@@ -164,5 +164,8 @@ for clubName in clubMembers.keys():
 				clubFound = True
 				if not clubDescription in classrooms["name"].tolist():
 					print("gam create course name \"" + clubDescription + "\"")
-				print("gam sync members course name  \"" + clubDescription + "\" " + clubName + ".csv")
+				for classroomIndex, classroomValue in classrooms.iterrows():
+					if classroomValue["name"] == clubDescription:
+						#gam course <id or alias> add student|teacher <email address>
+						print("gam course " + classroomValue["id"] + "add student ---")
 		dataLib.writeFile(csvPath, newCSV)
