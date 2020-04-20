@@ -18,6 +18,7 @@ def normaliseFilename(theFilename):
 	for theChar in str(theFilename.encode('ascii', 'ignore')):
 		if theChar in "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz/-();£& ":
 			result = result + theChar
+	print(result)
 	return result.replace("/","-").replace("&amp;","&").strip()
 
 # Load the config file (set by the system administrator).
