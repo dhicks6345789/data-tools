@@ -100,7 +100,7 @@ for emailFilePath in os.listdir(emailsRoot):
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
 for clubIndex, clubValue in clubs.iterrows():
-	firstChildName = clubValue["firstChildName"].lower().strip()
+	firstChildName = clubs.at[clubIndex, "firstChildName"].lower().strip()
 	secondChildName = clubValue["secondChildName"].lower().strip()
 	for pupilIndex, pupilValue in pupils.iterrows():
 		pupilName = pupilValue["GivenName"].lower() + " " +  pupilValue["FamilyName"].lower()
