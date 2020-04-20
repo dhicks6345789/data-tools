@@ -6,6 +6,11 @@ import sys
 import pandas
 import dataLib
 
+def noNan(theString):
+	if theString == "nan":
+		return ""
+	return theString
+
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
 
@@ -43,12 +48,10 @@ rawDataChanged = False
 rawDataRoot = clubsRoot + os.sep + "clubsEmailsRawData.xlsx"
 if os.path.exists(rawDataRoot):
 	clubs = pandas.read_excel(rawDataRoot)
-	#clubs = pandas.read_excel(rawDataRoot, dtype={"firstChildName":str, "secondChildName":str})
 else:
 	rawDataChanged = True
 	clubs = pandas.DataFrame(columns=["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","firstChildUsername","secondChildName","secondChildClass","secondChildUsername"])
 clubs = clubs.astype(str)
-print(clubs)
 
 # Go through each email and extract data.
 emailIndex = len(clubs.index)
@@ -90,11 +93,11 @@ for emailFilePath in os.listdir(emailsRoot):
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
 for clubIndex, clubValue in clubs.iterrows():
-	firstChildName = clubValue["firstChildName"].lower().strip()
-	secondChildName = clubValue["secondChildName"].lower().strip()
+	firstChildName = noNan(clubValue["firstChildName"]).lower().strip()
+	secondChildName = noNan(clubValue["secondChildName"]).lower().strip()
 	for pupilIndex, pupilValue in pupils.iterrows():
 		pupilName = pupilValue["GivenName"].lower() + " " +  pupilValue["FamilyName"].lower()
-		if pupilName == firstChildName: # and clubValue["firstChildUsername"] == "":
+		if pupilName == firstChildName and not noNan(clubValue["firstChildUsername"]) == "":
 			print(pupilName)
 			clubs.at[clubIndex, "firstChildUsername"] = pupilValue["OldUsername"]
 			rawDataChanged = True
