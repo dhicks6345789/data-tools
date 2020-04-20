@@ -160,5 +160,5 @@ for clubName in clubMembers.keys():
 		print("Writing " + clubName + ".csv")
 		for clubDescription in clubDescriptions.keys():
 			if not clubDescription in classrooms["name"].tolist():
-				print("gam create classroom \"" + clubDescription + "\"")
+				print("gam create course name \"" + clubDescription + "\"")
 		dataLib.writeFile(csvPath, newCSV)
