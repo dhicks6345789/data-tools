@@ -6,6 +6,7 @@ import sys
 import pandas
 import dataLib
 
+# A function to remove "nan" strings from data - /really/ shouldn't be needed...
 def noNan(theString):
 	if str(theString) == "nan" or str(theString) == "0":
 		return ""
@@ -25,14 +26,12 @@ os.makedirs(emailsRoot, exist_ok=True)
 #    processing all emails from years back.
 # User: The username of the inbox to extract emails from.
 options = {}
-optionsDataframe = pandas.read_excel(clubsRoot + os.sep + "options.xlsx", header=None, dtype=str)
+optionsDataframe = pandas.read_excel(clubsRoot + os.sep + "options.xlsx", header=None)
 for optionIndex, optionValue in optionsDataframe.iterrows():
 	if not optionIndex == 0:
-		optionName = str(optionsDataframe.at[optionIndex, 0]).replace(":","").strip()
-		print(optionName)
+		optionName = noNan(optionsDataframe.at[optionIndex, 0]).replace(":","").strip()
 		if not optionName == "":
 			options[optionName] = optionsDataframe.at[optionIndex, 1]
-print(options)
 
 # Use GAM to get a set of emails from GMail. The content of each email is cached locally so we don't have to query GMail for every single
 # email each time the script runs.
@@ -44,11 +43,13 @@ for emailIndex, emailValue in pandas.read_csv(io.StringIO(dataLib.runCommand("ga
 		print("Caching email " + emailValue["id"] + "...")
 		for emailWithBodyIndex, emailWithBodyValue in pandas.read_csv(io.StringIO(dataLib.runCommand("gam user " + options["user"] + " print messages ids " + emailValue["id"] + " showbody"))).iterrows():
 			dataLib.writeFile(filenamePath, dataLib.removeBlanks(emailWithBodyValue["Body"]))
+
 # Clear out any un-used emails from the local cache.
 for cachedEmail in os.listdir(emailsRoot):
 	if not cachedEmail in cachedEmails:
 		os.remove(emailsRoot + os.sep + cachedEmail)
 
+# Read the existing clubs data from an Excel file, or crate a new one if needed.
 rawDataChanged = False
 rawDataRoot = clubsRoot + os.sep + "clubsEmailsRawData.xlsx"
 clubsColumns = ["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","firstChildUsername","secondChildName","secondChildClass","secondChildUsername"]
@@ -91,6 +92,7 @@ for emailFilePath in os.listdir(emailsRoot):
 				clubs.at[emailIndex, "secondChildClass"] = matchResult[4].strip()
 		emailIndex = emailIndex + 1
 
+# Make sure the "clubs" DataFrame is formatted as strings, and remove any "nan" values.
 clubs = clubs.astype(str)
 for clubIndex, clubValue in clubs.iterrows():
 	for clubsColumn in clubsColumns:
@@ -99,6 +101,7 @@ for clubIndex, clubValue in clubs.iterrows():
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
+# Try and match up pupil name strings (which are from a free-typed input box, so might have errors) and usernames.
 for clubIndex, clubValue in clubs.iterrows():
 	firstChildName = clubs.at[clubIndex, "firstChildName"].lower().strip()
 	secondChildName = clubValue["secondChildName"].lower().strip()
