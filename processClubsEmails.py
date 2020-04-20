@@ -118,3 +118,8 @@ for clubIndex, clubValue in clubs.iterrows():
 # every time we run.
 if rawDataChanged:
 	clubs.to_excel(rawDataRoot,index=False)
+
+clubNames = {}
+for clubIndex, clubValue in clubs.iterrows():
+	clubNames[clubValue["itemDescription"]] = 1
+print(clubNames.keys())
