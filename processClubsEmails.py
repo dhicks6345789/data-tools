@@ -42,13 +42,13 @@ for cachedEmail in os.listdir(emailsRoot):
 rawDataChanged = False
 rawDataRoot = clubsRoot + os.sep + "clubsEmailsRawData.xlsx"
 if os.path.exists(rawDataRoot):
-	#clubs = pandas.read_excel(rawDataRoot, dtype=str)
-	clubs = pandas.read_excel(rawDataRoot, dtype={"firstChildName":str, "secondChildName":str})
-	print(clubs)
+	clubs = pandas.read_excel(rawDataRoot)
+	#clubs = pandas.read_excel(rawDataRoot, dtype={"firstChildName":str, "secondChildName":str})
 else:
 	rawDataChanged = True
 	clubs = pandas.DataFrame(columns=["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","firstChildUsername","secondChildName","secondChildClass","secondChildUsername"])
 clubs.astype(str)
+print(clubs)
 
 # Go through each email and extract data.
 emailIndex = len(clubs.index)
