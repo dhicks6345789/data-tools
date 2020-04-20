@@ -68,11 +68,8 @@ for emailFilePath in os.listdir(emailsRoot):
 	emailText = dataLib.readFile(emailsRoot + os.sep + emailFilePath)
 	matchResult = re.match(".*Order #(\d*?)\. Placed on (.*?) at (\d*?:\d*? ..).*", emailText, re.DOTALL)
 	if not matchResult == None:
-		try:
-			orderNumber = int(matchResult[1].strip())
-		except ValueError:
-			orderNumber = 0
-	if not orderNumber == 0 and not orderNumber in existingOrderNumbers:
+		orderNumber = matchResult[1].strip()
+	if not orderNumber in existingOrderNumbers:
 		rawDataChanged = True
 		clubs.at[emailIndex, "orderNumber"] = matchResult[1].strip()
 		clubs.at[emailIndex, "orderDate"] = matchResult[2].strip()
