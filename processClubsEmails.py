@@ -64,6 +64,7 @@ for clubIndex, clubValue in clubs.iterrows():
 # Go through each email and extract data.
 emailIndex = len(clubs.index)
 existingOrderNumbers = clubs["orderNumber"].tolist()
+print(existingOrderNumbers)
 for emailFilePath in os.listdir(emailsRoot):
 	orderNumber = 0
 	emailText = dataLib.readFile(emailsRoot + os.sep + emailFilePath)
