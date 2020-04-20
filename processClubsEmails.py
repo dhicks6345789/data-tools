@@ -87,8 +87,8 @@ for emailFilePath in os.listdir(emailsRoot):
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
 for clubIndex, clubValue in clubs.iterrows():
-	firstChildName = floatToStr(clubValue["firstChildName"]).lower().strip()
-	secondChildName = floatToStr(clubValue["secondChildName"]).lower().strip()
+	firstChildName = dataLib.floatToStr(clubValue["firstChildName"]).lower().strip()
+	secondChildName = dataLib.floatToStr(clubValue["secondChildName"]).lower().strip()
 	for pupilIndex, pupilValue in pupils.iterrows():
 		pupilName = pupilValue["givenName"].lower() + " " +  pupilValue["familyName"].lower()
 		if pupilName == firstChildName and clubValue["firstChildUsername"] == "":
