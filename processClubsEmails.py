@@ -144,7 +144,7 @@ sys.exit(0)
 	
 clubMembers = {}
 for clubIndex, clubValue in clubs.iterrows():
-	if not clubValue["clubAccount"] = "":
+	if not clubValue["clubAccount"] == "":
 		clubMembers[clubValue["clubAccount"]] = []
 for clubName in clubMembers.keys():
 	for clubIndex, clubValue in clubs.iterrows():
