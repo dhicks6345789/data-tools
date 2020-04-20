@@ -159,6 +159,7 @@ for clubName in clubMembers.keys():
 	if not currentCSV == newCSV:
 		print("Writing " + clubName + ".csv")
 		for clubDescription in clubDescriptions.keys():
-			if not clubDescription in classrooms["name"].tolist():
-				print("gam create course name \"" + clubDescription + "\"")
+			if clubDescriptions[clubDescription] == clubName:
+				if not clubDescription in classrooms["name"].tolist():
+					print("gam create course name \"" + clubDescription + "\"")
 		dataLib.writeFile(csvPath, newCSV)
