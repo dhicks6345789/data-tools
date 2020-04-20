@@ -98,8 +98,10 @@ for clubIndex, clubValue in clubs.iterrows():
 	for pupilIndex, pupilValue in pupils.iterrows():
 		pupilName = pupilValue["GivenName"].lower() + " " +  pupilValue["FamilyName"].lower()
 		if pupilName == firstChildName and noNan(clubValue["firstChildUsername"]) == "":
-			print(pupilName)
 			clubs.at[clubIndex, "firstChildUsername"] = pupilValue["OldUsername"]
+			rawDataChanged = True
+		if pupilName == secondChildName and noNan(clubValue["secondChildUsername"]) == "":
+			clubs.at[clubIndex, "secondChildUsername"] = pupilValue["OldUsername"]
 			rawDataChanged = True
 
 if rawDataChanged:
