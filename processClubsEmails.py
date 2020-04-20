@@ -115,4 +115,4 @@ for clubIndex, clubValue in clubs.iterrows():
 			rawDataChanged = True
 
 if rawDataChanged:
-	clubs.to_excel(rawDataRoot)
+	clubs.to_excel(rawDataRoot,index=False)
