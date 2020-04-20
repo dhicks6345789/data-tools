@@ -126,9 +126,11 @@ for clubIndex, clubValue in clubs.iterrows():
 	clubMembers[clubValue["itemDescription"]] = []
 for clubName in clubMembers.keys():
 	for clubIndex, clubValue in clubs.iterrows():
-		if not clubValue["firstChildUsername"] == "":
+		if not clubValue["firstChildUsername"] == "" and clubValue["itemDescription"] == clubName:
 			clubMembers[clubName].append(clubValue["firstChildUsername"])
-		if not clubValue["secondChildUsername"] == "":
+		if not clubValue["secondChildUsername"] == "" and clubValue["itemDescription"] == clubName:
 			clubMembers[clubName].append(clubValue["secondChildUsername"])
+	print(clubName)
 	print(clubMembers[clubName])
+	print("---")
 	#csvsRoot
