@@ -7,9 +7,9 @@ import pandas
 import dataLib
 
 def noNan(theString):
-	if theString == "nan":
+	if str(theString) == "nan" or str(theString) == "0":
 		return ""
-	return theString
+	return str(theString)
 
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
@@ -93,11 +93,11 @@ for emailFilePath in os.listdir(emailsRoot):
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
 for clubIndex, clubValue in clubs.iterrows():
-	firstChildName = noNan(clubValue["firstChildName"].astype(str)).lower().strip()
-	secondChildName = noNan(clubValue["secondChildName"].astype(str)).lower().strip()
+	firstChildName = noNan(clubValue["firstChildName"]).lower().strip()
+	secondChildName = noNan(clubValue["secondChildName"]).lower().strip()
 	for pupilIndex, pupilValue in pupils.iterrows():
 		pupilName = pupilValue["GivenName"].lower() + " " +  pupilValue["FamilyName"].lower()
-		if pupilName == firstChildName and not noNan(clubValue["firstChildUsername"].astype(str)) == "":
+		if pupilName == firstChildName and not noNan(clubValue["firstChildUsername"]) == "":
 			print(pupilName)
 			clubs.at[clubIndex, "firstChildUsername"] = pupilValue["OldUsername"]
 			rawDataChanged = True
