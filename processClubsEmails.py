@@ -130,4 +130,5 @@ for clubName in clubMembers.keys():
 			clubMembers[clubName].append(clubValue["firstChildUsername"])
 		if not clubValue["secondChildUsername"] == "":
 			clubMembers[clubName].append(clubValue["secondChildUsername"])
+	print(clubMembers[clubName])
 	#csvsRoot
