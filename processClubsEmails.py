@@ -27,7 +27,7 @@ os.makedirs(emailsRoot, exist_ok=True)
 options = {}
 optionsDataframe = pandas.read_excel(clubsRoot + os.sep + "options.xlsx", header=None)
 for optionIndex, optionValue in optionsDataframe.iterrows():
-	print optionIndex
+	print(optionIndex)
 	options[optionsDataframe.at[optionIndex, 0].replace(":","").strip()] = optionsDataframe.at[optionIndex, 1]
 print(options)
 
