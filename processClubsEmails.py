@@ -130,7 +130,10 @@ for clubName in clubMembers.keys():
 			clubMembers[clubName].append(clubValue["firstChildUsername"])
 		if not clubValue["secondChildUsername"] == "" and clubValue["itemDescription"] == clubName:
 			clubMembers[clubName].append(clubValue["secondChildUsername"])
-	print(clubName)
-	print(clubMembers[clubName])
-	print("---")
-	#csvsRoot
+	currentCSV = ""
+	csvPath = csvsRoot + os.sep + clubName + ".csv"
+	if os.path.exists(csvPath):
+		currentCSV = dataLib.readFile(csvPath)
+	newCSV = "\n".join(clubMembers[clubName]).strip()
+	if not currentCSV == newCSV:
+		dataLib.writeFile(csvPath, newCSV)
