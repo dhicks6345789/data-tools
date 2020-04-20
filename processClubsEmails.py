@@ -28,9 +28,11 @@ options = {}
 optionsDataframe = pandas.read_excel(clubsRoot + os.sep + "options.xlsx", header=None, dtype=str)
 for optionIndex, optionValue in optionsDataframe.iterrows():
 	if not optionIndex == 0:
-		optionName = optionsDataframe.at[optionIndex, 0].replace(":","").strip()
+		optionName = str(optionsDataframe.at[optionIndex, 0]).replace(":","").strip()
+		print(optionName)
 		if not optionName == "":
 			options[optionName] = optionsDataframe.at[optionIndex, 1]
+print(options)
 
 # Use GAM to get a set of emails from GMail. The content of each email is cached locally so we don't have to query GMail for every single
 # email each time the script runs.
