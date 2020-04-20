@@ -55,6 +55,7 @@ if os.path.exists(rawDataRoot):
 else:
 	rawDataChanged = True
 	clubs = pandas.DataFrame(columns=clubsColumns)
+
 clubs = clubs.astype(str)
 for clubIndex, clubValue in clubs.iterrows():
 	for clubsColumn in clubsColumns:
@@ -93,6 +94,11 @@ for emailFilePath in os.listdir(emailsRoot):
 				clubs.at[emailIndex, "secondChildClass"] = matchResult[4].strip()
 		emailIndex = emailIndex + 1
 
+clubs = clubs.astype(str)
+for clubIndex, clubValue in clubs.iterrows():
+	for clubsColumn in clubsColumns:
+		clubs.at[clubIndex, clubsColumn] = noNan(clubs.at[clubIndex, clubsColumn])
+		
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
