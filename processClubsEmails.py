@@ -17,6 +17,7 @@ def normaliseFilename(theFilename):
 	for theChar in theFilename:
 		if theChar in ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz/-();£& "]:
 			result = result + theChar
+	print result
 	return result.replace("/","-").replace("&amp;","&")
 
 # Load the config file (set by the system administrator).
