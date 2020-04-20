@@ -51,7 +51,7 @@ rawDataChanged = False
 rawDataRoot = clubsRoot + os.sep + "clubsEmailsRawData.xlsx"
 clubsColumns = ["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","firstChildUsername","secondChildName","secondChildClass","secondChildUsername"]
 if os.path.exists(rawDataRoot):
-	clubs = pandas.read_excel(rawDataRoot)
+	clubs = pandas.read_excel(rawDataRoot, dtype=str)
 else:
 	rawDataChanged = True
 	clubs = pandas.DataFrame(columns=clubsColumns)
