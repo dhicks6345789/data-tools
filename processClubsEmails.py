@@ -26,7 +26,6 @@ os.makedirs(emailsRoot, exist_ok=True)
 # User: The username of the inbox to extract emails from.
 options = {}
 optionsDataframe = pandas.read_excel(clubsRoot + os.sep + "options.xlsx", header=None)
-#optionsDataframe = optionsDataframe.astype(str)
 for optionIndex, optionValue in optionsDataframe.iterrows():
 	if not optionIndex == 0:
 		optionName = noNan(optionsDataframe.at[optionIndex, 0]).replace(":","").strip()
@@ -58,8 +57,8 @@ else:
 	clubs = pandas.DataFrame(columns=clubColumns)
 clubs = clubs.astype(str)
 for clubIndex, clubValue in clubs.iterrows():
-	for clubColumn in clubColumns:
-		clubs.at[clubIndex, clubColumn] = noNan(clubs.at[clubIndex, clubColumn])
+	for clubsColumn in clubsColumns:
+		clubs.at[clubIndex, clubsColumn] = noNan(clubs.at[clubIndex, clubsColumn])
 
 # Go through each email and extract data.
 emailIndex = len(clubs.index)
