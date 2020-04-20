@@ -56,22 +56,20 @@ else:
 	rawDataChanged = True
 	clubs = pandas.DataFrame(columns=clubsColumns)
 
-clubs = clubs.astype(str)
-for clubIndex, clubValue in clubs.iterrows():
-	for clubsColumn in clubsColumns:
-		clubs.at[clubIndex, clubsColumn] = noNan(clubs.at[clubIndex, clubsColumn])
+#clubs = clubs.astype(str)
+#for clubIndex, clubValue in clubs.iterrows():
+#	for clubsColumn in clubsColumns:
+#		clubs.at[clubIndex, clubsColumn] = noNan(clubs.at[clubIndex, clubsColumn])
 
 # Go through each email and extract data.
 emailIndex = len(clubs.index)
 existingOrderNumbers = clubs["orderNumber"].tolist()
-print(existingOrderNumbers)
 for emailFilePath in os.listdir(emailsRoot):
 	orderNumber = ""
 	emailText = dataLib.readFile(emailsRoot + os.sep + emailFilePath)
 	matchResult = re.match(".*Order #(\d*?)\. Placed on (.*?) at (\d*?:\d*? ..).*", emailText, re.DOTALL)
 	if not matchResult == None:
 		orderNumber = matchResult[1].strip()
-	print(orderNumber)
 	if not orderNumber in existingOrderNumbers:
 		rawDataChanged = True
 		clubs.at[emailIndex, "orderNumber"] = matchResult[1].strip()
