@@ -27,7 +27,9 @@ os.makedirs(emailsRoot, exist_ok=True)
 options = {}
 optionsDataframe = pandas.read_excel(clubsRoot + os.sep + "options.xlsx", header=None)
 for optionIndex, optionValue in optionsDataframe.iterrows():
+	print optionIndex
 	options[optionsDataframe.at[optionIndex, 0].replace(":","").strip()] = optionsDataframe.at[optionIndex, 1]
+print(options)
 
 # Use GAM to get a set of emails from GMail. The content of each email is cached locally so we don't have to query GMail for every single
 # email each time the script runs.
