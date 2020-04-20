@@ -160,8 +160,9 @@ for clubName in clubMembers.keys():
 		print("Writing " + clubName + ".csv")
 		clubFound = False
 		for clubDescription in clubDescriptions.keys():
-			if clubDescriptions[clubDescription] == clubName:
-				if not clubFound and not clubDescription in classrooms["name"].tolist():
-					clubFound = True
+			if not not clubFound and clubDescriptions[clubDescription] == clubName:
+				clubFound = True
+				if not clubDescription in classrooms["name"].tolist():
 					print("gam create course name \"" + clubDescription + "\"")
+				print("gam sync members course name  \"" + clubDescription + "\" " + clubName + ".csv")
 		dataLib.writeFile(csvPath, newCSV)
