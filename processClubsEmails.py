@@ -54,7 +54,7 @@ if os.path.exists(rawDataRoot):
 	clubs = pandas.read_excel(rawDataRoot)
 else:
 	rawDataChanged = True
-	clubs = pandas.DataFrame(columns=clubColumns)
+	clubs = pandas.DataFrame(columns=clubsColumns)
 clubs = clubs.astype(str)
 for clubIndex, clubValue in clubs.iterrows():
 	for clubsColumn in clubsColumns:
