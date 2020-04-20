@@ -115,9 +115,8 @@ for clubIndex, clubValue in clubs.iterrows():
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
-# Get a current list of Google Classroms.
+# Get a current list of Google Classrooms.
 classrooms =  pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses")))
-print(classrooms["name"].tolist())
 
 # Try and match up pupil name strings (which are from a free-typed input box, so might have errors) and usernames.
 for clubIndex, clubValue in clubs.iterrows():
@@ -159,4 +158,7 @@ for clubName in clubMembers.keys():
 	newCSV = "\n".join(clubMembers[clubName]).strip()
 	if not currentCSV == newCSV:
 		print("Writing " + clubName + ".csv")
+		for clubDescription in clubDescriptions.keys():
+			if not clubDescription in classrooms["name"].tolist():
+				print("gam create classroom \"" + clubDescription + "\"")
 		dataLib.writeFile(csvPath, newCSV)
