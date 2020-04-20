@@ -12,13 +12,11 @@ def noNan(theString):
 		return ""
 	return str(theString)
 
-def normaliseFilename(theFilename):
+def normaliseDescription(theDescription):
 	result = ""
-	print(theFilename)
-	for theChar in str(theFilename.encode('ascii', 'ignore')):
+	for theChar in theDescription:
 		if theChar in "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz/-();£& ":
 			result = result + theChar
-	print(result)
 	return result.replace("/","-").replace("&amp;","&").strip()
 
 # Load the config file (set by the system administrator).
@@ -37,12 +35,17 @@ os.makedirs(csvsRoot, exist_ok=True)
 #    processing all emails from years back.
 # User: The username of the inbox to extract emails from.
 options = {}
+clubDescriptions = {}
 optionsDataframe = pandas.read_excel(clubsRoot + os.sep + "options.xlsx", header=None)
 for optionIndex, optionValue in optionsDataframe.iterrows():
 	if not optionIndex == 0:
 		optionName = noNan(optionsDataframe.at[optionIndex, 0]).replace(":","").strip()
 		if not optionName == "":
 			options[optionName] = optionsDataframe.at[optionIndex, 1]
+		clubDescription = noNan(optionsDataframe.at[optionIndex, 2]).replace(":","").strip()
+		clubAccount = noNan(optionsDataframe.at[optionIndex, 3]).replace(":","").strip()
+		if not clubDescription == "":
+			clubDescriptions[clubDescription] = clubAccount
 
 # Use GAM to get a set of emails from GMail. The content of each email is cached locally so we don't have to query GMail for every single
 # email each time the script runs.
@@ -63,7 +66,7 @@ for cachedEmail in os.listdir(emailsRoot):
 # Read the existing clubs data from an Excel file, or crate a new one if needed.
 rawDataChanged = False
 rawDataRoot = clubsRoot + os.sep + "clubsEmailsRawData.xlsx"
-clubsColumns = ["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","firstChildUsername","secondChildName","secondChildClass","secondChildUsername"]
+clubsColumns = ["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","clubAccount","firstChildName","firstChildClass","firstChildUsername","secondChildName","secondChildClass","secondChildUsername"]
 if os.path.exists(rawDataRoot):
 	clubs = pandas.read_excel(rawDataRoot, dtype=str)
 else:
@@ -90,7 +93,7 @@ for emailFilePath in os.listdir(emailsRoot):
 			clubs.at[emailIndex, "parentEmail"] = matchResult[2].strip()
 		matchResult = re.match(".*SUBTOTAL\n(.*?)\n(.*?)\n.*", emailText, re.DOTALL)
 		if not matchResult == None:
-			clubs.at[emailIndex, "itemDescription"] = matchResult[1].strip()
+			clubs.at[emailIndex, "itemDescription"] = normaliseDescription(matchResult[1].strip())
 			clubs.at[emailIndex, "itemCode"] = matchResult[2].strip()
 		matchResult = re.match(".*Name of your Child:\n(.*?)\nClass/Year:\n(.*?)\nName of Second Child:(.*?)\nClass/Year:\n(.*?)\n.*", emailText, re.DOTALL)
 		if not matchResult == None:
@@ -124,15 +127,25 @@ for clubIndex, clubValue in clubs.iterrows():
 		if pupilName == secondChildName and clubValue["secondChildUsername"] == "":
 			clubs.at[clubIndex, "secondChildUsername"] = pupilValue["OldUsername"]
 			rawDataChanged = True
+	for clubDescription in clubDescriptions.keys():
+		if clubDescription == clubValue["itemDescription"]:
+			clubs.at[clubIndex, "clubAccount"] = clubDescriptions[clubDescription]
+			rawDataChanged = True
 
 # We only write out a new Excel file if some data has actually changed, that way we don't re-sync an identical file to Google Drive
 # every time we run.
 if rawDataChanged:
 	clubs.to_excel(rawDataRoot,index=False)
 
+for clubDescription in clubDescriptions.keys():
+	print(clubDescriptions[clubDescription])
+
+sys.exit(0)
+	
 clubMembers = {}
 for clubIndex, clubValue in clubs.iterrows():
-	clubMembers[normaliseFilename(clubValue["itemDescription"])] = []
+	if not clubValue["clubAccount"] = "":
+		clubMembers[clubValue["clubAccount"]] = []
 for clubName in clubMembers.keys():
 	for clubIndex, clubValue in clubs.iterrows():
 		if not clubValue["firstChildUsername"] == "" and clubValue["itemDescription"] == clubName:
