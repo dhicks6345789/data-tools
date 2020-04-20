@@ -136,4 +136,5 @@ for clubName in clubMembers.keys():
 		currentCSV = dataLib.readFile(csvPath)
 	newCSV = "\n".join(clubMembers[clubName]).strip()
 	if not currentCSV == newCSV:
+		print("Writing " + clubName + ".csv")
 		dataLib.writeFile(csvPath, newCSV)
