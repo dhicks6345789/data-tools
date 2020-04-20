@@ -28,7 +28,7 @@ options = {}
 optionsDataframe = pandas.read_excel(clubsRoot + os.sep + "options.xlsx", header=None)
 optionsDataframe = optionsDataframe.astype(str)
 for optionIndex, optionValue in optionsDataframe.iterrows():
-	of not optionIndex == 0:
+	if not optionIndex == 0:
 		options[noNan(optionsDataframe.at[optionIndex, 0]).replace(":","").strip()] = optionsDataframe.at[optionIndex, 1]
 print(options)
 
