@@ -20,6 +20,8 @@ clubsRoot = config["dataFolder"] + os.sep + "Clubs"
 os.makedirs(clubsRoot, exist_ok=True)
 emailsRoot = clubsRoot + os.sep + "Emails"
 os.makedirs(emailsRoot, exist_ok=True)
+csvsRoot = clubsRoot + os.sep + "CSVs"
+os.makedirs(csvsRoot, exist_ok=True)
 
 # Load the user options. These are a set of simple key:values in an Excel spreadsheet. Available options:
 # dateFrom: The date at which to start processing emails from. Means the user can define which emails to process rather than simply
@@ -119,7 +121,13 @@ for clubIndex, clubValue in clubs.iterrows():
 if rawDataChanged:
 	clubs.to_excel(rawDataRoot,index=False)
 
-clubNames = {}
+clubMembers = {}
 for clubIndex, clubValue in clubs.iterrows():
-	clubNames[clubValue["itemDescription"]] = 1
-print(clubNames.keys())
+	clubMembers[clubValue["itemDescription"]] = []
+for clubName in clubMembers.keys():
+	for clubIndex, clubValue in clubs.iterrows():
+		if not clubValue["firstChildUsername"] == "":
+			clubMembers[clubName].append(clubValue["firstChildUsername"])
+		if not clubValue["secondChildUsername"] == "":
+			clubMembers[clubName].append(clubValue["secondChildUsername"])
+	#csvsRoot
