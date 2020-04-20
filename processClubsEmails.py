@@ -158,8 +158,10 @@ for clubName in clubMembers.keys():
 	newCSV = "\n".join(clubMembers[clubName]).strip()
 	if not currentCSV == newCSV:
 		print("Writing " + clubName + ".csv")
+		clubFound = False
 		for clubDescription in clubDescriptions.keys():
 			if clubDescriptions[clubDescription] == clubName:
-				if not clubDescription in classrooms["name"].tolist():
+				if not clubFound and not clubDescription in classrooms["name"].tolist():
+					clubFound = True
 					print("gam create course name \"" + clubDescription + "\"")
 		dataLib.writeFile(csvPath, newCSV)
