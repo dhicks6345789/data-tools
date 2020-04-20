@@ -26,10 +26,12 @@ os.makedirs(emailsRoot, exist_ok=True)
 # User: The username of the inbox to extract emails from.
 options = {}
 optionsDataframe = pandas.read_excel(clubsRoot + os.sep + "options.xlsx", header=None)
-optionsDataframe = optionsDataframe.astype(str)
+#optionsDataframe = optionsDataframe.astype(str)
 for optionIndex, optionValue in optionsDataframe.iterrows():
 	if not optionIndex == 0:
-		options[noNan(optionsDataframe.at[optionIndex, 0]).replace(":","").strip()] = optionsDataframe.at[optionIndex, 1]
+		optionName = noNan(optionsDataframe.at[optionIndex, 0]).replace(":","").strip()
+		if not optionName == "":
+			options[optionName] = optionsDataframe.at[optionIndex, 1]
 print(options)
 
 # Use GAM to get a set of emails from GMail. The content of each email is cached locally so we don't have to query GMail for every single
