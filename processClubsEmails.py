@@ -12,6 +12,9 @@ def noNan(theString):
 		return ""
 	return str(theString)
 
+normaliseFilename(theFilename)
+	return theFilename.replace("/","-").replace("&amp;","&")
+
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
 
@@ -123,7 +126,7 @@ if rawDataChanged:
 
 clubMembers = {}
 for clubIndex, clubValue in clubs.iterrows():
-	clubMembers[clubValue["itemDescription"]] = []
+	clubMembers[normaliseFilename(clubValue["itemDescription"])] = []
 for clubName in clubMembers.keys():
 	for clubIndex, clubValue in clubs.iterrows():
 		if not clubValue["firstChildUsername"] == "" and clubValue["itemDescription"] == clubName:
