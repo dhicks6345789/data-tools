@@ -15,9 +15,8 @@ def noNan(theString):
 def normaliseFilename(theFilename):
 	result = ""
 	for theChar in theFilename:
-		if theChar in ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz/-();£& "]:
+		if theChar in "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz/-();£& ":
 			result = result + theChar
-	print(result)
 	return result.replace("/","-").replace("&amp;","&")
 
 # Load the config file (set by the system administrator).
