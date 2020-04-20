@@ -13,7 +13,11 @@ def noNan(theString):
 	return str(theString)
 
 def normaliseFilename(theFilename):
-	return theFilename.replace("/","-").replace("&amp;","&")
+	result = ""
+	for theChar in theFilename:
+		if theChar in ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz/-();& "]:
+			result = result + theChar
+	return result.replace("/","-").replace("&amp;","&")
 
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
