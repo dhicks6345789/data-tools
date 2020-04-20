@@ -48,6 +48,7 @@ if os.path.exists(rawDataRoot):
 else:
 	rawDataChanged = True
 	clubs = pandas.DataFrame(columns=["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","firstChildUsername","secondChildName","secondChildClass","secondChildUsername"])
+clubs.astype(str)
 
 # Go through each email and extract data.
 emailIndex = len(clubs.index)
