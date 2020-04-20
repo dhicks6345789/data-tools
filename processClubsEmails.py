@@ -141,14 +141,12 @@ clubMembers = {}
 for clubIndex, clubValue in clubs.iterrows():
 	if not clubValue["clubAccount"] == "":
 		clubMembers[clubValue["clubAccount"]] = []
-		
-print(clubMembers)
 
 for clubName in clubMembers.keys():
 	for clubIndex, clubValue in clubs.iterrows():
-		if not clubValue["firstChildUsername"] == "" and clubValue["itemDescription"] == clubName:
+		if not clubValue["firstChildUsername"] == "" and clubValue["clubAccount"] == clubName:
 			clubMembers[clubName].append(clubValue["firstChildUsername"])
-		if not clubValue["secondChildUsername"] == "" and clubValue["itemDescription"] == clubName:
+		if not clubValue["secondChildUsername"] == "" and clubValue["clubAccount"] == clubName:
 			clubMembers[clubName].append(clubValue["secondChildUsername"])
 	currentCSV = ""
 	csvPath = csvsRoot + os.sep + clubName + ".csv"
