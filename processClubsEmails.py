@@ -84,14 +84,14 @@ for emailFilePath in os.listdir(emailsRoot):
 		emailIndex = emailIndex + 1
 
 # Read the existing basic pupils data.
-pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
+pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", dtype={"firstChildUsername":"string","secondChildUsername":"string"}, header=0)
 
 for clubIndex, clubValue in clubs.iterrows():
-	firstChildName = dataLib.floatToStr(clubValue["firstChildName"]).lower().strip()
-	secondChildName = dataLib.floatToStr(clubValue["secondChildName"]).lower().strip()
+	firstChildName = clubValue["firstChildName"].lower().strip()
+	secondChildName = clubValue["secondChildName"].lower().strip()
 	for pupilIndex, pupilValue in pupils.iterrows():
 		pupilName = pupilValue["GivenName"].lower() + " " +  pupilValue["FamilyName"].lower()
-		if pupilName == firstChildName: # and dataLib.floatToStr(clubValue["firstChildUsername"]) == "":
+		if pupilName == firstChildName: # and clubValue["firstChildUsername"] == "":
 			print(pupilName)
 			clubs.at[clubIndex, "firstChildUsername"] = pupilValue["OldUsername"]
 			rawDataChanged = True
