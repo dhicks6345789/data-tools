@@ -12,7 +12,7 @@ def noNan(theString):
 		return ""
 	return str(theString)
 
-normaliseFilename(theFilename)
+def normaliseFilename(theFilename):
 	return theFilename.replace("/","-").replace("&amp;","&")
 
 # Load the config file (set by the system administrator).
