@@ -42,7 +42,7 @@ for cachedEmail in os.listdir(emailsRoot):
 rawDataChanged = False
 rawDataRoot = clubsRoot + os.sep + "clubsEmailsRawData.xlsx"
 if os.path.exists(rawDataRoot):
-	clubs = pandas.read_excel(rawDataRoot)
+	clubs = pandas.read_excel(rawDataRoot, dtype={"firstChildUsername":"string","secondChildUsername":"string"})
 else:
 	rawDataChanged = True
 	clubs = pandas.DataFrame(columns=["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","firstChildUsername","secondChildName","secondChildClass","secondChildUsername"])
@@ -84,7 +84,7 @@ for emailFilePath in os.listdir(emailsRoot):
 		emailIndex = emailIndex + 1
 
 # Read the existing basic pupils data.
-pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", dtype={"firstChildUsername":"string","secondChildUsername":"string"}, header=0)
+pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
 for clubIndex, clubValue in clubs.iterrows():
 	firstChildName = clubValue["firstChildName"].lower().strip()
