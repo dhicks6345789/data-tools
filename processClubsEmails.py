@@ -91,7 +91,7 @@ for clubIndex, clubValue in clubs.iterrows():
 	secondChildName = clubValue["secondChildName"].lower().strip()
 	for pupilIndex, pupilValue in pupils.iterrows():
 		pupilName = pupilValue["givenName"].lower() + " " +  pupilValue["familyName"].lower()
-		if pupilName == firstChildName AND clubValue["firstChildUsername"] == "":
+		if pupilName == firstChildName and clubValue["firstChildUsername"] == "":
 			clubs.at[clubIndex, "firstChildUsername"] = pupilValue["oldUsername"]
 			rawDataChanged = True
 
