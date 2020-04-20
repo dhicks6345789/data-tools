@@ -90,9 +90,9 @@ for clubIndex, clubValue in clubs.iterrows():
 	firstChildName = dataLib.floatToStr(clubValue["firstChildName"]).lower().strip()
 	secondChildName = dataLib.floatToStr(clubValue["secondChildName"]).lower().strip()
 	for pupilIndex, pupilValue in pupils.iterrows():
-		pupilName = pupilValue["givenName"].lower() + " " +  pupilValue["familyName"].lower()
+		pupilName = pupilValue["GivenName"].lower() + " " +  pupilValue["FamilyName"].lower()
 		if pupilName == firstChildName and clubValue["firstChildUsername"] == "":
-			clubs.at[clubIndex, "firstChildUsername"] = pupilValue["oldUsername"]
+			clubs.at[clubIndex, "firstChildUsername"] = pupilValue["OldUsername"]
 			rawDataChanged = True
 
 if rawDataChanged:
