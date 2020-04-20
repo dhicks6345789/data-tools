@@ -100,14 +100,14 @@ for emailFilePath in os.listdir(emailsRoot):
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
 for clubIndex, clubValue in clubs.iterrows():
-	firstChildName = noNan(clubValue["firstChildName"]).lower().strip()
-	secondChildName = noNan(clubValue["secondChildName"]).lower().strip()
+	firstChildName = clubValue["firstChildName"].lower().strip()
+	secondChildName = clubValue["secondChildName"].lower().strip()
 	for pupilIndex, pupilValue in pupils.iterrows():
 		pupilName = pupilValue["GivenName"].lower() + " " +  pupilValue["FamilyName"].lower()
-		if pupilName == firstChildName and noNan(clubValue["firstChildUsername"]) == "":
+		if pupilName == firstChildName and clubValue["firstChildUsername"] == "":
 			clubs.at[clubIndex, "firstChildUsername"] = pupilValue["OldUsername"]
 			rawDataChanged = True
-		if pupilName == secondChildName and noNan(clubValue["secondChildUsername"]) == "":
+		if pupilName == secondChildName and clubValue["secondChildUsername"] == "":
 			clubs.at[clubIndex, "secondChildUsername"] = pupilValue["OldUsername"]
 			rawDataChanged = True
 
