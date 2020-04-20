@@ -83,5 +83,17 @@ for emailFilePath in os.listdir(emailsRoot):
 				clubs.at[emailIndex, "secondChildClass"] = matchResult[4].strip()
 		emailIndex = emailIndex + 1
 
+# Read the existing basic pupils data.
+pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
+
+for clubIndex, clubValue in clubs.iterrows():
+	firstChildName = clubValue["firstChildName"].lower().strip()
+	secondChildName = clubValue["secondChildName"].lower().strip()
+	for pupilIndex, pupilValue in pupils.iterrows():
+		pupilName = pupilValue["givenName"].lower() + " " +  pupilValue["familyName"].lower()
+		if pupilName == firstChildName AND clubValue["firstChildUsername"] == "":
+			clubs.at[clubIndex, "firstChildUsername"] = pupilValue["oldUsername"]
+			rawDataChanged = True
+
 if rawDataChanged:
 	clubs.to_excel(rawDataRoot)
