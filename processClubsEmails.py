@@ -132,6 +132,7 @@ clubMembers = {}
 for clubIndex, clubValue in clubs.iterrows():
 	clubMembers[normaliseFilename(clubValue["itemDescription"])] = []
 for clubName in clubMembers.keys():
+	print(clubName)
 	for clubIndex, clubValue in clubs.iterrows():
 		if not clubValue["firstChildUsername"] == "" and clubValue["itemDescription"] == clubName:
 			clubMembers[clubName].append(clubValue["firstChildUsername"])
