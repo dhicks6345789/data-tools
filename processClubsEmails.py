@@ -115,6 +115,10 @@ for clubIndex, clubValue in clubs.iterrows():
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
+# Get a current list of Google Classroms.
+classrooms =  pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses")))
+print(classrooms["name"].tolist())
+
 # Try and match up pupil name strings (which are from a free-typed input box, so might have errors) and usernames.
 for clubIndex, clubValue in clubs.iterrows():
 	firstChildName = clubs.at[clubIndex, "firstChildName"].lower().strip()
