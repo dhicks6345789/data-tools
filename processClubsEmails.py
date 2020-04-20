@@ -136,9 +136,6 @@ for clubIndex, clubValue in clubs.iterrows():
 # every time we run.
 if rawDataChanged:
 	clubs.to_excel(rawDataRoot,index=False)
-
-for clubDescription in clubDescriptions.keys():
-	print(clubDescriptions[clubDescription])
 	
 clubMembers = {}
 for clubIndex, clubValue in clubs.iterrows():
@@ -151,6 +148,7 @@ for clubName in clubMembers.keys():
 			clubMembers[clubName].append(clubValue["firstChildUsername"])
 		if not clubValue["secondChildUsername"] == "" and clubValue["itemDescription"] == clubName:
 			clubMembers[clubName].append(clubValue["secondChildUsername"])
+	print(clubMembers[clubName])
 	currentCSV = ""
 	csvPath = csvsRoot + os.sep + clubName + ".csv"
 	if os.path.exists(csvPath):
