@@ -66,11 +66,12 @@ emailIndex = len(clubs.index)
 existingOrderNumbers = clubs["orderNumber"].tolist()
 print(existingOrderNumbers)
 for emailFilePath in os.listdir(emailsRoot):
-	orderNumber = 0
+	orderNumber = ""
 	emailText = dataLib.readFile(emailsRoot + os.sep + emailFilePath)
 	matchResult = re.match(".*Order #(\d*?)\. Placed on (.*?) at (\d*?:\d*? ..).*", emailText, re.DOTALL)
 	if not matchResult == None:
 		orderNumber = matchResult[1].strip()
+	print(orderNumber)
 	if not orderNumber in existingOrderNumbers:
 		rawDataChanged = True
 		clubs.at[emailIndex, "orderNumber"] = matchResult[1].strip()
