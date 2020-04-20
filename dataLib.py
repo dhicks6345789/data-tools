@@ -48,3 +48,9 @@ def loadConfig(requiredConfigParameters):
 			print("Error - required value " + requiredConfigParameter + " not set in config.json.")
 			sys.exit(1)
 	return config
+
+def floatToStr(theValue):
+	if isinstance(theValue, float):
+		if theValue == 0:
+			return ""
+	return str(theValue)
