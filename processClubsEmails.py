@@ -174,5 +174,8 @@ for clubDescription in clubDescriptions.keys():
 		dataLib.writeFile("classroomTeachers.csv", "\n".join(teachers) + "\n" + clubDescriptions[clubDescription])
 		os.system("gam course " + classroomID + " sync teachers file classroomTeachers.csv")
 		os.remove("classroomTeachers.csv")
+		#classroomMembers = pandas.read_csv(io.StringIO(dataLib.runCommand("gam print course-participants course " + classroomID + " show students")))
+		#print(classroomMembers)
 		if clubDescription in clubMembers.keys():
-			print(clubMembers[clubDescription])
+			for clubMember in clubMembers[clubDescription]:
+				print("gam course " + classroomID + " add pupil " + clubMember)
