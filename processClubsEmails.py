@@ -178,4 +178,4 @@ for clubDescription in clubDescriptions.keys():
 		#print(classroomMembers)
 		if clubDescription in clubMembers.keys():
 			for clubMember in clubMembers[clubDescription]:
-				print("gam course " + classroomID + " add pupil " + clubMember)
+				os.system("gam course " + classroomID + " add pupil " + clubMember)
