@@ -146,6 +146,16 @@ for clubIndex, clubValue in clubs.iterrows():
 	if not clubValue["itemDescription"] == "":
 		clubMembers[clubValue["itemDescription"]] = []
 
+# Assign pupils to each club.
+for clubName in clubMembers.keys():
+	for clubIndex, clubValue in clubs.iterrows():
+		if not clubValue["firstChildUsername"] == "" and clubValue["clubAccount"] == clubName:
+			clubMembers[clubName].append(clubValue["firstChildUsername"])
+		if not clubValue["secondChildUsername"] == "" and clubValue["clubAccount"] == clubName:
+			clubMembers[clubName].append(clubValue["secondChildUsername"])
+			
+print(clubMembers)
+
 # For each club listed in the options sheet, make sure a matching Google Classroom exists.
 for clubDescription in clubDescriptions.keys():
 	clubExists = False
@@ -154,7 +164,7 @@ for clubDescription in clubDescriptions.keys():
 			clubExists = True
 	if not clubExists:
 		print("gam create course name \"" + clubDescription + "\"")
-		print("gam sync teachers fran jennifer anthea karla " + clubDescriptions[clubDescription] + " etc")
+	print("gam sync teachers fran jennifer anthea karla " + clubDescriptions[clubDescription] + " etc")
 
 # For each club, write out a CSV file of members.
 #for clubName in clubMembers.keys():
