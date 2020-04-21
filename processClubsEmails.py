@@ -164,12 +164,13 @@ for clubName in clubMembers.keys():
 
 # For each club listed in the options sheet, make sure a matching Google Classroom exists and set teachers and pupil membership.
 for clubDescription in clubDescriptions.keys():
-	clubExists = False
+	classroomID = ""
 	for classroomIndex, classroomValue in classrooms.iterrows():
 		if classroomValue["name"] == clubDescription:
-			clubExists = True
-	if not clubExists:
-		print("gam create course name \"" + clubDescription + "\"")
-	print("gam sync teachers query \"" + " or ".join(teachers).strip() + " or " + clubDescriptions[clubDescription] + "\"")
-	if clubDescription in clubMembers.keys():
-		print(clubMembers[clubDescription])
+			classroomID = classroomValue["id"]
+	if classroomID == "":
+		print("gam create course name \"" + clubDescription + "\" teacher " + clubDescriptions[clubDescription])
+	else:
+		print("gam course " + classroomID + " sync teachers query \"" + " or ".join(teachers).strip() + " or " + clubDescriptions[clubDescription] + "\"")
+		if clubDescription in clubMembers.keys():
+			print(clubMembers[clubDescription])
