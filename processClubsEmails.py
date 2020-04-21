@@ -115,9 +115,6 @@ for clubIndex, clubValue in clubs.iterrows():
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
-# Get a current list of Google Classrooms.
-classrooms =  pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses")))
-
 # Try and match up pupil name strings (which are from a free-typed input box, so might have errors) and usernames.
 for clubIndex, clubValue in clubs.iterrows():
 	firstChildName = clubs.at[clubIndex, "firstChildName"].lower().strip()
@@ -138,36 +135,48 @@ for clubIndex, clubValue in clubs.iterrows():
 # We only write out a new Excel file if some data has actually changed, that way we don't re-sync an identical file to Google Drive
 # every time we run.
 if rawDataChanged:
-	clubs.to_excel(rawDataRoot,index=False)
+	clubs.to_excel(rawDataRoot, index=False)
 
+# Get a current list of Google Classrooms.
+classrooms =  pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses")))
+	
 # Generate a list of clubs.
 clubMembers = {}
 for clubIndex, clubValue in clubs.iterrows():
-	if not clubValue["clubAccount"] == "":
-		clubMembers[clubValue["clubAccount"]] = []
+	if not clubValue["itemDescription"] == "":
+		clubMembers[clubValue["itemDescription"]] = []
+
+# For each named club, make sure a matching Google Classroom exists.
+for clubName in clubMembers.keys():
+	clubExists = False
+	for classroomIndex, classroomValue in classrooms.iterrows():
+		if classroomValue["name"] == clubName:
+			clubExists = True
+	if not clubExists:
+		print("gam create course name \"" + clubName + "\"")
 
 # For each club, write out a CSV file of members.
-for clubName in clubMembers.keys():
-	for clubIndex, clubValue in clubs.iterrows():
-		if not clubValue["firstChildUsername"] == "" and clubValue["clubAccount"] == clubName:
-			clubMembers[clubName].append(clubValue["firstChildUsername"])
-		if not clubValue["secondChildUsername"] == "" and clubValue["clubAccount"] == clubName:
-			clubMembers[clubName].append(clubValue["secondChildUsername"])
-	currentCSV = ""
-	csvPath = csvsRoot + os.sep + clubName + ".csv"
-	if os.path.exists(csvPath):
-		currentCSV = dataLib.readFile(csvPath)
-	newCSV = "\n".join(clubMembers[clubName]).strip()
-	if not currentCSV == newCSV:
-		print("Writing " + clubName + ".csv")
-		clubFound = False
-		for clubDescription in clubDescriptions.keys():
-			if not clubFound and clubDescriptions[clubDescription] == clubName:
-				clubFound = True
-				if not clubDescription in classrooms["name"].tolist():
-					print("gam create course name \"" + clubDescription + "\"")
-				for classroomIndex, classroomValue in classrooms.iterrows():
-					if classroomValue["name"] == clubDescription:
-						for clubMember in clubMembers[clubName]:
-							print("gam course " + str(classroomValue["id"]) + " add student " + clubMember)
-		dataLib.writeFile(csvPath, newCSV)
+#for clubName in clubMembers.keys():
+#	for clubIndex, clubValue in clubs.iterrows():
+#		if not clubValue["firstChildUsername"] == "" and clubValue["clubAccount"] == clubName:
+#			clubMembers[clubName].append(clubValue["firstChildUsername"])
+#		if not clubValue["secondChildUsername"] == "" and clubValue["clubAccount"] == clubName:
+#			clubMembers[clubName].append(clubValue["secondChildUsername"])
+#	currentCSV = ""
+#	csvPath = csvsRoot + os.sep + clubName + ".csv"
+#	if os.path.exists(csvPath):
+#		currentCSV = dataLib.readFile(csvPath)
+#	newCSV = "\n".join(clubMembers[clubName]).strip()
+#	if not currentCSV == newCSV:
+#		print("Writing " + clubName + ".csv")
+#		clubFound = False
+#		for clubDescription in clubDescriptions.keys():
+#			if not clubFound and clubDescriptions[clubDescription] == clubName:
+#				clubFound = True
+#				if not clubDescription in classrooms["name"].tolist():
+#					print("gam create course name \"" + clubDescription + "\"")
+#				for classroomIndex, classroomValue in classrooms.iterrows():
+#					if classroomValue["name"] == clubDescription:
+#						for clubMember in clubMembers[clubName]:
+#							print("gam course " + str(classroomValue["id"]) + " add student " + clubMember)
+#		dataLib.writeFile(csvPath, newCSV)
