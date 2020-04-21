@@ -171,7 +171,8 @@ for clubDescription in clubDescriptions.keys():
 	if classroomID == "":
 		print("gam create course name \"" + clubDescription + "\" teacher " + clubDescriptions[clubDescription])
 	else:
-		dataLib.writeFile("classroomTeachers.csv", "\n".join(teachers) + clubDescriptions[clubDescription])
-		print("gam course " + classroomID + " sync teachers file classroomTeachers.csv")
+		dataLib.writeFile("classroomTeachers.csv", "\n".join(teachers) + "\n" + clubDescriptions[clubDescription])
+		os.system("gam course " + classroomID + " sync teachers file classroomTeachers.csv")
+		os.remove("classroomTeachers.csv")
 		if clubDescription in clubMembers.keys():
 			print(clubMembers[clubDescription])
