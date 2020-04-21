@@ -146,13 +146,21 @@ for clubIndex, clubValue in clubs.iterrows():
 	if not clubValue["itemDescription"] == "":
 		clubMembers[clubValue["itemDescription"]] = []
 
-# Assign pupils to each club.
+# Assign pupils to each club and write out a CSV file of members for each one.
 for clubName in clubMembers.keys():
 	for clubIndex, clubValue in clubs.iterrows():
 		if not clubValue["firstChildUsername"] == "" and clubValue["itemDescription"] == clubName:
 			clubMembers[clubName].append(clubValue["firstChildUsername"])
 		if not clubValue["secondChildUsername"] == "" and clubValue["itemDescription"] == clubName:
 			clubMembers[clubName].append(clubValue["secondChildUsername"])
+	currentCSV = ""
+	csvPath = csvsRoot + os.sep + clubName + ".csv"
+	if os.path.exists(csvPath):
+		currentCSV = dataLib.readFile(csvPath)
+	newCSV = "\n".join(clubMembers[clubName]).strip()
+	if not currentCSV == newCSV:
+		print("Writing " + clubName + ".csv")
+		dataLib.writeFile(csvPath, newCSV)
 
 # For each club listed in the options sheet, make sure a matching Google Classroom exists.
 for clubDescription in clubDescriptions.keys():
@@ -165,7 +173,7 @@ for clubDescription in clubDescriptions.keys():
 	print("gam sync teachers fran jennifer anthea karla " + clubDescriptions[clubDescription] + " etc")
 	if clubDescription in clubMembers.keys():
 		print(clubMembers[clubDescription])
-
+		
 # For each club, write out a CSV file of members.
 #for clubName in clubMembers.keys():
 #	for clubIndex, clubValue in clubs.iterrows():
