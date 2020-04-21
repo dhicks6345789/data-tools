@@ -45,7 +45,7 @@ for optionIndex, optionValue in optionsDataframe.iterrows():
 			options[optionName] = optionsDataframe.at[optionIndex, 1]
 		clubDescription = noNan(optionsDataframe.at[optionIndex, 2]).replace(":","").strip()
 		clubAccount = noNan(optionsDataframe.at[optionIndex, 3]).replace(":","").strip()
-		if not clubDescription == "":
+		if not clubDescription == "" and not clubAccount == "":
 			clubDescriptions[clubDescription] = clubAccount
 		teacher = noNan(optionsDataframe.at[optionIndex, 4]).strip()
 		if not teacher == "":
