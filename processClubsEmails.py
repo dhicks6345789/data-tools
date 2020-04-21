@@ -36,6 +36,7 @@ os.makedirs(csvsRoot, exist_ok=True)
 # User: The username of the inbox to extract emails from.
 options = {}
 clubDescriptions = {}
+teachers = []
 optionsDataframe = pandas.read_excel(clubsRoot + os.sep + "options.xlsx", header=None)
 for optionIndex, optionValue in optionsDataframe.iterrows():
 	if not optionIndex == 0:
@@ -46,6 +47,9 @@ for optionIndex, optionValue in optionsDataframe.iterrows():
 		clubAccount = noNan(optionsDataframe.at[optionIndex, 3]).replace(":","").strip()
 		if not clubDescription == "":
 			clubDescriptions[clubDescription] = clubAccount
+		teacher = noNan(optionsDataframe.at[optionIndex, 4]).strip()
+		if not teacher == "":
+			teachers.append(teacher)
 
 # Use GAM to get a set of emails from GMail. The content of each email is cached locally so we don't have to query GMail for every single
 # email each time the script runs.
@@ -127,11 +131,7 @@ for clubIndex, clubValue in clubs.iterrows():
 		if pupilName == secondChildName and clubValue["secondChildUsername"] == "":
 			clubs.at[clubIndex, "secondChildUsername"] = pupilValue["OldUsername"]
 			rawDataChanged = True
-	#for clubDescription in clubDescriptions.keys():
-	#	if clubDescription == clubValue["itemDescription"]:
-	#		clubs.at[clubIndex, "clubAccount"] = clubDescriptions[clubDescription]
-	#		rawDataChanged = True
-
+			
 # We only write out a new Excel file if some data has actually changed, that way we don't re-sync an identical file to Google Drive
 # every time we run.
 if rawDataChanged:
@@ -170,6 +170,6 @@ for clubDescription in clubDescriptions.keys():
 			clubExists = True
 	if not clubExists:
 		print("gam create course name \"" + clubDescription + "\"")
-	print("gam sync teachers fran jennifer anthea karla " + clubDescriptions[clubDescription] + " etc")
+	print("gam sync teachers query \"" + " or ".join(teachers).strip() + " or " + clubDescriptions[clubDescription] + "\"")
 	if clubDescription in clubMembers.keys():
 		print(clubMembers[clubDescription])
