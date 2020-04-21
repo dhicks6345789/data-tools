@@ -166,6 +166,5 @@ for clubName in clubMembers.keys():
 					print("gam create course name \"" + clubDescription + "\"")
 				for classroomIndex, classroomValue in classrooms.iterrows():
 					if classroomValue["name"] == clubDescription:
-						#gam course <id or alias> add student|teacher <email address>
-						print("gam course " + classroomValue["id"] + "add student ---")
+						print("gam course " + str(classroomValue["id"]) + "add student ---")
 		dataLib.writeFile(csvPath, newCSV)
