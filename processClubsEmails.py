@@ -139,12 +139,14 @@ for clubIndex, clubValue in clubs.iterrows():
 # every time we run.
 if rawDataChanged:
 	clubs.to_excel(rawDataRoot,index=False)
-	
+
+# Generate a list of clubs.
 clubMembers = {}
 for clubIndex, clubValue in clubs.iterrows():
 	if not clubValue["clubAccount"] == "":
 		clubMembers[clubValue["clubAccount"]] = []
 
+# For each club, write out a CSV file of members.
 for clubName in clubMembers.keys():
 	for clubIndex, clubValue in clubs.iterrows():
 		if not clubValue["firstChildUsername"] == "" and clubValue["clubAccount"] == clubName:
