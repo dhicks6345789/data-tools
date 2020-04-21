@@ -169,7 +169,7 @@ for clubDescription in clubDescriptions.keys():
 		if classroomValue["name"] == clubDescription:
 			classroomID = str(classroomValue["id"])
 	if classroomID == "":
-		os.system("gam create course name \"" + clubDescription + "\" teacher " + clubDescriptions[clubDescription])
+		os.system("gam create course name \"" + clubDescription + "\" teacher " + clubDescriptions[clubDescription] + " status ACTIVE")
 	else:
 		dataLib.writeFile("classroomTeachers.csv", "\n".join(teachers) + "\n" + clubDescriptions[clubDescription])
 		os.system("gam course " + classroomID + " sync teachers file classroomTeachers.csv")
