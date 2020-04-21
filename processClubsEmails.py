@@ -154,6 +154,7 @@ for clubDescription in clubDescriptions.keys():
 			clubExists = True
 	if not clubExists:
 		print("gam create course name \"" + clubDescription + "\"")
+		print("gam sync teachers fran jennifer anthea karla " + clubDescriptions[clubDescription] + " etc")
 
 # For each club, write out a CSV file of members.
 #for clubName in clubMembers.keys():
