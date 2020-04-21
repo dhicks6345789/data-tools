@@ -66,7 +66,7 @@ for cachedEmail in os.listdir(emailsRoot):
 # Read the existing clubs data from an Excel file, or crate a new one if needed.
 rawDataChanged = False
 rawDataRoot = clubsRoot + os.sep + "clubsEmailsRawData.xlsx"
-clubsColumns = ["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","clubAccount","firstChildName","firstChildClass","firstChildUsername","secondChildName","secondChildClass","secondChildUsername"]
+clubsColumns = ["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","firstChildUsername","secondChildName","secondChildClass","secondChildUsername"]
 if os.path.exists(rawDataRoot):
 	clubs = pandas.read_excel(rawDataRoot, dtype=str)
 else:
@@ -127,10 +127,10 @@ for clubIndex, clubValue in clubs.iterrows():
 		if pupilName == secondChildName and clubValue["secondChildUsername"] == "":
 			clubs.at[clubIndex, "secondChildUsername"] = pupilValue["OldUsername"]
 			rawDataChanged = True
-	for clubDescription in clubDescriptions.keys():
-		if clubDescription == clubValue["itemDescription"]:
-			clubs.at[clubIndex, "clubAccount"] = clubDescriptions[clubDescription]
-			rawDataChanged = True
+	#for clubDescription in clubDescriptions.keys():
+	#	if clubDescription == clubValue["itemDescription"]:
+	#		clubs.at[clubIndex, "clubAccount"] = clubDescriptions[clubDescription]
+	#		rawDataChanged = True
 
 # We only write out a new Excel file if some data has actually changed, that way we don't re-sync an identical file to Google Drive
 # every time we run.
@@ -149,9 +149,9 @@ for clubIndex, clubValue in clubs.iterrows():
 # Assign pupils to each club.
 for clubName in clubMembers.keys():
 	for clubIndex, clubValue in clubs.iterrows():
-		if not clubValue["firstChildUsername"] == "" and clubValue["clubAccount"] == clubName:
+		if not clubValue["firstChildUsername"] == "" and clubValue["itemDescription"] == clubName:
 			clubMembers[clubName].append(clubValue["firstChildUsername"])
-		if not clubValue["secondChildUsername"] == "" and clubValue["clubAccount"] == clubName:
+		if not clubValue["secondChildUsername"] == "" and clubValue["itemDescription"] == clubName:
 			clubMembers[clubName].append(clubValue["secondChildUsername"])
 
 # For each club listed in the options sheet, make sure a matching Google Classroom exists.
