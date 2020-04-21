@@ -167,7 +167,7 @@ for clubDescription in clubDescriptions.keys():
 	classroomID = ""
 	for classroomIndex, classroomValue in classrooms.iterrows():
 		if classroomValue["name"] == clubDescription:
-			classroomID = classroomValue["id"]
+			classroomID = str(classroomValue["id"])
 	if classroomID == "":
 		print("gam create course name \"" + clubDescription + "\" teacher " + clubDescriptions[clubDescription])
 	else:
