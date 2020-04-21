@@ -162,7 +162,7 @@ for clubName in clubMembers.keys():
 		print("Writing " + clubName + ".csv")
 		dataLib.writeFile(csvPath, newCSV)
 
-# For each club listed in the options sheet, make sure a matching Google Classroom exists.
+# For each club listed in the options sheet, make sure a matching Google Classroom exists and set teachers and pupil membership.
 for clubDescription in clubDescriptions.keys():
 	clubExists = False
 	for classroomIndex, classroomValue in classrooms.iterrows():
@@ -173,29 +173,3 @@ for clubDescription in clubDescriptions.keys():
 	print("gam sync teachers fran jennifer anthea karla " + clubDescriptions[clubDescription] + " etc")
 	if clubDescription in clubMembers.keys():
 		print(clubMembers[clubDescription])
-		
-# For each club, write out a CSV file of members.
-#for clubName in clubMembers.keys():
-#	for clubIndex, clubValue in clubs.iterrows():
-#		if not clubValue["firstChildUsername"] == "" and clubValue["clubAccount"] == clubName:
-#			clubMembers[clubName].append(clubValue["firstChildUsername"])
-#		if not clubValue["secondChildUsername"] == "" and clubValue["clubAccount"] == clubName:
-#			clubMembers[clubName].append(clubValue["secondChildUsername"])
-#	currentCSV = ""
-#	csvPath = csvsRoot + os.sep + clubName + ".csv"
-#	if os.path.exists(csvPath):
-#		currentCSV = dataLib.readFile(csvPath)
-#	newCSV = "\n".join(clubMembers[clubName]).strip()
-#	if not currentCSV == newCSV:
-#		print("Writing " + clubName + ".csv")
-#		clubFound = False
-#		for clubDescription in clubDescriptions.keys():
-#			if not clubFound and clubDescriptions[clubDescription] == clubName:
-#				clubFound = True
-#				if not clubDescription in classrooms["name"].tolist():
-#					print("gam create course name \"" + clubDescription + "\"")
-#				for classroomIndex, classroomValue in classrooms.iterrows():
-#					if classroomValue["name"] == clubDescription:
-#						for clubMember in clubMembers[clubName]:
-#							print("gam course " + str(classroomValue["id"]) + " add student " + clubMember)
-#		dataLib.writeFile(csvPath, newCSV)
