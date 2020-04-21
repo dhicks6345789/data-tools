@@ -146,14 +146,14 @@ for clubIndex, clubValue in clubs.iterrows():
 	if not clubValue["itemDescription"] == "":
 		clubMembers[clubValue["itemDescription"]] = []
 
-# For each named club, make sure a matching Google Classroom exists.
-for clubName in clubMembers.keys():
+# For each club listed in the options sheet, make sure a matching Google Classroom exists.
+for clubDescription in clubDescriptions.keys():
 	clubExists = False
 	for classroomIndex, classroomValue in classrooms.iterrows():
-		if classroomValue["name"] == clubName:
+		if classroomValue["name"] == clubDescription:
 			clubExists = True
 	if not clubExists:
-		print("gam create course name \"" + clubName + "\"")
+		print("gam create course name \"" + clubDescription + "\"")
 
 # For each club, write out a CSV file of members.
 #for clubName in clubMembers.keys():
