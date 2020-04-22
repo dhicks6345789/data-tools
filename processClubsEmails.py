@@ -198,7 +198,7 @@ for clubDescription in clubDescriptions.keys():
 	else:
 		csvPath = csvsRootTeachers + os.sep + clubName + ".csv"
 		if writeCSV(csvPath, "\n".join(teachers) + "\n" + clubDescriptions[clubDescription].replace(",","\n")):
-			os.system("gam course " + classroomID + " sync teachers file " + csvPath)
+			print("gam course " + classroomID + " sync teachers file \"" + csvPath + "\"")
 		if clubDescription in changedClubMembers.keys():
 			#for clubMember in clubMembers[clubDescription]:
 			#	os.system("gam course " + classroomID + " add student " + clubMember)
