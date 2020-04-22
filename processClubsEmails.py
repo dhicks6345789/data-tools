@@ -172,9 +172,6 @@ for clubIndex, clubValue in clubs.iterrows():
 			
 # We only write out a new Excel file if some data has actually changed, that
 # way we don't re-sync an identical file to Google Drive every time we run.
-if clubsListChanged:
-	print("Writing " + clubsListRoot)
-	clubsList.to_excel(clubsListRoot, index=False)
 if rawDataChanged:
 	print("Writing " + rawDataRoot)
 	clubs.to_excel(rawDataRoot, index=False)
@@ -182,12 +179,24 @@ if rawDataChanged:
 # Get a current list of Google Classrooms.
 classrooms =  pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses")))
 	
-# Generate a list of clubs.
+# Generate a list of clubs from the emails.
 clubMembers = {}
 for clubIndex, clubValue in clubs.iterrows():
 	if not clubValue["itemDescription"] == "":
 		clubMembers[clubValue["itemDescription"]] = []
 
+clubsListEnd = len(clubList)
+clubsListNames = clubsList["club"].tolist()
+for clubName in clubMembers.keys():
+	if not clubName in clubsListNames:
+		clubsList.at[clubsListEnd, "club"] = clubName
+		clubsList.at[clubsListEnd, "teacher"] = ""
+		clubsListChanged = True
+
+if clubsListChanged:
+	print("Writing " + clubsListRoot)
+	clubsList.to_excel(clubsListRoot, index=False)
+		
 # Assign pupils to each club and write out a CSV file of members for each one.
 changedClubMembers = {}
 for clubName in clubMembers.keys():
