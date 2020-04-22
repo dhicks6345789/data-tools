@@ -146,8 +146,6 @@ for clubIndex, clubValue in clubs.iterrows():
 if rawDataChanged:
 	print("Writing " + rawDataRoot)
 	clubs.to_excel(rawDataRoot, index=False)
-	
-sys.exit(0)
 
 # Get a current list of Google Classrooms.
 classrooms =  pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses")))
@@ -159,6 +157,7 @@ for clubIndex, clubValue in clubs.iterrows():
 		clubMembers[clubValue["itemDescription"]] = []
 
 # Assign pupils to each club and write out a CSV file of members for each one.
+changedClubMembers = {}
 for clubName in clubMembers.keys():
 	for clubIndex, clubValue in clubs.iterrows():
 		if not clubValue["firstChildUsername"] == "" and clubValue["itemDescription"] == clubName:
@@ -173,6 +172,7 @@ for clubName in clubMembers.keys():
 	if not currentCSV == newCSV:
 		print("Writing " + clubName + ".csv")
 		dataLib.writeFile(csvPath, newCSV)
+		changedClubMembers[clubName] = clubMembers[clubName]
 
 # For each club listed in the options sheet, make sure a matching Google Classroom exists and set teachers and pupil membership.
 for clubDescription in clubDescriptions.keys():
@@ -188,6 +188,6 @@ for clubDescription in clubDescriptions.keys():
 		os.remove("classroomTeachers.csv")
 		#classroomMembers = pandas.read_csv(io.StringIO(dataLib.runCommand("gam print course-participants course " + classroomID + " show students")))
 		#print(classroomMembers)
-		if clubDescription in clubMembers.keys():
+		if clubDescription in changedClubMembers.keys():
 			for clubMember in clubMembers[clubDescription]:
 				os.system("gam course " + classroomID + " add student " + clubMember)
