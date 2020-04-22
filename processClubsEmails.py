@@ -27,8 +27,10 @@ clubsRoot = config["dataFolder"] + os.sep + "Clubs"
 os.makedirs(clubsRoot, exist_ok=True)
 emailsRoot = clubsRoot + os.sep + "Emails"
 os.makedirs(emailsRoot, exist_ok=True)
-csvsRoot = clubsRoot + os.sep + "CSVs"
-os.makedirs(csvsRoot, exist_ok=True)
+csvsRootStudents = clubsRoot + os.sep + "CSVs" + os.sep + "Students"
+os.makedirs(csvsRootStudents, exist_ok=True)
+csvsRootTeachers = clubsRoot + os.sep + "CSVs" + os.sep + "Teachers"
+os.makedirs(csvsRootTeachers, exist_ok=True)
 
 # Load the user options. These are a set of simple key:values in an Excel spreadsheet. Available options:
 # dateFrom: The date at which to start processing emails from. Means the user can define which emails to process rather than simply
@@ -165,7 +167,7 @@ for clubName in clubMembers.keys():
 		if not clubValue["secondChildUsername"] == "" and clubValue["itemDescription"] == clubName:
 			clubMembers[clubName].append(clubValue["secondChildUsername"])
 	currentCSV = ""
-	csvPath = csvsRoot + os.sep + clubName + ".csv"
+	csvPath = csvsRootStudents + os.sep + clubName + ".csv"
 	if os.path.exists(csvPath):
 		currentCSV = dataLib.readFile(csvPath)
 	newCSV = "\n".join(clubMembers[clubName]).strip()
@@ -189,4 +191,4 @@ for clubDescription in clubDescriptions.keys():
 		if clubDescription in changedClubMembers.keys():
 			#for clubMember in clubMembers[clubDescription]:
 			#	os.system("gam course " + classroomID + " add student " + clubMember)
-			os.system("gam course " + classroomID + " sync students file \"" + csvsRoot + os.sep + clubDescription + ".csv\"")
+			os.system("gam course " + classroomID + " sync students file \"" + csvsRootStudents + os.sep + clubDescription + ".csv\"")
