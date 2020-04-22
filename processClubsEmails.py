@@ -48,7 +48,6 @@ os.makedirs(csvsRootTeachers, exist_ok=True)
 #    processing all emails from years back.
 # User: The username of the inbox to extract emails from.
 options = {}
-#clubDescriptions = {}
 teachers = []
 optionsDataframe = pandas.read_excel(clubsRoot + os.sep + "options.xlsx", header=None)
 for optionIndex, optionValue in optionsDataframe.iterrows():
@@ -56,11 +55,7 @@ for optionIndex, optionValue in optionsDataframe.iterrows():
 		optionName = noNan(optionsDataframe.at[optionIndex, 0]).replace(":","").strip()
 		if not optionName == "":
 			options[optionName] = optionsDataframe.at[optionIndex, 1]
-		#clubDescription = noNan(optionsDataframe.at[optionIndex, 2]).replace(":","").strip()
-		#clubAccount = noNan(optionsDataframe.at[optionIndex, 3]).replace(":","").strip()
-		#if not clubDescription == "" and not clubAccount == "":
-		#	clubDescriptions[clubDescription] = clubAccount
-		teacher = noNan(optionsDataframe.at[optionIndex, 4]).strip()
+		teacher = noNan(optionsDataframe.at[optionIndex, 2]).strip()
 		if not teacher == "":
 			teachers.append(teacher)
 
