@@ -196,7 +196,7 @@ for clubDescription in clubDescriptions.keys():
 	if classroomID == "":
 		os.system("gam create course name \"" + clubDescription + "\" teacher " + clubDescriptions[clubDescription] + " status ACTIVE")
 	else:
-		csvPath = csvsRootTeachers + os.sep + clubName + ".csv"
+		csvPath = csvsRootTeachers + os.sep + clubDescription + ".csv"
 		if writeCSV(csvPath, "\n".join(teachers) + "\n" + clubDescriptions[clubDescription].replace(",","\n")):
 			print("gam course " + classroomID + " sync teachers file \"" + csvPath + "\"")
 		if clubDescription in changedClubMembers.keys():
