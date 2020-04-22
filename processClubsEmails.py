@@ -183,7 +183,7 @@ for clubDescription in clubDescriptions.keys():
 	if classroomID == "":
 		os.system("gam create course name \"" + clubDescription + "\" teacher " + clubDescriptions[clubDescription] + " status ACTIVE")
 	else:
-		dataLib.writeFile("classroomTeachers.csv", "\n".join(teachers) + "\n" + clubDescriptions[clubDescription])
+		dataLib.writeFile("classroomTeachers.csv", "\n".join(teachers) + "\n" + clubDescriptions[clubDescription].replace(",","\n"))
 		os.system("gam course " + classroomID + " sync teachers file classroomTeachers.csv")
 		os.remove("classroomTeachers.csv")
 		if clubDescription in changedClubMembers.keys():
