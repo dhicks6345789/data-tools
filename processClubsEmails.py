@@ -145,6 +145,8 @@ for clubIndex, clubValue in clubs.iterrows():
 # every time we run.
 if rawDataChanged:
 	clubs.to_excel(rawDataRoot, index=False)
+	
+sys.exit(0)
 
 # Get a current list of Google Classrooms.
 classrooms =  pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses")))
