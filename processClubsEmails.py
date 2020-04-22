@@ -19,6 +19,17 @@ def normaliseDescription(theDescription):
 			result = result + theChar
 	return result.replace("/","-").replace("&amp;","&").strip()
 
+# Writes out the given data to the given file, but only if the data has changed. Returns True if there was a change, False if not.
+def writeCSV(csvPath, newCSV):
+	currentCSV = ""
+	if os.path.exists(csvPath):
+		currentCSV = dataLib.readFile(csvPath)
+	if not currentCSV == newCSV:
+		print("Writing " + csvPath)
+		dataLib.writeFile(csvPath, newCSV)
+		return True
+	return False
+
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
 
@@ -185,9 +196,9 @@ for clubDescription in clubDescriptions.keys():
 	if classroomID == "":
 		os.system("gam create course name \"" + clubDescription + "\" teacher " + clubDescriptions[clubDescription] + " status ACTIVE")
 	else:
-		dataLib.writeFile("classroomTeachers.csv", "\n".join(teachers) + "\n" + clubDescriptions[clubDescription].replace(",","\n"))
-		os.system("gam course " + classroomID + " sync teachers file classroomTeachers.csv")
-		os.remove("classroomTeachers.csv")
+		csvPath = csvsRootTeachers + os.sep + clubName + ".csv"
+		if writeCSV(csvPath, "\n".join(teachers) + "\n" + clubDescriptions[clubDescription].replace(",","\n")):
+			os.system("gam course " + classroomID + " sync teachers file " + csvPath)
 		if clubDescription in changedClubMembers.keys():
 			#for clubMember in clubMembers[clubDescription]:
 			#	os.system("gam course " + classroomID + " add student " + clubMember)
