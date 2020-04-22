@@ -213,18 +213,15 @@ for clubName in clubMembers.keys():
 
 # For each club listed in the options sheet, make sure a matching Google Classroom exists and set teachers and pupil membership.
 for clubsListIndex, clubsListValue in clubsList.iterrows():
-#for clubDescription in clubDescriptions.keys():
 	classroomID = ""
 	for classroomIndex, classroomValue in classrooms.iterrows():
 		if classroomValue["name"] == clubsListValue["club"]:
 			classroomID = str(classroomValue["id"])
 	if classroomID == "":
-		print("gam create course name \"" + clubsListValue["club"] + "\" teacher " + clubsListValue["teacher"] + " status ACTIVE")
+		os.system("gam create course name \"" + clubsListValue["club"] + "\" teacher " + clubsListValue["teacher"] + " status ACTIVE")
 	else:
 		csvPath = csvsRootTeachers + os.sep + clubsListValue["club"] + ".csv"
 		if writeCSV(csvPath, "\n".join(teachers) + "\n" + clubsListValue["teacher"].replace(",","\n")):
-			print("gam course " + classroomID + " sync teachers file \"" + csvPath + "\"")
+			os.system("gam course " + classroomID + " sync teachers file \"" + csvPath + "\"")
 		if clubsListValue["club"] in changedClubMembers.keys():
-			#for clubMember in clubMembers[clubDescription]:
-			#	os.system("gam course " + classroomID + " add student " + clubMember)
-			print("gam course " + classroomID + " sync students file \"" + csvsRootStudents + os.sep + clubsListValue["club"] + ".csv\"")
+			os.system("gam course " + classroomID + " sync students file \"" + csvsRootStudents + os.sep + clubsListValue["club"] + ".csv\"")
