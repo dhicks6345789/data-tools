@@ -79,8 +79,18 @@ for emailIndex, emailValue in pandas.read_csv(io.StringIO(dataLib.runCommand("ga
 for cachedEmail in os.listdir(emailsRoot):
 	if not cachedEmail in cachedEmails:
 		os.remove(emailsRoot + os.sep + cachedEmail)
+		
+# Read the existing list of clubs from an Excel file, or create a new one if needed.
+clubsListChanged = False
+clubsListRoot = clubsRoot + os.sep + "clubsList.xlsx"
+clubsListColumns = ["club","teacher"]
+if os.path.exists(clubsListRoot):
+	clubsList = pandas.read_excel(clubsListRoot, dtype=str)
+else:
+	clubsListChanged = True
+	clubsList = pandas.DataFrame(columns=clubsListColumns)
 
-# Read the existing clubs data from an Excel file, or crate a new one if needed.
+# Read the existing clubs data from an Excel file, or create a new one if needed.
 rawDataChanged = False
 rawDataRoot = clubsRoot + os.sep + "clubsEmailsRawData.xlsx"
 clubsColumns = ["orderNumber","orderDate","orderTime","parentName","parentEmail","itemDescription","itemCode","firstChildName","firstChildClass","firstChildUsername","secondChildName","secondChildClass","secondChildUsername"]
@@ -132,6 +142,12 @@ for emailFilePath in os.listdir(emailsRoot):
 				else:
 					itemDescription = normaliseDescription(resultLine.strip())
 
+# Make sure the "clubsList" DataFrame is formatted as strings, and remove any "nan" values.
+clubsList = clubsList.astype(str)
+for clubsListIndex, clubsListValue in clubsList.iterrows():
+	for clubsListColumn in clubsListColumns:
+		clubs.at[clubsListIndex, clubsListColumn] = noNan(clubsList.at[clubsListIndex, clubsListColumn])
+
 # Make sure the "clubs" DataFrame is formatted as strings, and remove any "nan" values.
 clubs = clubs.astype(str)
 for clubIndex, clubValue in clubs.iterrows():
@@ -154,8 +170,11 @@ for clubIndex, clubValue in clubs.iterrows():
 			clubs.at[clubIndex, "secondChildUsername"] = pupilValue["OldUsername"]
 			rawDataChanged = True
 			
-# We only write out a new Excel file if some data has actually changed, that way we don't re-sync an identical file to Google Drive
-# every time we run.
+# We only write out a new Excel file if some data has actually changed, that
+# way we don't re-sync an identical file to Google Drive every time we run.
+if clubsListChanged:
+	print("Writing " + clubsListRoot)
+	clubsList.to_excel(clubsListRoot, index=False)
 if rawDataChanged:
 	print("Writing " + rawDataRoot)
 	clubs.to_excel(rawDataRoot, index=False)
