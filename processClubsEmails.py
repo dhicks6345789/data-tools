@@ -108,6 +108,7 @@ for emailFilePath in os.listdir(emailsRoot):
 		#matchResult = re.match(".*SUBTOTAL\n(.*?)\n(.*?)\n.*", emailText, re.DOTALL)
 		matchResult = re.match(".*SUBTOTAL\n(.*?)\nTOTAL", emailText, re.DOTALL)
 		if not matchResult == None:
+			print(result)
 			itemDescription = ""
 			for resultLine in matchResult[1].strip():
 				if resultLine.strip().startswith("SQ"):
