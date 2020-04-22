@@ -106,11 +106,10 @@ for emailFilePath in os.listdir(emailsRoot):
 			else:
 				result["secondChildClass"] = matchResult[4].strip()
 		#matchResult = re.match(".*SUBTOTAL\n(.*?)\n(.*?)\n.*", emailText, re.DOTALL)
-		matchResult = re.match(".*SUBTOTAL\n(.*?)\nTOTAL", emailText, re.DOTALL)
+		matchResult = re.match(".*SUBTOTAL(.*?)TOTAL", emailText, re.DOTALL)
 		if not matchResult == None:
 			itemDescription = ""
-			for resultLine in matchResult[1].strip():
-				print(resultLine)
+			for resultLine in matchResult[1].split("\n"):
 				if resultLine.strip().startswith("SQ"):
 					clubs.at[emailIndex, "itemDescription"] = itemDescription
 					clubs.at[emailIndex, "itemCode"] = resultLine.strip()
