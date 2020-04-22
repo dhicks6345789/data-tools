@@ -142,12 +142,6 @@ for emailFilePath in os.listdir(emailsRoot):
 				else:
 					itemDescription = normaliseDescription(resultLine.strip())
 
-# Make sure the "clubsList" DataFrame is formatted as strings, and remove any "nan" values.
-clubsList = clubsList.astype(str)
-for clubsListIndex, clubsListValue in clubsList.iterrows():
-	for clubsListColumn in clubsListColumns:
-		clubs.at[clubsListIndex, clubsListColumn] = noNan(clubsList.at[clubsListIndex, clubsListColumn])
-
 # Make sure the "clubs" DataFrame is formatted as strings, and remove any "nan" values.
 clubs = clubs.astype(str)
 for clubIndex, clubValue in clubs.iterrows():
@@ -195,6 +189,13 @@ for clubName in clubMembers.keys():
 		clubsList.at[clubsListEnd, "club"] = clubName
 		clubsList.at[clubsListEnd, "teacher"] = ""
 		clubsListChanged = True
+		clubsListEnd = clubsListEnd + 1
+		
+# Make sure the "clubsList" DataFrame is formatted as strings, and remove any "nan" values.
+clubsList = clubsList.astype(str)
+for clubsListIndex, clubsListValue in clubsList.iterrows():
+	for clubsListColumn in clubsListColumns:
+		clubs.at[clubsListIndex, clubsListColumn] = noNan(clubsList.at[clubsListIndex, clubsListColumn])
 
 if clubsListChanged:
 	print("Writing " + clubsListRoot)
