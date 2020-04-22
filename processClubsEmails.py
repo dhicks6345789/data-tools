@@ -187,6 +187,9 @@ for clubIndex, clubValue in clubs.iterrows():
 
 clubsListEnd = len(clubsList)
 clubsListNames = clubsList["club"].tolist()
+print("clubsListNames")
+print(clubsListNames)
+print("---")
 for clubName in clubMembers.keys():
 	if not clubName in clubsListNames:
 		clubsList.at[clubsListEnd, "club"] = clubName
