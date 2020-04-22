@@ -185,7 +185,7 @@ for clubIndex, clubValue in clubs.iterrows():
 	if not clubValue["itemDescription"] == "":
 		clubMembers[clubValue["itemDescription"]] = []
 
-clubsListEnd = len(clubList)
+clubsListEnd = len(clubsList)
 clubsListNames = clubsList["club"].tolist()
 for clubName in clubMembers.keys():
 	if not clubName in clubsListNames:
