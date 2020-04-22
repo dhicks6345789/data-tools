@@ -144,6 +144,7 @@ for clubIndex, clubValue in clubs.iterrows():
 # We only write out a new Excel file if some data has actually changed, that way we don't re-sync an identical file to Google Drive
 # every time we run.
 if rawDataChanged:
+	print("Writing " + rawDataRoot)
 	clubs.to_excel(rawDataRoot, index=False)
 	
 sys.exit(0)
