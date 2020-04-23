@@ -17,6 +17,9 @@ config = dataLib.loadConfig(["dataFolder"])
 
 groupsRoot = config["dataFolder"] + os.sep + "Groups"
 
+# Get a current list of Google Classrooms.
+classrooms =  pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses")))
+
 # Load the "classroomsToSync" spreadsheet. Should simply consist of two columns, one listing Classrooms (by title), the other the groups(s)
 # to sync with that Classroom.
 classroomsDataframe = pandas.read_excel(config["dataFolder"] + os.sep + "classroomsToSync.xlsx", header=None)
@@ -35,5 +38,9 @@ for classroomIndex, classroomValue in classroomsDataframe.iterrows():
 					print("Unknown group: " + pupilsGroup.strip())
 			if not pupils == "":
 				dataLib.writeFile("pupilsData.csv", pupils)
-				print("gam course " + "idGoesHere" + " sync students file pupilsData.csv")
+				classroomID = ""
+				for classroomIndex, classroomValue in classrooms.iterrows():
+					if classroomValue["name"] == classroomName:
+						classroomID = noNan(classroomValue["id"])
+						print("gam course " + classroomID + " sync students file pupilsData.csv")
 				os.remove("pupilsData.csv")
