@@ -18,7 +18,7 @@ config = dataLib.loadConfig(["dataFolder"])
 # Load the "classroomsToSync" spreadsheet. Should simply consist of two columns, one listing Classrooms (by title), the other the groups(s)
 # to sync with that Classroom.
 classroomsDataframe = pandas.read_excel(config["dataFolder"] + os.sep + "classroomsToSync.xlsx", header=None)
-for classroomIndex, classroomValue in classroomDataframe.iterrows():
+for classroomIndex, classroomValue in classroomsDataframe.iterrows():
 	if not classroomIndex == 0:
 		classroomName = noNan(optionsDataframe.at[classroomIndex, 0])
 		if not classroomName == "":
