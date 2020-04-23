@@ -20,9 +20,9 @@ config = dataLib.loadConfig(["dataFolder"])
 classroomsDataframe = pandas.read_excel(config["dataFolder"] + os.sep + "classroomsToSync.xlsx", header=None)
 for classroomIndex, classroomValue in classroomsDataframe.iterrows():
 	if not classroomIndex == 0:
-		classroomName = noNan(optionsDataframe.at[classroomIndex, 0])
+		classroomName = noNan(classroomsDataframe.at[classroomIndex, 0])
 		if not classroomName == "":
-			classroomGroup = optionsDataframe.at[classroomIndex, 1]
+			classroomGroup = classromsDataframe.at[classroomIndex, 1]
 			if not classroomGroup == "":
 				print(classroomName)
 				print(classroomGroup)
