@@ -22,7 +22,7 @@ for classroomIndex, classroomValue in classroomsDataframe.iterrows():
 	if not classroomIndex == 0:
 		classroomName = noNan(classroomsDataframe.at[classroomIndex, 0])
 		if not classroomName == "":
-			classroomGroup = classromsDataframe.at[classroomIndex, 1]
+			classroomGroup = classroomsDataframe.at[classroomIndex, 1]
 			if not classroomGroup == "":
 				print(classroomName)
 				print(classroomGroup)
