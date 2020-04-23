@@ -6,7 +6,7 @@ import json
 import pandas
 import dataLib
 
-validYeargroups = ["J1","J2","J3","S4"]
+validYeargroups = ["Rec","J1","J2","J3","S4"]
 
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
