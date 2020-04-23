@@ -33,6 +33,7 @@ for classroomIndex, classroomValue in classroomsDataframe.iterrows():
 					pupils = pupils + dataLib.readFile(csvPath)
 				else:
 					print("Unknown group: " + pupilsGroup.strip())
-			print(classroomName)
-			print(pupils)
-			print("---")
+			if not pupils == "":
+				dataLib.writeFile("pupilsData.csv", pupils)
+				print("gam course " + "idGoesHere" + " sync students file pupilsData.csv")
+				os.remove("pupilsData.csv")
