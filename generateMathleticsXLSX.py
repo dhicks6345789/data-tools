@@ -21,7 +21,8 @@ os.makedirs(outputRoot, exist_ok=True)
 mathletics = pandas.DataFrame(columns=["Student First Name","Student Surname","Student Year","Class Name","Teacher Title","Teacher First name","Teacher Surname","Teacher Email"])
 
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
-#for pupilIndex, pupil in pupils.iterrows():
-#	outputString = outputString + "action," + str(pupil["ID"]) + ",Type," + pupil["Username"] + ",Password," + pupil["GivenName"] + ",," + pupil["FamilyName"] + ",UPN,Y"
+for pupilsIndex, pupilsValues in pupils.iterrows():
+	mathletics.at[pupilsIndex+1, "Student First Name"] = pupilsValues["GivenName"]
+	#outputString = outputString + "action," + str(pupil["ID"]) + ",Type," + pupil["Username"] + ",Password," + pupil["GivenName"] + ",," + pupil["FamilyName"] + ",UPN,Y"
 
 mathletics.to_excel(outputRoot + os.sep + "Mathletics.xlsx", index=False)
