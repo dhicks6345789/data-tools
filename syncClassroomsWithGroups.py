@@ -42,5 +42,5 @@ for classroomIndex, classroomValue in classroomsDataframe.iterrows():
 				for classroomIndex, classroomValue in classrooms.iterrows():
 					if classroomValue["name"] == classroomName:
 						classroomID = noNan(str(classroomValue["id"]))
-						print("gam course " + classroomID + " sync students file pupilsData.csv")
-				#os.remove("pupilsData.csv")
+						os.system("gam course " + classroomID + " sync students file pupilsData.csv")
+				os.remove("pupilsData.csv")
