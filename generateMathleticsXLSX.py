@@ -23,6 +23,12 @@ mathletics = pandas.DataFrame(columns=["Student First Name","Student Surname","S
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 for pupilsIndex, pupilsValues in pupils.iterrows():
 	mathletics.at[pupilsIndex+1, "Student First Name"] = pupilsValues["GivenName"]
-	#outputString = outputString + "action," + str(pupil["ID"]) + ",Type," + pupil["Username"] + ",Password," + pupil["GivenName"] + ",," + pupil["FamilyName"] + ",UPN,Y"
+	mathletics.at[pupilsIndex+1, "Student Surname"] = pupilsValues["FamilyName"]
+	mathletics.at[pupilsIndex+1, "Student Year"] = pupilsValues["YearGroup"]
+	mathletics.at[pupilsIndex+1, "Class Name"] = pupilsValues["Form"]
+	#mathletics.at[pupilsIndex+1, "Teacher Title"] = pupilsValues[""]
+	#mathletics.at[pupilsIndex+1, "Teacher First Name"] = pupilsValues[""]
+	#mathletics.at[pupilsIndex+1, "Teacher Surname"] = pupilsValues[""]
+	#mathletics.at[pupilsIndex+1, "Teacher Email"] = pupilsValues[""]
 
 mathletics.to_excel(outputRoot + os.sep + "Mathletics.xlsx", index=False)
