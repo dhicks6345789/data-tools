@@ -28,7 +28,11 @@ for classroomIndex, classroomValue in classroomsDataframe.iterrows():
 			teachersGroups = classroomsDataframe.at[classroomIndex, 2]
 			pupils = ""
 			for pupilsGroup in pupilsGroups.split(","):
-				pupils = pupils + dataLib.readFile(groupsRoot + os.sep + pupilsGroup.strip()) + "\n"
+				csvPath = groupsRoot + os.sep + pupilsGroup.strip()
+				if os.path.exists(csvPath):
+					pupils = pupils + dataLib.readFile(csvPath) + "\n"
+				else:
+					print("Unknown group: " + pupilsGroup.strip())
 			print(classroomName)
 			print(pupils)
 			print("---")
