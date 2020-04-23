@@ -30,7 +30,7 @@ for classroomIndex, classroomValue in classroomsDataframe.iterrows():
 			for pupilsGroup in pupilsGroups.split(","):
 				csvPath = groupsRoot + os.sep + pupilsGroup.strip() + ".csv"
 				if os.path.exists(csvPath):
-					pupils = pupils + dataLib.readFile(csvPath) + "\n"
+					pupils = pupils + dataLib.readFile(csvPath)
 				else:
 					print("Unknown group: " + pupilsGroup.strip())
 			print(classroomName)
