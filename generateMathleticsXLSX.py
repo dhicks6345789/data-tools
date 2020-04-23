@@ -10,7 +10,7 @@ validYeargroups = ["Rec","1","2","3","4"]
 
 def formToYearGroup(theForm):
 	for validYeargroup in validYeargroups:
-		if validYeargroup in theForm
+		if validYeargroup in theForm:
 			return validYeargroup.replace("Rec","R")
 	return None
 
