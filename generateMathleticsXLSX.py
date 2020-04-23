@@ -40,7 +40,7 @@ for pupilsIndex, pupilsValues in pupils.iterrows():
 		for teachersIndex, teachersValues in teachers.iterrows():
 			if pupilsValues["Form"] == teachersValues["Class Name"]:
 				mathletics.at[pupilsIndex+1, "Teacher Title"] = teachersValues["Teacher Title"]
-				mathletics.at[pupilsIndex+1, "Teacher First Name"] = teachersValues["Teacher First Name"]
+				mathletics.at[pupilsIndex+1, "Teacher First name"] = teachersValues["Teacher First name"]
 				mathletics.at[pupilsIndex+1, "Teacher Surname"] = teachersValues["Teacher Surname"]
 				mathletics.at[pupilsIndex+1, "Teacher Email"] = teachersValues["Teacher Email"]
 
