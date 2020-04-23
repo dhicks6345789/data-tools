@@ -30,4 +30,5 @@ for classroomIndex, classroomValue in classroomsDataframe.iterrows():
 			for pupilsGroup in pupilsGroups.split(","):
 				pupils = pupils + dataLib.readFile(groupsRoot + os.sep + pupilsGroup.strip()) + "\n"
 			print(classroomName)
-			print pupils
+			print(pupils)
+			print("---")
