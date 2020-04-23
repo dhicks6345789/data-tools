@@ -11,7 +11,7 @@ validYeargroups = ["Rec","1","2","3","4"]
 def formToYearGroup(theForm):
 	for validYeargroup in validYeargroups:
 		if validYeargroup in theForm
-			return validYeargroup
+			return validYeargroup.replace("Rec","R")
 	return None
 
 # Load the config file (set by the system administrator).
