@@ -11,7 +11,8 @@ config = dataLib.loadConfig(["dataFolder"])
 
 # Make sure the output folder exists.
 outputRoot = config["dataFolder"] + os.sep + "Mathletics"
-	
+os.makedirs(outputRoot, exist_ok=True)
+
 # Input data headings:
 # Pupils: GUID,UserCode,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
 # Staff: GUID,UserCode,Title,GivenName,FamilyName,DateOfBirth,Username,Identifier,Form,JobTitle
@@ -23,4 +24,4 @@ pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 #for pupilIndex, pupil in pupils.iterrows():
 #	outputString = outputString + "action," + str(pupil["ID"]) + ",Type," + pupil["Username"] + ",Password," + pupil["GivenName"] + ",," + pupil["FamilyName"] + ",UPN,Y"
 
-mathletics.to_excel(outputRoot, index=False)
+mathletics.to_excel(outputRoot + os.sep + "Mathletics.xlsx", index=False)
