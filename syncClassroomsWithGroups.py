@@ -15,6 +15,8 @@ def noNan(theString):
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
 
+groupsRoot = config["dataFolder"] + os.sep + "Groups"
+
 # Load the "classroomsToSync" spreadsheet. Should simply consist of two columns, one listing Classrooms (by title), the other the groups(s)
 # to sync with that Classroom.
 classroomsDataframe = pandas.read_excel(config["dataFolder"] + os.sep + "classroomsToSync.xlsx", header=None)
@@ -22,7 +24,10 @@ for classroomIndex, classroomValue in classroomsDataframe.iterrows():
 	if not classroomIndex == 0:
 		classroomName = noNan(classroomsDataframe.at[classroomIndex, 0])
 		if not classroomName == "":
-			classroomGroup = classroomsDataframe.at[classroomIndex, 1]
-			if not classroomGroup == "":
-				print(classroomName)
-				print(classroomGroup)
+			pupilsGroups = classroomsDataframe.at[classroomIndex, 1]
+			teachersGroups = classroomsDataframe.at[classroomIndex, 2]
+			pupils = ""
+			for pupilsGroup in pupilsGroups.split(","):
+				pupils = pupils + dataLib.readFile(groupsRoot + os.sep + pupilsGroup.strip()) + "\n"
+			print(classroomName)
+			print pupils
