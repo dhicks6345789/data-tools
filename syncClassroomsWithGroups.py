@@ -28,7 +28,7 @@ for classroomIndex, classroomValue in classroomsDataframe.iterrows():
 			teachersGroups = classroomsDataframe.at[classroomIndex, 2]
 			pupils = ""
 			for pupilsGroup in pupilsGroups.split(","):
-				csvPath = groupsRoot + os.sep + pupilsGroup.strip()
+				csvPath = groupsRoot + os.sep + pupilsGroup.strip() + ".csv"
 				if os.path.exists(csvPath):
 					pupils = pupils + dataLib.readFile(csvPath) + "\n"
 				else:
