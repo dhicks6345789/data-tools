@@ -6,7 +6,13 @@ import json
 import pandas
 import dataLib
 
-validYeargroups = ["Rec","J1","J2","J3","S4"]
+validYeargroups = ["Rec","1","2","3","4"]
+
+def formToYearGroup(theForm):
+	for validYeargroup in validYeargroups:
+		if validYeargroup in theForm
+			return validYeargroup
+	return None
 
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
@@ -24,14 +30,11 @@ mathletics = pandas.DataFrame(columns=["Student First Name","Student Surname","S
 
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 for pupilsIndex, pupilsValues in pupils.iterrows():
-	pupilValid = False
-	for validYeargroup in validYeargroups:
-		if validYeargroup in pupilsValues["Form"]:
-			pupilValid = True
-	if pupilValid:
+	yearGroup = formToYearGroup(pupilsValues["Form"])
+	if not yearGroup == None:
 		mathletics.at[pupilsIndex+1, "Student First Name"] = pupilsValues["GivenName"]
 		mathletics.at[pupilsIndex+1, "Student Surname"] = pupilsValues["FamilyName"]
-		mathletics.at[pupilsIndex+1, "Student Year"] = pupilsValues["YearGroup"]
+		mathletics.at[pupilsIndex+1, "Student Year"] = yearGroup
 		mathletics.at[pupilsIndex+1, "Class Name"] = pupilsValues["Form"]
 		#mathletics.at[pupilsIndex+1, "Teacher Title"] = pupilsValues[""]
 		#mathletics.at[pupilsIndex+1, "Teacher First Name"] = pupilsValues[""]
