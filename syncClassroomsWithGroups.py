@@ -23,3 +23,6 @@ for classroomIndex, classroomValue in classroomDataframe.iterrows():
 		classroomName = noNan(optionsDataframe.at[classroomIndex, 0])
 		if not classroomName == "":
 			classroomGroup = optionsDataframe.at[classroomIndex, 1]
+			if not classroomGroup == "":
+				print(classroomName)
+				print(classroomGroup)
