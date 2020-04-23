@@ -29,6 +29,7 @@ os.makedirs(outputRoot, exist_ok=True)
 mathletics = pandas.DataFrame(columns=["Student First Name","Student Surname","Student Year","Class Name","Teacher Title","Teacher First name","Teacher Surname","Teacher Email"])
 
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
+teachers = pandas.read_excel(outputRoot + os.sep + "Teachers.xlsx", header=0)
 for pupilsIndex, pupilsValues in pupils.iterrows():
 	yearGroup = formToYearGroup(pupilsValues["Form"])
 	if not yearGroup == None:
@@ -36,9 +37,11 @@ for pupilsIndex, pupilsValues in pupils.iterrows():
 		mathletics.at[pupilsIndex+1, "Student Surname"] = pupilsValues["FamilyName"]
 		mathletics.at[pupilsIndex+1, "Student Year"] = yearGroup
 		mathletics.at[pupilsIndex+1, "Class Name"] = pupilsValues["Form"]
-		#mathletics.at[pupilsIndex+1, "Teacher Title"] = pupilsValues[""]
-		#mathletics.at[pupilsIndex+1, "Teacher First Name"] = pupilsValues[""]
-		#mathletics.at[pupilsIndex+1, "Teacher Surname"] = pupilsValues[""]
-		#mathletics.at[pupilsIndex+1, "Teacher Email"] = pupilsValues[""]
+		for teachersIndex, teachersValues in teachers.iterrows():
+			if pupilsValues["Form"] == teachersValues["Class Name"]:
+				mathletics.at[pupilsIndex+1, "Teacher Title"] = teachersValues["Teacher Title"]
+				mathletics.at[pupilsIndex+1, "Teacher First Name"] = teachersValues["Teacher First Name"]
+				mathletics.at[pupilsIndex+1, "Teacher Surname"] = teachersValues["Teacher Surname"]
+				mathletics.at[pupilsIndex+1, "Teacher Email"] = teachersValues["Teacher Email"]
 
 mathletics.to_excel(outputRoot + os.sep + "Mathletics.xlsx", index=False)
