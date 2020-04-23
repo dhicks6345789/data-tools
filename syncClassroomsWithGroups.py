@@ -40,7 +40,7 @@ for classroomIndex, classroomValue in classroomsDataframe.iterrows():
 				dataLib.writeFile("pupilsData.csv", pupils)
 				classroomID = ""
 				for classroomIndex, classroomValue in classrooms.iterrows():
-					if classroomValue["status"] == "ACTIVE" and classroomValue["name"] == classroomName:
+					if classroomValue["courseState"] == "ACTIVE" and classroomValue["name"] == classroomName:
 						classroomID = noNan(str(classroomValue["id"]))
 						os.system("gam course " + classroomID + " sync students file pupilsData.csv")
 				os.remove("pupilsData.csv")
