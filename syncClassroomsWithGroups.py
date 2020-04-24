@@ -28,7 +28,7 @@ for classroomIndex, classroomValue in classroomsDataframe.iterrows():
 		classroomName = noNan(classroomsDataframe.at[classroomIndex, 0])
 		if not classroomName == "":
 			pupilsGroups = classroomsDataframe.at[classroomIndex, 1]
-			teachersGroups = classroomsDataframe.at[classroomIndex, 2]
+			teachers = classroomsDataframe.at[classroomIndex, 2]
 			pupils = ""
 			for pupilsGroup in pupilsGroups.split(","):
 				csvPath = groupsRoot + os.sep + pupilsGroup.strip() + ".csv"
@@ -45,3 +45,7 @@ for classroomIndex, classroomValue in classroomsDataframe.iterrows():
 						classroomID = noNan(str(classroomValue["id"]))
 						os.system("gam course " + classroomID + " sync students file pupilsData.csv")
 				os.remove("pupilsData.csv")
+			if not teachers == "":
+				dataLib.writeFile("teachersData.csv", teachers.replace(",","\n").strip())
+				print("gam course " + classroomID + " sync teachers file teachersData.csv")
+				os.remove("teachersData.csv")
