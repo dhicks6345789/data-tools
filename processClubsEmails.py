@@ -217,7 +217,7 @@ for clubsListIndex, clubsListValue in clubsList.iterrows():
 		if classroomValue["name"] == clubsListValue["club"]:
 			classroomID = str(classroomValue["id"])
 	if classroomID == "":
-		os.system("gam create course name \"" + clubsListValue["club"] + "\" teacher " + clubsListValue["teacher"].split("\n")[0] + " status ACTIVE")
+		os.system("gam create course name \"" + clubsListValue["club"] + "\" teacher " + clubsListValue["teacher"].replace(" ","").split(",")[0] + " status ACTIVE")
 	else:
 		csvPath = csvsRootTeachers + os.sep + clubsListValue["club"] + ".csv"
 		if writeCSV(csvPath, "\n".join(teachers) + "\n" + clubsListValue["teacher"].replace(" ","").replace(",","\n")):
