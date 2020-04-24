@@ -45,7 +45,8 @@ os.makedirs(csvsRootTeachers, exist_ok=True)
 
 if len(sys.argv) > 1:
 	if sys.argv[1] == "-flushCache":
-		print ("FLUSH!")
+		print("erase " + csvsRootStudents + os.sep + "*.*")
+		print("erase " + csvsRootTeachers + os.sep + "*.*")
 		sys.exit(0)
 
 # Load the user options. These are a set of simple key:values in an Excel spreadsheet. Available options:
