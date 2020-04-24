@@ -229,4 +229,4 @@ for clubsListIndex, clubsListValue in clubsList.iterrows():
 			for pupilUsername in dataLib.readFile(csvsRootStudents + os.sep + clubsListValue["club"] + ".csv").split("\n"):
 				pupilUsername = pupilUsername.strip()
 				if not pupilUsername == "":
-					print("gam course " + classroomID + " add student pupilUsername")
+					print("gam course " + classroomID + " add student " + pupilUsername)
