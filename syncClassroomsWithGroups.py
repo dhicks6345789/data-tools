@@ -27,8 +27,8 @@ for classroomIndex, classroomValue in classroomsDataframe.iterrows():
 	if not classroomIndex == 0:
 		classroomName = noNan(classroomsDataframe.at[classroomIndex, 0])
 		if not classroomName == "":
-			pupilsGroups = classroomsDataframe.at[classroomIndex, 1]
-			teachers = classroomsDataframe.at[classroomIndex, 2]
+			pupilsGroups = noNan(classroomsDataframe.at[classroomIndex, 1])
+			teachers = noNan(classroomsDataframe.at[classroomIndex, 2])
 			pupils = ""
 			for pupilsGroup in pupilsGroups.split(","):
 				csvPath = groupsRoot + os.sep + pupilsGroup.strip() + ".csv"
