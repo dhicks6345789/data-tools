@@ -224,9 +224,9 @@ for clubsListIndex, clubsListValue in clubsList.iterrows():
 			os.system("gam course " + classroomID + " sync teachers file \"" + csvPath + "\"")
 		if clubsListValue["club"] in changedClubMembers.keys():
 			# We can either sync students (and remove extra students)...
-			#os.system("gam course " + classroomID + " sync students file \"" + csvsRootStudents + os.sep + clubsListValue["club"] + ".csv\"")
+			os.system("gam course " + classroomID + " sync students file \"" + csvsRootStudents + os.sep + clubsListValue["club"] + ".csv\"")
 			# ...or add pupils, leaving any manually-added ones in place.
-			for pupilUsername in dataLib.readFile(csvsRootStudents + os.sep + clubsListValue["club"] + ".csv").split("\n"):
-				pupilUsername = pupilUsername.strip()
-				if not pupilUsername == "":
-					os.system("gam course " + classroomID + " add student " + pupilUsername)
+			#for pupilUsername in dataLib.readFile(csvsRootStudents + os.sep + clubsListValue["club"] + ".csv").split("\n"):
+			#	pupilUsername = pupilUsername.strip()
+			#	if not pupilUsername == "":
+			#		os.system("gam course " + classroomID + " add student " + pupilUsername)
