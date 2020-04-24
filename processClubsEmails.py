@@ -220,7 +220,7 @@ for clubsListIndex, clubsListValue in clubsList.iterrows():
 		os.system("gam create course name \"" + clubsListValue["club"] + "\" teacher " + clubsListValue["teacher"].split("\n")[0] + " status ACTIVE")
 	else:
 		csvPath = csvsRootTeachers + os.sep + clubsListValue["club"] + ".csv"
-		if writeCSV(csvPath, "\n".join(teachers) + "\n" + clubsListValue["teacher"].replace(",","\n")):
+		if writeCSV(csvPath, "\n".join(teachers) + "\n" + clubsListValue["teacher"].replace(" ","").replace(",","\n")):
 			os.system("gam course " + classroomID + " sync teachers file \"" + csvPath + "\"")
 		if clubsListValue["club"] in changedClubMembers.keys():
 			# We can either sync students (and remove extra students)...
