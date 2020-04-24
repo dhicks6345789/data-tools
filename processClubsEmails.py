@@ -43,6 +43,11 @@ os.makedirs(csvsRootStudents, exist_ok=True)
 csvsRootTeachers = clubsRoot + os.sep + "CSVs" + os.sep + "Teachers"
 os.makedirs(csvsRootTeachers, exist_ok=True)
 
+if len(sys.argv) > 1:
+	if sys.argv[1] == "-flushCache":
+		print ("FLUSH!")
+		sys.exit(0)
+
 # Load the user options. These are a set of simple key:values in an Excel spreadsheet. Available options:
 # dateFrom: The date at which to start processing emails from. Means the user can define which emails to process rather than simply
 #    processing all emails from years back.
