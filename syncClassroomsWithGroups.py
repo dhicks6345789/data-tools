@@ -47,5 +47,5 @@ for classroomIndex, classroomValue in classroomsDataframe.iterrows():
 				os.remove("pupilsData.csv")
 			if not teachers == "":
 				dataLib.writeFile("teachersData.csv", teachers.replace(",","\n").strip())
-				print("gam course " + classroomID + " sync teachers file teachersData.csv")
+				os.system("gam course " + classroomID + " sync teachers file teachersData.csv")
 				os.remove("teachersData.csv")
