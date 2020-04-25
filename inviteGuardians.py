@@ -18,7 +18,7 @@ for requiredConfigParameter in requiredConfigParameters:
 		sys.exit(1)
 
 def inviteGuardian(theUsername, theGuardian):
-	os.system("gam create guardianinvite " + str(theGuardian) + " " + theUsername + "@knightsbridgeschool.com")
+	print("gam create guardianinvite " + str(theGuardian) + " " + theUsername + "@knightsbridgeschool.com")
 		
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
@@ -33,4 +33,5 @@ if len(sys.argv) >= 3:
 		groupname = sys.argv[2]
 		for pupilIndex, pupilEntry in pupils.iterrows():
 			if groupname in pupilEntry["Form"]:
-				inviteGuardian(pupilEntry["OldUsername"], pupilEntry["MainContact"])
+				for contact in pupilEntry["contacts"].split(","):
+					inviteGuardian(pupilEntry["OldUsername"], contact)
