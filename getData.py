@@ -23,7 +23,7 @@ dataLib.writeFile("iSAMSData.xml", str(response.read())[2:-1])
 
 print("Getting users list from GSuite.")
 users = pandas.read_csv(io.StringIO(dataLib.runCommand("gam print users allfields")))
-users.to_csv(config["dataFolder"] + os.sep + "users.csv")
+users.to_csv(config["dataFolder"] + os.sep + "users.csv", index=False)
 
 # Get a list of all courses, output in CSV format directly from GAM.
 print("Getting course list from Google Classroom.")
@@ -36,4 +36,4 @@ print("Getting guardians list from GSuite.")
 guardians = pandas.read_csv(io.StringIO(dataLib.runCommand("gam print guardians")))
 #for guardianIndex, guardianValue in guardians.iterrows():
 #os.system("gam print guardians invitations > \"" + config["dataFolder"] + os.sep + "guardianInvitations.csv\"")
-guardians.to_csv(config["dataFolder"] + os.sep + "guardians.csv")
+guardians.to_csv(config["dataFolder"] + os.sep + "guardians.csv", index=False)
