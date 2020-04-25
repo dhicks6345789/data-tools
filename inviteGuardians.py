@@ -23,6 +23,10 @@ def inviteGuardian(theUsername, theGuardian):
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
+# Read the existing Guardians list, i.e. accounts that have confirmed Guardians. Fields:
+# studentEmail,studentId,invitedEmailAddress,guardianId,guardianProfile.emailAddress,guardianProfile.id,guardianProfile.name.familyName,guardianProfile.name.fullName,guardianProfile.name.givenName,guardianProfile.photoUrl
+guardians = pandas.read_csv(config["dataFolder"] + os.sep + "guardians.csv", header=0)
+
 if len(sys.argv) >= 3:
 	if len(sys.argv) == 3 and sys.argv[1] == "-user":
 		username = sys.argv[2]
