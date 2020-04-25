@@ -33,5 +33,7 @@ if len(sys.argv) >= 3:
 		groupname = sys.argv[2]
 		for pupilIndex, pupilEntry in pupils.iterrows():
 			if groupname in pupilEntry["Form"]:
-				for contact in noNan(pupilEntry["Contacts"]).split(","):
-					inviteGuardian(pupilEntry["OldUsername"], contact)
+				for contact in noNan(pupilEntry["Contacts"]).split(" "):
+					contact = contact.strip()
+					if not contact == "":
+						inviteGuardian(pupilEntry["OldUsername"], contact)
