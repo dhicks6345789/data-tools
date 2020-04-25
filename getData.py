@@ -14,17 +14,18 @@ for requiredConfigParameter in requiredConfigParameters:
 		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
 		sys.exit(1)
     
-# Go and get the data from the iSAMS API.
-print("Getting data from iSAMS.")
-response = urllib.request.urlopen("https://" + config["iSAMSAPIDomain"] + "/api/batch/1.0/xml.ashx?apiKey=" + config["iSAMSAPIKey"], context=ssl._create_unverified_context())
-installLib.writeFile("iSAMSData.xml", str(response.read())[2:-1])
+## Go and get the data from the iSAMS API.
+#print("Getting data from iSAMS.")
+#response = urllib.request.urlopen("https://" + config["iSAMSAPIDomain"] + "/api/batch/1.0/xml.ashx?apiKey=" + config["iSAMSAPIKey"], context=ssl._create_unverified_context())
+#installLib.writeFile("iSAMSData.xml", str(response.read())[2:-1])
 
-# Get a list of all courses, output in CSV format directly from GAM.
-print("Getting course list from Google Classroom.")
-os.system("gam print courses > \"" + config["dataFolder"] + os.sep + "courses.csv\"")
+## Get a list of all courses, output in CSV format directly from GAM.
+#print("Getting course list from Google Classroom.")
+#os.system("gam print courses > \"" + config["dataFolder"] + os.sep + "courses.csv\"")
 
-print("Getting groups list from GSuite.")
-os.system("gam print groups name description admincreated id aliases members owners managers settings > \"" + config["dataFolder"] + os.sep + "groups.csv\"")
+#print("Getting groups list from GSuite.")
+#os.system("gam print groups name description admincreated id aliases members owners managers settings > \"" + config["dataFolder"] + os.sep + "groups.csv\"")
 
 print("Getting guardians list from GSuite.")
 os.system("gam print guardians > \"" + config["dataFolder"] + os.sep + "guardians.csv\"")
+os.system("gam print guardians invitations > \"" + config["dataFolder"] + os.sep + "guardianInvitations.csv\"")
