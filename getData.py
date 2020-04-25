@@ -34,6 +34,9 @@ os.system("gam print groups name description admincreated id aliases members own
 
 print("Getting guardians list from GSuite.")
 guardians = pandas.read_csv(io.StringIO(dataLib.runCommand("gam print guardians")))
-#for guardianIndex, guardianValue in guardians.iterrows():
+for guardiansIndex, guardiansValue in guardians.iterrows():
+	for usersIndex, usersValue in users.iterrows():
+		if usersValue["id"] == guardiansValue["studentId"]:
+			guardians.at[guardiansIndex, "studentEmail"] = usersValue["primaryEmail"]
 #os.system("gam print guardians invitations > \"" + config["dataFolder"] + os.sep + "guardianInvitations.csv\"")
 guardians.to_csv(config["dataFolder"] + os.sep + "guardians.csv", index=False)
