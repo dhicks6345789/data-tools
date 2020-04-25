@@ -6,16 +6,16 @@ import csv
 import json
 import pandas
 import random
-import installLib
+import dataLib
 
-requiredConfigParameters = ["dataFolder"]
+# A function to remove "nan" strings from data - /really/ shouldn't be needed...
+def noNan(theString):
+	if str(theString) == "nan" or str(theString) == "0":
+		return ""
+	return str(theString)
 
-# Load the configuration file.
-config = json.loads(installLib.readFile("config/config.json"))
-for requiredConfigParameter in requiredConfigParameters:
-	if not requiredConfigParameter in config.keys():
-		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
-		sys.exit(1)
+# Load the config file (set by the system administrator).
+config = dataLib.loadConfig(["dataFolder"])
 
 def inviteGuardian(theUsername, theGuardian):
 	print("gam create guardianinvite " + str(theGuardian) + " " + theUsername + "@knightsbridgeschool.com")
@@ -33,5 +33,5 @@ if len(sys.argv) >= 3:
 		groupname = sys.argv[2]
 		for pupilIndex, pupilEntry in pupils.iterrows():
 			if groupname in pupilEntry["Form"]:
-				for contact in pupilEntry["Contacts"].split(","):
+				for contact in noNan(pupilEntry["Contacts"]).split(","):
 					inviteGuardian(pupilEntry["OldUsername"], contact)
