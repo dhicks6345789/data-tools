@@ -3,14 +3,13 @@ import os
 import io
 import ssl
 import json
-#import installLib
 import dataLib
 import urllib.request
 
 requiredConfigParameters = ["iSAMSAPIKey", "iSAMSAPIDomain"]
 
 # Load the configuration file.
-config = json.loads(installLib.readFile("config/config.json"))
+config = json.loads(dataLib.readFile("config/config.json"))
 for requiredConfigParameter in requiredConfigParameters:
 	if not requiredConfigParameter in config.keys():
 		print("Error - required value " + requiredConfigParameter + " not set in config.json.")
