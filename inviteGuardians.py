@@ -18,8 +18,9 @@ def noNan(theString):
 config = dataLib.loadConfig(["dataFolder"])
 
 def inviteGuardian(theUsername, theGuardian):
-	print("gam create guardianinvite " + str(theGuardian) + " " + theUsername + "@knightsbridgeschool.com")
-		
+	print("Sending invite for " + theUsername)
+	os.system("gam create guardianinvite " + str(theGuardian) + " " + theUsername + "@knightsbridgeschool.com")
+
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
