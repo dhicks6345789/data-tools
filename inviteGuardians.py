@@ -35,10 +35,15 @@ if len(sys.argv) >= 3:
 				inviteGuardian(username, pupilEntry["MainContact"])
 	elif len(sys.argv) == 3 and sys.argv[1] == "-group":
 		groupname = sys.argv[2]
-		for pupilIndex, pupilEntry in pupils.iterrows():
-			if groupname in pupilEntry["Form"]:
-				for contact in noNan(pupilEntry["Contacts"]).split(" "):
+		for pupilsIndex, pupilsValue in pupils.iterrows():
+			if groupname in pupilsValue["Form"]:
+				for contact in noNan(pupilsValue["Contacts"]).split(" "):
 					contact = contact.strip()
 					if not contact == "":
-						#print(pupilEntry["GoogleID"])
-						inviteGuardian(pupilEntry["OldUsername"], contact)
+						sendInviate = True
+						for guardiansIndex, guardiansValue in guardians.iterrows():
+							if pupilsValue["OldUsername"] == guardiansValue["studentEmail"].split("@")[0]:
+								print("Already has Guardian: " + pupilsValue["OldUsername"])
+								sendInviate = False
+					if sendInviate:
+						inviteGuardian(pupilsValue["OldUsername"], contact)
