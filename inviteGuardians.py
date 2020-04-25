@@ -40,4 +40,5 @@ if len(sys.argv) >= 3:
 				for contact in noNan(pupilEntry["Contacts"]).split(" "):
 					contact = contact.strip()
 					if not contact == "":
+						#print(pupilEntry["GoogleID"])
 						inviteGuardian(pupilEntry["OldUsername"], contact)
