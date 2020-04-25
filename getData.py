@@ -25,3 +25,6 @@ os.system("gam print courses > \"" + config["dataFolder"] + os.sep + "courses.cs
 
 print("Getting groups list from GSuite.")
 os.system("gam print groups name description admincreated id aliases members owners managers settings > \"" + config["dataFolder"] + os.sep + "groups.csv\"")
+
+print("Getting guardians list from GSuite.")
+os.system("gam print guardians all users > \"" + config["dataFolder"] + os.sep + "guardians.csv\"")
