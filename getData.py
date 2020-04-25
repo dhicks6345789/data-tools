@@ -38,5 +38,11 @@ for guardiansIndex, guardiansValue in guardians.iterrows():
 	for usersIndex, usersValue in users.iterrows():
 		if usersValue["id"] == guardiansValue["studentId"]:
 			guardians.at[guardiansIndex, "studentEmail"] = usersValue["primaryEmail"]
-#os.system("gam print guardians invitations > \"" + config["dataFolder"] + os.sep + "guardianInvitations.csv\"")
 guardians.to_csv(config["dataFolder"] + os.sep + "guardians.csv", index=False)
+
+guardianInvitations = pandas.read_csv(io.StringIO(dataLib.runCommand("gam print guardians invitations")))
+for guardianInvitationsIndex, guardianInvitationsValue in guardianInvitations.iterrows():
+	for usersIndex, usersValue in users.iterrows():
+		if usersValue["id"] == guardianInvitationsValue["studentId"]:
+			guardianInvitations.at[guardianInvitationsIndex, "studentEmail"] = usersValue["primaryEmail"]
+guardianInvitations.to_csv(config["dataFolder"] + os.sep + "guardianInvitations.csv", index=False)
