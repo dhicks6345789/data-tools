@@ -48,7 +48,6 @@ invitedEmailAddresses = guardians["invitedEmailAddress"].tolist()
 for pupilsIndex, pupilsValue in pupils.iterrows():
 	for contact in noNan(pupilsValue["Contacts"]).split(" "):
 		contact = contact.strip()
-		contact = contact.replace(",").strip()
 		if not contact == "" and not contact in invitedEmailAddresses:
 			print("Sending invite for " + pupilsValue["OldUsername"])
 			os.system("gam create guardianinvite " + str(contact) + " " + pupilsValue["OldUsername"] + "@knightsbridgeschool.com")
