@@ -75,6 +75,9 @@ for pupilUsername in completedInvites.keys():
 				pupilsNoGuardians.at[reportIndex, "Username"] = pupilsValue["OldUsername"]
 				pupilsNoGuardians.at[reportIndex, "Yeargroup"] = pupilsValue["YearGroup"]
 				pupilsNoGuardians.at[reportIndex, "Form"] = pupilsValue["Form"]
-				pupilsNoGuardians.at[reportIndex, "Contacts1"] = pupilsValue["Contacts"]
+				contactIndex = 1
+				for contact in noNan(pupilsValue["Contacts"]).split(" "):
+					pupilsNoGuardians.at[reportIndex, "Contacts" + str(contactIndex)] = contact
+					contactIndex = contactIndex + 1
 				reportIndex = reportIndex + 1
 pupilsNoGuardians.to_excel(guardiansRoot + os.sep + "pupilsWithNoConfirmedGuardians.xlsx", index=False)
