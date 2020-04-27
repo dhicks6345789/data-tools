@@ -64,8 +64,8 @@ for guardiansIndex, guardiansValue in guardians.iterrows():
 reportIndex = 1
 guardiansColumns = ["Name", "Username", "Yeargroup", "Form"]
 for pl in range(1, maxNumContacts):
-	guardiansColumns.append("Contacts" + str(pl))
-	guardiansColumns.append("Sent" + str(pl))
+	guardiansColumns.append("Contact" + str(pl))
+	guardiansColumns.append("SentTime" + str(pl))
 pupilsNoGuardians = pandas.DataFrame(columns=guardiansColumns)
 for pupilUsername in completedInvites.keys():
 	if not completedInvites[pupilUsername]:
@@ -77,7 +77,10 @@ for pupilUsername in completedInvites.keys():
 				pupilsNoGuardians.at[reportIndex, "Form"] = pupilsValue["Form"]
 				contactIndex = 1
 				for contact in noNan(pupilsValue["Contacts"]).split(" "):
-					pupilsNoGuardians.at[reportIndex, "Contacts" + str(contactIndex)] = contact
+					pupilsNoGuardians.at[reportIndex, "Contact" + str(contactIndex)] = contact
+					for guardiansIndex, guardiansValue in guardians.iterrows():
+						if guardiansValue["invitedEmail#Address"] == contact:
+							pupilsNoGuardians.at[reportIndex, "SentTime" + str(contactIndex)] = guardiansValue["creationTime"]
 					contactIndex = contactIndex + 1
 				reportIndex = reportIndex + 1
 pupilsNoGuardians.to_excel(guardiansRoot + os.sep + "pupilsWithNoConfirmedGuardians.xlsx", index=False)
