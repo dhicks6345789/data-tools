@@ -52,7 +52,7 @@ for pupilsIndex, pupilsValue in pupils.iterrows():
 	maxNumContacts = max(maxNumContacts, len(noNan(pupilsValue["Contacts"]).split(" ")))
 	for contact in noNan(pupilsValue["Contacts"]).split(" "):
 		contact = contact.strip()
-		if not contact == "" and not contact in invitedEmailAddresses:
+		if not contact == "" and not contact.lower() in invitedEmailAddresses:
 			print("Sending invite for " + pupilsValue["OldUsername"] + " to " + contact)
 			#os.system("gam create guardianinvite " + str(contact) + " " + pupilsValue["OldUsername"] + "@knightsbridgeschool.com")
 
