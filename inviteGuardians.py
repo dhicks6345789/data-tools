@@ -59,6 +59,6 @@ for guardiansIndex, guardiansValue in guardians.iterrows():
 		if guardiansValue["studentEmail"] == pupilsValue["OldUsername"] + "@knightsbridgeschool.com" and guardiansValue["state"] == "COMPLETE":
 			completedInvites[pupilsValue["OldUsername"]] = True
 
-for completedInviate in completedInviates.keys():
-	if not completedInviates[completedInviate]:
-		print completedInviate
+for completedInvite in completedInvites.keys():
+	if not completedInvites[completedInvite]:
+		print(completedInvite)
