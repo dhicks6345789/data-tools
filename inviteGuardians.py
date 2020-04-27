@@ -22,6 +22,9 @@ def inviteGuardian(theUsername, theGuardian):
 	print("Sending invite for " + theUsername)
 	os.system("gam create guardianinvite " + str(theGuardian) + " " + theUsername + "@knightsbridgeschool.com")
 
+# Read the users data. Used for cross-referencing Google IDs with usernames.
+users = pandas.read_csv(config["dataFolder"] + os.sep + "users.csv", header=0)	
+
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
