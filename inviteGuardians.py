@@ -49,5 +49,5 @@ for pupilsIndex, pupilsValue in pupils.iterrows():
 	for contact in noNan(pupilsValue["Contacts"]).split(" "):
 		contact = contact.strip()
 		if not contact == "" and not contact in invitedEmailAddresses:
-			print("Sending invite for " + pupilsValue["OldUsername"])
-			os.system("gam create guardianinvite " + str(contact) + " " + pupilsValue["OldUsername"] + "@knightsbridgeschool.com")
+			print("Sending invite for " + pupilsValue["OldUsername"] + " to " + contact)
+			#os.system("gam create guardianinvite " + str(contact) + " " + pupilsValue["OldUsername"] + "@knightsbridgeschool.com")
