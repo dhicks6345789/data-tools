@@ -20,7 +20,7 @@ config = dataLib.loadConfig(["dataFolder"])
 
 def inviteGuardian(theUsername, theGuardian):
 	print("Sending invite for " + theUsername)
-	print("gam create guardianinvite " + str(theGuardian) + " " + theUsername + "@knightsbridgeschool.com")
+	os.system("gam create guardianinvite " + str(theGuardian) + " " + theUsername + "@knightsbridgeschool.com")
 
 # Read the users data. Used for cross-referencing Google IDs with usernames.
 users = pandas.read_csv(config["dataFolder"] + os.sep + "users.csv", header=0)	
