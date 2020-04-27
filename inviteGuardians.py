@@ -24,6 +24,23 @@ def inviteGuardian(theUsername, theGuardian):
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
+if len(sys.argv) >= 3:
+	if len(sys.argv) == 3 and sys.argv[1] == "-getData":
+		print("Getting guardians list from GSuite.")
+		guardians = pandas.read_csv(io.StringIO(dataLib.runCommand("gam print guardians invitations")))
+		for guardiansIndex, guardiansValue in guardians.iterrows():
+			for usersIndex, usersValue in users.iterrows():
+				if usersValue["id"] == guardiansValue["studentId"]:
+					guardians.at[guardiansIndex, "studentEmail"] = usersValue["primaryEmail"]
+		guardians.to_csv(config["dataFolder"] + os.sep + "guardians.csv", index=False)
+
+		#guardianInvitations = pandas.read_csv(io.StringIO(dataLib.runCommand("gam print guardians invitations")))
+		#for guardianInvitationsIndex, guardianInvitationsValue in guardianInvitations.iterrows():
+		#	for usersIndex, usersValue in users.iterrows():
+		#		if usersValue["id"] == guardianInvitationsValue["studentId"]:
+		#			guardianInvitations.at[guardianInvitationsIndex, "studentEmail"] = usersValue["primaryEmail"]
+		#guardianInvitations.to_csv(config["dataFolder"] + os.sep + "guardianInvitations.csv", index=False)
+
 # Read the existing Guardians list, i.e. accounts that have confirmed Guardians. Fields:
 # studentEmail,studentId,invitedEmailAddress,guardianId,guardianProfile.emailAddress,guardianProfile.id,guardianProfile.name.familyName,guardianProfile.name.fullName,guardianProfile.name.givenName,guardianProfile.photoUrl
 guardians = pandas.read_csv(config["dataFolder"] + os.sep + "guardians.csv", header=0)
