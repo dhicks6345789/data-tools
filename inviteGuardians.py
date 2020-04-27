@@ -18,9 +18,9 @@ def noNan(theString):
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
 
-def inviteGuardian(theUsername, theGuardian):
-	print("Sending invite for " + theUsername)
-	os.system("gam create guardianinvite " + str(theGuardian) + " " + theUsername + "@knightsbridgeschool.com")
+# Set the root folder.
+guardiansRoot = config["dataFolder"] + os.sep + "Guardians"
+os.makedirs(guardiansRoot, exist_ok=True)
 
 # Read the users data. Used for cross-referencing Google IDs with usernames.
 users = pandas.read_csv(config["dataFolder"] + os.sep + "users.csv", header=0)	
@@ -28,6 +28,8 @@ users = pandas.read_csv(config["dataFolder"] + os.sep + "users.csv", header=0)
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
+# If the user has specified the "-getData" parameter, go and get a Guardians report from GSuite.
+# We get the basic report using GAM, then match up GSuite user IDs with usernames.
 if len(sys.argv) == 2 and sys.argv[1] == "-getData":
 	print("Getting guardians list from GSuite.")
 	guardians = pandas.read_csv(io.StringIO(dataLib.runCommand("gam print guardians invitations")))
@@ -35,14 +37,18 @@ if len(sys.argv) == 2 and sys.argv[1] == "-getData":
 		for usersIndex, usersValue in users.iterrows():
 			if usersValue["id"] == guardiansValue["studentId"]:
 				guardians.at[guardiansIndex, "studentEmail"] = usersValue["primaryEmail"]
-	guardians.to_csv(config["dataFolder"] + os.sep + "guardians.csv", index=False)
+	guardians.to_csv(guardiansRoot + os.sep + "guardians.csv", index=False)
 
-# Read the existing Guardians list. Fields:
+# Read the existing Guardians list (might have just been updated in the section above). Fields:
 # studentEmail,studentId,invitedEmailAddress,invitationId,creationTime,state
 guardians = pandas.read_csv(config["dataFolder"] + os.sep + "guardians.csv", header=0)
 
+# If a pupil / parent combination without a Guardian request exists, create a new Guardian request.
 invitedEmailAddresses = guardians["invitedEmailAddress"].tolist()
 for pupilsIndex, pupilsValue in pupils.iterrows():
 	for contact in noNan(pupilsValue["Contacts"]).split(" "):
-		if not contact in invitedEmailAddresses:
-			inviteGuardian(pupilsValue["OldUsername"], contact)
+		contact = contact.strip()
+		contact = contact.replace(",").strip()
+		if not contact == "" and not contact in invitedEmailAddresses:
+			print("Sending invite for " + pupilsValue["OldUsername"])
+			os.system("gam create guardianinvite " + str(contact) + " " + pupilsValue["OldUsername"] + "@knightsbridgeschool.com")
