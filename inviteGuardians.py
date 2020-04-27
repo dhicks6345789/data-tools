@@ -44,10 +44,12 @@ if len(sys.argv) == 2 and sys.argv[1] == "-getData":
 guardians = pandas.read_csv(guardiansRoot + os.sep + "guardians.csv", header=0)
 
 # If a pupil / parent combination without a Guardian request exists, create a new Guardian request.
+maxNumContacts = 0
 completedInvites = {}
 invitedEmailAddresses = guardians["invitedEmailAddress"].tolist()
 for pupilsIndex, pupilsValue in pupils.iterrows():
 	completedInvites[pupilsValue["OldUsername"]] = False
+	maxNumContacts = max(maxNumContacts, len(pupilsValue["Contacts"]).split(" ")))
 	for contact in noNan(pupilsValue["Contacts"]).split(" "):
 		contact = contact.strip()
 		if not contact == "" and not contact in invitedEmailAddresses:
@@ -60,7 +62,11 @@ for guardiansIndex, guardiansValue in guardians.iterrows():
 			completedInvites[pupilsValue["OldUsername"]] = True
 
 reportIndex = 1
-pupilsNoGuardians = pandas.DataFrame(columns=["Name", "Username", "Yeargroup", "Form", "Contacts"])
+guardiansColumns = ["Name", "Username", "Yeargroup", "Form"]
+for pl in range(1, maxNumContacts):
+	guardiansColumns.append("Contacts" + str(pl))
+	guardiansColumns.append("Sent" + str(pl))
+pupilsNoGuardians = pandas.DataFrame(columns=guardiansColumns)
 for pupilUsername in completedInvites.keys():
 	if not completedInvites[pupilUsername]:
 		for pupilsIndex, pupilsValue in pupils.iterrows():
@@ -69,6 +75,6 @@ for pupilUsername in completedInvites.keys():
 				pupilsNoGuardians.at[reportIndex, "Username"] = pupilsValue["OldUsername"]
 				pupilsNoGuardians.at[reportIndex, "Yeargroup"] = pupilsValue["YearGroup"]
 				pupilsNoGuardians.at[reportIndex, "Form"] = pupilsValue["Form"]
-				pupilsNoGuardians.at[reportIndex, "Contacts"] = pupilsValue["Contacts"]
+				pupilsNoGuardians.at[reportIndex, "Contacts1"] = pupilsValue["Contacts"]
 				reportIndex = reportIndex + 1
 pupilsNoGuardians.to_excel(guardiansRoot + os.sep + "pupilsWithNoConfirmedGuardians.xlsx", index=False)
