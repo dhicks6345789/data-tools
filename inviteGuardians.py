@@ -44,10 +44,21 @@ if len(sys.argv) == 2 and sys.argv[1] == "-getData":
 guardians = pandas.read_csv(guardiansRoot + os.sep + "guardians.csv", header=0)
 
 # If a pupil / parent combination without a Guardian request exists, create a new Guardian request.
+completedInvites = {}
 invitedEmailAddresses = guardians["invitedEmailAddress"].tolist()
 for pupilsIndex, pupilsValue in pupils.iterrows():
+	completedInvites[pupilsValue["OldUsername"]] = False
 	for contact in noNan(pupilsValue["Contacts"]).split(" "):
 		contact = contact.strip()
 		if not contact == "" and not contact in invitedEmailAddresses:
 			print("Sending invite for " + pupilsValue["OldUsername"] + " to " + contact)
 			#os.system("gam create guardianinvite " + str(contact) + " " + pupilsValue["OldUsername"] + "@knightsbridgeschool.com")
+
+for guardiansIndex, guardiansValue in guardians.iterrows():
+	for pupilsIndex, pupilsValue in pupils.iterrows():
+		if guardiansValue["studentEmail"] == pupilsValue["OldUsername"] + "@knightsbridgeschool.com" and guardiansValue["state"] == "COMPLETE":
+			completedInvites[pupilsValue["OldUsername"]] = True
+
+for completedInviate in completedInviates.keys():
+	if not completedInviates[completedInviate]:
+		print completedInviate
