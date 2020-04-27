@@ -59,8 +59,10 @@ for guardiansIndex, guardiansValue in guardians.iterrows():
 		if guardiansValue["studentEmail"] == pupilsValue["OldUsername"] + "@knightsbridgeschool.com" and guardiansValue["state"] == "COMPLETE":
 			completedInvites[pupilsValue["OldUsername"]] = True
 
+pupilsNoGuardians = pandas.DataFrame(columns=["Name", "Username", "Yeargroup", "Form", "Contacts"])
 for pupilUsername in completedInvites.keys():
 	if not completedInvites[pupilUsername]:
 		for pupilsIndex, pupilsValue in pupils.iterrows():
 			if pupilsValue["OldUsername"] == pupilUsername:
 				print(pupilsValue)
+pupilsNoGuardians.to_excel(guardiansRoot + os.sep + "pupilsWithNoConfirmedGuardians.xlsx", index=False)
