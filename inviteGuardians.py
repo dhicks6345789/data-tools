@@ -79,7 +79,7 @@ for pupilUsername in completedInvites.keys():
 				for contact in noNan(pupilsValue["Contacts"]).split(" "):
 					pupilsNoGuardians.at[reportIndex, "Contact" + str(contactIndex)] = contact
 					for guardiansIndex, guardiansValue in guardians.iterrows():
-						if guardiansValue["invitedEmail#Address"] == contact:
+						if guardiansValue["invitedEmailAddress"] == contact:
 							pupilsNoGuardians.at[reportIndex, "SentTime" + str(contactIndex)] = guardiansValue["creationTime"]
 					contactIndex = contactIndex + 1
 				reportIndex = reportIndex + 1
