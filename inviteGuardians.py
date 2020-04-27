@@ -27,7 +27,7 @@ pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 print(sys.argv)
 
 if len(sys.argv) >= 3:
-	if len(sys.argv) == 3 and sys.argv[1] == "-getData":
+	if sys.argv[1] == "-getData":
 		print("Getting guardians list from GSuite.")
 		guardians = pandas.read_csv(io.StringIO(dataLib.runCommand("gam print guardians invitations")))
 		for guardiansIndex, guardiansValue in guardians.iterrows():
