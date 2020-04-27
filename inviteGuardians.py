@@ -41,7 +41,7 @@ if len(sys.argv) == 2 and sys.argv[1] == "-getData":
 
 # Read the existing Guardians list (might have just been updated in the section above). Fields:
 # studentEmail,studentId,invitedEmailAddress,invitationId,creationTime,state
-guardians = pandas.read_csv(config["dataFolder"] + os.sep + "guardians.csv", header=0)
+guardians = pandas.read_csv(guardiansRoot + os.sep + "guardians.csv", header=0)
 
 # If a pupil / parent combination without a Guardian request exists, create a new Guardian request.
 invitedEmailAddresses = guardians["invitedEmailAddress"].tolist()
