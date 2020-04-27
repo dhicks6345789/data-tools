@@ -49,7 +49,7 @@ completedInvites = {}
 invitedEmailAddresses = guardians["invitedEmailAddress"].tolist()
 for pupilsIndex, pupilsValue in pupils.iterrows():
 	completedInvites[pupilsValue["OldUsername"]] = False
-	maxNumContacts = max(maxNumContacts, len(pupilsValue["Contacts"]).split(" "))
+	maxNumContacts = max(maxNumContacts, len(noNan(pupilsValue["Contacts"])).split(" "))
 	for contact in noNan(pupilsValue["Contacts"]).split(" "):
 		contact = contact.strip()
 		if not contact == "" and not contact in invitedEmailAddresses:
