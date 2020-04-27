@@ -24,6 +24,8 @@ def inviteGuardian(theUsername, theGuardian):
 # Read the existing basic pupils data.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
+print(sys.argv)
+
 if len(sys.argv) >= 3:
 	if len(sys.argv) == 3 and sys.argv[1] == "-getData":
 		print("Getting guardians list from GSuite.")
