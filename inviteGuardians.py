@@ -65,7 +65,10 @@ for pupilUsername in completedInvites.keys():
 	if not completedInvites[pupilUsername]:
 		for pupilsIndex, pupilsValue in pupils.iterrows():
 			if pupilsValue["OldUsername"] == pupilUsername:
-				print(pupilsValue)
 				pupilsNoGuardians.at[reportIndex, "Name"] = pupilsValue["GivenName"] + " " + pupilsValue["FamilyName"]
+				pupilsNoGuardians.at[reportIndex, "Username"] = pupilsValue["OldUsername"]
+				pupilsNoGuardians.at[reportIndex, "Yeargroup"] = pupilsValue["YearGroup"]
+				pupilsNoGuardians.at[reportIndex, "Form"] = pupilsValue["Form"]
+				pupilsNoGuardians.at[reportIndex, "Contacts"] = pupilsValue["Contacts"]
 				reportIndex = reportIndex + 1
 pupilsNoGuardians.to_excel(guardiansRoot + os.sep + "pupilsWithNoConfirmedGuardians.xlsx", index=False)
