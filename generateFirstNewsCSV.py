@@ -40,5 +40,7 @@ for pupilsIndex, pupilsValues in pupils.iterrows():
 		firstNews.at[pupilsIndex+1, "Level"] = yearGroupToLevel[yearGroup]
 		if yearGroup in ownEmailYearGroups:
 			firstNews.at[pupilsIndex+1, "Email"] = pupilsValues["OldUsername"] + "@knightsbridgeschool.com"
+		else:
+			firstNews.at[pupilsIndex+1, "Email"] = pupilsValues["Contacts"].split(" ")[0]
 
 firstNews.to_csv(outputRoot + os.sep + "FirstNews.csv", index=False)
