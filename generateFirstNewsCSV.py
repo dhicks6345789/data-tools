@@ -6,10 +6,11 @@ import json
 import pandas
 import dataLib
 
-validYeargroups = ["Rec","1","2","3","4"]
+parentEmailYeargroups = ["3","4"]
+ownEmailYearGroups = ["5","6","7","8"]
 
 def formToYearGroup(theForm):
-	for validYeargroup in validYeargroups:
+	for validYeargroup in parentEmailYeargroups + ownEmailYearGroups:
 		if validYeargroup in theForm:
 			return validYeargroup.replace("Rec","R")
 	return None
@@ -18,30 +19,22 @@ def formToYearGroup(theForm):
 config = dataLib.loadConfig(["dataFolder"])
 
 # Make sure the output folder exists.
-outputRoot = config["dataFolder"] + os.sep + "Mathletics"
+outputRoot = config["dataFolder"] + os.sep + "FirstNews"
 os.makedirs(outputRoot, exist_ok=True)
 
 # Input data headings:
 # Pupils: GUID,UserCode,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
 # Staff: GUID,UserCode,Title,GivenName,FamilyName,DateOfBirth,Username,Identifier,Form,JobTitle
-# Output in Excel spreadsheet:
-# Student First Name (Mandatory), Student Surname (Mandatory), Student Year (Mandatory), Class Name (Mandatory), Teacher Title (Optional), Teacher First name (Mandatory), Teacher Surname (Mandatory), Teacher Email (Mandatory)
-mathletics = pandas.DataFrame(columns=["Student First Name","Student Surname","Student Year","Class Name","Teacher Title","Teacher First name","Teacher Surname","Teacher Email"])
+# Output in CSV format:
+# First Name,Last Name,"Level (1, 2 or 3)",Parent/Student Email
+# Delete,Me,1,pupil@exampleemail.com
+firstNews = pandas.DataFrame(columns=["First Name","Last Name","Level","Email"])
 
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
-teachers = pandas.read_excel(outputRoot + os.sep + "Teachers.xlsx", header=0)
+
 for pupilsIndex, pupilsValues in pupils.iterrows():
 	yearGroup = formToYearGroup(pupilsValues["Form"])
 	if not yearGroup == None:
-		mathletics.at[pupilsIndex+1, "Student First Name"] = pupilsValues["GivenName"]
-		mathletics.at[pupilsIndex+1, "Student Surname"] = pupilsValues["FamilyName"]
-		mathletics.at[pupilsIndex+1, "Student Year"] = yearGroup
-		mathletics.at[pupilsIndex+1, "Class Name"] = pupilsValues["Form"]
-		for teachersIndex, teachersValues in teachers.iterrows():
-			if pupilsValues["Form"] == teachersValues["Class Name"]:
-				mathletics.at[pupilsIndex+1, "Teacher Title"] = teachersValues["Teacher Title"]
-				mathletics.at[pupilsIndex+1, "Teacher First name"] = teachersValues["Teacher First name"]
-				mathletics.at[pupilsIndex+1, "Teacher Surname"] = teachersValues["Teacher Surname"]
-				mathletics.at[pupilsIndex+1, "Teacher Email"] = teachersValues["Teacher Email"]
+		firstNews.at[pupilsIndex+1, "First Name"] = pupilsValues["GivenName"]
 
-mathletics.to_excel(outputRoot + os.sep + "Mathletics.xlsx", index=False)
+firstNews.to_excel(outputRoot + os.sep + "FirstNews.csv", index=False)
