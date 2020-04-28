@@ -6,12 +6,6 @@ import sys
 import pandas
 import dataLib
 
-# A function to remove "nan" strings from data - /really/ shouldn't be needed...
-def noNan(theString):
-	if str(theString) == "nan" or str(theString) == "0":
-		return ""
-	return str(theString.strip())
-
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
 
@@ -29,10 +23,10 @@ classrooms =  pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses"
 classroomsDataframe = pandas.read_excel(classroomsRoot + os.sep + "classroomsToSync.xlsx", header=None)
 for classroomIndex, classroomValue in classroomsDataframe.iterrows():
 	if not classroomIndex == 0:
-		classroomName = noNan(classroomsDataframe.at[classroomIndex, 0])
+		classroomName = dataLib.noNan(classroomsDataframe.at[classroomIndex, 0])
 		if not classroomName == "":
-			pupilsGroups = noNan(classroomsDataframe.at[classroomIndex, 1])
-			teachers = noNan(classroomsDataframe.at[classroomIndex, 2])
+			pupilsGroups = dataLib.noNan(classroomsDataframe.at[classroomIndex, 1])
+			teachers = dataLib.noNan(classroomsDataframe.at[classroomIndex, 2])
 			pupils = ""
 			for pupilsGroup in pupilsGroups.split(","):
 				csvPath = groupsRoot + os.sep + pupilsGroup.strip() + ".csv"
@@ -47,7 +41,7 @@ for classroomIndex, classroomValue in classroomsDataframe.iterrows():
 				for classroomIndex, classroomValue in classrooms.iterrows():
 					if classroomValue["courseState"] == "ACTIVE" and classroomValue["name"] == classroomName:
 						print("Syncing: " + classroomValue["name"])
-						classroomID = noNan(str(classroomValue["id"]))
+						classroomID = dataLib.noNan(str(classroomValue["id"]))
 						print("gam course " + classroomID + " sync students file pupilsData.csv")
 				os.remove("pupilsData.csv")
 			if not teachers == "":
