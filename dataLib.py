@@ -54,3 +54,18 @@ def floatToStr(theValue):
 		if theValue == 0:
 			return ""
 	return str(theValue)
+
+# A function to remove "nan" strings from data - /really/ shouldn't be needed...
+def noNan(theString):
+	if str(theString) == "nan" or str(theString) == "0":
+		return ""
+	return str(theString.strip())
+
+# Rewrites a file wirth the given data, but only if that data has changed, otherwise the file is left as is.
+# Stops otherwise identical files having their timestamps changed.
+def rewriteCachedData(theFilename, theData):
+	currentData = readFile(theFilename)
+	if theData == "" or currentData == theData:
+		return False
+	writeFile(theFilename, theData)
+	return True
