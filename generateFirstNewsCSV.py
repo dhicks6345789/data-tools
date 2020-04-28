@@ -14,6 +14,8 @@ def formToYearGroup(theForm):
 			return validYeargroup.replace("Rec","R")
 	return None
 
+yearGroupToLevel = {"3":"1","4":"1","5":"2","6":"2","7":"3","8":"3"}
+
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
 
@@ -23,7 +25,6 @@ os.makedirs(outputRoot, exist_ok=True)
 
 # Input data headings:
 # Pupils: GUID,UserCode,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
-# Staff: GUID,UserCode,Title,GivenName,FamilyName,DateOfBirth,Username,Identifier,Form,JobTitle
 # Output in CSV format:
 # First Name,Last Name,"Level (1, 2 or 3)",Parent/Student Email
 # Delete,Me,1,pupil@exampleemail.com
@@ -35,5 +36,9 @@ for pupilsIndex, pupilsValues in pupils.iterrows():
 	yearGroup = formToYearGroup(pupilsValues["Form"])
 	if not yearGroup == None:
 		firstNews.at[pupilsIndex+1, "First Name"] = pupilsValues["GivenName"]
+		firstNews.at[pupilsIndex+1, "Last Name"] = pupilsValues["FamilyName"]
+		firstNews.at[pupilsIndex+1, "Level"] = yearGroupToLevel[yearGroup]
+		if yearGroup in ownEmailYearGroups:
+			firstNews.at[pupilsIndex+1, "Email"] = pupilsValues["OldUsername"] + "@knightsbridgeschool.com"
 
 firstNews.to_csv(outputRoot + os.sep + "FirstNews.csv", index=False)
