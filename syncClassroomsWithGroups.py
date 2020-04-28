@@ -14,6 +14,8 @@ classroomsRoot = config["dataFolder"] + os.sep + "Classrooms"
 os.makedirs(classroomsRoot, exist_ok=True)
 cacheRoot = classroomsRoot + os.sep + "CSVs"
 os.makedirs(cacheRoot, exist_ok=True)
+cachePupilsSyncRoot = cacheRoot + os.sep + "pupilsSync"
+cacheTeachersSyncRoot = cacheRoot + os.sep + "teachersSync"
 
 # Get a current list of Google Classrooms.
 classrooms =  pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses")))
@@ -34,17 +36,14 @@ for classroomIndex, classroomValue in classroomsDataframe.iterrows():
 					pupils = pupils + dataLib.readFile(csvPath)
 				else:
 					print("Unknown group: " + pupilsGroup.strip())
-			#if not pupils == "":
-			if dataLib.rewriteCachedData(cacheRoot + os.sep + classroomName + ".csv", pupils):
-				dataLib.writeFile("pupilsData.csv", pupils)
+			pupilsSyncCacheFile = cachePupilsSyncRoot + os.sep + classroomName + ".csv"
+			if dataLib.rewriteCachedData(pupilsSyncCacheFile, pupils):
 				classroomID = ""
 				for classroomIndex, classroomValue in classrooms.iterrows():
 					if classroomValue["courseState"] == "ACTIVE" and classroomValue["name"] == classroomName:
 						print("Syncing: " + classroomValue["name"])
 						classroomID = dataLib.noNan(str(classroomValue["id"]))
-						print("gam course " + classroomID + " sync students file pupilsData.csv")
-				os.remove("pupilsData.csv")
-			if not teachers == "":
-				dataLib.writeFile("teachersData.csv", teachers.replace(",","\n").strip())
-				os.system("gam course " + classroomID + " sync teachers file teachersData.csv")
-				os.remove("teachersData.csv")
+						print("gam course " + classroomID + " sync students file " + pupilsSyncCacheFile)
+			teachersSyncCacheFile = cacheTeachersSyncRoot + os.sep + classroomName + ".csv"
+			if dataLib.rewriteCachedData(teachersSyncCacheFile, teachers.replace(",","\n").strip()):
+				print("gam course " + classroomID + " sync teachers file " + teachersSyncCacheFile)
