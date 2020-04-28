@@ -22,6 +22,11 @@ config = dataLib.loadConfig(["dataFolder"])
 guardiansRoot = config["dataFolder"] + os.sep + "Guardians"
 os.makedirs(guardiansRoot, exist_ok=True)
 
+# Read the list of email addresses to exclude from this process.
+excludedEmailAddresses = pandas.read_excel(config["dataFolder"] + os.sep + "Guardians" + os.sep + "emailsToExclude.xlsx", header=None)[0].tolist()
+print("Excluded emails:")
+print(excludedEmailAddresses)
+
 # Read the users data. Used for cross-referencing Google IDs with usernames.
 users = pandas.read_csv(config["dataFolder"] + os.sep + "users.csv", header=0)	
 
@@ -52,9 +57,9 @@ for pupilsIndex, pupilsValue in pupils.iterrows():
 	maxNumContacts = max(maxNumContacts, len(noNan(pupilsValue["Contacts"]).split(" ")))
 	for contact in noNan(pupilsValue["Contacts"]).split(" "):
 		contact = contact.strip()
-		if not contact == "" and not contact.lower() in invitedEmailAddresses:
+		if not contact == "" and not contact.lower() in invitedEmailAddresses and not contact.lower() in excludedEmailAddresses:
 			print("Sending invite for " + pupilsValue["OldUsername"] + " to " + contact)
-			os.system("gam create guardianinvite " + str(contact) + " " + pupilsValue["OldUsername"] + "@knightsbridgeschool.com")
+			print("gam create guardianinvite " + str(contact) + " " + pupilsValue["OldUsername"] + "@knightsbridgeschool.com")
 
 for guardiansIndex, guardiansValue in guardians.iterrows():
 	for pupilsIndex, pupilsValue in pupils.iterrows():
