@@ -1,7 +1,6 @@
 #!/usr/bin/python
 import os
 import sys
-import csv
 import json
 import pandas
 import dataLib
@@ -37,4 +36,4 @@ for pupilsIndex, pupilsValues in pupils.iterrows():
 	if not yearGroup == None:
 		firstNews.at[pupilsIndex+1, "First Name"] = pupilsValues["GivenName"]
 
-firstNews.to_excel(outputRoot + os.sep + "FirstNews.csv", index=False)
+firstNews.to_csv(outputRoot + os.sep + "FirstNews.csv", index=False)
