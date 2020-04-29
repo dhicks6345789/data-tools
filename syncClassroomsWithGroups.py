@@ -65,6 +65,6 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 			pupilsSyncCacheFile = cachePupilsSyncRoot + os.sep + classroomName + ".csv"
 			if dataLib.rewriteCachedData(pupilsSyncCacheFile, pupilsCSV):
 				for coursesIndex, coursesValue in courses.iterrows():
-					if classroomName == coursesValue["name"]
+					if classroomName == coursesValue["name"]:
 						print("Syncing: " + classroomName)
 						print("gam course " + dataLib.noNan(coursesValue["id"]) + " sync students file " + pupilsSyncCacheFile)
