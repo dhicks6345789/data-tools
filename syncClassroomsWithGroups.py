@@ -32,7 +32,7 @@ if len(sys.argv) > 1:
 
 # Get a current list of Google Classrooms.
 #classrooms =  pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses")))
-classrooms = dataLib(getConfigExcel(classroomsRoot + os.sep + "classrooms.xlsx"))
+classrooms = dataLib(readOptionsFile(classroomsRoot + os.sep + "classrooms.xlsx"))
 for classroomIndex, classroomValue in pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses"))).iterrows():
 	if classroomValue["courseState"] == "ACTIVE"::
 		print classroomValue["name"]
