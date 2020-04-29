@@ -88,11 +88,15 @@ def writeDataframeFile(theFilename, theDataframe):
 	if theFilename.lower().endswith(".xlsx"):
 		theDataframe.to_excel("temp.xlsx", index=False)
 		tempHandle = open("temp.xlsx", "rb")
-		filenameHandle = open(theFilename, "rb")
 		tempData = tempHandle.read()
-		filenameData = filenameHandle.read()
 		tempHandle.close()
-		filenameHandle.close()
+		
+		filenameData = None
+		if os.path.exists(theFilename):
+			filenameHandle = open(theFilename, "rb")
+			filenameData = filenameHandle.read()
+			filenameHandle.close()
+
 		if tempData == filenameData:
 			os.remove("temp.xlsx")
 		else:
