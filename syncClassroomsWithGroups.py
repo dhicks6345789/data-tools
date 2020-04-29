@@ -59,7 +59,7 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 				print("Unknown group or user: " + pupilsItem)
 		if syncValue == "sync" and not pupilsCSV == "":
 			pupilsSyncCacheFile = cachePupilsSyncRoot + os.sep + classroomName + ".csv"
-			if dataLib.rewriteCachedData(pupilsSyncCacheFile, pupils):
+			if dataLib.rewriteCachedData(pupilsSyncCacheFile, pupilsCSV):
 				classroomID = ""
 				for classroomIndex, classroomValue in classrooms.iterrows():
 					if classroomValue["courseState"] == "ACTIVE" and classroomValue["name"] == classroomName:
