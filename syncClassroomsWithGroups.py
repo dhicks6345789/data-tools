@@ -40,7 +40,7 @@ if len(sys.argv) > 1:
 # Pupils: Users or Groups to set as pupils.
 # Teachers: Users or Groups to set as teachers.
 (options, classrooms) = dataLib.readOptionsFile(classroomsRoot + os.sep + "classroomsToSync.xlsx", ["Classroom","Sync Or Add?","Pupils","Teachers"])
-for classroomIndex, classroomValue in classrooms.iterrows():
+for classroomsIndex, classroomsValue in classrooms.iterrows():
 	classroomName = dataLib.noNan(classroomsValue["Classroom"])
 	if not classroomName == "":
 		syncValue = dataLib.noNan(classroomsValue["Sync Or Add?"])
