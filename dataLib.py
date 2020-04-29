@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import os
 import json
+import hashlib
 import pandas
 
 # A set of utility functions to help with general data manipulation.
@@ -87,7 +88,7 @@ def readOptionsFile(theFilename, theColumns):
 def writeDataframeFile(theFilename, theDataframe):
 	if theFilename.lower().endswith(".xlsx"):
 		theDataframe.to_excel("temp.xlsx", index=False)
-		if readFile("temp.xlsx") == readFile(theFilename):
+		if hashlib.md5(readFile("temp.xlsx")) == hashlib.md5(readFile(theFilename)):
 			os.remove("temp.xlsx")
 		else:
 			os.replace("temp.xlsx", theFilename)
