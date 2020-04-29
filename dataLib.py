@@ -82,4 +82,4 @@ def readOptionsFile(theFilename, theColumns):
 	if "Option" in configDataframe.columns and "Value" in configDataframe.columns:
 		for configIndex, configValue in classrooms.iterrows():
 			options[configValue["Option"]] = configValue["Value"]
-	return options, configDataframe.drop(columns=["Option","Value"], errors="ignore")
+	return(options, configDataframe.drop(columns=["Option","Value"], errors="ignore"))
