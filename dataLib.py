@@ -64,8 +64,10 @@ def noNan(theString):
 # Rewrites a file wirth the given data, but only if that data has changed, otherwise the file is left as is.
 # Stops otherwise identical files having their timestamps changed.
 def rewriteCachedData(theFilename, theData):
-	currentData = readFile(theFilename)
-	if theData == "" or currentData == theData:
+	currentData = ""
+	if os.path.exists(theFilename):
+		currentData = readFile(theFilename)
+	if currentData == theData:
 		return False
 	writeFile(theFilename, theData)
 	return True
