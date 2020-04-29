@@ -15,7 +15,14 @@ os.makedirs(classroomsRoot, exist_ok=True)
 cacheRoot = classroomsRoot + os.sep + "CSVs"
 os.makedirs(cacheRoot, exist_ok=True)
 cachePupilsSyncRoot = cacheRoot + os.sep + "pupilsSync"
+os.makedirs(cachePupilsSyncRoot, exist_ok=True)
 cacheTeachersSyncRoot = cacheRoot + os.sep + "teachersSync"
+os.makedirs(cacheTeachersSyncRoot, exist_ok=True)
+
+if len(sys.argv) > 1:
+	if sys.argv[1] == "-flushCache":
+		os.system("erase \"" + cachePupilsSyncRoot + os.sep + "*.csv\"")
+		os.system("erase \"" + cacheTeachersSyncRoot + os.sep + "*.csv\"")
 
 # Get a current list of Google Classrooms.
 classrooms =  pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses")))
