@@ -51,8 +51,8 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 		for pupilsItem in pupilsList.split(","):
 			pupilsItem = pupilsItem.strip()
 			groupPath = groupsRoot + os.sep + pupilsItem + ".csv"
-			if os.path.exists(csvPath):
-				pupilsCSV = pupilsCSV + dataLib.readFile(csvPath)
+			if os.path.exists(groupPath):
+				pupilsCSV = pupilsCSV + dataLib.readFile(groupPath)
 			elif pupilsItem in pupilUsernames:
 				pupilsCSV = pupilsCSV + "\n" + pupilsItem
 			else:
