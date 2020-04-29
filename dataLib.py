@@ -71,3 +71,9 @@ def rewriteCachedData(theFilename, theData):
 		return False
 	writeFile(theFilename, theData)
 	return True
+
+def readConfigFile(theFilename, theColumns):
+	if not os.path.exists(theFilename):
+		configDataframe = pandas.DataFrame(columns=theColumns)
+	elif theFilename.lower().endswith(".xlsx"):
+		configDataframe = pandas.read_excel(theFilename, header=0)
