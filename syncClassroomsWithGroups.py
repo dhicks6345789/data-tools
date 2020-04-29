@@ -31,15 +31,16 @@ if len(sys.argv) > 1:
 		os.system("erase \"" + cacheTeachersAddRoot + os.sep + "*.csv\"")
 
 # Get a current list of Google Classrooms.
-#classrooms =  pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses")))
 (options, classrooms) = dataLib.readOptionsFile(classroomsRoot + os.sep + "classrooms.xlsx", ["Classroom","Sync Or Add?","Pupils","Teachers"])
-print(options)
-print(classrooms)
-sys.exit(0)
 
+classroomsList = classrooms["Classroom"].tolist()
+classroomCount = len(classroomsList)
 for classroomIndex, classroomValue in pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses"))).iterrows():
-	if classroomValue["courseState"] == "ACTIVE":
-		print(classroomValue["name"])
+	if classroomValue["courseState"] == "ACTIVE" and not classroomValue["Name"] in classroomsList:
+		classrooms.at[classroomCount, "Classroom"] = classroomValue["name"]
+		classroomCount = classroomCount + 1
+
+dataLib.writeDataframeFile(classroomsRoot + os.sep + "classrooms.xlsx", classrooms)
 
 sys.exit(0)
 
