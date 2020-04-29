@@ -83,3 +83,7 @@ def readOptionsFile(theFilename, theColumns):
 		for configIndex, configValue in classrooms.iterrows():
 			options[configValue["Option"]] = configValue["Value"]
 	return(options, configDataframe.drop(columns=["Option","Value"], errors="ignore"))
+
+def writeDataframeFile(theFilename, theDataframe):
+	if theFilename.lower().endswith(".xlsx"):
+		theDataframe.to_excel(theFilename, index=False)
