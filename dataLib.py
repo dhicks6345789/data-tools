@@ -60,7 +60,7 @@ def floatToStr(theValue):
 def noNan(theString):
 	if str(theString) == "nan" or str(theString) == "0":
 		return ""
-	return str(theString.strip())
+	return str(theString).strip()
 
 # Rewrites a file wirth the given data, but only if that data has changed, otherwise the file is left as is.
 # Stops otherwise identical files having their timestamps changed.
