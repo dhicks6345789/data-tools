@@ -30,44 +30,35 @@ if len(sys.argv) > 1:
 		os.system("erase \"" + cachePupilsAddRoot + os.sep + "*.csv\"")
 		os.system("erase \"" + cacheTeachersAddRoot + os.sep + "*.csv\"")
 
-# Get a current list of Google Classrooms.
-(options, classrooms) = dataLib.readOptionsFile(classroomsRoot + os.sep + "classrooms.xlsx", ["Classroom","Sync Or Add?","Pupils","Teachers"])
-
-classroomsList = classrooms["Classroom"].tolist()
-classroomCount = len(classroomsList)
-for classroomIndex, classroomValue in pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses"))).iterrows():
-	if classroomValue["courseState"] == "ACTIVE" and not classroomValue["name"] in classroomsList:
-		classrooms.at[classroomCount, "Classroom"] = classroomValue["name"]
-		classroomCount = classroomCount + 1
-
-dataLib.writeDataframeFile(classroomsRoot + os.sep + "classrooms.xlsx", classrooms)
-
-sys.exit(0)
-
-# Load the "classroomsToSync" spreadsheet. Should simply consist of two columns, one listing Classrooms (by title), the other the groups(s)
-# to sync with that Classroom.
-classroomsDataframe = pandas.read_excel(classroomsRoot + os.sep + "classroomsToSync.xlsx", header=None)
-for classroomIndex, classroomValue in classroomsDataframe.iterrows():
-	if not classroomIndex == 0:
-		classroomName = dataLib.noNan(classroomsDataframe.at[classroomIndex, 0])
-		if not classroomName == "":
-			pupilsGroups = dataLib.noNan(classroomsDataframe.at[classroomIndex, 1])
-			teachers = dataLib.noNan(classroomsDataframe.at[classroomIndex, 2])
-			pupils = ""
-			for pupilsGroup in pupilsGroups.split(","):
-				csvPath = groupsRoot + os.sep + pupilsGroup.strip() + ".csv"
-				if os.path.exists(csvPath):
-					pupils = pupils + dataLib.readFile(csvPath)
-				else:
-					print("Unknown group: " + pupilsGroup.strip())
-			pupilsSyncCacheFile = cachePupilsSyncRoot + os.sep + classroomName + ".csv"
-			if dataLib.rewriteCachedData(pupilsSyncCacheFile, pupils):
-				classroomID = ""
-				for classroomIndex, classroomValue in classrooms.iterrows():
-					if classroomValue["courseState"] == "ACTIVE" and classroomValue["name"] == classroomName:
-						print("Syncing: " + classroomValue["name"])
-						classroomID = dataLib.noNan(str(classroomValue["id"]))
-						print("gam course " + classroomID + " sync students file " + pupilsSyncCacheFile)
-			teachersSyncCacheFile = cacheTeachersSyncRoot + os.sep + classroomName + ".csv"
-			if dataLib.rewriteCachedData(teachersSyncCacheFile, teachers.replace(",","\n").strip()):
-				print("gam course " + classroomID + " sync teachers file " + teachersSyncCacheFile)
+# Load the "classroomToSync" spreadsheet. Should consist of four columns:
+# Classroom: Classroom name.
+# Sync Or Add?: Whether to sync the list of users / groups given or whether to add to any existing members.
+# Pupils: Users or Groups to set as pupils.
+# Teachers: Users or Groups to set as teachers.
+(options, classrooms) = dataLib.readOptionsFile(classroomsRoot + os.sep + "classroomsToSync.xlsx", ["Classroom","Sync Or Add?","Pupils","Teachers"])
+for classroomIndex, classroomValue in classrooms.iterrows():
+	classroomName = dataLib.noNan(classroomsValue["Classroom"])
+	if not classroomName == "":
+		syncValue = dataLib.noNan(classroomsValue["Sync Or Add?"])
+		pupilsList = dataLib.noNan(classroomsValue["Pupils"])
+		teachersList = dataLib.noNan(classroomsValue["Teachers"])
+		pupils = ""
+		teachers = ""
+		#if syncValue = "sync":
+		for pupilsItem in pupilsList.split(","):
+			groupPath = groupsRoot + os.sep + pupilsItem.strip() + ".csv"
+			if os.path.exists(csvPath):
+		#			pupils = pupils + dataLib.readFile(csvPath)
+		#		else:
+		#			print("Unknown group: " + pupilsGroup.strip())
+		#	pupilsSyncCacheFile = cachePupilsSyncRoot + os.sep + classroomName + ".csv"
+		#	if dataLib.rewriteCachedData(pupilsSyncCacheFile, pupils):
+		#		classroomID = ""
+		#		for classroomIndex, classroomValue in classrooms.iterrows():
+		#			if classroomValue["courseState"] == "ACTIVE" and classroomValue["name"] == classroomName:
+		#				print("Syncing: " + classroomValue["name"])
+		#				classroomID = dataLib.noNan(str(classroomValue["id"]))
+		#				print("gam course " + classroomID + " sync students file " + pupilsSyncCacheFile)
+		#	teachersSyncCacheFile = cacheTeachersSyncRoot + os.sep + classroomName + ".csv"
+		#	if dataLib.rewriteCachedData(teachersSyncCacheFile, teachers.replace(",","\n").strip()):
+		#		print("gam course " + classroomID + " sync teachers file " + teachersSyncCacheFile)
