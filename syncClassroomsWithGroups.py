@@ -23,6 +23,10 @@ os.makedirs(cacheTeachersSyncRoot, exist_ok=True)
 cacheTeachersAddRoot = cacheRoot + os.sep + "teachersAdd"
 os.makedirs(cacheTeachersAddRoot, exist_ok=True)
 
+# Read the existing basic pupils data.
+pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
+pupilUsernames = pupils["OldUsername"].tolist()
+
 if len(sys.argv) > 1:
 	if sys.argv[1] == "-flushCache":
 		os.system("erase \"" + cachePupilsSyncRoot + os.sep + "*.csv\"")
@@ -42,23 +46,23 @@ for classroomIndex, classroomValue in classrooms.iterrows():
 		syncValue = dataLib.noNan(classroomsValue["Sync Or Add?"])
 		pupilsList = dataLib.noNan(classroomsValue["Pupils"])
 		teachersList = dataLib.noNan(classroomsValue["Teachers"])
-		pupils = ""
-		teachers = ""
-		#if syncValue = "sync":
+		pupilsCSV = ""
+		teachersCSV = ""
 		for pupilsItem in pupilsList.split(","):
-			groupPath = groupsRoot + os.sep + pupilsItem.strip() + ".csv"
+			pupilsItem = pupilsItem.strip()
+			groupPath = groupsRoot + os.sep + pupilsItem + ".csv"
 			if os.path.exists(csvPath):
-					pupils = pupils + dataLib.readFile(csvPath)
-				else:
-		#			print("Unknown group: " + pupilsGroup.strip())
-		#	pupilsSyncCacheFile = cachePupilsSyncRoot + os.sep + classroomName + ".csv"
-		#	if dataLib.rewriteCachedData(pupilsSyncCacheFile, pupils):
-		#		classroomID = ""
-		#		for classroomIndex, classroomValue in classrooms.iterrows():
-		#			if classroomValue["courseState"] == "ACTIVE" and classroomValue["name"] == classroomName:
-		#				print("Syncing: " + classroomValue["name"])
-		#				classroomID = dataLib.noNan(str(classroomValue["id"]))
-		#				print("gam course " + classroomID + " sync students file " + pupilsSyncCacheFile)
-		#	teachersSyncCacheFile = cacheTeachersSyncRoot + os.sep + classroomName + ".csv"
-		#	if dataLib.rewriteCachedData(teachersSyncCacheFile, teachers.replace(",","\n").strip()):
-		#		print("gam course " + classroomID + " sync teachers file " + teachersSyncCacheFile)
+				pupilsCSV = pupilsCSV + dataLib.readFile(csvPath)
+			elif pupilsItem in pupilUsernames:
+				pupilsCSV = pupilsCSV + "\n" + pupilsItem
+			else:
+				print("Unknown group or user: " + pupilsItem)
+		if syncValue = "sync" and not pupilsCSV == "":
+			pupilsSyncCacheFile = cachePupilsSyncRoot + os.sep + classroomName + ".csv"
+			if dataLib.rewriteCachedData(pupilsSyncCacheFile, pupils):
+				classroomID = ""
+				for classroomIndex, classroomValue in classrooms.iterrows():
+					if classroomValue["courseState"] == "ACTIVE" and classroomValue["name"] == classroomName:
+						print("Syncing: " + classroomValue["name"])
+						classroomID = dataLib.noNan(str(classroomValue["id"]))
+						print("gam course " + classroomID + " sync students file " + pupilsSyncCacheFile)
