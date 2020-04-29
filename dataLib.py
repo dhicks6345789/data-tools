@@ -72,8 +72,13 @@ def rewriteCachedData(theFilename, theData):
 	writeFile(theFilename, theData)
 	return True
 
-def readConfigFile(theFilename, theColumns):
+def readOptionsFile(theFilename, theColumns):
+	options = {}
 	if not os.path.exists(theFilename):
 		configDataframe = pandas.DataFrame(columns=theColumns)
 	elif theFilename.lower().endswith(".xlsx"):
 		configDataframe = pandas.read_excel(theFilename, header=0)
+	if "Option" in configDataframe.columns and "Value" in configDataframe.columns:
+		for configIndex, configValue in classrooms.iterrows():
+			options[configValue["Option"]] = configValue["Value"]
+	return(options, configDataframe.drop(columns=["Option","Value"]))
