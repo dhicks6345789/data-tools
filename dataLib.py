@@ -86,4 +86,8 @@ def readOptionsFile(theFilename, theColumns):
 
 def writeDataframeFile(theFilename, theDataframe):
 	if theFilename.lower().endswith(".xlsx"):
-		theDataframe.to_excel(theFilename, index=False)
+		theDataframe.to_excel("temp.xlsx", index=False)
+		if readFile("temp.xlsx") == readFile(theFilename):
+			os.remove("temp.xlsx")
+		else:
+			os.replace("temp.xlsx", theFilename)
