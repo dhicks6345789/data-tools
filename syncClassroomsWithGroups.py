@@ -16,16 +16,28 @@ cacheRoot = classroomsRoot + os.sep + "CSVs"
 os.makedirs(cacheRoot, exist_ok=True)
 cachePupilsSyncRoot = cacheRoot + os.sep + "pupilsSync"
 os.makedirs(cachePupilsSyncRoot, exist_ok=True)
+cachePupilsAddRoot = cacheRoot + os.sep + "pupilsAdd"
+os.makedirs(cachePupilsAddRoot, exist_ok=True)
 cacheTeachersSyncRoot = cacheRoot + os.sep + "teachersSync"
 os.makedirs(cacheTeachersSyncRoot, exist_ok=True)
+cacheTeachersAddRoot = cacheRoot + os.sep + "teachersAdd"
+os.makedirs(cacheTeachersAddRoot, exist_ok=True)
 
 if len(sys.argv) > 1:
 	if sys.argv[1] == "-flushCache":
 		os.system("erase \"" + cachePupilsSyncRoot + os.sep + "*.csv\"")
 		os.system("erase \"" + cacheTeachersSyncRoot + os.sep + "*.csv\"")
+		os.system("erase \"" + cachePupilsAddRoot + os.sep + "*.csv\"")
+		os.system("erase \"" + cacheTeachersAddRoot + os.sep + "*.csv\"")
 
 # Get a current list of Google Classrooms.
-classrooms =  pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses")))
+#classrooms =  pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses")))
+classrooms = dataLib(getConfigExcel(classroomsRoot + os.sep + "classrooms.xlsx"))
+for classroomIndex, classroomValue in pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses"))).iterrows():
+	if classroomValue["courseState"] == "ACTIVE"::
+		print classroomValue["name"]
+
+sys.exit(0)
 
 # Load the "classroomsToSync" spreadsheet. Should simply consist of two columns, one listing Classrooms (by title), the other the groups(s)
 # to sync with that Classroom.
