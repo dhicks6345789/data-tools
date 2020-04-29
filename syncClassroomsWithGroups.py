@@ -50,16 +50,18 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 		teachersCSV = ""
 		for pupilsItem in pupilsList.split(","):
 			pupilsItem = pupilsItem.strip()
-			groupPath = groupsRoot + os.sep + pupilsItem + ".csv"
-			if os.path.exists(groupPath):
-				pupilsCSV = pupilsCSV + dataLib.readFile(groupPath)
-			elif pupilsItem in pupilUsernames:
-				pupilsCSV = pupilsCSV + "\n" + pupilsItem
-			else:
-				print("Unknown group or user: " + pupilsItem)
+			if not pupilsItem == "":
+				groupPath = groupsRoot + os.sep + pupilsItem + ".csv"
+				if os.path.exists(groupPath):
+					pupilsCSV = pupilsCSV + dataLib.readFile(groupPath)
+				elif pupilsItem in pupilUsernames:
+					pupilsCSV = pupilsCSV + "\n" + pupilsItem
+				else:
+					print("Unknown group or user: " + pupilsItem)
 		if syncValue == "sync" and not pupilsCSV == "":
 			pupilsSyncCacheFile = cachePupilsSyncRoot + os.sep + classroomName + ".csv"
 			if dataLib.rewriteCachedData(pupilsSyncCacheFile, pupilsCSV):
+				print("sync!")
 				classroomID = ""
 				for classroomIndex, classroomValue in classrooms.iterrows():
 					if classroomValue["courseState"] == "ACTIVE" and classroomValue["name"] == classroomName:
