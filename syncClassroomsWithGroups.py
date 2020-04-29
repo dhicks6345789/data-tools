@@ -36,7 +36,7 @@ if len(sys.argv) > 1:
 classroomsList = classrooms["Classroom"].tolist()
 classroomCount = len(classroomsList)
 for classroomIndex, classroomValue in pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses"))).iterrows():
-	if classroomValue["courseState"] == "ACTIVE" and not classroomValue["Name"] in classroomsList:
+	if classroomValue["courseState"] == "ACTIVE" and not classroomValue["name"] in classroomsList:
 		classrooms.at[classroomCount, "Classroom"] = classroomValue["name"]
 		classroomCount = classroomCount + 1
 
