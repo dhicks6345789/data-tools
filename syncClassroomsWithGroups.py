@@ -33,8 +33,8 @@ if len(sys.argv) > 1:
 # Get a current list of Google Classrooms.
 #classrooms =  pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses")))
 (options, classrooms) = dataLib.readOptionsFile(classroomsRoot + os.sep + "classrooms.xlsx", ["Classroom","Sync Or Add?","Pupils","Teachers"])
-print options
-print classrooms
+print(options)
+print(classrooms)
 sys.exit(0)
 
 for classroomIndex, classroomValue in pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses"))).iterrows():
