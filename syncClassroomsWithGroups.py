@@ -35,7 +35,7 @@ if len(sys.argv) > 1:
 classrooms = dataLib(readOptionsFile(classroomsRoot + os.sep + "classrooms.xlsx"))
 for classroomIndex, classroomValue in pandas.read_csv(io.StringIO(dataLib.runCommand("gam print courses"))).iterrows():
 	if classroomValue["courseState"] == "ACTIVE":
-		print classroomValue["name"]
+		print(classroomValue["name"])
 
 sys.exit(0)
 
