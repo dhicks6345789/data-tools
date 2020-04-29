@@ -88,7 +88,7 @@ def readOptionsFile(theFilename, theColumns):
 def writeDataframeFile(theFilename, theDataframe):
 	if theFilename.lower().endswith(".xlsx"):
 		theDataframe.to_excel("temp.xlsx", index=False)
-		if hashlib.md5(readFile("temp.xlsx")) == hashlib.md5(readFile(theFilename)):
+		if hashlib.md5(readFile("temp.xlsx")).hexdigest() == hashlib.md5(readFile(theFilename)).hexdigest():
 			os.remove("temp.xlsx")
 		else:
 			os.replace("temp.xlsx", theFilename)
