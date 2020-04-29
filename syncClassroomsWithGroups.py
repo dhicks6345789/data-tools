@@ -27,6 +27,9 @@ os.makedirs(cacheTeachersAddRoot, exist_ok=True)
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 pupilUsernames = pupils["OldUsername"].tolist()
 
+# Read the existing basic pupils data.
+courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=0)
+
 if len(sys.argv) > 1:
 	if sys.argv[1] == "-flushCache":
 		os.system("erase \"" + cachePupilsSyncRoot + os.sep + "*.csv\"")
@@ -61,10 +64,7 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 		if syncValue == "sync" and not pupilsCSV == "":
 			pupilsSyncCacheFile = cachePupilsSyncRoot + os.sep + classroomName + ".csv"
 			if dataLib.rewriteCachedData(pupilsSyncCacheFile, pupilsCSV):
-				print("sync!")
-				classroomID = ""
-				for classroomIndex, classroomValue in classrooms.iterrows():
-					if classroomValue["courseState"] == "ACTIVE" and classroomValue["name"] == classroomName:
-						print("Syncing: " + classroomValue["name"])
-						classroomID = dataLib.noNan(str(classroomValue["id"]))
-						print("gam course " + classroomID + " sync students file " + pupilsSyncCacheFile)
+				for coursesIndex, coursesValue in courses.iterrows():
+					if classroomName == coursesValue["name"]
+						print("Syncing: " + classroomName)
+						print("gam course " + dataLib.noNan(coursesValue["id"]) + " sync students file " + pupilsSyncCacheFile)
