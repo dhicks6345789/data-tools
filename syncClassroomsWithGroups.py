@@ -48,8 +48,8 @@ for classroomIndex, classroomValue in classrooms.iterrows():
 		for pupilsItem in pupilsList.split(","):
 			groupPath = groupsRoot + os.sep + pupilsItem.strip() + ".csv"
 			if os.path.exists(csvPath):
-		#			pupils = pupils + dataLib.readFile(csvPath)
-		#		else:
+					pupils = pupils + dataLib.readFile(csvPath)
+				else:
 		#			print("Unknown group: " + pupilsGroup.strip())
 		#	pupilsSyncCacheFile = cachePupilsSyncRoot + os.sep + classroomName + ".csv"
 		#	if dataLib.rewriteCachedData(pupilsSyncCacheFile, pupils):
