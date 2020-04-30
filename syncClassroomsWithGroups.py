@@ -29,12 +29,12 @@ def syncOrAdd(teacherOrStudent, syncValue, classroomName, cacheFile, CSVData):
 			if classroomName == coursesValue["name"]:
 				print("Now " + syncValue + "ing: " + classroomName)
 				if syncValue == "sync":
-					print("gam course " + dataLib.noNan(coursesValue["id"]) + " sync " + teacherOrStudent + "s file \"" + cacheFile + "\"")
+					os.system("gam course " + dataLib.noNan(coursesValue["id"]) + " sync " + teacherOrStudent + "s file \"" + cacheFile + "\"")
 				else:
 					for user in CSVData.split("\n"):
 						user = user.strip()
 						if not user == "":
-							print("gam course " + dataLib.noNan(coursesValue["id"]) + " add " + teacherOrStudent + " " + user)
+							os.system("gam course " + dataLib.noNan(coursesValue["id"]) + " add " + teacherOrStudent + " " + user)
 
 # Read the users data.
 users = pandas.read_csv(config["dataFolder"] + os.sep + "users.csv", header=0)
