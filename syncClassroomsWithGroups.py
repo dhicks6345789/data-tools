@@ -46,8 +46,16 @@ if len(sys.argv) > 1:
 for classroomsIndex, classroomsValue in classrooms.iterrows():
 	classroomName = dataLib.noNan(classroomsValue["Classroom"])
 	if not classroomName == "":
-		pupilsList = dataLib.noNan(classroomsValue["Pupils"])
+		syncValue = dataLib.noNan(classroomsValue["Sync Or Add?"])
+		cachePupilsRoot = cachePupilsSyncRoot
+		cacheTeachersRoot = cacheTeachersSyncRoot
+		if not syncValue == "sync":
+			syncValue = "add"
+			cachePupilsRoot = cachePupilsAddRoot
+			cacheTeachersRoot = cacheTeachersAddRoot
+		
 		pupilsCSV = ""
+		pupilsList = dataLib.noNan(classroomsValue["Pupils"])
 		for pupilsItem in pupilsList.split(","):
 			pupilsItem = pupilsItem.strip()
 			if not pupilsItem == "":
@@ -59,8 +67,8 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 				else:
 					print("Unknown group or user in pupils list: " + pupilsItem)
 
-		teachersList = dataLib.noNan(classroomsValue["Teachers"])
 		teachersCSV = ""
+		teachersList = dataLib.noNan(classroomsValue["Teachers"])
 		for teachersItem in teachersList.split(","):
 			teachersItem = teachersItem.strip()
 			if not teachersItem == "":
@@ -71,12 +79,18 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 					teachersCSV = teachersCSV + "\n" + teachersItem
 				else:
 					print("Unknown group or user in teachers list: " + teachersItem)
-
-		syncValue = dataLib.noNan(classroomsValue["Sync Or Add?"])
-		if syncValue == "sync" and not pupilsCSV == "":
-			pupilsSyncCacheFile = cachePupilsSyncRoot + os.sep + classroomName + ".csv"
-			if dataLib.rewriteCachedData(pupilsSyncCacheFile, pupilsCSV):
+		
+		if not pupilsCSV == "":
+			pupilsCacheFile = cachePupilsRoot + os.sep + classroomName + ".csv"
+			if dataLib.rewriteCachedData(pupilsCacheFile, pupilsCSV):
 				for coursesIndex, coursesValue in courses.iterrows():
 					if classroomName == coursesValue["name"]:
-						print("Syncing: " + classroomName)
-						print("gam course " + dataLib.noNan(coursesValue["id"]) + " sync students file " + pupilsSyncCacheFile)
+						print("Now " + syncValue + "ing: " + classroomName)
+						print("gam course " + dataLib.noNan(coursesValue["id"]) + " " + syncValue + " students file " + pupilsCacheFile)File
+		if not teachersCSV == "":
+			teachersCacheFile = cacheTeachersRoot + os.sep + classroomName + ".csv"
+			if dataLib.rewriteCachedData(teachersCacheFile, teachersCSV):
+				for coursesIndex, coursesValue in courses.iterrows():
+					if classroomName == coursesValue["name"]:
+						print("Now " + syncValue + "ing: " + classroomName)
+						print("gam course " + dataLib.noNan(coursesValue["id"]) + " " + syncValue + " teachers file " + teachersCacheFile)
