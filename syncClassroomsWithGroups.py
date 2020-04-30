@@ -24,7 +24,7 @@ cacheTeachersAddRoot = cacheRoot + os.sep + "teachersAdd"
 os.makedirs(cacheTeachersAddRoot, exist_ok=True)
 
 def syncOrAdd(teacherOrStudent, syncValue, classroomName, cacheFile):
-	if dataLib.rewriteCachedData(cacheFile, CSV["teacherOrPupil"]):
+	if dataLib.rewriteCachedData(cacheFile, CSV[teacherOrStudent]):
 		for coursesIndex, coursesValue in courses.iterrows():
 			if classroomName == coursesValue["name"]:
 				print("Now " syncValue + "ing: " + classroomName)
@@ -67,7 +67,7 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 			cachePupilsRoot = cachePupilsAddRoot
 			cacheTeachersRoot = cacheTeachersAddRoot
 		
-		pupilsCSV = ""
+		CSV["teacher"] = ""
 		pupilsList = dataLib.noNan(classroomsValue["Pupils"])
 		for pupilsItem in pupilsList.split(","):
 			pupilsItem = pupilsItem.strip()
@@ -80,7 +80,7 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 				else:
 					print("Unknown group or user in pupils list: " + pupilsItem)
 
-		teachersCSV = ""
+		CSV["teacher"] = ""
 		teachersList = dataLib.noNan(classroomsValue["Teachers"])
 		for teachersItem in teachersList.split(","):
 			teachersItem = teachersItem.strip()
@@ -93,8 +93,8 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 				else:
 					print("Unknown group or user in teachers list: " + teachersItem)
 		
-		if not pupilsCSV == "":
+		if not CSV["student"] == "":
 			syncOrAdd("student", syncValue, classroomName, cachePupilsRoot + os.sep + classroomName + ".csv")
 			
-		if not teachersCSV == "":
+		if not CSV["teacher"] == "":
 			syncOrAdd("teacher", syncValue, classroomName, cachePupilsRoot + os.sep + classroomName + ".csv")
