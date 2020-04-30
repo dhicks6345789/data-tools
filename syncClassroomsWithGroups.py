@@ -27,7 +27,7 @@ def syncOrAdd(teacherOrStudent, syncValue, classroomName, cacheFile, CSVData):
 	if dataLib.rewriteCachedData(cacheFile, CSVData):
 		for coursesIndex, coursesValue in courses.iterrows():
 			if classroomName == coursesValue["name"]:
-				print("Now " syncValue + "ing: " + classroomName)
+				print("Now " + syncValue + "ing: " + classroomName)
 				if syncValue == "sync":
 					print("gam course " + dataLib.noNan(coursesValue["id"]) + " sync " + teacherOrStudent + "s file \"" + cacheFile + "\"")
 				else:
