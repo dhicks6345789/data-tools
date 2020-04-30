@@ -86,7 +86,7 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 				for coursesIndex, coursesValue in courses.iterrows():
 					if classroomName == coursesValue["name"]:
 						print("Now " + syncValue + "ing: " + classroomName)
-						print("gam course " + dataLib.noNan(coursesValue["id"]) + " " + syncValue + " students file " + pupilsCacheFile)File
+						print("gam course " + dataLib.noNan(coursesValue["id"]) + " " + syncValue + " students file " + pupilsCacheFile)
 		if not teachersCSV == "":
 			teachersCacheFile = cacheTeachersRoot + os.sep + classroomName + ".csv"
 			if dataLib.rewriteCachedData(teachersCacheFile, teachersCSV):
