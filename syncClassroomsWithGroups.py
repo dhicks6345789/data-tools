@@ -80,7 +80,7 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 				else:
 					print("Unknown group or user in pupils list: " + pupilsItem)
 
-		teacherCSV = ""
+		teachersCSV = ""
 		teachersList = dataLib.noNan(classroomsValue["Teachers"])
 		for teachersItem in teachersList.split(","):
 			teachersItem = teachersItem.strip()
