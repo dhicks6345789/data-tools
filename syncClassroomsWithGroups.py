@@ -86,11 +86,11 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 				for coursesIndex, coursesValue in courses.iterrows():
 					if classroomName == coursesValue["name"]:
 						print("Now " + syncValue + "ing: " + classroomName)
-						os.system("gam course " + dataLib.noNan(coursesValue["id"]) + " " + syncValue + " students file " + pupilsCacheFile)
+						os.system("gam course " + dataLib.noNan(coursesValue["id"]) + " " + syncValue + " students file \"" + pupilsCacheFile + "\"")	
 		if not teachersCSV == "":
 			teachersCacheFile = cacheTeachersRoot + os.sep + classroomName + ".csv"
 			if dataLib.rewriteCachedData(teachersCacheFile, teachersCSV):
 				for coursesIndex, coursesValue in courses.iterrows():
 					if classroomName == coursesValue["name"]:
 						print("Now " + syncValue + "ing: " + classroomName)
-						os.system("gam course " + dataLib.noNan(coursesValue["id"]) + " " + syncValue + " teachers file " + teachersCacheFile)
+						os.system("gam course " + dataLib.noNan(coursesValue["id"]) + " " + syncValue + " teachers file \"" + teachersCacheFile + "\"")
