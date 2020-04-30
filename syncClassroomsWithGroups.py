@@ -29,7 +29,7 @@ def syncOrAdd(teacherOrStudent, syncValue, classroomName, cacheFile, CSVData):
 			if classroomName == coursesValue["name"]:
 				print("Now " + syncValue + "ing: " + classroomName)
 				if syncValue == "sync":
-					gamCommand = gam course " + dataLib.noNan(coursesValue["id"]) + " sync " + teacherOrStudent + "s file \"" + cacheFile + "\"
+					gamCommand = "gam course " + dataLib.noNan(coursesValue["id"]) + " sync " + teacherOrStudent + "s file \"" + cacheFile + "\"
 					if "-test" in sys.argv:
 						print(gamCommand)
 					else:
