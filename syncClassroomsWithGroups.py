@@ -34,7 +34,11 @@ def syncOrAdd(teacherOrStudent, syncValue, classroomName, cacheFile, CSVData):
 					for user in CSVData.split("\n"):
 						user = user.strip()
 						if not user == "":
-							os.system("gam course " + dataLib.noNan(coursesValue["id"]) + " add " + teacherOrStudent + " " + user)
+							gamCommand = "gam course " + dataLib.noNan(coursesValue["id"]) + " add " + teacherOrStudent + " " + user
+							if "-test" in sys.argv:
+								print(gamCommand)
+							else:
+								os.system(gamCommand)
 
 # Read the users data.
 users = pandas.read_csv(config["dataFolder"] + os.sep + "users.csv", header=0)
@@ -43,12 +47,11 @@ usernames = users["primaryEmail"].tolist()
 # Read the existing courses (Classrooms) data.
 courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=0)
 
-if len(sys.argv) > 1:
-	if sys.argv[1] == "-flushCache":
-		os.system("erase \"" + cachePupilsSyncRoot + os.sep + "*.csv\"")
-		os.system("erase \"" + cacheTeachersSyncRoot + os.sep + "*.csv\"")
-		os.system("erase \"" + cachePupilsAddRoot + os.sep + "*.csv\"")
-		os.system("erase \"" + cacheTeachersAddRoot + os.sep + "*.csv\"")
+if "-flushCache" in sys.argv:
+	os.system("erase \"" + cachePupilsSyncRoot + os.sep + "*.csv\"")
+	os.system("erase \"" + cacheTeachersSyncRoot + os.sep + "*.csv\"")
+	os.system("erase \"" + cachePupilsAddRoot + os.sep + "*.csv\"")
+	os.system("erase \"" + cacheTeachersAddRoot + os.sep + "*.csv\"")
 
 # Load the "classroomToSync" spreadsheet. Should consist of four columns:
 # Classroom: Classroom name.
