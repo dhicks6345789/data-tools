@@ -104,4 +104,4 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 			syncOrAdd("student", syncValue, classroomName, cachePupilsRoot + os.sep + classroomName + ".csv", pupilsCSV)
 			
 		if not teachersCSV == "":
-			syncOrAdd("teacher", syncValue, classroomName, cachePupilsRoot + os.sep + classroomName + ".csv", teachersCSV)
+			syncOrAdd("teacher", syncValue, classroomName, cacheTeachersRoot + os.sep + classroomName + ".csv", teachersCSV)
