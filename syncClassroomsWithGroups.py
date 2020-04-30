@@ -23,6 +23,19 @@ os.makedirs(cacheTeachersSyncRoot, exist_ok=True)
 cacheTeachersAddRoot = cacheRoot + os.sep + "teachersAdd"
 os.makedirs(cacheTeachersAddRoot, exist_ok=True)
 
+def syncOrAdd(teacherOrStudent, syncValue, classroomName, cacheFile):
+	if dataLib.rewriteCachedData(cacheFile, CSV["teacherOrPupil"]):
+		for coursesIndex, coursesValue in courses.iterrows():
+			if classroomName == coursesValue["name"]:
+				print("Now " syncValue + "ing: " + classroomName)
+				if syncValue == "sync":
+					print("gam course " + dataLib.noNan(coursesValue["id"]) + " sync " + teacherOrStudent + "s file \"" + cacheFile + "\"")
+				else:
+					for user in dataLib.readFile(cacheFile).split("\n"):
+						user = user.strip()
+						if not user == "":
+							print("gam course " + dataLib.noNan(coursesValue["id"]) + " add " + teacherOrStudent + " " + user)
+
 # Read the users data.
 users = pandas.read_csv(config["dataFolder"] + os.sep + "users.csv", header=0)
 usernames = users["primaryEmail"].tolist()
@@ -81,16 +94,7 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 					print("Unknown group or user in teachers list: " + teachersItem)
 		
 		if not pupilsCSV == "":
-			pupilsCacheFile = cachePupilsRoot + os.sep + classroomName + ".csv"
-			if dataLib.rewriteCachedData(pupilsCacheFile, pupilsCSV):
-				for coursesIndex, coursesValue in courses.iterrows():
-					if classroomName == coursesValue["name"]:
-						print("Now " + syncValue + "ing: " + classroomName)
-						os.system("gam course " + dataLib.noNan(coursesValue["id"]) + " " + syncValue + " students file \"" + pupilsCacheFile + "\"")	
+			syncOrAdd("student", syncValue, classroomName, cachePupilsRoot + os.sep + classroomName + ".csv")
+			
 		if not teachersCSV == "":
-			teachersCacheFile = cacheTeachersRoot + os.sep + classroomName + ".csv"
-			if dataLib.rewriteCachedData(teachersCacheFile, teachersCSV):
-				for coursesIndex, coursesValue in courses.iterrows():
-					if classroomName == coursesValue["name"]:
-						print("Now " + syncValue + "ing: " + classroomName)
-						os.system("gam course " + dataLib.noNan(coursesValue["id"]) + " " + syncValue + " teachers file \"" + teachersCacheFile + "\"")
+			syncOrAdd("teacher", syncValue, classroomName, cachePupilsRoot + os.sep + classroomName + ".csv")
