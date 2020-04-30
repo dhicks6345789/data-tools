@@ -23,15 +23,15 @@ os.makedirs(cacheTeachersSyncRoot, exist_ok=True)
 cacheTeachersAddRoot = cacheRoot + os.sep + "teachersAdd"
 os.makedirs(cacheTeachersAddRoot, exist_ok=True)
 
-def syncOrAdd(teacherOrStudent, syncValue, classroomName, cacheFile):
-	if dataLib.rewriteCachedData(cacheFile, CSV[teacherOrStudent]):
+def syncOrAdd(teacherOrStudent, syncValue, classroomName, cacheFile, CSVData):
+	if dataLib.rewriteCachedData(cacheFile, CSVData):
 		for coursesIndex, coursesValue in courses.iterrows():
 			if classroomName == coursesValue["name"]:
 				print("Now " syncValue + "ing: " + classroomName)
 				if syncValue == "sync":
 					print("gam course " + dataLib.noNan(coursesValue["id"]) + " sync " + teacherOrStudent + "s file \"" + cacheFile + "\"")
 				else:
-					for user in dataLib.readFile(cacheFile).split("\n"):
+					for user in CSVData.split("\n"):
 						user = user.strip()
 						if not user == "":
 							print("gam course " + dataLib.noNan(coursesValue["id"]) + " add " + teacherOrStudent + " " + user)
@@ -67,7 +67,7 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 			cachePupilsRoot = cachePupilsAddRoot
 			cacheTeachersRoot = cacheTeachersAddRoot
 		
-		CSV["teacher"] = ""
+		pupilsCSV = ""
 		pupilsList = dataLib.noNan(classroomsValue["Pupils"])
 		for pupilsItem in pupilsList.split(","):
 			pupilsItem = pupilsItem.strip()
@@ -80,7 +80,7 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 				else:
 					print("Unknown group or user in pupils list: " + pupilsItem)
 
-		CSV["teacher"] = ""
+		teacherCSV = ""
 		teachersList = dataLib.noNan(classroomsValue["Teachers"])
 		for teachersItem in teachersList.split(","):
 			teachersItem = teachersItem.strip()
@@ -93,8 +93,8 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 				else:
 					print("Unknown group or user in teachers list: " + teachersItem)
 		
-		if not CSV["student"] == "":
-			syncOrAdd("student", syncValue, classroomName, cachePupilsRoot + os.sep + classroomName + ".csv")
+		if not pupilsCSV == "":
+			syncOrAdd("student", syncValue, classroomName, cachePupilsRoot + os.sep + classroomName + ".csv", pupilsCSV)
 			
-		if not CSV["teacher"] == "":
-			syncOrAdd("teacher", syncValue, classroomName, cachePupilsRoot + os.sep + classroomName + ".csv")
+		if not teachersCSV == "":
+			syncOrAdd("teacher", syncValue, classroomName, cachePupilsRoot + os.sep + classroomName + ".csv", teachersCSV)
