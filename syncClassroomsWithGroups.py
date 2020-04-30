@@ -62,7 +62,7 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 				groupPath = groupsRoot + os.sep + pupilsItem + ".csv"
 				if os.path.exists(groupPath):
 					pupilsCSV = pupilsCSV + dataLib.readFile(groupPath)
-				elif pupilsItem in usernames:
+				elif pupilsItem + "@knightsbridgeschool.com" in usernames:
 					pupilsCSV = pupilsCSV + "\n" + pupilsItem
 				else:
 					print("Unknown group or user in pupils list: " + pupilsItem)
@@ -75,7 +75,7 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 				groupPath = groupsRoot + os.sep + teachersItem + ".csv"
 				if os.path.exists(groupPath):
 					teachersCSV = teachersCSV + dataLib.readFile(groupPath)
-				elif teachersItem in usernames:
+				elif teachersItem + "@knightsbridgeschool.com" in usernames:
 					teachersCSV = teachersCSV + "\n" + teachersItem
 				else:
 					print("Unknown group or user in teachers list: " + teachersItem)
