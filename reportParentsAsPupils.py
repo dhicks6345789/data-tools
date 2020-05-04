@@ -23,7 +23,7 @@ parents = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0
 courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=0)
 
 for coursesIndex, coursesValues in courses.iterrows():
-	if coursesValues["id"] == "99103269116":
+	if str(coursesValues["id"]) == "99103269116":
 		members = pandas.read_csv(io.StringIO(dataLib.runCommand("gam print course-participants course " + coursesValues["id"] + " show all")))
 		print(members)
 	
