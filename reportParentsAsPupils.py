@@ -26,7 +26,7 @@ resultIndex = 0
 count = 0
 for coursesIndex, coursesValues in courses.iterrows():
 	count = count + 1
-	if count < 100:
+	if count < 1000:
 		# CSV Format from GAM report:
 		# courseId,courseName,userRole,userId,profile.emailAddress,profile.id,profile.name.familyName,profile.name.fullName,profile.name.givenName,profile.permissions,profile.permissions.0.permission,profile.photoUrl,profile.verifiedTeacher
 		members = pandas.read_csv(io.StringIO(dataLib.runCommand("gam print course-participants course " + str(coursesValues["id"]) + " show all")))
