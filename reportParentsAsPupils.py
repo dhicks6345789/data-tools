@@ -10,7 +10,7 @@ config = dataLib.loadConfig(["dataFolder"])
 
 # Make sure the output folder exists.
 reportsRoot = config["dataFolder"] + os.sep + "Reports"
-outputRoot reportsRoot + os.sep + "Parents Joined To Classrooms As Pupils"
+outputRoot = reportsRoot + os.sep + "Parents Joined To Classrooms As Pupils"
 os.makedirs(outputRoot, exist_ok=True)
 
 # Input data headings:
