@@ -10,7 +10,6 @@ config = dataLib.loadConfig(["dataFolder"])
 
 # Make sure the output folder exists.
 reportsRoot = config["dataFolder"] + os.sep + "Reports"
-os.makedirs(outputRoot, exist_ok=True)
 
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + "userActivity.csv", header=0)
