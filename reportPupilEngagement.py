@@ -26,18 +26,7 @@ for yearGroup in yearGroups.keys():
 	for pupilsIndex, pupilsValues in pupils.iterrows():
 		if pupilsValues["YearGroup"] == yearGroup:
 			for activityIndex, activityValues in activity.iterrows():
-				if activityValue["email"] == pupilsValues["OldUsername"] + "@knightsbridgeschool.com":
-					print(activityValue["email"])
-#	count = count + 1
-#	if count < 1000:
-		# CSV Format from GAM report:
-		# courseId,courseName,userRole,userId,profile.emailAddress,profile.id,profile.name.familyName,profile.name.fullName,profile.name.givenName,profile.permissions,profile.permissions.0.permission,profile.photoUrl,profile.verifiedTeacher
-#		members = pandas.read_csv(io.StringIO(dataLib.runCommand("gam print course-participants course " + str(coursesValues["id"]) + " show all")))
-#		for membersIndex, membersValues in members.iterrows():
-#			if not membersValues["profile.emailAddress"].endswith("@knightsbridgeschool.com"):
-#				parentsAsPupils.at[resultIndex, "Email"] = membersValues["profile.emailAddress"]
-#				parentsAsPupils.at[resultIndex, "Classroom Name"] = str(coursesValues["name"])
-#				parentsAsPupils.at[resultIndex, "Classroom ID"] = str(coursesValues["id"])
-#				resultIndex = resultIndex + 1
-	
+				if activityValues["email"] == pupilsValues["OldUsername"] + "@knightsbridgeschool.com":
+					print(activityValues["email"])
+
 #parentsAsPupils.to_csv(outputRoot + os.sep + "report.csv", index=False)
