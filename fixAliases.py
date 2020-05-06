@@ -12,8 +12,12 @@ config = dataLib.loadConfig(["dataFolder"])
 reportsRoot = config["dataFolder"] + os.sep + "Reports"
 
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
+oldPupilUsernames = pupils["OldUsername"].tolist()
+newPupilUsernames = pupils["Username"].tolist()
+
 activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + "userActivity.csv", header=0)
 
 for activityIndex, activityValues in activity.iterrows():
-	print(activityValues["email"])
-	#pupilsValues["OldUsername"] + "@knightsbridgeschool.com":
+	username = activityValues["email"].split("@")[0]
+	if username in newPupilUsernames and activityValues["accounts:last_login_time"] == "Never":
+		print username
