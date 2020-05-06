@@ -17,7 +17,7 @@ os.makedirs(outputRoot, exist_ok=True)
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + "userActivity.csv", header=0)
 
-report = pandas.DataFrame(columns=["Name","Username","Yeargroup"])
+report = pandas.DataFrame(columns=["Name","Username","Yeargroup","ClassroomLastInteractionTime"])
 
 yearGroups = {}
 for pupilsIndex, pupilsValues in pupils.iterrows():
@@ -31,7 +31,7 @@ for yearGroup in yearGroups.keys():
 					report.at[reportIndex, "Name"] = pupilsValues["GivenName"] + " " + pupilsValues["FamilyName"]
 					report.at[reportIndex, "Username"] = pupilsValues["OldUsername"]
 					report.at[reportIndex, "Yeargroup"] = yearGroup
-					#activityValues["email"]
+					report.at[reportIndex, "ClassroomLastInteractionTime"] = activityValues["classroom:last_interaction_time"]
 					reportIndex = reportIndex + 1
 
 report.to_csv(outputRoot + os.sep + "report.csv", index=False)
