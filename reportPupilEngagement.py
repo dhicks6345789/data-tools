@@ -22,8 +22,12 @@ activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + 
 yearGroups = {}
 for pupilsIndex, pupilsValues in pupils.iterrows():
 	yearGroups[pupilsValues["YearGroup"]] = 1
-yearGroups = yearGroups.keys()
-print(yearGroups)
+for yearGroup in yearGroups.keys():
+	for pupilsIndex, pupilsValues in pupils.iterrows():
+		if pupilsValues["YearGroup"] == yearGroup:
+			for activityIndex, activityValues in activity.iterrows():
+				if activityValue["email"] == pupilsValues["OldUsername"] + "@knightsbridgeschool.com":
+					print(activityValue["email"])
 #	count = count + 1
 #	if count < 1000:
 		# CSV Format from GAM report:
