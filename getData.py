@@ -29,5 +29,9 @@ users.to_csv(config["dataFolder"] + os.sep + "users.csv", index=False)
 print("Getting course list from Google Classroom.")
 os.system("gam print courses > \"" + config["dataFolder"] + os.sep + "courses.csv\"")
 
+# Get a report on user activity, output in CSV format directly from GAM.
+print("Getting user activity report from GSuite.")
+os.system("gam report users > \"" + config["dataFolder"] + os.sep + "Reports" + os.sep + "userActivity.csv\"")
+
 print("Getting groups list from GSuite.")
 os.system("gam print groups name description admincreated id aliases members owners managers settings > \"" + config["dataFolder"] + os.sep + "groups.csv\"")
