@@ -19,12 +19,16 @@ os.makedirs(outputRoot, exist_ok=True)
 # Output in CSV format:
 #parentsAsPupils = pandas.DataFrame(columns=["First Name","Last Name","Email","Classroom Name","Classroom ID","Classroom Teachers"])
 
-#parents = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
-#courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=0)
+pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
+activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + "userActivity.csv", header=0)
 
 #resultIndex = 0
 #count = 0
-#for coursesIndex, coursesValues in courses.iterrows():
+yearGroups = {}
+for pupilsIndex, pupilsValues in courses.iterrows():
+	yearGroups[pupilsValues["YearGroup"]] = 1
+yearGroups = yearGroups.keys()
+print(yearGroups)
 #	count = count + 1
 #	if count < 1000:
 		# CSV Format from GAM report:
