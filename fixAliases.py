@@ -17,6 +17,6 @@ pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 for activityIndex, activityValues in activity.iterrows():
 	username = activityValues["email"].split("@")[0]
 	for pupilsIndex, pupilsValues in pupils.iterrows():
-		if pupilsValues["OldUsername"] == username and username.endswith("17") and activityValues["accounts:last_login_time"] == "Never":
+		if pupilsValues["Username"] == username and username.endswith("17") and activityValues["accounts:last_login_time"] == "Never":
 			print("gam delete user " + username)
-			print("gam make alias for " + pupilsValues["Username"] + " as " + username)
+			print("gam make alias for " + pupilsValues["OldUsername"] + " as " + username)
