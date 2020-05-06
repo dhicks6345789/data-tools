@@ -14,18 +14,13 @@ reportsRoot = config["dataFolder"] + os.sep + "Reports"
 outputRoot = reportsRoot + os.sep + "Pupil Engagement"
 os.makedirs(outputRoot, exist_ok=True)
 
-# Input data headings:
-# Parents:
-# Output in CSV format:
-#parentsAsPupils = pandas.DataFrame(columns=["First Name","Last Name","Email","Classroom Name","Classroom ID","Classroom Teachers"])
-
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + "userActivity.csv", header=0)
 
 #resultIndex = 0
 #count = 0
 yearGroups = {}
-for pupilsIndex, pupilsValues in courses.iterrows():
+for pupilsIndex, pupilsValues in pupils.iterrows():
 	yearGroups[pupilsValues["YearGroup"]] = 1
 yearGroups = yearGroups.keys()
 print(yearGroups)
