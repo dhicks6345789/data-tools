@@ -32,6 +32,6 @@ for yearGroup in yearGroups.keys():
 					report.at[reportIndex, "Username"] = pupilsValues["OldUsername"]
 					report.at[reportIndex, "Yeargroup"] = yearGroup
 					#activityValues["email"]
-					reportIndex = resultIndex + 1
+					reportIndex = reportIndex + 1
 
 report.to_csv(outputRoot + os.sep + "report.csv", index=False)
