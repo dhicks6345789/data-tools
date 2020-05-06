@@ -20,4 +20,4 @@ activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + 
 for activityIndex, activityValues in activity.iterrows():
 	username = activityValues["email"].split("@")[0]
 	if username in newPupilUsernames and username.endswith("17") and activityValues["accounts:last_login_time"] == "Never":
-		print(username)
+		print("gam delete user " + username)
