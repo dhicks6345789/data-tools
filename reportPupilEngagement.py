@@ -51,4 +51,10 @@ for yearGroup in yearGroups.keys():
 						report.at[reportIndex, "ClassroomLastInteractionTime"] = activityValues["classroom:last_interaction_time"]
 						reportIndex = reportIndex + 1
 
+# Write out the CSV report.
 report.to_csv(outputRoot + os.sep + "report.csv", index=False)
+
+for yearGroup in yearGroups.keys():
+	for reportIndex, reportValues in report.iterrows():
+		if reportValues["Yeargroup"] == yearGroup:
+			print(reportValues)
