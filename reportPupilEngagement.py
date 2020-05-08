@@ -77,7 +77,7 @@ for yearGroup in yearGroups.keys():
 	# Draw the form name and column headers.
 	pdfCanvas.drawString(leftBorder*reportlab.lib.units.mm, (pageHeight-topBorder)*reportlab.lib.units.mm, "Year: " + str(yearGroup))
 	for columnName in columnNames:
-		pdfCanvas.drawString((leftBorder+columnPos["columnName"])*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, columnName)	
+		pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, columnName)	
 	for reportIndex, reportValues in report.iterrows():
 		if reportValues["Yeargroup"] == yearGroup:
 			for columnName in columnNames:
