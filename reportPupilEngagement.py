@@ -33,11 +33,11 @@ report = pandas.DataFrame(columns=columnNames)
 
 yearGroups = {}
 for pupilsIndex, pupilsValues in pupils.iterrows():
-	yearGroups[pupilsValues["YearGroup"]] = 1
+	yearGroups[dataLib.yearCohortToGroup(pupilsValues["YearGroup"])] = 1
 reportIndex = 0
 for yearGroup in yearGroups.keys():
 	for pupilsIndex, pupilsValues in pupils.iterrows():
-		if pupilsValues["YearGroup"] == yearGroup:
+		if dataLib.yearCohortToGroup(pupilsValues["YearGroup"]) == yearGroup:
 			for activityIndex, activityValues in activity.iterrows():
 				username = ""
 				if activityValues["email"] == pupilsValues["Username"] + "@knightsbridgeschool.com":
@@ -57,7 +57,7 @@ for yearGroup in yearGroups.keys():
 						reportIndex = reportIndex + 1
 					report.at[indexToUse, "Name"] = pupilsValues["GivenName"] + " " + pupilsValues["FamilyName"]
 					report.at[indexToUse, "Username"] = username
-					report.at[indexToUse, "Yeargroup"] = yearGroup
+					report.at[indexToUse, "Yeargroup"] = dataLib.yearCohortToGroup(yearGroup)
 					report.at[indexToUse, "AccountsLastLoginTime"] = activityValues["accounts:last_login_time"]
 					report.at[indexToUse, "ClassroomLastInteractionTime"] = activityValues["classroom:last_interaction_time"]
 
