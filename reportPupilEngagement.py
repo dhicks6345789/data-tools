@@ -74,13 +74,16 @@ topBorder = 10
 
 for yearGroup in yearGroups.keys():
 	pdfCanvas = reportlab.pdfgen.canvas.Canvas(outputRoot + os.sep + "Year " + str(yearGroup) + ".pdf")
-	# Draw the form name and column headers.
+	# Draw the report name and column headers.
 	pdfCanvas.drawString(leftBorder*reportlab.lib.units.mm, (pageHeight-topBorder)*reportlab.lib.units.mm, "Year: " + str(yearGroup))
 	for columnName in columnNames:
 		pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, columnName)	
+	# Draw each line.
+	lineNumber = 1
 	for reportIndex, reportValues in report.iterrows():
 		if reportValues["Yeargroup"] == yearGroup:
 			for columnName in columnNames:
-				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, str(reportValues[columnName]))
+				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, str(reportValues[columnName]))
+				lineNumber = lineNumber + 1
 	# Save the PDF document.
 	pdfCanvas.save()
