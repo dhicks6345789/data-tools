@@ -27,7 +27,7 @@ os.makedirs(outputRoot, exist_ok=True)
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + "userActivity.csv", header=0)
 
-columnPos = {"Name":0,"Username":110,"Yeargroup":150,"AccountsLastLoginTime":170,"ClassroomLastInteractionTime":200}
+columnPos = {"Name":0,"Username":80,"Yeargroup":120,"AccountsLastLoginTime":140,"ClassroomLastInteractionTime":170}
 columnNames = columnPos.keys()
 report = pandas.DataFrame(columns=columnNames)
 
@@ -79,7 +79,7 @@ for yearGroup in yearGroups.keys():
 	for columnName in columnNames:
 		pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, columnName)	
 	# Draw each line.
-	lineNumber = 1
+	lineNumber = 2
 	for reportIndex, reportValues in report.iterrows():
 		if reportValues["Yeargroup"] == yearGroup:
 			for columnName in columnNames:
