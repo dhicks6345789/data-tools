@@ -35,26 +35,23 @@ for yearGroup in yearGroups.keys():
 					username = pupilsValues["OldUsername"]
 					altUsername = pupilsValues["Username"]
 				if not username == "":
+					indexToUse = reportIndex
 					usernameList = report["Username"].tolist()
 					if altUsername in usernameList:
 						altUsernameIndex = usernameList.index(altUsername)
 						if report.at[altUsernameIndex, "ClassroomLastInteractionTime"] == "Never":
-							if not activityValues["classroom:last_interaction_time"] == "Never":
-								report.at[altUsernameIndex, "Name"] = pupilsValues["GivenName"] + " " + pupilsValues["FamilyName"]
-								report.at[altUsernameIndex, "Username"] = username
-								report.at[altUsernameIndex, "Yeargroup"] = yearGroup
-								report.at[altUsernameIndex, "ClassroomLastInteractionTime"] = activityValues["classroom:last_interaction_time"]
+							indexToUse = altUsernameIndex
 					else:
-						report.at[reportIndex, "Name"] = pupilsValues["GivenName"] + " " + pupilsValues["FamilyName"]
-						report.at[reportIndex, "Username"] = username
-						report.at[reportIndex, "Yeargroup"] = yearGroup
-						report.at[reportIndex, "ClassroomLastInteractionTime"] = activityValues["classroom:last_interaction_time"]
 						reportIndex = reportIndex + 1
+					report.at[indexToUse, "Name"] = pupilsValues["GivenName"] + " " + pupilsValues["FamilyName"]
+					report.at[indexToUse, "Username"] = username
+					report.at[indexToUse, "Yeargroup"] = yearGroup
+					report.at[indexToUse, "ClassroomLastInteractionTime"] = activityValues["classroom:last_interaction_time"]
 
 # Write out the CSV report.
 report.to_csv(outputRoot + os.sep + "report.csv", index=False)
 
-for yearGroup in yearGroups.keys():
-	for reportIndex, reportValues in report.iterrows():
-		if reportValues["Yeargroup"] == yearGroup:
-			print(reportValues)
+#for yearGroup in yearGroups.keys():
+#	for reportIndex, reportValues in report.iterrows():
+#		if reportValues["Yeargroup"] == yearGroup:
+#			print(reportValues)
