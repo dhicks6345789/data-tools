@@ -35,16 +35,16 @@ for yearGroup in yearGroups.keys():
 					username = pupilsValues["OldUsername"]
 					altUsername = pupilsValues["Username"]
 				if not username == "":
-					setReport = False
 					usernameList = report["Username"].tolist()
 					if altUsername in usernameList:
 						altUsernameIndex = usernameList.index(altUsername)
 						if report.at[altUsernameIndex, "ClassroomLastInteractionTime"] == "Never":
 							if not activityValues["classroom:last_interaction_time"] == "Never":
-								setReport = True
+								report.at[altUsernameIndex, "Name"] = pupilsValues["GivenName"] + " " + pupilsValues["FamilyName"]
+								report.at[altUsernameIndex, "Username"] = altUsername
+								report.at[altUsernameIndex, "Yeargroup"] = yearGroup
+								report.at[altUsernameIndex, "ClassroomLastInteractionTime"] = activityValues["classroom:last_interaction_time"]
 					else:
-						setReport = True
-					if setReport:
 						report.at[reportIndex, "Name"] = pupilsValues["GivenName"] + " " + pupilsValues["FamilyName"]
 						report.at[reportIndex, "Username"] = username
 						report.at[reportIndex, "Yeargroup"] = yearGroup
