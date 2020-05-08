@@ -6,6 +6,16 @@ import json
 import pandas
 import dataLib
 
+# ReportLab - used for PDF document generation.
+import reportlab.lib.units
+import reportlab.lib.utils
+import reportlab.lib.colors
+import reportlab.pdfgen.canvas
+import reportlab.lib.pagesizes
+import reportlab.graphics.renderPM
+
+
+
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
 
@@ -17,7 +27,9 @@ os.makedirs(outputRoot, exist_ok=True)
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + "userActivity.csv", header=0)
 
-report = pandas.DataFrame(columns=["Name","Username","Yeargroup","AccountsLastLoginTime","ClassroomLastInteractionTime"])
+columnPos = {"Name":0,"Username":110,"Yeargroup":150,"AccountsLastLoginTime":170,"ClassroomLastInteractionTime":200}
+columnNames = columnPos.keys()
+report = pandas.DataFrame(columns=columnNames)
 
 yearGroups = {}
 for pupilsIndex, pupilsValues in pupils.iterrows():
@@ -52,7 +64,24 @@ for yearGroup in yearGroups.keys():
 # Write out the CSV report.
 report.to_csv(outputRoot + os.sep + "report.csv", index=False)
 
-#for yearGroup in yearGroups.keys():
-#	for reportIndex, reportValues in report.iterrows():
-#		if reportValues["Yeargroup"] == yearGroup:
-#			print(reportValues)
+# Get ready to write out a formatted PDF document per year group.
+# We are printing on A4 paper - set the page size and borders, in mm.
+pageWidth = 210
+pageHeight = 297
+lineHeight = 8
+leftBorder = 10
+topBorder = 10
+
+for yearGroup in yearGroups.keys():
+	pdfCanvas = reportlab.pdfgen.canvas.Canvas(outputRoot + os.sep + "Year " + yearGroup + ".pdf")
+	# Draw the form name and column headers.
+	pdfCanvas.drawString(leftBorder*reportlab.lib.units.mm, (pageHeight-topBorder)*reportlab.lib.units.mm, "Year: " + yearGroup)
+	for columnName in columnNames:
+		pdfCanvas.drawString((leftBorder+columnPos["columnName"])*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, columnName)	
+	for reportIndex, reportValues in report.iterrows():
+		if reportValues["Yeargroup"] == yearGroup:
+			for columnName in columnNames:
+				pdfCanvas.drawString((leftBorder+columnPos["columnName"])*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, reportValues[columnName])
+			
+	# Save the PDF document.
+	pdfCanvas.save()
