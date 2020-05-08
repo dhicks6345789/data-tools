@@ -6,6 +6,11 @@ import json
 import pandas
 import dataLib
 
+# PIL - the Python Image Library, used for bitmap image manipulation.
+import PIL
+import PIL.ImageFont
+import PIL.ImageDraw
+
 # ReportLab - used for PDF document generation.
 import reportlab.lib.units
 import reportlab.lib.utils
@@ -72,6 +77,9 @@ lineHeight = 8
 leftBorder = 10
 topBorder = 10
 
+# A mid-gray background to make following lines on the page a bit easier.
+lineImage = PIL.Image.new("RGB", (pageWidth-(leftBorder*2), lineHeight), (200, 200, 200))
+
 for yearGroup in yearGroups.keys():
 	pdfCanvas = reportlab.pdfgen.canvas.Canvas(outputRoot + os.sep + yearGroup + ".pdf")
 	# Draw the report name and column headers.
@@ -83,6 +91,8 @@ for yearGroup in yearGroups.keys():
 	for reportIndex, reportValues in report.iterrows():
 		if reportValues["Yeargroup"] == yearGroup:
 			for columnName in columnNames:
+				if lineNumber % 2 == 0:
+					pdfCanvas.drawInlineImage(lineImage, leftBorder*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(lineNumber-(0*36))))-(topBorder+lineHeight/4))*reportlab.lib.units.mm, (pageWidth-(leftBorder*2))*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
 				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, str(reportValues[columnName]))
 			lineNumber = lineNumber + 1
 	# Save the PDF document.
