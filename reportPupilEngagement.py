@@ -17,7 +17,7 @@ os.makedirs(outputRoot, exist_ok=True)
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + "userActivity.csv", header=0)
 
-report = pandas.DataFrame(columns=["Name","Username","Yeargroup","ClassroomLastInteractionTime"])
+report = pandas.DataFrame(columns=["Name","Username","Yeargroup","AccountsLastLoginTime","ClassroomLastInteractionTime"])
 
 yearGroups = {}
 for pupilsIndex, pupilsValues in pupils.iterrows():
@@ -39,13 +39,14 @@ for yearGroup in yearGroups.keys():
 					usernameList = report["Username"].tolist()
 					if altUsername in usernameList:
 						altUsernameIndex = usernameList.index(altUsername)
-						if report.at[altUsernameIndex, "ClassroomLastInteractionTime"] == "Never":
+						if report.at[altUsernameIndex, "AccountsLastLoginTime"] == "Never":
 							indexToUse = altUsernameIndex
 					else:
 						reportIndex = reportIndex + 1
 					report.at[indexToUse, "Name"] = pupilsValues["GivenName"] + " " + pupilsValues["FamilyName"]
 					report.at[indexToUse, "Username"] = username
 					report.at[indexToUse, "Yeargroup"] = yearGroup
+					report.at[indexToUse, "AccountsLastLoginTime"] = activityValues["accounts:last_login_time"]
 					report.at[indexToUse, "ClassroomLastInteractionTime"] = activityValues["classroom:last_interaction_time"]
 
 # Write out the CSV report.
