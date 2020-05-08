@@ -101,3 +101,27 @@ def writeDataframeFile(theFilename, theDataframe):
 			os.remove("temp.xlsx")
 		else:
 			os.replace("temp.xlsx", theFilename)
+
+def yearCohortToGroup(theCohort):
+	cohort = str(theCohort)
+	if cohort == "12":
+		return "8"
+	elif cohort == "13":
+		return "7"
+	elif cohort == "14":
+		return "6"
+	elif cohort == "15":
+		return "5"
+	elif cohort == "16":
+		return "4"
+	elif cohort == "17":
+		return "3"
+	elif cohort == "18":
+		return "2"
+	elif cohort == "19":
+		return "1"
+	elif cohort == "20":
+		return "Reception"
+	elif cohort == "21":
+		return "Nursery"
+	return cohort
