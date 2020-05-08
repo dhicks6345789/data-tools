@@ -84,6 +84,6 @@ for yearGroup in yearGroups.keys():
 		if reportValues["Yeargroup"] == yearGroup:
 			for columnName in columnNames:
 				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, str(reportValues[columnName]))
-				lineNumber = lineNumber + 1
+			lineNumber = lineNumber + 1
 	# Save the PDF document.
 	pdfCanvas.save()
