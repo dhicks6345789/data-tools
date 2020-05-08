@@ -40,7 +40,7 @@ for yearGroup in yearGroups.keys():
 					if altUsername in usernameList:
 						altUsernameIndex = usernameList.index(altUsername)
 						if report.at[altUsernameIndex, "ClassroomLastInteractionTime"] == "Never":
-							if not report.at[reportIndex, "Username"] == "Never":
+							if not activityValues["classroom:last_interaction_time"] == "Never":
 								setReport = True
 					else:
 						setReport = True
