@@ -27,7 +27,7 @@ os.makedirs(outputRoot, exist_ok=True)
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + "userActivity.csv", header=0)
 
-columnPos = {"Name":0,"Username":80,"Yeargroup":120,"AccountsLastLoginTime":140,"ClassroomLastInteractionTime":170}
+columnPos = {"Name":0,"Username":70,"Yeargroup":110,"AccountsLastLoginTime":130,"ClassroomLastInteractionTime":160}
 columnNames = columnPos.keys()
 report = pandas.DataFrame(columns=columnNames)
 
