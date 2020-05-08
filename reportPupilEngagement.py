@@ -27,9 +27,16 @@ for yearGroup in yearGroups.keys():
 	for pupilsIndex, pupilsValues in pupils.iterrows():
 		if pupilsValues["YearGroup"] == yearGroup:
 			for activityIndex, activityValues in activity.iterrows():
-				if activityValues["email"] == pupilsValues["OldUsername"] + "@knightsbridgeschool.com":
+				username = ""
+				if activityValues["email"] == pupilsValues["Username"] + "@knightsbridgeschool.com":
+					username = pupilsValues["Username"]
+					altUsername = pupilsValues["OldUsername"]
+				elif activityValues["email"] == pupilsValues["OldUsername"] + "@knightsbridgeschool.com":
+					username = pupilsValues["OldUsername"]
+					altUsername = pupilsValues["Username"]
+				if not username == "":
 					report.at[reportIndex, "Name"] = pupilsValues["GivenName"] + " " + pupilsValues["FamilyName"]
-					report.at[reportIndex, "Username"] = pupilsValues["OldUsername"]
+					report.at[reportIndex, "Username"] = username
 					report.at[reportIndex, "Yeargroup"] = yearGroup
 					report.at[reportIndex, "ClassroomLastInteractionTime"] = activityValues["classroom:last_interaction_time"]
 					reportIndex = reportIndex + 1
