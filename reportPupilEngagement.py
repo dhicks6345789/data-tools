@@ -73,7 +73,7 @@ leftBorder = 10
 topBorder = 10
 
 for yearGroup in yearGroups.keys():
-	pdfCanvas = reportlab.pdfgen.canvas.Canvas(outputRoot + os.sep + "Year " + yearGroup + ".pdf")
+	pdfCanvas = reportlab.pdfgen.canvas.Canvas(outputRoot + os.sep + "Year " + str(yearGroup) + ".pdf")
 	# Draw the form name and column headers.
 	pdfCanvas.drawString(leftBorder*reportlab.lib.units.mm, (pageHeight-topBorder)*reportlab.lib.units.mm, "Year: " + yearGroup)
 	for columnName in columnNames:
