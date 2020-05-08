@@ -41,7 +41,7 @@ for yearGroup in yearGroups.keys():
 						if report.at[altUsernameIndex, "ClassroomLastInteractionTime"] == "Never":
 							if not activityValues["classroom:last_interaction_time"] == "Never":
 								report.at[altUsernameIndex, "Name"] = pupilsValues["GivenName"] + " " + pupilsValues["FamilyName"]
-								report.at[altUsernameIndex, "Username"] = altUsername
+								report.at[altUsernameIndex, "Username"] = username
 								report.at[altUsernameIndex, "Yeargroup"] = yearGroup
 								report.at[altUsernameIndex, "ClassroomLastInteractionTime"] = activityValues["classroom:last_interaction_time"]
 					else:
