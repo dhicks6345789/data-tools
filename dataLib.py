@@ -105,21 +105,21 @@ def writeDataframeFile(theFilename, theDataframe):
 def yearCohortToGroup(theCohort):
 	cohort = str(theCohort)
 	if cohort == "12":
-		return "8"
+		return "Year 8"
 	elif cohort == "13":
-		return "7"
+		return "Year 7"
 	elif cohort == "14":
-		return "6"
+		return "Year 6"
 	elif cohort == "15":
-		return "5"
+		return "Year 5"
 	elif cohort == "16":
-		return "4"
+		return "Year 4"
 	elif cohort == "17":
-		return "3"
+		return "Year 3"
 	elif cohort == "18":
-		return "2"
+		return "Year 2"
 	elif cohort == "19":
-		return "1"
+		return "Year 1"
 	elif cohort == "20":
 		return "Reception"
 	elif cohort == "21":
