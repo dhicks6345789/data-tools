@@ -102,14 +102,13 @@ for yearGroup in yearGroups.keys():
 			for columnName in columnNames:
 				if lineNumber % 2 == 0:
 					pdfCanvas.drawInlineImage(lineImage, leftBorder*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(lineNumber+1))-(int(lineHeight/4)))-topBorder)*reportlab.lib.units.mm, (pageWidth-(leftBorder*2))*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
-				pdfCanvas.setStrokeColorRGB(0,0,0)
+				pdfCanvas.setFillColorRGB(0,0,0)
 				columnValue = str(reportValues[columnName])
 				if columnName == "Login" and not columnValue == "Never":
 					days = (datetime.datetime.now() - datetime.datetime.strptime(columnValue, "%Y-%m-%dT%H:%M:%S.%fZ")).days
 					columnValue = str(days)
 					days = constrainInt(days, 2, 10) / 10
 					print(days)
-					pdfCanvas.setStrokeColorRGB(days,1-days,0)
 					pdfCanvas.setFillColorRGB(days,1-days,0)
 				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, columnValue)
 			lineNumber = lineNumber + 1
