@@ -95,7 +95,7 @@ for yearGroup in yearGroups.keys():
 				if lineNumber % 2 == 0:
 					pdfCanvas.drawInlineImage(lineImage, leftBorder*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(lineNumber+1))-(int(lineHeight/4)))-topBorder)*reportlab.lib.units.mm, (pageWidth-(leftBorder*2))*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
 					columnValue = str(reportValues[columnName])
-					if columnName == "Year":
+					if columnName == "Login":
 						columnValue = datetime.date.today() - datetime.datetime.strptime(columnValue, "%Y-%m-%dT%H:&M:%S.%fZ")
 						columnValue = str(columnValue)
 						print(columnValue)
