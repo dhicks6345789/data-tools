@@ -92,6 +92,7 @@ lineImage = PIL.Image.new("RGB", (pageWidth-(leftBorder*2), lineHeight), (200, 2
 
 for yearGroup in yearGroups.keys():
 	print("Generating report: " + yearGroup + ".pdf")
+	pageNumber = 0
 	pdfCanvas = reportlab.pdfgen.canvas.Canvas(outputRoot + os.sep + yearGroup + ".pdf")
 	# Draw the report name and column headers.
 	pdfCanvas.drawString(leftBorder*reportlab.lib.units.mm, (pageHeight-topBorder)*reportlab.lib.units.mm, "Year: " + str(yearGroup))
@@ -113,8 +114,10 @@ for yearGroup in yearGroups.keys():
 					columnValue = str(days)
 					colourValue = intToConstrainedPercentage(days, 3, 8)
 					pdfCanvas.setFillColorRGB(colourValue,1-colourValue,0)
-
 				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, columnValue)
 			lineNumber = lineNumber + 1
+			if pupilNumber == 36:
+				pdfCanvas.showPage()
+				pageNumber = pageNumber + 1
 	# Save the PDF document.
 	pdfCanvas.save()
