@@ -92,15 +92,15 @@ lineImage = PIL.Image.new("RGB", (pageWidth-(leftBorder*2), lineHeight), (200, 2
 
 for yearGroup in yearGroups.keys():
 	print("Generating report: " + yearGroup + ".pdf")
-	pageNumber = 0
-	pdfCanvas = reportlab.pdfgen.canvas.Canvas(outputRoot + os.sep + yearGroup + ".pdf")
-	# Draw the report name and column headers.
-	pdfCanvas.drawString(leftBorder*reportlab.lib.units.mm, (pageHeight-topBorder)*reportlab.lib.units.mm, "Year: " + str(yearGroup))
-	for columnName in columnNames:
-		pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, columnName)	
-	# Draw each line.
-	lineNumber = 2
+	lineNumber = 1
+	pdfCanvas = reportlab.pdfgen.canvas.Canvas(outputRoot + os.sep + yearGroup + ".pdf")	
 	for reportIndex, reportValues in report.iterrows():
+		# Draw the report name and column headers.
+		if lineNumber == 1:
+			pdfCanvas.drawString(leftBorder*reportlab.lib.units.mm, (pageHeight-topBorder)*reportlab.lib.units.mm, "Year: " + str(yearGroup))
+			for columnName in columnNames:
+				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, columnName)
+			lineNumber = 2
 		if reportValues["Year"] == yearGroup:
 			for columnName in columnNames:
 				if lineNumber % 2 == 0:
@@ -117,8 +117,7 @@ for yearGroup in yearGroups.keys():
 				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, columnValue)
 			lineNumber = lineNumber + 1
 			if lineNumber == 36:
-				lineNumber = 1
 				pdfCanvas.showPage()
-				pageNumber = pageNumber + 1
+				lineNumber = 1
 	# Save the PDF document.
 	pdfCanvas.save()
