@@ -20,13 +20,13 @@ import reportlab.pdfgen.canvas
 import reportlab.lib.pagesizes
 import reportlab.graphics.renderPM
 
-def constrainInt(theValue, theMin, theMax):
+def intToConstrainedPercentage(theValue, theMin, theMax):
 	result = theValue
 	if result < theMin:
 		result = theMin
 	if result > theMax:
 		result = theMax
-	return result
+	return (result - theMin) / (theMax - theMin)
 
 		
 		
@@ -109,7 +109,7 @@ for yearGroup in yearGroups.keys():
 				if columnName == "Login" and not columnValue == "Never":
 					days = (datetime.datetime.now() - datetime.datetime.strptime(columnValue, "%Y-%m-%dT%H:%M:%S.%fZ")).days
 					columnValue = str(days)
-					colourValue = (constrainInt(days, 3, 10) - 3) / 7
+					colourValue = intToConstrainedPercentage(days, 3, 10)
 					print(colourValue)
 					pdfCanvas.setFillColorRGB(colourValue,1-Value,0)
 				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, columnValue)
