@@ -108,6 +108,7 @@ for yearGroup in yearGroups.keys():
 					days = (datetime.datetime.now() - datetime.datetime.strptime(columnValue, "%Y-%m-%dT%H:%M:%S.%fZ")).days
 					columnValue = str(days)
 					days = constrainInt(days, 2, 10) / 10
+					print(days)
 					pdfCanvas.setStrokeColorRGB(days,1-days,0)
 				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, columnValue)
 			lineNumber = lineNumber + 1
