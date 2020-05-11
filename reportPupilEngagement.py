@@ -109,9 +109,10 @@ for yearGroup in yearGroups.keys():
 				if columnName == "Login" and not columnValue == "Never":
 					days = (datetime.datetime.now() - datetime.datetime.strptime(columnValue, "%Y-%m-%dT%H:%M:%S.%fZ")).days
 					columnValue = str(days)
-					colourValue = intToConstrainedPercentage(days, 3, 10)
-					print(colourValue)
+					colourValue = intToConstrainedPercentage(days, 3, 8)
 					pdfCanvas.setFillColorRGB(colourValue,1-colourValue,0)
+				elif columnName == "Year":
+					columnValue = columnValue.replace("Reception","Rec").replace("Year ","")
 				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, columnValue)
 			lineNumber = lineNumber + 1
 	# Save the PDF document.
