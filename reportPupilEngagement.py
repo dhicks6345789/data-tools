@@ -41,7 +41,7 @@ os.makedirs(outputRoot, exist_ok=True)
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + "userActivity.csv", header=0)
 
-columnPos = {"Name":0,"Username":70,"Year":100,"Activity":115,"Login":0,"Classroom":0}
+columnPos = {"Name":0,"Username":70,"Year":100,"Activity":115,"Login":None,"Classroom":None}
 columnNames = columnPos.keys()
 report = pandas.DataFrame(columns=columnNames)
 
@@ -103,7 +103,7 @@ for yearGroup in yearGroups.keys():
 			lineNumber = 2
 		if reportValues["Year"] == yearGroup:
 			for columnName in columnNames:
-				if not columnPos[columnName] == 0:
+				if not columnPos[columnName] == None:
 					if lineNumber % 2 == 0:
 						pdfCanvas.drawInlineImage(lineImage, leftBorder*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(lineNumber+1))-(int(lineHeight/4)))-topBorder)*reportlab.lib.units.mm, (pageWidth-(leftBorder*2))*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
 					pdfCanvas.setFillColorRGB(0,0,0)
