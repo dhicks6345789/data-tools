@@ -90,9 +90,12 @@ for yearGroup in yearGroups.keys():
 						lastActivity = lastClassroomDays
 					else:
 						lastActivity = lastLoginDays
-					days = (datetime.datetime.now() - datetime.datetime.strptime(lastActivity, "%Y-%m-%dT%H:%M:%S.%fZ")).days					
-					# pdfCanvas.setFillColorRGB(colourValue,1-colourValue,0)
-					report.at[indexToUse, "Activity"] = 1 - intToConstrainedPercentage(days, 3, 8)
+					if lastActivity == "Never":
+						report.at[indexToUse, "Activity"] = "Never"
+					else:
+						days = (datetime.datetime.now() - datetime.datetime.strptime(lastActivity, "%Y-%m-%dT%H:%M:%S.%fZ")).days					
+						# pdfCanvas.setFillColorRGB(colourValue,1-colourValue,0)
+						report.at[indexToUse, "Activity"] = 1 - intToConstrainedPercentage(days, 3, 8)
 
 # Write out the CSV report.
 report.to_csv(outputRoot + os.sep + "report.csv", index=False)
