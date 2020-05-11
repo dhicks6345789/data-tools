@@ -106,13 +106,14 @@ for yearGroup in yearGroups.keys():
 					pdfCanvas.drawInlineImage(lineImage, leftBorder*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(lineNumber+1))-(int(lineHeight/4)))-topBorder)*reportlab.lib.units.mm, (pageWidth-(leftBorder*2))*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
 				pdfCanvas.setFillColorRGB(0,0,0)
 				columnValue = str(reportValues[columnName])
-				if columnName == "Login" and not columnValue == "Never":
+				if columnName == "Year":
+					columnValue = columnValue.replace("Reception","Rec").replace("Year ","")
+				elif (columnName == "Login" or columnName == "Classroom") and not columnValue == "Never":
 					days = (datetime.datetime.now() - datetime.datetime.strptime(columnValue, "%Y-%m-%dT%H:%M:%S.%fZ")).days
 					columnValue = str(days)
 					colourValue = intToConstrainedPercentage(days, 3, 8)
 					pdfCanvas.setFillColorRGB(colourValue,1-colourValue,0)
-				elif columnName == "Year":
-					columnValue = columnValue.replace("Reception","Rec").replace("Year ","")
+
 				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, columnValue)
 			lineNumber = lineNumber + 1
 	# Save the PDF document.
