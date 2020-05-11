@@ -109,7 +109,7 @@ for yearGroup in yearGroups.keys():
 				if columnName == "Login" and not columnValue == "Never":
 					days = (datetime.datetime.now() - datetime.datetime.strptime(columnValue, "%Y-%m-%dT%H:%M:%S.%fZ")).days
 					columnValue = str(days)
-					days = constrainInt(days, 2, 8) / 8
+					days = constrainInt(days, 4, 6) / 6
 					print(days)
 					pdfCanvas.setFillColorRGB(days,1-days,0)
 				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, columnValue)
