@@ -41,7 +41,7 @@ os.makedirs(outputRoot, exist_ok=True)
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + "userActivity.csv", header=0)
 
-columnPos = {"Name":0,"Username":70,"Year":100,"Login/Activity":115}
+columnPos = {"Name":0,"Username":70,"Year":100,"Login/Activity":115,"Login":0,"Classroom":0}
 columnNames = columnPos.keys()
 report = pandas.DataFrame(columns=columnNames)
 
@@ -73,8 +73,8 @@ for yearGroup in yearGroups.keys():
 					report.at[indexToUse, "Name"] = pupilsValues["GivenName"] + " " + pupilsValues["FamilyName"]
 					report.at[indexToUse, "Username"] = username
 					report.at[indexToUse, "Year"] = dataLib.yearCohortToGroup(yearGroup)
-					report.at[indexToUse, "Login/Activity"] = activityValues["accounts:last_login_time"]
-					#report.at[indexToUse, "Classroom"] = activityValues["classroom:last_interaction_time"]
+					report.at[indexToUse, "Login"] = activityValues["accounts:last_login_time"]
+					report.at[indexToUse, "Classroom"] = activityValues["classroom:last_interaction_time"]
 
 # Write out the CSV report.
 report.to_csv(outputRoot + os.sep + "report.csv", index=False)
