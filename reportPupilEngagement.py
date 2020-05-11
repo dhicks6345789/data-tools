@@ -22,8 +22,8 @@ import reportlab.graphics.renderPM
 
 def constrainInt(theValue, theMin, theMax):
 	result = theValue
-	if result > theMin:
-		result = result - (theMin + 1)
+	if result < theMin:
+		result = theMin
 	if result > theMax:
 		result = theMax
 	return result
@@ -109,9 +109,9 @@ for yearGroup in yearGroups.keys():
 				if columnName == "Login" and not columnValue == "Never":
 					days = (datetime.datetime.now() - datetime.datetime.strptime(columnValue, "%Y-%m-%dT%H:%M:%S.%fZ")).days
 					columnValue = str(days)
-					days = constrainInt(days, 4, 6) / 6
-					print(days)
-					pdfCanvas.setFillColorRGB(days,1-days,0)
+					colourValue = (constrainInt(days, 3, 10) - 3) / 7
+					print(colourValue)
+					pdfCanvas.setFillColorRGB(colourValue,1-Value,0)
 				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, columnValue)
 			lineNumber = lineNumber + 1
 	# Save the PDF document.
