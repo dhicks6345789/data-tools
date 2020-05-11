@@ -110,6 +110,7 @@ for yearGroup in yearGroups.keys():
 					days = constrainInt(days, 2, 10) / 10
 					print(days)
 					pdfCanvas.setStrokeColorRGB(days,1-days,0)
+					pdfCanvas.setFillColorRGB(days,1-days,0)
 				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, columnValue)
 			lineNumber = lineNumber + 1
 	# Save the PDF document.
