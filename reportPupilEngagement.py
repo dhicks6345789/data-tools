@@ -28,8 +28,13 @@ def intToConstrainedPercentage(theValue, theMin, theMax):
 		result = theMax
 	return (result - theMin) / (theMax - theMin)
 
-		
-		
+def dateToDaysAgo(theDate):
+	if theDate == "Never":
+		return "Never"
+	return (datetime.datetime.now() - datetime.datetime.strptime(columnValue, "%Y-%m-%dT%H:%M:%S.%fZ")).days
+
+
+
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
 
@@ -75,6 +80,17 @@ for yearGroup in yearGroups.keys():
 					report.at[indexToUse, "Year"] = dataLib.yearCohortToGroup(yearGroup)
 					report.at[indexToUse, "Login"] = activityValues["accounts:last_login_time"]
 					report.at[indexToUse, "Classroom"] = activityValues["classroom:last_interaction_time"]
+					lastLoginDays = dateToDaysAgo(activityValues["accounts:last_login_time"])
+					lastClassroomDays = dateToDaysAgo(activityValues["classroom:last_interaction_time"])
+					#elif (columnName == "Login" or columnName == "Classroom") and not
+					if lastLoginDays == "Never" or lastLoginDays < lastClassroomDays:
+						report.at[indexToUse, "Activity"] = lastClassroomDays
+					else:
+						report.at[indexToUse, "Activity"] = lastLoginDays
+					#	days = (datetime.datetime.now() - datetime.datetime.strptime(columnValue, "%Y-%m-%dT%H:%M:%S.%fZ")).days
+					#	columnValue = str(days)
+					#	colourValue = intToConstrainedPercentage(days, 3, 8)
+					#	pdfCanvas.setFillColorRGB(colourValue,1-colourValue,0)
 
 # Write out the CSV report.
 report.to_csv(outputRoot + os.sep + "report.csv", index=False)
@@ -111,11 +127,6 @@ for yearGroup in yearGroups.keys():
 					columnValue = str(reportValues[columnName])
 					if columnName == "Year":
 						columnValue = columnValue.replace("Reception","Rec").replace("Year ","")
-					#elif (columnName == "Login" or columnName == "Classroom") and not columnValue == "Never":
-					#	days = (datetime.datetime.now() - datetime.datetime.strptime(columnValue, "%Y-%m-%dT%H:%M:%S.%fZ")).days
-					#	columnValue = str(days)
-					#	colourValue = intToConstrainedPercentage(days, 3, 8)
-					#	pdfCanvas.setFillColorRGB(colourValue,1-colourValue,0)
 					pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, columnValue)
 			lineNumber = lineNumber + 1
 			if lineNumber == 36:
