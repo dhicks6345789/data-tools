@@ -111,7 +111,7 @@ for yearGroup in yearGroups.keys():
 					columnValue = str(days)
 					colourValue = intToConstrainedPercentage(days, 3, 10)
 					print(colourValue)
-					pdfCanvas.setFillColorRGB(colourValue,1-Value,0)
+					pdfCanvas.setFillColorRGB(colourValue,1-colourValue,0)
 				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, columnValue)
 			lineNumber = lineNumber + 1
 	# Save the PDF document.
