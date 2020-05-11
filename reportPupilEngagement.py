@@ -97,7 +97,7 @@ for yearGroup in yearGroups.keys():
 				pdfCanvas.setstrokecolorRGB(0,0,0)
 				columnValue = str(reportValues[columnName])
 				if columnName == "Login" and not columnValue == "Never":
-					days = (datetime.datetime.now() - datetime.datetime.strptime(columnValue, "%Y-%m-%dT%H:%M:%S.%fZ")).days)
+					days = (datetime.datetime.now() - datetime.datetime.strptime(columnValue, "%Y-%m-%dT%H:%M:%S.%fZ")).days
 					columnValue = str(days)
 					if days > 2:
 						days = days - 3
