@@ -99,7 +99,8 @@ for yearGroup in yearGroups.keys():
 		if lineNumber == 1:
 			pdfCanvas.drawString(leftBorder*reportlab.lib.units.mm, (pageHeight-topBorder)*reportlab.lib.units.mm, "Year: " + str(yearGroup))
 			for columnName in columnNames:
-				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, columnName)
+				if not columnPos[columnName] == None:
+					pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, columnName)
 			lineNumber = 2
 		if reportValues["Year"] == yearGroup:
 			for columnName in columnNames:
