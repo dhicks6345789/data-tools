@@ -92,7 +92,7 @@ for yearGroup in yearGroups.keys():
 		if reportValues["Yeargroup"] == yearGroup:
 			for columnName in columnNames:
 				if lineNumber % 2 == 0:
-					pdfCanvas.drawInlineImage(lineImage, leftBorder*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(lineNumber+1)))-topBorder)*reportlab.lib.units.mm, (pageWidth-(leftBorder*2))*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
+					pdfCanvas.drawInlineImage(lineImage, leftBorder*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(lineNumber+1))-(int(lineHeight/2)))-topBorder)*reportlab.lib.units.mm, (pageWidth-(leftBorder*2))*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
 				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, str(reportValues[columnName]))
 			lineNumber = lineNumber + 1
 	# Save the PDF document.
