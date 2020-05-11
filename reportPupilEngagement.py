@@ -96,7 +96,7 @@ for yearGroup in yearGroups.keys():
 					pdfCanvas.drawInlineImage(lineImage, leftBorder*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(lineNumber+1))-(int(lineHeight/4)))-topBorder)*reportlab.lib.units.mm, (pageWidth-(leftBorder*2))*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
 					columnValue = str(reportValues[columnName])
 					if columnName == "Year":
-						columnValue = datetime.date.today() - datetime.strptime(columnValue)
+						columnValue = datetime.date.today() - datetime.datetime.strptime(columnValue)
 						columnValue = str(columnValue)
 						print(columnValue)
 				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, columnValue)
