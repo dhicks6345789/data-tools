@@ -117,6 +117,7 @@ for yearGroup in yearGroups.keys():
 				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, columnValue)
 			lineNumber = lineNumber + 1
 			if pupilNumber == 36:
+				lineNumber = 1
 				pdfCanvas.showPage()
 				pageNumber = pageNumber + 1
 	# Save the PDF document.
