@@ -83,7 +83,11 @@ for yearGroup in yearGroups.keys():
 					lastLoginDays = dateToDaysAgo(activityValues["accounts:last_login_time"])
 					lastClassroomDays = dateToDaysAgo(activityValues["classroom:last_interaction_time"])
 					#elif (columnName == "Login" or columnName == "Classroom") and not
-					if lastLoginDays == "Never" or lastLoginDays < lastClassroomDays:
+					if lastLoginDays == "Never":
+						report.at[indexToUse, "Activity"] = lastClassroomDays
+					elif lastClassroomDays == "Never":
+						report.at[indexToUse, "Activity"] = lastLoginDays
+					elif lastLoginDays < lastClassroomDays:
 						report.at[indexToUse, "Activity"] = lastClassroomDays
 					else:
 						report.at[indexToUse, "Activity"] = lastLoginDays
