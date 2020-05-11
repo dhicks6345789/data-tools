@@ -20,8 +20,16 @@ import reportlab.pdfgen.canvas
 import reportlab.lib.pagesizes
 import reportlab.graphics.renderPM
 
+def constrainInt(theValue, theMin, theMax):
+	result = theValue
+	if result > theMin:
+		result = result - (theMin + 1)
+	if result > theMax:
+		result = theMax
+	return result
 
-
+		
+		
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
 
@@ -99,11 +107,7 @@ for yearGroup in yearGroups.keys():
 				if columnName == "Login" and not columnValue == "Never":
 					days = (datetime.datetime.now() - datetime.datetime.strptime(columnValue, "%Y-%m-%dT%H:%M:%S.%fZ")).days
 					columnValue = str(days)
-					if days > 2:
-						days = days - 3
-					if days > 10
-						days = 10
-					days = days / 10
+					days = constrainInt(days, 2, 10) / 10
 					pdfCanvas.setstrokecolorRGB(days,1-days,0)
 				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, columnValue)
 			lineNumber = lineNumber + 1
