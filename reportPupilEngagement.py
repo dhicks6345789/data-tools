@@ -82,19 +82,17 @@ for yearGroup in yearGroups.keys():
 					report.at[indexToUse, "Classroom"] = activityValues["classroom:last_interaction_time"]
 					lastLoginDays = dateToDaysAgo(activityValues["accounts:last_login_time"])
 					lastClassroomDays = dateToDaysAgo(activityValues["classroom:last_interaction_time"])
-					#elif (columnName == "Login" or columnName == "Classroom") and not
 					if lastLoginDays == "Never":
-						report.at[indexToUse, "Activity"] = lastClassroomDays
+						lastActivity = lastClassroomDays
 					elif lastClassroomDays == "Never":
-						report.at[indexToUse, "Activity"] = lastLoginDays
+						lastActivity = lastLoginDays
 					elif lastLoginDays < lastClassroomDays:
-						report.at[indexToUse, "Activity"] = lastClassroomDays
+						lastActivity = lastClassroomDays
 					else:
-						report.at[indexToUse, "Activity"] = lastLoginDays
-					#	days = (datetime.datetime.now() - datetime.datetime.strptime(columnValue, "%Y-%m-%dT%H:%M:%S.%fZ")).days
-					#	columnValue = str(days)
-					#	colourValue = intToConstrainedPercentage(days, 3, 8)
-					#	pdfCanvas.setFillColorRGB(colourValue,1-colourValue,0)
+						lastActivity = lastLoginDays
+					days = (datetime.datetime.now() - datetime.datetime.strptime(lastActivity, "%Y-%m-%dT%H:%M:%S.%fZ")).days					
+					# pdfCanvas.setFillColorRGB(colourValue,1-colourValue,0)
+					report.at[indexToUse, "Activity"] = 1 - intToConstrainedPercentage(days, 3, 8)
 
 # Write out the CSV report.
 report.to_csv(outputRoot + os.sep + "report.csv", index=False)
