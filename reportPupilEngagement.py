@@ -41,7 +41,7 @@ os.makedirs(outputRoot, exist_ok=True)
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + "userActivity.csv", header=0)
 
-columnPos = {"Name":0,"Username":70,"Year":100,"Login/Activity":115,"Login":0,"Classroom":0}
+columnPos = {"Name":0,"Username":70,"Year":100,"Activity":115,"Login":0,"Classroom":0}
 columnNames = columnPos.keys()
 report = pandas.DataFrame(columns=columnNames)
 
@@ -103,18 +103,19 @@ for yearGroup in yearGroups.keys():
 			lineNumber = 2
 		if reportValues["Year"] == yearGroup:
 			for columnName in columnNames:
-				if lineNumber % 2 == 0:
-					pdfCanvas.drawInlineImage(lineImage, leftBorder*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(lineNumber+1))-(int(lineHeight/4)))-topBorder)*reportlab.lib.units.mm, (pageWidth-(leftBorder*2))*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
-				pdfCanvas.setFillColorRGB(0,0,0)
-				columnValue = str(reportValues[columnName])
-				if columnName == "Year":
-					columnValue = columnValue.replace("Reception","Rec").replace("Year ","")
-				#elif (columnName == "Login" or columnName == "Classroom") and not columnValue == "Never":
-				#	days = (datetime.datetime.now() - datetime.datetime.strptime(columnValue, "%Y-%m-%dT%H:%M:%S.%fZ")).days
-				#	columnValue = str(days)
-				#	colourValue = intToConstrainedPercentage(days, 3, 8)
-				#	pdfCanvas.setFillColorRGB(colourValue,1-colourValue,0)
-				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, columnValue)
+				if not columnPos[columnName] == 0:
+					if lineNumber % 2 == 0:
+						pdfCanvas.drawInlineImage(lineImage, leftBorder*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(lineNumber+1))-(int(lineHeight/4)))-topBorder)*reportlab.lib.units.mm, (pageWidth-(leftBorder*2))*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
+					pdfCanvas.setFillColorRGB(0,0,0)
+					columnValue = str(reportValues[columnName])
+					if columnName == "Year":
+						columnValue = columnValue.replace("Reception","Rec").replace("Year ","")
+					#elif (columnName == "Login" or columnName == "Classroom") and not columnValue == "Never":
+					#	days = (datetime.datetime.now() - datetime.datetime.strptime(columnValue, "%Y-%m-%dT%H:%M:%S.%fZ")).days
+					#	columnValue = str(days)
+					#	colourValue = intToConstrainedPercentage(days, 3, 8)
+					#	pdfCanvas.setFillColorRGB(colourValue,1-colourValue,0)
+					pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, columnValue)
 			lineNumber = lineNumber + 1
 			if lineNumber == 36:
 				pdfCanvas.showPage()
