@@ -31,7 +31,7 @@ def intToConstrainedPercentage(theValue, theMin, theMax):
 def dateToDaysAgo(theDate):
 	if theDate == "Never":
 		return "Never"
-	return (datetime.datetime.now() - datetime.datetime.strptime(columnValue, "%Y-%m-%dT%H:%M:%S.%fZ")).days
+	return (datetime.datetime.now() - datetime.datetime.strptime(theDate, "%Y-%m-%dT%H:%M:%S.%fZ")).days
 
 
 
