@@ -49,6 +49,7 @@ yearGroups = {}
 for pupilsIndex, pupilsValues in pupils.iterrows():
 	yearGroups[dataLib.yearCohortToGroup(pupilsValues["YearGroup"])] = 1
 reportIndex = 0
+print("Processing data by year group...")
 for yearGroup in yearGroups.keys():
 	for pupilsIndex, pupilsValues in pupils.iterrows():
 		if dataLib.yearCohortToGroup(pupilsValues["YearGroup"]) == yearGroup:
@@ -90,6 +91,7 @@ topBorder = 10
 lineImage = PIL.Image.new("RGB", (pageWidth-(leftBorder*2), lineHeight), (200, 200, 200))
 
 for yearGroup in yearGroups.keys():
+	print("Generating report: " + yearGroup + ".pdf")
 	pdfCanvas = reportlab.pdfgen.canvas.Canvas(outputRoot + os.sep + yearGroup + ".pdf")
 	# Draw the report name and column headers.
 	pdfCanvas.drawString(leftBorder*reportlab.lib.units.mm, (pageHeight-topBorder)*reportlab.lib.units.mm, "Year: " + str(yearGroup))
@@ -107,7 +109,7 @@ for yearGroup in yearGroups.keys():
 				if columnName == "Login" and not columnValue == "Never":
 					days = (datetime.datetime.now() - datetime.datetime.strptime(columnValue, "%Y-%m-%dT%H:%M:%S.%fZ")).days
 					columnValue = str(days)
-					days = constrainInt(days, 2, 8) / 10
+					days = constrainInt(days, 2, 8) / 8
 					print(days)
 					pdfCanvas.setFillColorRGB(days,1-days,0)
 				pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-(lineHeight*lineNumber))-topBorder)*reportlab.lib.units.mm, columnValue)
