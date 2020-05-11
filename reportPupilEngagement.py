@@ -32,7 +32,7 @@ os.makedirs(outputRoot, exist_ok=True)
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + "userActivity.csv", header=0)
 
-columnPos = {"Name":0,"Username":70,"Yeargroup":100,"AccountsLastLoginTime":117,"ClassroomLastInteractionTime":152}
+columnPos = {"Name":0,"Username":70,"Year":100,"Login":117,"Classroom":152}
 columnNames = columnPos.keys()
 report = pandas.DataFrame(columns=columnNames)
 
@@ -56,15 +56,15 @@ for yearGroup in yearGroups.keys():
 					usernameList = report["Username"].tolist()
 					if altUsername in usernameList:
 						altUsernameIndex = usernameList.index(altUsername)
-						if report.at[altUsernameIndex, "AccountsLastLoginTime"] == "Never":
+						if report.at[altUsernameIndex, "Login"] == "Never":
 							indexToUse = altUsernameIndex
 					else:
 						reportIndex = reportIndex + 1
 					report.at[indexToUse, "Name"] = pupilsValues["GivenName"] + " " + pupilsValues["FamilyName"]
 					report.at[indexToUse, "Username"] = username
-					report.at[indexToUse, "Yeargroup"] = dataLib.yearCohortToGroup(yearGroup)
-					report.at[indexToUse, "AccountsLastLoginTime"] = activityValues["accounts:last_login_time"]
-					report.at[indexToUse, "ClassroomLastInteractionTime"] = activityValues["classroom:last_interaction_time"]
+					report.at[indexToUse, "Year"] = dataLib.yearCohortToGroup(yearGroup)
+					report.at[indexToUse, "Login"] = activityValues["accounts:last_login_time"]
+					report.at[indexToUse, "Classroom"] = activityValues["classroom:last_interaction_time"]
 
 # Write out the CSV report.
 report.to_csv(outputRoot + os.sep + "report.csv", index=False)
@@ -89,7 +89,7 @@ for yearGroup in yearGroups.keys():
 	# Draw each line.
 	lineNumber = 2
 	for reportIndex, reportValues in report.iterrows():
-		if reportValues["Yeargroup"] == yearGroup:
+		if reportValues["Year"] == yearGroup:
 			for columnName in columnNames:
 				if lineNumber % 2 == 0:
 					pdfCanvas.drawInlineImage(lineImage, leftBorder*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(lineNumber+1))-(int(lineHeight/4)))-topBorder)*reportlab.lib.units.mm, (pageWidth-(leftBorder*2))*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
