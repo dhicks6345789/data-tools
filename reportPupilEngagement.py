@@ -91,6 +91,7 @@ for yearGroup in yearGroups.keys():
 						lastActivity = lastClassroomDays
 					else:
 						lastActivity = lastLoginDays
+					print(lastActivity)
 					if lastActivity == "Never":
 						report.at[indexToUse, "Activity"] = 0
 					else:
