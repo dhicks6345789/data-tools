@@ -106,7 +106,7 @@ for yearGroup in yearGroups.keys():
 					if lastActive == "Never":
 						report.at[indexToUse, "Last Active(Days)"] = "Never"
 					else:
-						report.at[indexToUse, "Last Active(Days)"] = lastActive.strftime("%d/%m/%Y") + "(" + str(ActiveDays) + ")"				
+						report.at[indexToUse, "Last Active(Days)"] = lastActive.strftime("%d/%m/%Y") + "(" + str(activeDays) + ")"
 					# pdfCanvas.setFillColorRGB(colourValue,1-colourValue,0)
 
 # Write out the CSV report.
