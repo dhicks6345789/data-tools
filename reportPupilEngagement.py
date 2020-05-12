@@ -51,7 +51,7 @@ os.makedirs(outputRoot, exist_ok=True)
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + "userActivity.csv", header=0)
 
-columnPos = {"Name":0,"Username":70,"Year":100,"Login":None,"Classroom":None,"Last Active":115,"Login/Class":140,}
+columnPos = {"Name":0,"Username":70,"Year":100,"Login":None,"Classroom":None,"Last Active":115,"Login/Class":0}
 columnNames = columnPos.keys()
 report = pandas.DataFrame(columns=columnNames)
 
@@ -101,7 +101,7 @@ for yearGroup in yearGroups.keys():
 						report.at[indexToUse, "Last Active"] = "Never"
 					else:
 						#print(lastActive.strftime("%d/%m/%Y"))
-						report.at[indexToUse, "Last Active"] = str(lastActive.strftime("%d/%m/%Y"))
+						report.at[indexToUse, "Last Active"] = lastActive.strftime("%d/%m/%Y")
 					
 					#lastLoginDays = dateToDaysAgo(activityValues["accounts:last_login_time"])
 					#lastClassroomDays = dateToDaysAgo(activityValues["classroom:last_interaction_time"])
