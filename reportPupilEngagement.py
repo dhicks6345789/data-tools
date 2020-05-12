@@ -46,7 +46,7 @@ os.makedirs(outputRoot, exist_ok=True)
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + "userActivity.csv", header=0)
 
-columnPos = {"Name":0,"Username":70,"Year":100,"Login":None,"Classroom":None,"Login/Class":115,"Activity":130}
+columnPos = {"Name":0,"Username":70,"Year":100,"Login":None,"Classroom":None,"Login/Class":115,"Activity":137}
 columnNames = columnPos.keys()
 report = pandas.DataFrame(columns=columnNames)
 
@@ -94,7 +94,7 @@ for yearGroup in yearGroups.keys():
 					if lastActivity == "Never":
 						report.at[indexToUse, "Activity"] = 0
 					else:
-						report.at[indexToUse, "Activity"] = 1 - intToConstrainedPercentage(lastActivity, 3, 8)
+						report.at[indexToUse, "Activity"] = int(round(1 - intToConstrainedPercentage(lastActivity, 3, 8), 2) * 100)
 					# pdfCanvas.setFillColorRGB(colourValue,1-colourValue,0)
 
 # Write out the CSV report.
