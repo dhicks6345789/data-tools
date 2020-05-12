@@ -97,7 +97,10 @@ for yearGroup in yearGroups.keys():
 						lastActive =  lastClassroom
 					else:
 						lastActive = lastLogin
-					report.at[indexToUse, "Last Active"] = lastActive.strftime("%d/%m/%Y")
+					if lastActive == "Never":
+						report.at[indexToUse, "Last Active"] = "Never"
+					else:
+						report.at[indexToUse, "Last Active"] = lastActive.strftime("%d/%m/%Y")
 					
 					#lastLoginDays = dateToDaysAgo(activityValues["accounts:last_login_time"])
 					#lastClassroomDays = dateToDaysAgo(activityValues["classroom:last_interaction_time"])
