@@ -88,7 +88,7 @@ for yearGroup in yearGroups.keys():
 						lastActivity = lastClassroomDays
 					elif lastClassroomDays == "Never":
 						lastActivity = lastLoginDays
-					elif lastLoginDays < lastClassroomDays:
+					elif lastClassroomDays < lastLoginDays:
 						lastActivity = lastClassroomDays
 					else:
 						lastActivity = lastLoginDays
