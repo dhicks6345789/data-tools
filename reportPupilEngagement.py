@@ -80,9 +80,9 @@ for yearGroup in yearGroups.keys():
 					report.at[indexToUse, "Year"] = dataLib.yearCohortToGroup(yearGroup)
 					report.at[indexToUse, "Login"] = activityValues["accounts:last_login_time"]
 					report.at[indexToUse, "Classroom"] = activityValues["classroom:last_interaction_time"]
-					report.at[indexToUse, "Login/Class"] = (activityValues["accounts:last_login_time"] + "/" + activityValues["classroom:last_interaction_time"]).replace("ever","")
 					lastLoginDays = dateToDaysAgo(activityValues["accounts:last_login_time"])
 					lastClassroomDays = dateToDaysAgo(activityValues["classroom:last_interaction_time"])
+					report.at[indexToUse, "Login/Class"] = (lastLoginDays + "/" + lastClassroomDays).replace("ever","")
 					if lastLoginDays == "Never":
 						lastActivity = lastClassroomDays
 					elif lastClassroomDays == "Never":
