@@ -51,7 +51,7 @@ os.makedirs(outputRoot, exist_ok=True)
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + "userActivity.csv", header=0)
 
-columnPos = {"Name":0,"Username":70,"Year":100,"Login":None,"Classroom":None,"Last Active":115,"Login/Class":0}
+columnPos = {"Name":0,"Username":70,"Year":100,"Login":None,"Classroom":None,"Last Active(Days)":115,"Login/Class":None}
 columnNames = columnPos.keys()
 report = pandas.DataFrame(columns=columnNames)
 
@@ -88,36 +88,25 @@ for yearGroup in yearGroups.keys():
 					report.at[indexToUse, "Classroom"] = activityValues["classroom:last_interaction_time"]
 					
 					lastLogin = parseDate(activityValues["accounts:last_login_time"])
+					lastLoginDays = dateToDaysAgo(activityValues["accounts:last_login_time"])
 					lastClassroom = parseDate(activityValues["classroom:last_interaction_time"])
+					lastClassroomDays = dateToDaysAgo(activityValues["classroom:last_interaction_time"])
 					if lastLogin == "Never":
 						lastActive = lastClassroom
+						lastActiveDays = lastClassroomDays
 					elif lastClassroom == "Never":
 						lastActive = lastLogin
+						lastActiveDays = lastLoginDays
 					elif lastClassroom < lastLogin:
 						lastActive =  lastClassroom
+						lastActiveDays = lastClassroomDays
 					else:
 						lastActive = lastLogin
+						lastActiveDays = lastLoginDays
 					if lastActive == "Never":
-						report.at[indexToUse, "Last Active"] = "Never"
+						report.at[indexToUse, "Last Active(Days)"] = "Never"
 					else:
-						#print(lastActive.strftime("%d/%m/%Y"))
-						report.at[indexToUse, "Last Active"] = lastActive.strftime("%d/%m/%Y")
-					
-					#lastLoginDays = dateToDaysAgo(activityValues["accounts:last_login_time"])
-					#lastClassroomDays = dateToDaysAgo(activityValues["classroom:last_interaction_time"])
-					#report.at[indexToUse, "Login/Class"] = (str(lastLoginDays) + "/" + str(lastClassroomDays)).replace("ever","")
-					#if lastLoginDays == "Never":
-					#	lastActivity = lastClassroomDays
-					#elif lastClassroomDays == "Never":
-					#	lastActivity = lastLoginDays
-					#elif lastClassroomDays < lastLoginDays:
-					#	lastActivity = lastClassroomDays
-					#else:
-					#	lastActivity = lastLoginDays
-					#if lastActivity == "Never":
-					#	report.at[indexToUse, "Activity, %"] = 0
-					#else:
-					#	report.at[indexToUse, "Activity, %"] = int(round(1 - intToConstrainedPercentage(lastActivity, 3, 8), 2) * 100)
+						report.at[indexToUse, "Last Active(Days)"] = lastActive.strftime("%d/%m/%Y") + "(" + str(ActiveDays) + ")"				
 					# pdfCanvas.setFillColorRGB(colourValue,1-colourValue,0)
 
 # Write out the CSV report.
