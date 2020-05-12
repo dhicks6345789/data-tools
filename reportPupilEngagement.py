@@ -90,7 +90,10 @@ for yearGroup in yearGroups.keys():
 						lastActivity = lastClassroomDays
 					else:
 						lastActivity = lastLoginDays
-					report.at[indexToUse, "Activity"] = 1 - intToConstrainedPercentage(lastActivity, 3, 8)
+					if lastActivity == "Never":
+						report.at[indexToUse, "Activity"] = 0
+					else:
+						report.at[indexToUse, "Activity"] = 1 - intToConstrainedPercentage(lastActivity, 3, 8)
 					# pdfCanvas.setFillColorRGB(colourValue,1-colourValue,0)
 
 # Write out the CSV report.
