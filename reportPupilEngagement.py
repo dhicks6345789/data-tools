@@ -82,7 +82,7 @@ for yearGroup in yearGroups.keys():
 					report.at[indexToUse, "Classroom"] = activityValues["classroom:last_interaction_time"]
 					lastLoginDays = dateToDaysAgo(activityValues["accounts:last_login_time"])
 					lastClassroomDays = dateToDaysAgo(activityValues["classroom:last_interaction_time"])
-					report.at[indexToUse, "Login/Class"] = (lastLoginDays + "/" + lastClassroomDays).replace("ever","")
+					report.at[indexToUse, "Login/Class"] = (str(lastLoginDays) + "/" + str(lastClassroomDays)).replace("ever","")
 					if lastLoginDays == "Never":
 						lastActivity = lastClassroomDays
 					elif lastClassroomDays == "Never":
