@@ -56,6 +56,7 @@ for pupilsIndex, pupilsValues in pupils.iterrows():
 reportIndex = 0
 print("Processing data by year group...")
 for yearGroup in yearGroups.keys():
+	print("Processing " + yearGroup + "...")
 	for pupilsIndex, pupilsValues in pupils.iterrows():
 		if dataLib.yearCohortToGroup(pupilsValues["YearGroup"]) == yearGroup:
 			for activityIndex, activityValues in activity.iterrows():
@@ -91,11 +92,10 @@ for yearGroup in yearGroups.keys():
 						lastActivity = lastClassroomDays
 					else:
 						lastActivity = lastLoginDays
-					print(lastActivity)
 					if lastActivity == "Never":
-						report.at[indexToUse, "Activity"] = 0
+						report.at[indexToUse, "Activity, %"] = 0
 					else:
-						report.at[indexToUse, "Activity"] = 1 - intToConstrainedPercentage(lastActivity, 3, 8)
+						report.at[indexToUse, "Activity, %"] = int(round(1 - intToConstrainedPercentage(lastActivity, 3, 8),2))
 					# pdfCanvas.setFillColorRGB(colourValue,1-colourValue,0)
 
 # Write out the CSV report.
