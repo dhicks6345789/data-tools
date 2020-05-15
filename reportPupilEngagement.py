@@ -31,10 +31,17 @@ def intToConstrainedPercentage(theValue, theMin, theMax):
 def roundDatetime(theDate):
 	return theDate.replace(hour=0, minute=0, second=0, microsecond=0)
 
-def dateToDaysAgo(theDate):
+def dateToWorkingDaysAgo(theDate):
 	if theDate == "Never":
 		return "Never"
-	return (roundDatetime(datetime.datetime.now()) - roundDatetime(datetime.datetime.strptime(theDate, "%Y-%m-%dT%H:%M:%S.%fZ"))).days
+	daysAgo = 0
+	today = roundDatetime(datetime.datetime.now())
+	currentDate = roundDatetime(datetime.datetime.strptime(theDate, "%Y-%m-%dT%H:%M:%S.%fZ"))
+	while currentDate < today:
+		if not currentDate.isoweekday() in [6, 7]:
+			daysAgo = daysAgo + 1
+		currentDate = currentDate + datetime.timedelta(days=1)
+	return daysAgo
 
 def parseDate(theDate):
 	if theDate == "Never":
@@ -54,7 +61,7 @@ os.makedirs(outputRoot, exist_ok=True)
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + "userActivity.csv", header=0)
 
-columnPos = {"Name":0,"Username":70,"Year":100,"Login":None,"Classroom":None,"Last Active(Days)":115,"Login/Class":None}
+columnPos = {"Name":0,"Username":70,"Year":100,"Login":None,"Classroom":None,"Last Active(Working Days)":115,"Login/Class":None}
 columnNames = columnPos.keys()
 report = pandas.DataFrame(columns=columnNames)
 
@@ -91,9 +98,9 @@ for yearGroup in yearGroups.keys():
 					report.at[indexToUse, "Classroom"] = activityValues["classroom:last_interaction_time"]
 					
 					lastLogin = parseDate(activityValues["accounts:last_login_time"])
-					lastLoginDays = dateToDaysAgo(activityValues["accounts:last_login_time"])
+					lastLoginDays = dateToDaysWorkingAgo(activityValues["accounts:last_login_time"])
 					lastClassroom = parseDate(activityValues["classroom:last_interaction_time"])
-					lastClassroomDays = dateToDaysAgo(activityValues["classroom:last_interaction_time"])
+					lastClassroomDays = dateToWorkingDaysAgo(activityValues["classroom:last_interaction_time"])
 					if lastLogin == "Never":
 						lastActive = lastClassroom
 						lastActiveDays = lastClassroomDays
@@ -107,9 +114,9 @@ for yearGroup in yearGroups.keys():
 						lastActive = lastLogin
 						lastActiveDays = lastLoginDays
 					if lastActive == "Never":
-						report.at[indexToUse, "Last Active(Days)"] = "Never"
+						report.at[indexToUse, "Last Active(Working Days)"] = "Never"
 					else:
-						report.at[indexToUse, "Last Active(Days)"] = lastActive.strftime("%d/%m/%Y") + "(" + str(lastActiveDays) + ")"
+						report.at[indexToUse, "Last Active(Working Days)"] = lastActive.strftime("%d/%m/%Y") + "(" + str(lastActiveDays) + ")"
 					# pdfCanvas.setFillColorRGB(colourValue,1-colourValue,0)
 
 # Write out the CSV report.
@@ -133,7 +140,7 @@ for yearGroup in yearGroups.keys():
 	for reportIndex, reportValues in report.iterrows():
 		# Draw the report name and column headers.
 		if lineNumber == 1:
-			pdfCanvas.drawString(leftBorder*reportlab.lib.units.mm, (pageHeight-topBorder)*reportlab.lib.units.mm, "Year: " + str(yearGroup) + ", Generated: " + roundDatetime(datetime.datetime.now()).strftime("%d/%m/%Y"))
+			pdfCanvas.drawString(leftBorder*reportlab.lib.units.mm, (pageHeight-topBorder)*reportlab.lib.units.mm, "Year: " + str(yearGroup) + ", Report generated: " + roundDatetime(datetime.datetime.now()).strftime("%d/%m/%Y"))
 			for columnName in columnNames:
 				if not columnPos[columnName] == None:
 					pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, columnName)
