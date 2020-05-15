@@ -28,10 +28,13 @@ def intToConstrainedPercentage(theValue, theMin, theMax):
 		result = theMax
 	return (result - theMin) / (theMax - theMin)
 
+def roundDatetime(theDate):
+	return theDate.replace(hour=0, minute=0, second=0, microsecond=0)
+
 def dateToDaysAgo(theDate):
 	if theDate == "Never":
 		return "Never"
-	return datetime.datetime.now().days - datetime.datetime.strptime(theDate, "%Y-%m-%dT%H:%M:%S.%fZ").days
+	return (roundDatetime(datetime.datetime.now()) - roundDatetime(datetime.datetime.strptime(theDate, "%Y-%m-%dT%H:%M:%S.%fZ"))).days
 
 def parseDate(theDate):
 	if theDate == "Never":
