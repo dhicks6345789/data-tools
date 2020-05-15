@@ -133,7 +133,7 @@ for yearGroup in yearGroups.keys():
 	for reportIndex, reportValues in report.iterrows():
 		# Draw the report name and column headers.
 		if lineNumber == 1:
-			pdfCanvas.drawString(leftBorder*reportlab.lib.units.mm, (pageHeight-topBorder)*reportlab.lib.units.mm, "Year: " + str(yearGroup))
+			pdfCanvas.drawString(leftBorder*reportlab.lib.units.mm, (pageHeight-topBorder)*reportlab.lib.units.mm, "Year: " + str(yearGroup) + ", Generated: " + roundDatetime(datetime.datetime.now()).strftime("%d/%m/%Y"))
 			for columnName in columnNames:
 				if not columnPos[columnName] == None:
 					pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, columnName)
