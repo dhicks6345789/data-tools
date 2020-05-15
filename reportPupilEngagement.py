@@ -98,7 +98,7 @@ for yearGroup in yearGroups.keys():
 					report.at[indexToUse, "Classroom"] = activityValues["classroom:last_interaction_time"]
 					
 					lastLogin = parseDate(activityValues["accounts:last_login_time"])
-					lastLoginDays = dateToDaysWorkingAgo(activityValues["accounts:last_login_time"])
+					lastLoginDays = dateToWorkingDaysAgo(activityValues["accounts:last_login_time"])
 					lastClassroom = parseDate(activityValues["classroom:last_interaction_time"])
 					lastClassroomDays = dateToWorkingDaysAgo(activityValues["classroom:last_interaction_time"])
 					if lastLogin == "Never":
