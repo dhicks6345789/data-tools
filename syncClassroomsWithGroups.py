@@ -34,7 +34,7 @@ def syncOrAdd(teacherOrStudent, syncValue, classroomName, cacheFile, CSVData):
 						print(gamCommand)
 					else:
 						os.system(gamCommand)
-				elif syncValue == "add":
+				else:
 					for user in CSVData.split("\n"):
 						user = user.strip()
 						if not user == "":
@@ -69,8 +69,7 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 		syncValue = dataLib.noNan(classroomsValue["Sync Or Add?"])
 		cachePupilsRoot = cachePupilsSyncRoot
 		cacheTeachersRoot = cacheTeachersSyncRoot
-		if not syncValue == "sync":
-			syncValue = "add"
+		if syncValue == "add":
 			cachePupilsRoot = cachePupilsAddRoot
 			cacheTeachersRoot = cacheTeachersAddRoot
 		
@@ -100,8 +99,8 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 				else:
 					print("Unknown group or user in teachers list: " + teachersItem)
 		
-		if not pupilsCSV == "":
+		if not pupilsCSV == "" and (syncValue == "sync" or syncValue == "add"):
 			syncOrAdd("student", syncValue, classroomName, cachePupilsRoot + os.sep + classroomName + ".csv", pupilsCSV)
 			
-		if not teachersCSV == "":
+		if not teachersCSV == "" and (syncValue == "sync" or syncValue == "add"):
 			syncOrAdd("teacher", syncValue, classroomName, cacheTeachersRoot + os.sep + classroomName + ".csv", teachersCSV)
