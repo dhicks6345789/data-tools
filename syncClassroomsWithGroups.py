@@ -34,7 +34,7 @@ def syncOrAdd(teacherOrStudent, syncValue, classroomName, cacheFile, CSVData):
 						print(gamCommand)
 					else:
 						os.system(gamCommand)
-				else:
+				elif syncValue == "add":
 					for user in CSVData.split("\n"):
 						user = user.strip()
 						if not user == "":
