@@ -64,5 +64,5 @@ for pupilsIndex, pupilsValue in pupils.iterrows():
 
 for form in forms.keys():
 	for pupilsIndex, pupilsValue in pupils.iterrows():
-		if form == forms[pupilsValue["Form"]]:
+		if form == pupilsValue["Form"]:
 			print(pupilsValue["GivenName"])
