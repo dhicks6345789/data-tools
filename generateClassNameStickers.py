@@ -84,6 +84,30 @@ for form in forms.keys():
 	labelCount = 0
 	for pupilsIndex, pupilsValue in pupils.iterrows():
 		if form == pupilsValue["Form"]:
-			print(evenlySplitString(pupilsValue["GivenName"] + " " + pupilsValue["FamilyName"]))
+			labelX = labelCount % 3
+			labelY = ((labelCount - labelX) / 3) % 7
+			
+			# Create a blank image to place the label details on.
+			labelImageWidth = int(labelWidth*10)
+			labelImageHeight = int(labelHeight*10)
+			labelImage = PIL.Image.new("RGB", (labelImageWidth,labelImageHeight), (255, 255, 255))
+			
+			# Draw the pupil's full name on the label image, centred, 20 pixels down from the top.
+			fontSize = 132
+			line1Width = labelImageWidth
+			line1Height = labelImageHeight
+			line2Width = labelImageWidth
+			line2Height = labelImageHeight
+			textDrawer = PIL.ImageDraw.Draw(labelImage)
+			line1Text, line2Text = evenlySplitString(pupilsValue["GivenName"] + " " + pupilsValue["FamilyName"])
+			while line1Width >= (labelImageWidth-40) or line2Width >= (labelImageWidth-40) or (line1Height + 30 + line2Height) >= labelImageHeight:
+				fontSize = fontSize - 4
+				line1Width, line1Height = textDrawer.textsize(line1Text, font=fonts[fontSize])
+				line2Width, line2Height = textDrawer.textsize(line2Text, font=fonts[fontSize])
+			textDrawer.text((int((labelImageWidth-line1Width)/2), 20), line1Text, fill="black", font=fonts[fontSize])
+			textDrawer.text((int((labelImageWidth-line2Width)/2), line1Height+30), line2Text, fill="black", font=fonts[fontSize])
+            
+			# Place the label image on the PDF document.
+			pdfCanvas.drawInlineImage(labelImage, (leftBorder+(labelX*(labelWidth+labelHorizontalGap)))*reportlab.lib.units.mm, (pageHeight-(topBorder+((labelY+1)*labelHeight)))*reportlab.lib.units.mm, labelWidth*reportlab.lib.units.mm, labelHeight*reportlab.lib.units.mm)
 	# Save the PDF document.
 	pdfCanvas.save()
