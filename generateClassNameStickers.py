@@ -51,7 +51,7 @@ def evenlySplitString(theString):
 # Set up a bunch of different font sizes for use with name labels.
 fonts = {}
 for fontSize in range(4, 129, 4):
-	fonts[fontSize] = PIL.ImageFont.truetype("ttf-dejavu/DejaVuSerif.ttf", fontSize)
+	fonts[fontSize] = PIL.ImageFont.truetype("DejaVuSerif.ttf", fontSize)
 
 print("Writing per-form PDF Stickers...")
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
