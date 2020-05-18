@@ -20,6 +20,9 @@ import reportlab.pdfgen.canvas
 import reportlab.lib.pagesizes
 import reportlab.graphics.renderPM
 
+# Data-handling.
+import pandas
+
 # Takes an array of strings, returns a single string with those strings separated by spaces.
 def combineStrings(theStrings):
 	result = ""
@@ -47,8 +50,6 @@ def evenlySplitString(theString):
 			result2 = tempResult2
 			lowestDiff = tempDiff
 	return(result1, result2)
-
-os.system("dir")
 
 # Set up a bunch of different font sizes for use with name labels.
 fonts = {}
