@@ -17,38 +17,38 @@ import reportlab.graphics.renderPM
 
 # Takes an array of strings, returns a single string with those strings separated by spaces.
 def combineStrings(theStrings):
-    result = ""
-    for theString in theStrings:
-        result = result + theString + " "
-    return(result[:-1])
+	result = ""
+	for theString in theStrings:
+		result = result + theString + " "
+	return(result[:-1])
 
 # Splits a string into two as-even-as-possible strings, split by space.
 def evenlySplitString(theString):
-    theString = theString.strip()
-    if theString.find(" ") == -1:
-        return(theString, "")
-    stringSplit = theString.split(" ")
-    if len(stringSplit) == 2:
-        return(stringSplit[0], stringSplit[1])
-    result1 = ""
-    result2 = ""
-    lowestDiff = 999
-    for pl in range(1, len(stringSplit)):
-        tempResult1 = combineStrings(stringSplit[:pl])
-        tempResult2 = combineStrings(stringSplit[pl:])
-        tempDiff = abs(len(tempResult1)-len(tempResult2))
-        if tempDiff < lowestDiff:
-            result1 = tempResult1
-            result2 = tempResult2
-            lowestDiff = tempDiff
-    return(result1, result2)
+	theString = theString.strip()
+	if theString.find(" ") == -1:
+		return(theString, "")
+	stringSplit = theString.split(" ")
+	if len(stringSplit) == 2:
+		return(stringSplit[0], stringSplit[1])
+	result1 = ""
+	result2 = ""
+	lowestDiff = 999
+	for pl in range(1, len(stringSplit)):
+		tempResult1 = combineStrings(stringSplit[:pl])
+		tempResult2 = combineStrings(stringSplit[pl:])
+		tempDiff = abs(len(tempResult1)-len(tempResult2))
+		if tempDiff < lowestDiff:
+			result1 = tempResult1
+			result2 = tempResult2
+			lowestDiff = tempDiff
+	return(result1, result2)
 
 # Set up a bunch of different font sizes for use with name labels.
 fonts = {}
 for fontSize in range(4, 129, 4):
 	fonts[fontSize] = PIL.ImageFont.truetype("ttf-dejavu/DejaVuSerif.ttf", fontSize)
 
-print "Writing per-form PDF Stickers..."
+print("Writing per-form PDF Stickers...")
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
 sys.exit(0)
