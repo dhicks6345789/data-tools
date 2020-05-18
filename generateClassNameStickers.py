@@ -1,17 +1,11 @@
 #!/usr/bin/python
 
-# A script to parse pupil / staff data in CSV format suitible for importing into the Scout library system and produce printable PDF documents of sheets of
-# stickers usable as pupil / staff borrower cards. Note that we are reading in CSV files produced from our own script, so we can be sure they are well-formed,
-# so we're just resding them in with a simple .split(",") function.
+# A script to produce name labels for each pupil, on a per-class basis. Uses reportLab to output printable PDF documents sized
+# to fit Avery L7160 label sheets.
 
 # Standard libraries.
 import os
 import sys
-
-# PIL - the Python Image Library, used for bitmap image manipulation.
-import PIL
-import PIL.ImageFont
-import PIL.ImageDraw
 
 # ReportLab - used for PDF document generation.
 import reportlab.lib.units
@@ -20,10 +14,6 @@ import reportlab.lib.colors
 import reportlab.pdfgen.canvas
 import reportlab.lib.pagesizes
 import reportlab.graphics.renderPM
-
-# Barcode - used to generate images of barcodes in standard formats.
-import barcode.codex
-import barcode.writer
 
 # Takes an array of strings, returns a single string with those strings separated by spaces.
 def combineStrings(theStrings):
@@ -56,21 +46,27 @@ def evenlySplitString(theString):
 # Set up a bunch of different font sizes for use with name labels.
 fonts = {}
 for fontSize in range(4, 129, 4):
-    fonts[fontSize] = PIL.ImageFont.truetype("/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerif.ttf", fontSize)
+	fonts[fontSize] = PIL.ImageFont.truetype("ttf-dejavu/DejaVuSerif.ttf", fontSize)
 
-print "Writing per-form Scout Borrower PDF Stickers..."
+print "Writing per-form PDF Stickers..."
+pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
+
+sys.exit(0)
+
+
+
 CSVRoot = "/root/CSVData/Scout/BorrowersByFormCSV"
 for CSVFilename in os.listdir(CSVRoot):
-    pupils = []
-    form = CSVFilename[:-4]
-    CSVHandle = open(CSVRoot + os.sep + CSVFilename)
-    for CSVLine in CSVHandle.readlines():
-        if not CSVLine.startswith("Alias,Name"):
-            pupils.append(CSVLine.strip().split(","))
-    CSVHandle.close()
-    
-    # Create the blank PDF document to start drawing page elements on.
-    pdfCanvas = reportlab.pdfgen.canvas.Canvas("/root/CSVData/Scout/BorrowersByFormPDFStickers/" + form + ".pdf")
+	pupils = []
+	form = CSVFilename[:-4]
+	CSVHandle = open(CSVRoot + os.sep + CSVFilename)
+	for CSVLine in CSVHandle.readlines():
+		if not CSVLine.startswith("Alias,Name"):
+			pupils.append(CSVLine.strip().split(","))
+	CSVHandle.close()
+	
+	# Create the blank PDF document to start drawing page elements on.
+	pdfCanvas = reportlab.pdfgen.canvas.Canvas("/root/CSVData/Scout/BorrowersByFormPDFStickers/" + form + ".pdf")
     
     # We are printing on Avery L7160 labels - work out the page size and borders, in mm.
     pageWidth = 210
