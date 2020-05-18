@@ -60,6 +60,9 @@ pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
 forms = {}
 for pupilsIndex, pupilsValue in pupils.iterrows():
-	forms[pupilsValues["Form"]] = 1
+	forms[pupilsValue["Form"]] = 1
+
 for form in forms.keys():
-	print(form)
+	for pupilsIndex, pupilsValue in pupils.iterrows():
+		if form == forms[pupilsValue["Form"]]:
+			print(pupilsValue["GivenName"])
