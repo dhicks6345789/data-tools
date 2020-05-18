@@ -7,6 +7,11 @@
 import os
 import sys
 
+# PIL - the Python Image Library, used for bitmap image manipulation.
+import PIL
+import PIL.ImageFont
+import PIL.ImageDraw
+
 # ReportLab - used for PDF document generation.
 import reportlab.lib.units
 import reportlab.lib.utils
