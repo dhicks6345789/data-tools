@@ -119,3 +119,34 @@ for form in forms.keys():
 			labelCount = labelCount + 1
 	# Save the PDF document.
 	pdfCanvas.save()
+	
+for form in forms.keys():
+	# Create the blank PDF document to start drawing page elements on.
+	pdfCanvas = reportlab.pdfgen.canvas.Canvas(spineLabelsRoot + os.sep + form + ".pdf")
+	labelCount = 0
+	for pupilsIndex, pupilsValue in pupils.iterrows():
+		if form == pupilsValue["Form"]:
+			labelX = labelCount % labelsX
+			labelY = ((labelCount - labelX) / labelsX) % labelsY
+			
+			# Create a blank image to place the label details on.
+			labelImageWidth = int(labelWidth*10)
+			labelImageHeight = int((labelHeight/3)*10)
+			labelImage = PIL.Image.new("RGB", (labelImageWidth,labelImageHeight), (255, 255, 255))
+			
+			# Draw the pupil's given name.
+			fontSize = initialFontSize
+			lineWidth = labelImageWidth
+			lineHeight = labelImageHeight / 3
+			textDrawer = PIL.ImageDraw.Draw(labelImage)
+			while lineWidth >= (labelImageWidth-labelBorder) or lineHeight >= labelImageHeight:
+				fontSize = fontSize - fontSizeStep
+				lineWidth, lineHeight = textDrawer.textsize(pupilsValue["GivenName"], font=fonts[fontSize])
+			textDrawer.text((int((labelImageWidth-lineWidth)/2), (labelBorder / 2)), lineText, fill="black", font=fonts[fontSize])
+            
+			# Place the label image on the PDF document.
+			pdfCanvas.drawInlineImage(labelImage, (leftBorder+(labelX*(labelWidth+labelHorizontalGap)))*reportlab.lib.units.mm, (pageHeight-(topBorder+((labelY+1)*labelHeight)))*reportlab.lib.units.mm, labelWidth*reportlab.lib.units.mm, labelHeight*reportlab.lib.units.mm)
+			
+			labelCount = labelCount + 1
+	# Save the PDF document.
+	pdfCanvas.save()
