@@ -23,6 +23,9 @@ import reportlab.graphics.renderPM
 # Data-handling.
 import pandas
 
+# Our own library.
+import dataLib
+
 # Takes an array of strings, returns a single string with those strings separated by spaces.
 def combineStrings(theStrings):
 	result = ""
