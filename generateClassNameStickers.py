@@ -29,6 +29,22 @@ import dataLib
 # Load the config file.
 config = dataLib.loadConfig(["dataFolder"])
 
+# Make sure the output folder exists.
+labelsRoot = config["dataFolder"] + os.sep + "Labels"
+formLabelsRoot = labelsRoot + os.sep + "Form Labels"
+spineLabelsRoot = labelsRoot + os.sep + "Spine Labels"
+os.makedirs(formLabelsRoot, exist_ok=True)
+os.makedirs(spineLabelsRoot, exist_ok=True)
+
+# We are printing on Avery L7160 labels (A4, 7 rows of 3 labels) - set the page size and borders, in mm.
+pageWidth = 210
+pageHeight = 297
+labelWidth = 63.5
+labelHeight = 38.1
+labelHorizontalGap = 3
+leftBorder = (pageWidth - ((labelWidth * 3) + (labelHorizontalGap * 2))) / 2
+topBorder = (pageHeight - (labelHeight * 7)) / 2
+
 # Splits a string into two as-even-as-possible strings, split by space.
 def evenlySplitString(theString):
 	theString = theString.strip()
@@ -63,6 +79,11 @@ for pupilsIndex, pupilsValue in pupils.iterrows():
 	forms[pupilsValue["Form"]] = 1
 
 for form in forms.keys():
+	# Create the blank PDF document to start drawing page elements on.
+	pdfCanvas = reportlab.pdfgen.canvas.Canvas(formLabelsRoot + os.sep + form + ".pdf")
+	labelCount = 0
 	for pupilsIndex, pupilsValue in pupils.iterrows():
 		if form == pupilsValue["Form"]:
 			print(evenlySplitString(pupilsValue["GivenName"] + " " + pupilsValue["FamilyName"]))
+	# Save the PDF document.
+	pdfCanvas.save()
