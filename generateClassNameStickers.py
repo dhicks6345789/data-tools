@@ -142,7 +142,7 @@ for form in forms.keys():
 			while lineWidth >= (labelImageWidth-labelBorder) or lineHeight >= labelImageHeight:
 				fontSize = fontSize - fontSizeStep
 				lineWidth, lineHeight = textDrawer.textsize(pupilsValue["GivenName"], font=fonts[fontSize])
-			textDrawer.text((int((labelImageWidth-lineWidth)/2), (labelBorder / 2)), lineText, fill="black", font=fonts[fontSize])
+			textDrawer.text((int((labelImageWidth-lineWidth)/2), (labelBorder / 2)), pupilsValue["GivenName"], fill="black", font=fonts[fontSize])
             
 			# Place the label image on the PDF document.
 			pdfCanvas.drawInlineImage(labelImage, (leftBorder+(labelX*(labelWidth+labelHorizontalGap)))*reportlab.lib.units.mm, (pageHeight-(topBorder+((labelY+1)*labelHeight)))*reportlab.lib.units.mm, labelWidth*reportlab.lib.units.mm, labelHeight*reportlab.lib.units.mm)
