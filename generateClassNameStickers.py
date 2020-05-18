@@ -109,5 +109,7 @@ for form in forms.keys():
             
 			# Place the label image on the PDF document.
 			pdfCanvas.drawInlineImage(labelImage, (leftBorder+(labelX*(labelWidth+labelHorizontalGap)))*reportlab.lib.units.mm, (pageHeight-(topBorder+((labelY+1)*labelHeight)))*reportlab.lib.units.mm, labelWidth*reportlab.lib.units.mm, labelHeight*reportlab.lib.units.mm)
+			
+			labelCount = labelCount + 1
 	# Save the PDF document.
 	pdfCanvas.save()
