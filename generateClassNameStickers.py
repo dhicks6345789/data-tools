@@ -65,4 +65,4 @@ for pupilsIndex, pupilsValue in pupils.iterrows():
 for form in forms.keys():
 	for pupilsIndex, pupilsValue in pupils.iterrows():
 		if form == pupilsValue["Form"]:
-			print(pupilsValue["GivenName"] + " " + pupilsValue["FamilyName"])
+			print(evenlySplitString(pupilsValue["GivenName"] + " " + pupilsValue["FamilyName"]))
