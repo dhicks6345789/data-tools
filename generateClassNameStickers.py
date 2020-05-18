@@ -39,11 +39,17 @@ os.makedirs(spineLabelsRoot, exist_ok=True)
 # We are printing on Avery L7160 labels (A4, 7 rows of 3 labels) - set the page size and borders, in mm.
 pageWidth = 210
 pageHeight = 297
+labelsX = 3
+labelsY = 7
 labelWidth = 63.5
 labelHeight = 38.1
+labelBorder = 40
 labelHorizontalGap = 3
-leftBorder = (pageWidth - ((labelWidth * 3) + (labelHorizontalGap * 2))) / 2
-topBorder = (pageHeight - (labelHeight * 7)) / 2
+lineSpacing = 30
+initialFontSize = 132
+fontSizeStep = 4
+leftBorder = (pageWidth - ((labelWidth * labelsX) + (labelHorizontalGap * 2))) / 2
+topBorder = (pageHeight - (labelHeight * labelsY)) / 2
 
 # Splits a string into two as-even-as-possible strings, split by space.
 def evenlySplitString(theString):
@@ -84,8 +90,8 @@ for form in forms.keys():
 	labelCount = 0
 	for pupilsIndex, pupilsValue in pupils.iterrows():
 		if form == pupilsValue["Form"]:
-			labelX = labelCount % 3
-			labelY = ((labelCount - labelX) / 3) % 7
+			labelX = labelCount % labelsX
+			labelY = ((labelCount - labelX) / labelsX) % labelsY
 			
 			# Create a blank image to place the label details on.
 			labelImageWidth = int(labelWidth*10)
@@ -93,19 +99,19 @@ for form in forms.keys():
 			labelImage = PIL.Image.new("RGB", (labelImageWidth,labelImageHeight), (255, 255, 255))
 			
 			# Draw the pupil's full name on the label image, centred, 20 pixels down from the top.
-			fontSize = 132
+			fontSize = initialFontSize
 			line1Width = labelImageWidth
 			line1Height = labelImageHeight
 			line2Width = labelImageWidth
 			line2Height = labelImageHeight
 			textDrawer = PIL.ImageDraw.Draw(labelImage)
 			line1Text, line2Text = evenlySplitString(pupilsValue["GivenName"] + " " + pupilsValue["FamilyName"])
-			while line1Width >= (labelImageWidth-40) or line2Width >= (labelImageWidth-40) or (line1Height + 30 + line2Height) >= labelImageHeight:
-				fontSize = fontSize - 4
+			while line1Width >= (labelImageWidth-labelBorder) or line2Width >= (labelImageWidth-labelBorder) or (line1Height + lineSpacing + line2Height) >= labelImageHeight:
+				fontSize = fontSize - fontSizeStep
 				line1Width, line1Height = textDrawer.textsize(line1Text, font=fonts[fontSize])
 				line2Width, line2Height = textDrawer.textsize(line2Text, font=fonts[fontSize])
-			textDrawer.text((int((labelImageWidth-line1Width)/2), 20), line1Text, fill="black", font=fonts[fontSize])
-			textDrawer.text((int((labelImageWidth-line2Width)/2), line1Height+30), line2Text, fill="black", font=fonts[fontSize])
+			textDrawer.text((int((labelImageWidth-line1Width)/2), (labelBorder / 2)), line1Text, fill="black", font=fonts[fontSize])
+			textDrawer.text((int((labelImageWidth-line2Width)/2), line1Height+lineSpacing), line2Text, fill="black", font=fonts[fontSize])
             
 			# Place the label image on the PDF document.
 			pdfCanvas.drawInlineImage(labelImage, (leftBorder+(labelX*(labelWidth+labelHorizontalGap)))*reportlab.lib.units.mm, (pageHeight-(topBorder+((labelY+1)*labelHeight)))*reportlab.lib.units.mm, labelWidth*reportlab.lib.units.mm, labelHeight*reportlab.lib.units.mm)
