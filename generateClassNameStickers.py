@@ -48,6 +48,8 @@ def evenlySplitString(theString):
 			lowestDiff = tempDiff
 	return(result1, result2)
 
+os.system("dir")
+
 # Set up a bunch of different font sizes for use with name labels.
 fonts = {}
 for fontSize in range(4, 129, 4):
