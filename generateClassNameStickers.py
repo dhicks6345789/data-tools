@@ -26,6 +26,9 @@ import pandas
 # Our own library.
 import dataLib
 
+# Load the config file.
+config = dataLib.loadConfig(["dataFolder"])
+
 # Takes an array of strings, returns a single string with those strings separated by spaces.
 def combineStrings(theStrings):
 	result = ""
