@@ -29,13 +29,6 @@ import dataLib
 # Load the config file.
 config = dataLib.loadConfig(["dataFolder"])
 
-# Takes an array of strings, returns a single string with those strings separated by spaces.
-def combineStrings(theStrings):
-	result = ""
-	for theString in theStrings:
-		result = result + theString + " "
-	return(result[:-1])
-
 # Splits a string into two as-even-as-possible strings, split by space.
 def evenlySplitString(theString):
 	theString = theString.strip()
@@ -48,8 +41,8 @@ def evenlySplitString(theString):
 	result2 = ""
 	lowestDiff = 999
 	for pl in range(1, len(stringSplit)):
-		tempResult1 = combineStrings(stringSplit[:pl])
-		tempResult2 = combineStrings(stringSplit[pl:])
+		tempResult1 = " ".join(stringSplit[:pl])
+		tempResult2 = " ".join(stringSplit[pl:])
 		tempDiff = abs(len(tempResult1)-len(tempResult2))
 		if tempDiff < lowestDiff:
 			result1 = tempResult1
@@ -64,3 +57,9 @@ for fontSize in range(4, 129, 4):
 
 print("Writing per-form PDF Stickers...")
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
+
+forms = {}
+for pupilsIndex, pupilsValue in pupils.iterrows():
+	forms[pupilsValues["Form"]] = 1
+for form in forms.keys():
+	print(form)
