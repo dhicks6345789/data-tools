@@ -68,7 +68,9 @@ report = pandas.DataFrame(columns=columnNames)
 yearGroups = {}
 for pupilsIndex, pupilsValues in pupils.iterrows():
 	yearGroups[dataLib.yearCohortToGroup(pupilsValues["YearGroup"])] = 1
+
 reportIndex = 0
+mostRecentDate = datetime.datetime(2000, 1, 1)
 print("Processing data by year group...")
 for yearGroup in yearGroups.keys():
 	print("Processing " + yearGroup + "...")
@@ -98,8 +100,12 @@ for yearGroup in yearGroups.keys():
 					report.at[indexToUse, "Classroom"] = activityValues["classroom:last_interaction_time"]
 					
 					lastLogin = parseDate(activityValues["accounts:last_login_time"])
+					if lastLogin > mostRecentDate:
+						mostRecentDate = lastLogin
 					lastLoginDays = dateToWorkingDaysAgo(activityValues["accounts:last_login_time"])
 					lastClassroom = parseDate(activityValues["classroom:last_interaction_time"])
+					if lastClassroom > mostRecentDate:
+						mostRecentDate = lastClassroom
 					lastClassroomDays = dateToWorkingDaysAgo(activityValues["classroom:last_interaction_time"])
 					if lastLogin == "Never":
 						lastActive = lastClassroom
@@ -140,7 +146,7 @@ for yearGroup in yearGroups.keys():
 	for reportIndex, reportValues in report.iterrows():
 		# Draw the report name and column headers.
 		if lineNumber == 1:
-			pdfCanvas.drawString(leftBorder*reportlab.lib.units.mm, (pageHeight-topBorder)*reportlab.lib.units.mm, "Year: " + str(yearGroup) + ", Report generated: " + roundDatetime(datetime.datetime.now()).strftime("%d/%m/%Y"))
+			pdfCanvas.drawString(leftBorder*reportlab.lib.units.mm, (pageHeight-topBorder)*reportlab.lib.units.mm, "Year: " + str(yearGroup) + ", Most recent date: " + roundDatetime(mostRecentDate).strftime("%d/%m/%Y"))
 			for columnName in columnNames:
 				if not columnPos[columnName] == None:
 					pdfCanvas.drawString((leftBorder+columnPos[columnName])*reportlab.lib.units.mm, ((pageHeight-lineHeight)-topBorder)*reportlab.lib.units.mm, columnName)
