@@ -72,7 +72,7 @@ for pupilsIndex, pupilsValues in pupils.iterrows():
 
 reportIndex = 0
 todaysDate = datetime.datetime.now()
-todaysDateString = lastActive.strftime("%d-%m-%Y")
+todaysDateString = todaysDate.strftime("%d-%m-%Y")
 reportTitle = "report-" + todaysDateString + ".csv"
 mostRecentDate = datetime.datetime(2000, 1, 1)
 print("Processing data by year group...")
