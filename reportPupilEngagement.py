@@ -3,6 +3,7 @@ import os
 import io
 import sys
 import json
+import shutil
 import pandas
 import dataLib
 import datetime
@@ -134,7 +135,8 @@ report.to_csv(outputRoot + os.sep + reportTitle, index=False)
 
 for item in os.listdir(outputRoot):
 	if item.endswith(".csv") and not item == reportTitle:
-		print("Move " + outputRoot + os.sep + item + " to " + historyRoot + os.sep + item)
+		print("Moving historial report " + item + " to " + historyRoot)
+		shutil.move(outputRoot + os.sep + item, historyRoot + os.sep + item)
 
 # Get ready to write out a formatted PDF document per year group.
 # We are printing on A4 paper - set the page size and borders, in mm.
