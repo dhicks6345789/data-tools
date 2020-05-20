@@ -56,12 +56,13 @@ config = dataLib.loadConfig(["dataFolder"])
 # Make sure the output folder exists.
 reportsRoot = config["dataFolder"] + os.sep + "Reports"
 outputRoot = reportsRoot + os.sep + "Pupil Engagement"
-os.makedirs(outputRoot, exist_ok=True)
+historyRoot = outputRoot + os.sep + "History"
+os.makedirs(historyRoot, exist_ok=True)
 
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 activity = pandas.read_csv(config["dataFolder"] + os.sep + "Reports" + os.sep + "userActivity.csv", header=0)
 
-columnPos = {"Name":0,"Username":70,"Year":105,"Login":None,"Classroom":None,"Last Active(Working Days)":125,"Login/Class":None}
+columnPos = {"Name":0,"Username":70,"Year":105,"Login":None,"Classroom":None,"Last Active(Working Days)":125}
 columnNames = columnPos.keys()
 report = pandas.DataFrame(columns=columnNames)
 
@@ -70,6 +71,9 @@ for pupilsIndex, pupilsValues in pupils.iterrows():
 	yearGroups[dataLib.yearCohortToGroup(pupilsValues["YearGroup"])] = 1
 
 reportIndex = 0
+todaysDate = datetime.datetime.now()
+todaysDateString = lastActive.strftime("%d-%m-%Y")
+reportTitle = "report-" + todaysDateString + ".csv"
 mostRecentDate = datetime.datetime(2000, 1, 1)
 print("Processing data by year group...")
 for yearGroup in yearGroups.keys():
@@ -126,7 +130,11 @@ for yearGroup in yearGroups.keys():
 					# pdfCanvas.setFillColorRGB(colourValue,1-colourValue,0)
 
 # Write out the CSV report.
-report.to_csv(outputRoot + os.sep + "report.csv", index=False)
+report.to_csv(outputRoot + os.sep + reportTitle, index=False)
+
+for item in os.listdir(outputRoot):
+	if item.endswith(".csv") and not item == reportTitle:
+		print("Move " + outputRoot + os.sep + reportTitle + " to " + outputRoot + os.sep + historyRoot)
 
 # Get ready to write out a formatted PDF document per year group.
 # We are printing on A4 paper - set the page size and borders, in mm.
