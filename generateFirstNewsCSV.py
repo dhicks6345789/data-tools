@@ -28,19 +28,24 @@ os.makedirs(outputRoot, exist_ok=True)
 # Output in CSV format:
 # First Name,Last Name,"Level (1, 2 or 3)",Parent/Student Email
 # Delete,Me,1,pupil@exampleemail.com
-firstNews = pandas.DataFrame(columns=["First Name","Last Name","Level","Email"])
 
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
+forms = {}
 for pupilsIndex, pupilsValues in pupils.iterrows():
-	yearGroup = formToYearGroup(pupilsValues["Form"])
-	if not yearGroup == None:
-		firstNews.at[pupilsIndex+1, "First Name"] = pupilsValues["GivenName"]
-		firstNews.at[pupilsIndex+1, "Last Name"] = pupilsValues["FamilyName"]
-		firstNews.at[pupilsIndex+1, "Level"] = yearGroupToLevel[yearGroup]
-		if yearGroup in ownEmailYearGroups:
-			firstNews.at[pupilsIndex+1, "Email"] = pupilsValues["OldUsername"] + "@knightsbridgeschool.com"
-		else:
-			firstNews.at[pupilsIndex+1, "Email"] = pupilsValues["Contacts"].split(" ")[0]
+	forms[pupilsValues["Form"]] = 1
 
-firstNews.to_csv(outputRoot + os.sep + "FirstNews.csv", index=False)
+for form in forms.keys():
+	yearGroup = formToYearGroup(form)
+	if not yearGroup == None:
+		firstNews = pandas.DataFrame(columns=["First Name","Last Name","Level","Email"])
+		for pupilsIndex, pupilsValues in pupils.iterrows():
+			if pupilsValues["Form"] == form:
+				firstNews.at[pupilsIndex+1, "First Name"] = pupilsValues["GivenName"]
+				firstNews.at[pupilsIndex+1, "Last Name"] = pupilsValues["FamilyName"]
+				firstNews.at[pupilsIndex+1, "Level"] = yearGroupToLevel[yearGroup]
+				if yearGroup in ownEmailYearGroups:
+					firstNews.at[pupilsIndex+1, "Email"] = pupilsValues["OldUsername"] + "@knightsbridgeschool.com"
+				else:
+					firstNews.at[pupilsIndex+1, "Email"] = pupilsValues["Contacts"].split(" ")[0]
+		firstNews.to_csv(outputRoot + os.sep + form + ".csv", index=False)
