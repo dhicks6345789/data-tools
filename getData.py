@@ -25,7 +25,7 @@ try:
 except urllib.error.HTTPError as theHTTPError:
 	print("Error calling the iSAMS API:")
 	print("URL: " + requestURL)
-	print("Error Code: " + theHTTPError.code)
+	print("Error Code: " + str(theHTTPError.code))
 	print("Reason: " + theHTTPError.reason)
 	print("Headers:")
 	print(theHTTPError.headers)
