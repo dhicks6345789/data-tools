@@ -25,7 +25,9 @@ print(requestURL)
 try:
 	response = urllib.request.urlopen(requestURL, context=ssl._create_unverified_context(), data=urllib.parse.urlencode({"startDate":"2020-01-01T03:00:00","endDate":"2020-04-01T03:00:00"}).encode())
 except urllib.error.HTTPError as theHTTPError:
-	print(theHTTPError)
+	print("Error calling the iSAMS API: " + theHTTPError.code)
+	print(theHTTPError.reason)
+	print(theHTTPError.headers)
 	sys.exit(1)
 dataLib.writeFile("iSAMSData.xml", str(response.read())[2:-1])
 
