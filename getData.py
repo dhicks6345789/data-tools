@@ -21,7 +21,7 @@ for requiredConfigParameter in requiredConfigParameters:
 print("Getting data from iSAMS.")
 requestURL = "https://" + config["iSAMSAPIDomain"] + "/api/batch/1.0/xml.ashx?apiKey=" + config["iSAMSAPIKey"]
 try:
-	response = urllib.request.urlopen(requestURL, context=ssl._create_unverified_context(), data=urllib.parse.urlencode({"startDate":"2020-01-01T03:00:00","endDate":"2020-04-01T03:00:00"}).encode())
+	response = urllib.request.urlopen(requestURL, context=ssl._create_unverified_context()) #, data=urllib.parse.urlencode({"startDate":"2020-01-01T03:00:00","endDate":"2020-04-01T03:00:00"}).encode())
 except urllib.error.HTTPError as theHTTPError:
 	print("Error calling the iSAMS API:")
 	print("URL: " + requestURL)
