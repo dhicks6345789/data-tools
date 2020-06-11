@@ -29,6 +29,8 @@ except urllib.error.HTTPError as theHTTPError:
 	print("Reason: " + theHTTPError.reason)
 	print("Headers:")
 	print(theHTTPError.headers)
+	print("Content:")
+	print(response.read())
 	sys.exit(1)
 dataLib.writeFile("iSAMSData.xml", str(response.read())[2:-1])
 
