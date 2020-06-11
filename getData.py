@@ -20,13 +20,14 @@ for requiredConfigParameter in requiredConfigParameters:
 # Go and get the data from the iSAMS API.
 print("Getting data from iSAMS.")
 requestURL = "https://" + config["iSAMSAPIDomain"] + "/api/batch/1.0/xml.ashx?apiKey=" + config["iSAMSAPIKey"]
-print("Calling iSAMS request URL:")
-print(requestURL)
 try:
 	response = urllib.request.urlopen(requestURL, context=ssl._create_unverified_context(), data=urllib.parse.urlencode({"startDate":"2020-01-01T03:00:00","endDate":"2020-04-01T03:00:00"}).encode())
 except urllib.error.HTTPError as theHTTPError:
-	print("Error calling the iSAMS API: " + theHTTPError.code)
-	print(theHTTPError.reason)
+	print("Error calling the iSAMS API:")
+	print("URL: " + requestURL)
+	print("Error Code: " + theHTTPError.code)
+	print("Reason: " + theHTTPError.reason)
+	print("Headers:")
 	print(theHTTPError.headers)
 	sys.exit(1)
 dataLib.writeFile("iSAMSData.xml", str(response.read())[2:-1])
