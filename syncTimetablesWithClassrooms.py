@@ -40,4 +40,6 @@ for yeargroupsIndex, yeargroupsValues in yeargroups.iterrows():
 		for pupilsIndex, pupilsValues in pupils.iterrows():
 			if yeargroupsValues[0] in pupilsValues["Form"]:
 				pupilGroup.append(pupilsValues)
-		print(pupilGroup)
+		print(yeargroupsValues[0])
+		for pupil in pupilGroup:
+			print(pupilGroup["OldUsername"])
