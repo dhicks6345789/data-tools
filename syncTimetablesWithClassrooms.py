@@ -32,6 +32,6 @@ currentTerm = "Summer 2020"
 timetablesRoot = config["dataFolder"] + os.sep + "Timetables"
 os.makedirs(timetablesRoot, exist_ok=True)
 
-yeargroups = pandas.read_csv(config["dataFolder"] + os.sep + "yeargroups.csv", header=0)
+yeargroups = pandas.read_csv(config["dataFolder"] + os.sep + "yeargroups.csv", header=None)
 for yeargroupsIndex, yeargroupsValues in yeargroups.iterrows():
 	print(yeargroupsValues)
