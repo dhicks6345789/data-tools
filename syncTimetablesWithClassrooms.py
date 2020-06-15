@@ -37,8 +37,9 @@ yeargroups = pandas.read_csv(config["dataFolder"] + os.sep + "yeargroups.csv", h
 for yeargroupsIndex, yeargroupsValues in yeargroups.iterrows():
 	if os.path.exists(timetablesRoot + os.sep + yeargroupsValues[0] + " - " + currentTerm + ".xlsx"):
 		pupilGroup = []
+		print(yeargroupsValues[0])
 		for pupilsIndex, pupilsValues in pupils.iterrows():
+			print(pupils["Form"])
 			if yeargroupsValues[0] in pupils["Form"]:
 				pupilGroup.append(pupilsValues)
-		print(yeargroupsValues[0])
 		print(pupilGroup)
