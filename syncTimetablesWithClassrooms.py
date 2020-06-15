@@ -32,7 +32,13 @@ currentTerm = "Summer 2020"
 timetablesRoot = config["dataFolder"] + os.sep + "Timetables"
 os.makedirs(timetablesRoot, exist_ok=True)
 
+pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 yeargroups = pandas.read_csv(config["dataFolder"] + os.sep + "yeargroups.csv", header=None)
 for yeargroupsIndex, yeargroupsValues in yeargroups.iterrows():
 	if os.path.exists(timetablesRoot + os.sep + yeargroupsValues[0] + " - " + currentTerm + ".xlsx"):
+		pupilGroup = []
+		for pupilsIndex, pupilsValues in pupils.iterrows():
+			if yeargroupsValues[0] in pupils["Form"]:
+				pupilGroup.append(pupilsValues)
 		print(yeargroupsValues[0])
+		print(pupilGroup)
