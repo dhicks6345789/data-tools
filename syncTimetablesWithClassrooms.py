@@ -27,9 +27,10 @@ import reportlab.graphics.renderPM
 config = dataLib.loadConfig(["dataFolder"])
 
 # Make sure the output folder exists.
-outputRoot = config["dataFolder"] + os.sep + "Timetables"
-os.makedirs(outputRoot, exist_ok=True)
+timetablesRoot = config["dataFolder"] + os.sep + "Timetables"
+os.makedirs(timetablesRoot, exist_ok=True)
 
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
-print("More stuff goes here...")
+for item in os.listdir(timetablesRoot):
+  print(item)
