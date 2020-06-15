@@ -34,5 +34,5 @@ os.makedirs(timetablesRoot, exist_ok=True)
 
 yeargroups = pandas.read_csv(config["dataFolder"] + os.sep + "yeargroups.csv", header=None)
 for yeargroupsIndex, yeargroupsValues in yeargroups.iterrows():
-	if os.path.exists(yeargroupsValues[0] + " - " + currentTerm + ".xlsx"):
+	if os.path.exists(timetablesRoot + os.sep + yeargroupsValues[0] + " - " + currentTerm + ".xlsx"):
 		print(yeargroupsValues[0])
