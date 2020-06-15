@@ -42,4 +42,4 @@ for yeargroupsIndex, yeargroupsValues in yeargroups.iterrows():
 				pupilGroup.append(pupilsValues)
 		print(yeargroupsValues[0])
 		for pupil in pupilGroup:
-			print(pupilGroup["OldUsername"])
+			print(pupil["OldUsername"])
