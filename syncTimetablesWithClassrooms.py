@@ -34,4 +34,4 @@ os.makedirs(timetablesRoot, exist_ok=True)
 
 yeargroups = pandas.read_csv(config["dataFolder"] + os.sep + "yeargroups.csv", header=None)
 for yeargroupsIndex, yeargroupsValues in yeargroups.iterrows():
-	print(yeargroupsValues)
+	print(yeargroupsValues[0])
