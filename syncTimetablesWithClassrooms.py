@@ -26,11 +26,12 @@ import reportlab.graphics.renderPM
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
 
+currentTerm = "Summer 2020"
+
 # Make sure the output folder exists.
 timetablesRoot = config["dataFolder"] + os.sep + "Timetables"
 os.makedirs(timetablesRoot, exist_ok=True)
 
-pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
-
-for item in os.listdir(timetablesRoot):
-  print(item)
+yeargroups = pandas.read_csv(config["dataFolder"] + os.sep + "yeargroups.csv", header=0)
+for yeargroupsIndex, yeargroupsValues in yeargroups.iterrows():
+	print(yeargroupsValues)
