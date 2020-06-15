@@ -39,7 +39,7 @@ for yeargroupsIndex, yeargroupsValues in yeargroups.iterrows():
 		pupilGroup = []
 		print(yeargroupsValues[0])
 		for pupilsIndex, pupilsValues in pupils.iterrows():
-			print(pupils["Form"])
-			if yeargroupsValues[0] in pupils["Form"]:
+			print(pupilsValues["Form"])
+			if yeargroupsValues[0] in pupilsValues["Form"]:
 				pupilGroup.append(pupilsValues)
 		print(pupilGroup)
