@@ -105,8 +105,9 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["YearGroup"].append(currentPupil.find("EmailAddress").text.split("@")[0][-2:])
 	pupils["Form"].append(currentPupil.find("Form").text)
 	forms[currentPupil.find("Form").text] = 1
+	pupils["House"].append("")
 	#pupils["House"].append(currentPupil.find("House").text)
-	#houses[currentPupil.find("House").text] = 1
+	#houses[currentPupil.find("House").text] = 1	
 	pupils["Tutor"].append(getValue(currentPupil, "Tutor"))
 	pupils["Contacts"].append("")
 pupilsDataFrame = pandas.DataFrame(pupils)
