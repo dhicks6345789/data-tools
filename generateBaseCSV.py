@@ -103,10 +103,10 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["OldUsername"].append(oldUsername)
 	
 	pupils["YearGroup"].append(currentPupil.find("EmailAddress").text.split("@")[0][-2:])
-	print(currentPupil.find("Form").text)
 	pupils["Form"].append(currentPupil.find("Form").text)
 	forms[currentPupil.find("Form").text] = 1
 	#pupils["House"].append("")
+	print(currentPupil.find("AcademicHouse").text)
 	pupils["House"].append(currentPupil.find("AcademicHouse").text)
 	houses[currentPupil.find("AcademicHouse").text] = 1
 	pupils["Tutor"].append(getValue(currentPupil, "Tutor"))
