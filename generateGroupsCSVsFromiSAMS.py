@@ -72,6 +72,7 @@ for pupilIndex, pupil in pupils.iterrows():
 	if not house == "nan":
 		houses[house] = 1
 
+houseMembers = {}
 for house in houses.keys():
 	houseMembers[house] = []
 	for pupilIndex, pupil in pupils.iterrows():
