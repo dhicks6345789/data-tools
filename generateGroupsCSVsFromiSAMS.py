@@ -69,11 +69,15 @@ for pupilIndex, pupil in pupils.iterrows():
 	house = pupil["House"]
 	if not form in yeargroups:
 		forms[form] = 1
-	if not house == "":
+	if not house == "nan":
 		houses[house] = 1
 
-print(houses)
-		
+for house in houses.keys():
+	houseMembers[house] = []
+	for pupilIndex, pupil in pupils.iterrows():
+		if house == pupil["House"]:
+			houseMembers[house].append(pupil["oldUsername"])
+
 # Add the list of forms to groupDetails.
 for form in forms.keys():
 	groupDetails[form + " Pupils"] = {"email":form + "pupils@knightsbridgeschool.com","group":form}
@@ -104,3 +108,6 @@ installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + "Pupils
 os.system("gam update group pupils@knightsbridgeschool.com name pupils 2>&1")
 os.system("gam update group pupils@knightsbridgeschool.com sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + "Pupils.csv\" 2>&1")
 os.system("gam update group pupils@knightsbridgeschool.com who_can_view_membership all_in_domain_can_view 2>&1")
+
+for house in houses.keys():
+	print(houseMembers[house])
