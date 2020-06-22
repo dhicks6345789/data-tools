@@ -106,9 +106,13 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["Form"].append(currentPupil.find("Form").text)
 	forms[currentPupil.find("Form").text] = 1
 	#pupils["House"].append("")
-	print(currentPupil.find("AcademicHouse").text)
-	pupils["House"].append(currentPupil.find("AcademicHouse").text)
-	houses[currentPupil.find("AcademicHouse").text] = 1
+	house = currentPupil.find("AcademicHouse").text
+	if house == None:
+		print("Pupil " + oldUsername + " has no House set.")
+		house = ""
+	else:
+		houses[house] = 1
+	pupils["House"].append(house)
 	pupils["Tutor"].append(getValue(currentPupil, "Tutor"))
 	pupils["Contacts"].append("")
 pupilsDataFrame = pandas.DataFrame(pupils)
