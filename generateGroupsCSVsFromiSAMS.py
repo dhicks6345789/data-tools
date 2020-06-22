@@ -111,4 +111,7 @@ os.system("gam update group pupils@knightsbridgeschool.com sync member file \"" 
 os.system("gam update group pupils@knightsbridgeschool.com who_can_view_membership all_in_domain_can_view 2>&1")
 
 for house in houses.keys():
-	installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + house + "Pupils.csv", "\n".join(houseMembers[house]))
+	installLib.writeFile(config["dataFolder"] + os.sep + "Groups" + os.sep + house + " Pupils.csv", "\n".join(houseMembers[house]))
+	print("gam update group " + house + "pupils@knightsbridgeschool.com name \"" + house + " pupils\" 2>&1")
+	print("gam update group " + house + "pupils@knightsbridgeschool.com sync member file \"" + config["dataFolder"] + os.sep + "Groups" + os.sep + house + " Pupils.csv\" 2>&1")
+	print("gam update group " + house + "pupils@knightsbridgeschool.com who_can_view_membership all_in_domain_can_view 2>&1")
