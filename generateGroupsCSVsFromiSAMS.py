@@ -4,7 +4,6 @@ import re
 import sys
 import csv
 import json
-import numpy
 import pandas
 import installLib
 
@@ -70,7 +69,7 @@ for pupilIndex, pupil in pupils.iterrows():
 	house = pupil["House"]
 	if not form in yeargroups:
 		forms[form] = 1
-	if not numpy.isnan(house):
+	if not str(house) == "nan":
 		houses[house] = 1
 
 houseMembers = {}
