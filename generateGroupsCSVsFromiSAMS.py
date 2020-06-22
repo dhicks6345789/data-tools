@@ -63,11 +63,17 @@ pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
 # Get a list of forms - a "form" here is any sub-yeargroup sized group of pupils, we skip any forms which are simply a whole yeargroup.
 forms = {}
+houses = {}
 for pupilIndex, pupil in pupils.iterrows():
 	form = pupil["Form"]
+	house = pupil["House"]
 	if not form in yeargroups:
 		forms[form] = 1
+	if not house == "":
+		houses[house] = 1
 
+print(houses)
+		
 # Add the list of forms to groupDetails.
 for form in forms.keys():
 	groupDetails[form + " Pupils"] = {"email":form + "pupils@knightsbridgeschool.com","group":form}
