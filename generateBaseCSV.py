@@ -106,7 +106,7 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["Form"].append(currentPupil.find("Form").text)
 	forms[currentPupil.find("Form").text] = 1
 	if currentPupil.find("AcademicHouse") == None:
-		print("Pupil " + oldUsername + " has no House set.")
+		print("Pupil " + currentPupil.find("Preferredname").text + " " + currentPupil.find("Surname").text + " has no House set.")
 		house = ""
 	else:
 		house = currentPupil.find("AcademicHouse").text
