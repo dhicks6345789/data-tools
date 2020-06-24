@@ -29,6 +29,8 @@ config = dataLib.loadConfig(["dataFolder"])
 # Check the command line paramaters.
 if not len(sys.argv) == 3:
 	print("Usage: generatedPrintedCalendar URL outputFilename")
+inputCalendar = sys.argv[1]
+outputFilename = sys.argv[2]
 
 # Make sure the input / output folder exists.
 calendarsFolder = config["dataFolder"] + os.sep + "Calendars"
