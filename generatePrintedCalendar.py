@@ -31,7 +31,7 @@ if not len(sys.argv) == 3:
 	print("Usage: generatedPrintedCalendar URL outputFilename")
 
 # Make sure the input / output folder exists.
-calendarFolder = config["dataFolder"] + os.sep + "Calendars"
+calendarsFolder = config["dataFolder"] + os.sep + "Calendars"
 os.makedirs(calendarsFolder, exist_ok=True)
 
 # Check to see if there is content to merge.
