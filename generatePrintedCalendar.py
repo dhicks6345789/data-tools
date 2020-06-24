@@ -37,10 +37,12 @@ calendarsFolder = config["dataFolder"] + os.sep + "Calendars"
 os.makedirs(calendarsFolder, exist_ok=True)
 
 # Check to see if there is content to merge.
-if os.path.exists(calendarsFolder + os.sep + outputFilename + os.sep + "frontMatter.docx"):
+frontMatterPath = calendarsFolder + os.sep + outputFilename + os.sep + "frontMatter.docx"
+if os.path.exists(frontMatterPath):
 	print("Found front matter...")
 
-if os.path.exists(calendarsFolder + os.sep + outputFilename + os.sep + "backMatter.docx"):
+backMatterPath = calendarsFolder + os.sep + outputFilename + os.sep + "backMatter.docx"
+if os.path.exists(backMatterPath):
 	print("Found back matter...")
 
 # Create the blank PDF document to start drawing page elements on.
