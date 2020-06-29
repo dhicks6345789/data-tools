@@ -27,6 +27,14 @@ import PyPDF2
 
 
 
+def drawCalendarPage(thePDFCanvas):
+	thePDFCanvas.line(leftX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm)
+	thePDFCanvas.line(rightX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm)
+	thePDFCanvas.line(rightX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm, leftX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm)
+	thePDFCanvas.line(leftX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm, leftX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm)
+	
+	
+	
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
 
@@ -69,13 +77,9 @@ lineHeight = 8
 pdfCanvas = reportlab.pdfgen.canvas.Canvas("temp.pdf")
 pdfCanvas.setPageSize((pageWidth*reportlab.lib.units.mm, pageHeight*reportlab.lib.units.mm))
 
-pdfCanvas.line(leftX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm)
-pdfCanvas.line(rightX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm)
-pdfCanvas.line(rightX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm, leftX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm)
-pdfCanvas.line(leftX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm, leftX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm)
-
+drawCalendarPage(pdfCanvas)
 pdfCanvas.showPage()
-pdfCanvas.line(leftX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm)
+drawCalendarPage(pdfCanvas)
 
 # Save the PDF document.
 pdfCanvas.save()
