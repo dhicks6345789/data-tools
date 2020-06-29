@@ -53,7 +53,7 @@ pdfsToMerge.append("temp.pdf")
 backMatterPath = calendarsFolder + os.sep + outputFilename + os.sep + "backMatter.docx"
 if os.path.exists(backMatterPath):
 	print("Found back matter...")
-	print("pandoc \"" + backMatterPath + "\" -o frontMatter.pdf")
+	print("pandoc \"" + backMatterPath + "\" -o backMatter.pdf")
 	pdfsToMerge.append("backMatter.pdf")
 
 # Get ready to write out a formatted PDF document. We are printing on A5paper - set the page size and borders, in mm.
