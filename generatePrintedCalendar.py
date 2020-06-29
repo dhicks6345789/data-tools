@@ -44,7 +44,7 @@ def drawCalendarPage(thePDFCanvas, headings):
 	headingY = topY
 	for heading in headings:
 		thePDFCanvas.line(leftX*reportlab.lib.units.mm, headingY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, headingY*reportlab.lib.units.mm)
-		headingY = headingY + cellHeight
+		headingY = headingY - cellHeight
 	thePDFCanvas.line(rightX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm)
 	thePDFCanvas.line(rightX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm, leftX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm)
 	thePDFCanvas.line(leftX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm, leftX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm)
