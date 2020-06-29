@@ -45,7 +45,7 @@ def drawCalendarPage(thePDFCanvas, headings):
 	headingImage = PIL.Image.new("RGB", (pageWidth-(borderSize*2), lineHeight), (200, 200, 200))
 	headingY = topY - lineHeight
 	for heading in headings:
-		pdfCanvas.drawInlineImage(lineImage, leftX*reportlab.lib.units.mm, headingY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
+		pdfCanvas.drawInlineImage(headingImage, leftX*reportlab.lib.units.mm, headingY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
 		thePDFCanvas.line(leftX*reportlab.lib.units.mm, headingY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, headingY*reportlab.lib.units.mm)
 		yPos = headingY-lineHeight
 		thePDFCanvas.line(leftX*reportlab.lib.units.mm, yPos*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, yPos*reportlab.lib.units.mm)
