@@ -39,7 +39,7 @@ topY = pageHeight-borderSize
 bottomY = borderSize
 
 lineHeight = 8
-halfLineHeight = lineHeight / 4
+linePadding = 3
 tableWidth = pageWidth-(borderSize*2)
 
 
@@ -53,15 +53,15 @@ def drawCalendarPage(thePDFCanvas, headings):
 	# A mid-gray background to make following lines on the page a bit easier.
 	headingImage = PIL.Image.new("RGB", (tableWidth, lineHeight), (200, 200, 200))
 	headingY = topY - lineHeight
-	thePDFCanvas.drawString(leftX*reportlab.lib.units.mm, (headingY+halfLineHeight)*reportlab.lib.units.mm, headings[0][0])
-	drawRightJustifiedString(pdfCanvas, headings[0][1], rightX, headingY+halfLineHeight)
+	thePDFCanvas.drawString(leftX*reportlab.lib.units.mm, (headingY+linePadding)*reportlab.lib.units.mm, headings[0][0])
+	drawRightJustifiedString(pdfCanvas, headings[0][1], rightX, headingY+linePadding)
 	for heading in headings[1:]:
 		pdfCanvas.drawInlineImage(headingImage, leftX*reportlab.lib.units.mm, (headingY-lineHeight)*reportlab.lib.units.mm, tableWidth*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
 		thePDFCanvas.line(leftX*reportlab.lib.units.mm, headingY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, headingY*reportlab.lib.units.mm)
 		yPos = headingY-lineHeight
 		thePDFCanvas.line(leftX*reportlab.lib.units.mm, yPos*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, yPos*reportlab.lib.units.mm)
-		thePDFCanvas.drawString(leftX*reportlab.lib.units.mm, (yPos+halfLineHeight)*reportlab.lib.units.mm, heading[0])
-		drawRightJustifiedString(pdfCanvas, heading[1], rightX, yPos+halfLineHeight)
+		thePDFCanvas.drawString(leftX*reportlab.lib.units.mm, (yPos+linePadding)*reportlab.lib.units.mm, heading[0])
+		drawRightJustifiedString(pdfCanvas, heading[1], rightX, yPos+linePadding)
 		headingY = headingY - cellHeight
 	thePDFCanvas.line(rightX*reportlab.lib.units.mm, (topY-lineHeight)*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm)
 	thePDFCanvas.line(rightX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm, leftX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm)
