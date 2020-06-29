@@ -48,7 +48,7 @@ def drawCalendarPage(thePDFCanvas, headings):
 	# A mid-gray background to make following lines on the page a bit easier.
 	headingImage = PIL.Image.new("RGB", (tableWidth, lineHeight), (200, 200, 200))
 	headingY = topY - lineHeight
-	thePDFCanvas.drawString(leftX*reportlab.lib.units.mm, heasdingY*reportlab.lib.units.mm, headings[0][0])
+	thePDFCanvas.drawString(leftX*reportlab.lib.units.mm, headingY*reportlab.lib.units.mm, headings[0][0])
 	#drawRightJustifiedString(pdfCanvas, headings[0][1], rightX, headingY)
 	for heading in headings[1:]:
 		pdfCanvas.drawInlineImage(headingImage, leftX*reportlab.lib.units.mm, (headingY-lineHeight)*reportlab.lib.units.mm, tableWidth*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
