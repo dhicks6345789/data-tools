@@ -55,15 +55,20 @@ topY = pageHeight-borderSize
 bottomY = borderSize
 lineHeight = 8
 
-# Create the blank PDF document to start drawing page elements on.
-pdfCanvas = reportlab.pdfgen.canvas.Canvas(calendarsFolder + os.sep + outputFilename + ".pdf")
+# Create the blank PDF document and start drawing page elements.
+pdfCanvas = reportlab.pdfgen.canvas.Canvas("temp.pdf")
 pdfCanvas.setPageSize((pageWidth*reportlab.lib.units.mm, pageHeight*reportlab.lib.units.mm))
+
 pdfCanvas.line(leftX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm)
 pdfCanvas.line(rightX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm)
 pdfCanvas.line(rightX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm, leftX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm)
 pdfCanvas.line(leftX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm, leftX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm)
+
 pdfCanvas.showPage()
 pdfCanvas.line(leftX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm)
 
 # Save the PDF document.
 pdfCanvas.save()
+
+print("pandoc -s \"" + frontMatterPath + "\" temp.pdf \"" + backMatterPath + "\" -o " + calendarsFolder + os.sep + outputFilename + ".pdf")
+os.remove("temp.pdf")
