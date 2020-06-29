@@ -39,7 +39,7 @@ topY = pageHeight-borderSize
 bottomY = borderSize
 
 lineHeight = 8
-halfLineHeight = lineHeight / 2
+halfLineHeight = lineHeight / 4
 tableWidth = pageWidth-(borderSize*2)
 
 
