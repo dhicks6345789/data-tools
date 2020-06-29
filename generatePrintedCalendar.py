@@ -40,7 +40,7 @@ tableWidth = pageWidth-(borderSize*2)
 
 
 def drawRightJustifiedString(thePDFCanvas, theString, rightXPos, theYPos):
-	theStringWidth = thePDFCanvas.stringWidth(theString)#, font, size)
+	theStringWidth = thePDFCanvas.stringWidth(theString) * #, font, size)
 	thePDFCanvas.drawString(rightXPos*reportlab.lib.units.mm, theYPos*reportlab.lib.units.mm, theString)
 
 def drawCalendarPage(thePDFCanvas, headings):
