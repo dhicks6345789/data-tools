@@ -57,6 +57,7 @@ lineHeight = 8
 
 # Create the blank PDF document to start drawing page elements on.
 pdfCanvas = reportlab.pdfgen.canvas.Canvas(calendarsFolder + os.sep + outputFilename + ".pdf")
+canvas.setPageSize(pageWidth, pageHeight)
 pdfCanvas.line(leftX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm)
 
 # Save the PDF document.
