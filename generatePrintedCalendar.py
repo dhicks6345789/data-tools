@@ -40,7 +40,7 @@ tableWidth = pageWidth-(borderSize*2)
 
 
 def drawRightJustifiedString(thePDFCanvas, theString, rightXPos, theYPos):
-	theStringWidth = thePDFCanvas.stringWidth(theString, font, size)
+	theStringWidth = thePDFCanvas.stringWidth(theString)#, font, size)
 	thePDFCanvas.drawString((rightXPos-theStringWidth)*reportlab.lib.units.mm, theYPos*reportlab.lib.units.mm, theString)
 
 def drawCalendarPage(thePDFCanvas, headings):
@@ -49,7 +49,7 @@ def drawCalendarPage(thePDFCanvas, headings):
 	headingImage = PIL.Image.new("RGB", (tableWidth, lineHeight), (200, 200, 200))
 	headingY = topY - lineHeight
 	thePDFCanvas.drawString(leftX*reportlab.lib.units.mm, headingY*reportlab.lib.units.mm, headings[0][0])
-	#drawRightJustifiedString(pdfCanvas, headings[0][1], rightX, headingY)
+	drawRightJustifiedString(pdfCanvas, headings[0][1], rightX, headingY)
 	for heading in headings[1:]:
 		pdfCanvas.drawInlineImage(headingImage, leftX*reportlab.lib.units.mm, (headingY-lineHeight)*reportlab.lib.units.mm, tableWidth*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
 		thePDFCanvas.line(leftX*reportlab.lib.units.mm, headingY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, headingY*reportlab.lib.units.mm)
