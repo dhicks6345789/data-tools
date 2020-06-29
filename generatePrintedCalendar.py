@@ -70,5 +70,5 @@ pdfCanvas.line(leftX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm, rightX
 # Save the PDF document.
 pdfCanvas.save()
 
-os.system("pandoc -s \"" + frontMatterPath + "\" temp.pdf \"" + backMatterPath + "\" -o \"" + calendarsFolder + os.sep + outputFilename + ".pdf\"")
+os.system("pandoc -s \"" + frontMatterPath + "\" temp.pdf -o \"" + calendarsFolder + os.sep + outputFilename + ".pdf\"")
 os.remove("temp.pdf")
