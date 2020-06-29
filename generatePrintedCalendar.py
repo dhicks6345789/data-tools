@@ -3,6 +3,7 @@ import os
 import io
 import sys
 import json
+import time
 import shutil
 import pandas
 import dataLib
@@ -85,4 +86,5 @@ for pdfToMerge in pdfsToMerge:
 pdfMerger.write(calendarsFolder + os.sep + outputFilename + ".pdf")
 
 del pdfCanvas
+time.sleep(4)
 os.remove("temp.pdf")
