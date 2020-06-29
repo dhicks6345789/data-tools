@@ -60,8 +60,8 @@ def drawCalendarPage(thePDFCanvas, headings):
 		thePDFCanvas.line(leftX*reportlab.lib.units.mm, headingY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, headingY*reportlab.lib.units.mm)
 		yPos = headingY-lineHeight
 		thePDFCanvas.line(leftX*reportlab.lib.units.mm, yPos*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, yPos*reportlab.lib.units.mm)
-		thePDFCanvas.drawString(leftX*reportlab.lib.units.mm, yPos*reportlab.lib.units.mm, heading[0])
-		drawRightJustifiedString(pdfCanvas, heading[1], rightX, yPos)
+		thePDFCanvas.drawString(leftX*reportlab.lib.units.mm, (yPos+halfLineHeight)*reportlab.lib.units.mm, heading[0])
+		drawRightJustifiedString(pdfCanvas, heading[1], rightX, yPos+halfLineHeight)
 		headingY = headingY - cellHeight
 	thePDFCanvas.line(rightX*reportlab.lib.units.mm, (topY-lineHeight)*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm)
 	thePDFCanvas.line(rightX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm, leftX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm)
