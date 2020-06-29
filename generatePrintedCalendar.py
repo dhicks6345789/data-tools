@@ -89,9 +89,9 @@ if os.path.exists(backMatterPath):
 pdfCanvas = reportlab.pdfgen.canvas.Canvas("temp.pdf")
 pdfCanvas.setPageSize((pageWidth*reportlab.lib.units.mm, pageHeight*reportlab.lib.units.mm))
 
-drawCalendarPage(pdfCanvas, ("Monday", "Tuesday", "Wednesday", "Thursday"))
+drawCalendarPage(pdfCanvas, (("Week 1", "Goldfish Week"), ("Monday", "No Clubs This Week"), ("Tuesday", ""), ("Wednesday", ""), ("Thursday", "")))
 pdfCanvas.showPage()
-drawCalendarPage(pdfCanvas, ("Friday", "Saturday", "Sunday", "Notes"))
+drawCalendarPage(pdfCanvas, (("", "20th - 26th April 2020"), ("Friday", ""), ("Saturday", ""), ("Sunday", ""), ("Notes", "")))
 
 # Save the PDF document.
 pdfCanvas.save()
