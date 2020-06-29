@@ -25,14 +25,30 @@ import reportlab.graphics.renderPM
 # PyPDFs - used for merging existing PDF documents.
 import PyPDF2
 
+# Set the various measurements (in mm) we need to write out a formatted PDF document (A5 paper size).
+pageWidth = 148
+pageHeight = 210
+borderSize = 7
+
+leftX = borderSize
+rightX = pageWidth-borderSize
+topY = pageHeight-borderSize
+bottomY = borderSize
+
+lineHeight = 8
 
 
-def drawCalendarPage(thePDFCanvas):
-	thePDFCanvas.line(leftX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm)
+
+def drawCalendarPage(thePDFCanvas, headings):
+	cellHeight = (pageHeight - (borderSize*2)) / len(headings)
+	headingY = topY
+	for heading in headings:
+		thePDFCanvas.line(leftX*reportlab.lib.units.mm, headingY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, headingY*reportlab.lib.units.mm)
+		headingY = headingY + cellHeight
 	thePDFCanvas.line(rightX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm)
 	thePDFCanvas.line(rightX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm, leftX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm)
 	thePDFCanvas.line(leftX*reportlab.lib.units.mm, bottomY*reportlab.lib.units.mm, leftX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm)
-	
+
 	
 	
 # Load the config file (set by the system administrator).
@@ -63,23 +79,13 @@ if os.path.exists(backMatterPath):
 	print("Found back matter...")
 	pdfsToMerge.append(backMatterPath)
 
-# Get ready to write out a formatted PDF document. We are printing on A5paper - set the page size and borders, in mm.
-pageWidth = 148
-pageHeight = 210
-borderSize = 7
-leftX = borderSize
-rightX = pageWidth-borderSize
-topY = pageHeight-borderSize
-bottomY = borderSize
-lineHeight = 8
-
 # Create the blank PDF document and start drawing page elements.
 pdfCanvas = reportlab.pdfgen.canvas.Canvas("temp.pdf")
 pdfCanvas.setPageSize((pageWidth*reportlab.lib.units.mm, pageHeight*reportlab.lib.units.mm))
 
-drawCalendarPage(pdfCanvas)
+drawCalendarPage(pdfCanvas, ("Monday", "Tuesday", "Wednesday", "Thursday"))
 pdfCanvas.showPage()
-drawCalendarPage(pdfCanvas)
+drawCalendarPage(pdfCanvas, ("Friday", "Saturday", "Sunday", "Notes"))
 
 # Save the PDF document.
 pdfCanvas.save()
