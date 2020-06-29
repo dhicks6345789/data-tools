@@ -95,7 +95,9 @@ if os.path.exists(backMatterPath):
 	pdfsToMerge.append(backMatterPath)
 
 reportlab.rl_config.warnOnMissingFontGlyphs = 0
-reportlab.pdfbase.pdfmetrics.registerFont(TTFont("calendarFont", "font.ttf"))
+for item in os.listdir(calendarsFolder + os.sep + outputFilename):
+	if item.lower().endswith(".ttf"):
+		reportlab.pdfbase.pdfmetrics.registerFont(reportlab.pdfbase.ttfonts.TTFont("calendarFont", calendarsFolder + os.sep + outputFilename + os.sep + item))
 
 # Create the blank PDF document and start drawing page elements.
 pdfCanvas = reportlab.pdfgen.canvas.Canvas("temp.pdf")
