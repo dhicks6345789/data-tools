@@ -21,6 +21,9 @@ import reportlab.lib.colors
 import reportlab.pdfgen.canvas
 import reportlab.lib.pagesizes
 import reportlab.graphics.renderPM
+import reportlab.rl_config
+import reportlab.pdfbase.pdfmetrics
+import reportlab.pdfbase.ttfonts.TTFont
 
 # PyPDFs - used for merging existing PDF documents.
 import PyPDF2
@@ -39,8 +42,9 @@ lineHeight = 8
 tableWidth = pageWidth-(borderSize*2)
 
 
+
 def drawRightJustifiedString(thePDFCanvas, theString, rightXPos, theYPos):
-	theStringWidth = thePDFCanvas.stringWidth(theString) * #, font, size)
+	theStringWidth = thePDFCanvas.stringWidth(theString)#, font, size)
 	thePDFCanvas.drawString(rightXPos*reportlab.lib.units.mm, theYPos*reportlab.lib.units.mm, theString)
 
 def drawCalendarPage(thePDFCanvas, headings):
@@ -90,9 +94,13 @@ if os.path.exists(backMatterPath):
 	print("Found back matter...")
 	pdfsToMerge.append(backMatterPath)
 
+reportlab.rl_config.warnOnMissingFontGlyphs = 0
+reportlab.pdfbase.pdfmetrics.registerFont(TTFont("calendarFont", "font.ttf"))
+
 # Create the blank PDF document and start drawing page elements.
 pdfCanvas = reportlab.pdfgen.canvas.Canvas("temp.pdf")
 pdfCanvas.setPageSize((pageWidth*reportlab.lib.units.mm, pageHeight*reportlab.lib.units.mm))
+pdfCanvas.setFont("calendarFont", 12)
 
 drawCalendarPage(pdfCanvas, (("Week 1", "Goldfish Week"), ("Monday", "No Clubs This Week"), ("Tuesday", ""), ("Wednesday", ""), ("Thursday", "")))
 pdfCanvas.showPage()
