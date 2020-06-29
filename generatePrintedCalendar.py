@@ -23,7 +23,7 @@ import reportlab.lib.pagesizes
 import reportlab.graphics.renderPM
 import reportlab.rl_config
 import reportlab.pdfbase.pdfmetrics
-import reportlab.pdfbase.ttfonts.TTFont
+import reportlab.pdfbase.ttfonts
 
 # PyPDFs - used for merging existing PDF documents.
 import PyPDF2
