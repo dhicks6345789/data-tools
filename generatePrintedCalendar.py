@@ -84,4 +84,5 @@ for pdfToMerge in pdfsToMerge:
 	pdfMerger.append(pdfToMerge)
 pdfMerger.write(calendarsFolder + os.sep + outputFilename + ".pdf")
 
+del pdfCanvas
 os.remove("temp.pdf")
