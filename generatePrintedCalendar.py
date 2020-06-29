@@ -41,6 +41,8 @@ lineHeight = 8
 
 def drawCalendarPage(thePDFCanvas, headings):
 	cellHeight = (pageHeight - ((borderSize*2) + lineHeight)) / len(headings)
+	# A mid-gray background to make following lines on the page a bit easier.
+	headingImage = PIL.Image.new("RGB", (pageWidth-(border*2), lineHeight), (200, 200, 200))
 	headingY = topY - lineHeight
 	for heading in headings:
 		thePDFCanvas.line(leftX*reportlab.lib.units.mm, headingY*reportlab.lib.units.mm, rightX*reportlab.lib.units.mm, headingY*reportlab.lib.units.mm)
