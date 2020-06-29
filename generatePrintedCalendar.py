@@ -21,6 +21,9 @@ import reportlab.pdfgen.canvas
 import reportlab.lib.pagesizes
 import reportlab.graphics.renderPM
 
+# PyPDFs - used for merging existing PDF documents.
+import PyPDF2
+
 
 
 # Load the config file (set by the system administrator).
@@ -36,14 +39,22 @@ outputFilename = sys.argv[2]
 calendarsFolder = config["dataFolder"] + os.sep + "Calendars"
 os.makedirs(calendarsFolder, exist_ok=True)
 
+pdfsToMerge = []
+
 # Check to see if there is content to merge.
 frontMatterPath = calendarsFolder + os.sep + outputFilename + os.sep + "frontMatter.docx"
 if os.path.exists(frontMatterPath):
 	print("Found front matter...")
+	os.system("pandoc \"" + frontMatterPath + "\" -o frontMatter.pdf")
+	pdfsToMerge.append("frontMatter.pdf")
+
+pdfsToMerge.append("temp.pdf")
 
 backMatterPath = calendarsFolder + os.sep + outputFilename + os.sep + "backMatter.docx"
 if os.path.exists(backMatterPath):
 	print("Found back matter...")
+	os.system("pandoc \"" + backMatterPath + "\" -o frontMatter.pdf")
+	pdfsToMerge.append("backMatter.pdf")
 
 # Get ready to write out a formatted PDF document. We are printing on A5paper - set the page size and borders, in mm.
 pageWidth = 148
@@ -70,5 +81,10 @@ pdfCanvas.line(leftX*reportlab.lib.units.mm, topY*reportlab.lib.units.mm, rightX
 # Save the PDF document.
 pdfCanvas.save()
 
-os.system("pandoc -s temp.pdf \"" + backMatterPath + "\" -o \"" + calendarsFolder + os.sep + outputFilename + ".pdf\"")
-os.remove("temp.pdf")
+pdfMerger = PyPDF2.PdfFileMerger()
+for pdfToMerge in pdfsToMerge:
+	pdfMerger.append(pdfToMerge)
+pdfMerger.write(calendarsFolder + os.sep + outputFilename + ".pdf")
+
+for pdfToMerge in pdfsToMerge:
+	os.remove(pdfToMerge)
