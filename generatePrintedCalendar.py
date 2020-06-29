@@ -45,7 +45,15 @@ backMatterPath = calendarsFolder + os.sep + outputFilename + os.sep + "backMatte
 if os.path.exists(backMatterPath):
 	print("Found back matter...")
 
+# Get ready to write out a formatted PDF document. We are printing on A5paper - set the page size and borders, in mm.
+pageWidth = 148
+pageHeight = 210
+borderSize = 7
+lineHeight = 8
+
 # Create the blank PDF document to start drawing page elements on.
 pdfCanvas = reportlab.pdfgen.canvas.Canvas(calendarsFolder + os.sep + outputFilename + ".pdf")
+pdfCanvas.line(pageHeight*reportlab.lib.units.mm, 0*reportlab.lib.units.mm, 10*reportlab.lib.units.mm, 10*reportlab.lib.units.mm)
+
 # Save the PDF document.
 pdfCanvas.save()
