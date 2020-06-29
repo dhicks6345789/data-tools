@@ -84,7 +84,3 @@ pdfMerger = PyPDF2.PdfFileMerger()
 for pdfToMerge in pdfsToMerge:
 	pdfMerger.append(pdfToMerge)
 pdfMerger.write(calendarsFolder + os.sep + outputFilename + ".pdf")
-
-del pdfCanvas
-time.sleep(4)
-os.remove("temp.pdf")
