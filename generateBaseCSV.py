@@ -95,7 +95,11 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupils["FamilyName"].append(normaliseName(currentPupil.find("Surname").text))
 	pupils["DateOfBirth"].append(currentPupil.find("DOB").text.split("T")[0])
 	pupils["Gender"].append(currentPupil.find("Gender").text)
-	pupils["Username"].append(currentPupil.find("EmailAddress").text.split("@")[0])
+	pupilEmail = currentPupil.find("EmailAddress")
+	if pupilEmail == None:
+		pupils["Username"].append("")
+	else:
+		pupils["Username"].append(pupilEmail.text.split("@")[0])
 	
 	oldUsername = "ks" + normaliseUserName(currentPupil.find("Surname").text)[:4]
 	oldUsername = oldUsername + normaliseUserName(currentPupil.find("Preferredname").text)[:3]
