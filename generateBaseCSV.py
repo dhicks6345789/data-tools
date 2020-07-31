@@ -98,15 +98,18 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	pupilEmail = currentPupil.find("EmailAddress")
 	if pupilEmail == None:
 		pupils["Username"].append("")
+		pupils["OldUsername"].append("")
+		pupils["YearGroup"].append("")
 	else:
 		pupils["Username"].append(pupilEmail.text.split("@")[0])
+		
+		oldUsername = "ks" + normaliseUserName(currentPupil.find("Surname").text)[:4]
+		oldUsername = oldUsername + normaliseUserName(currentPupil.find("Preferredname").text)[:3]
+		oldUsername = oldUsername + normaliseUserName(currentPupil.find("EmailAddress").text).split("@")[0][-2:]
+		pupils["OldUsername"].append(oldUsername)
 	
-	oldUsername = "ks" + normaliseUserName(currentPupil.find("Surname").text)[:4]
-	oldUsername = oldUsername + normaliseUserName(currentPupil.find("Preferredname").text)[:3]
-	oldUsername = oldUsername + normaliseUserName(currentPupil.find("EmailAddress").text).split("@")[0][-2:]
-	pupils["OldUsername"].append(oldUsername)
-	
-	pupils["YearGroup"].append(currentPupil.find("EmailAddress").text.split("@")[0][-2:])
+		pupils["YearGroup"].append(currentPupil.find("EmailAddress").text.split("@")[0][-2:])
+		
 	pupils["Form"].append(currentPupil.find("Form").text)
 	forms[currentPupil.find("Form").text] = 1
 	if currentPupil.find("AcademicHouse") == None:
