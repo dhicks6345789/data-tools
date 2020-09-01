@@ -74,13 +74,13 @@ if not os.path.exists(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + 
 # Read the existing pupil default passwords.
 defaultPasswords = pandas.read_csv(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", header=0)
 
-for passwordIndex, passwordEntry in defaultPasswords.iterrows():
-	pupilFound = False
-	for pupilIndex, pupil in pupils.iterrows():
-		if passwordEntry["Username"] == pupil["Username"]:
-			pupilFound = True
-	if not pupilFound:
-		print("Remove: " + passwordEntry["Username"])
+#for passwordIndex, passwordEntry in defaultPasswords.iterrows():
+#	pupilFound = False
+#	for pupilIndex, pupil in pupils.iterrows():
+#		if passwordEntry["Username"] == pupil["Username"]:
+#			pupilFound = True
+#	if not pupilFound:
+#		print("Remove: " + passwordEntry["Username"])
 	
 for pupilIndex, pupil in pupils.iterrows():
 	pupilFound = False
