@@ -110,7 +110,7 @@ if len(sys.argv) >= 3:
 installLib.writeFile(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", defaultPasswords.to_csv(index=False))
 os.remove("fullEmailTemplate.html")
 
-sys.exit(0)
+#sys.exit(0)
 
 # Get ready to write out a formatted PDF document per year / form group listing usernames and passwords.
 # We are printing on A4 paper - set the page size and borders, in mm.
@@ -124,7 +124,8 @@ topBorder = 10
 lineImage = PIL.Image.new("RGB", (pageWidth-(leftBorder*2), lineHeight), (200, 200, 200))
 
 for group in readFile(config["dataFolder"] + os.sep + "yeargroups.csv").split("\n") + readFile(config["dataFolder"] + os.sep + "forms.csv").split("\n"):
-	if not group == "":
+	#if not group == "":
+	if group == "S8":
 		# Create the blank PDF document to start drawing page elements on.
 		pdfCanvas = reportlab.pdfgen.canvas.Canvas(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + group + ".pdf")
 		# Draw the form name and column headers.
