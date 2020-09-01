@@ -102,7 +102,7 @@ if len(sys.argv) >= 3:
 installLib.writeFile(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", defaultPasswords.to_csv(index=False))
 os.remove("fullEmailTemplate.html")
 
-sys.exit(0)
+#sys.exit(0)
 
 # Get ready to write out a formatted PDF document per year / form group listing usernames and passwords.
 # We are printing on A4 paper - set the page size and borders, in mm.
