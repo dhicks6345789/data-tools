@@ -53,9 +53,10 @@ def setPassword(theUser, thePassword):
 	for pupilIndex, pupilEntry in pupils.iterrows():
 		if pupilEntry["OldUsername"] == theUser:
 			# os.system("gam update user " + theUser + "@knightsbridgeschool.com password " + thePassword)
-			for emailAddress in str(pupilEntry["Contacts"]).split(" "):
-				# from itsupport@knightsbridgeschool.com replyto itsupport@knightsbridgeschool.com
-				os.system("gam sendemail " + emailAddress + " subject \"Knightsbridge School - Pupil Account Password Reset\" file fullEmailTemplate.html replace childName \"" + pupilEntry["GivenName"] + " " + pupilEntry["FamilyName"] + "\" replace childUsername " + pupilEntry["OldUsername"] + " replace childPassword " + thePassword + " replace name \"David Hicks\" replace title \"IT Helpdesk\" replace email ithelpdesk@knightsbridgeschool.com replace telephone \"020 7590 9004\" html 2>&1")
+			print("adupdatepassword " + theUser)
+			#for emailAddress in str(pupilEntry["Contacts"]).split(" "):
+				## Sending email from itsupport@knightsbridgeschool.com, replyto itsupport@knightsbridgeschool.com
+				#os.system("gam sendemail " + emailAddress + " subject \"Knightsbridge School - Pupil Account Password Reset\" file fullEmailTemplate.html replace childName \"" + pupilEntry["GivenName"] + " " + pupilEntry["FamilyName"] + "\" replace childUsername " + pupilEntry["OldUsername"] + " replace childPassword " + thePassword + " replace name \"David Hicks\" replace title \"IT Helpdesk\" replace email ithelpdesk@knightsbridgeschool.com replace telephone \"020 7590 9004\" html 2>&1")
 
 # Read the Forms and Yeargroups into one list.
 classGroups = []
@@ -96,7 +97,7 @@ if len(sys.argv) >= 3:
 		groupname = sys.argv[2]
 		for passwordIndex, passwordEntry in defaultPasswords.iterrows():
 			if groupname in passwordEntry["Form"]:
-				setPassword(passwordEntry["OldUsername"], passwordEntry["DefaultPassword"])		
+				setPassword(passwordEntry["OldUsername"], passwordEntry["DefaultPassword"])
 		
 installLib.writeFile(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", defaultPasswords.to_csv(index=False))
 os.remove("fullEmailTemplate.html")
