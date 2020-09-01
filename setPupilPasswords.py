@@ -143,7 +143,8 @@ for group in readFile(config["dataFolder"] + os.sep + "yeargroups.csv").split("\
 						passwordEntry["FullName"] = pupil["GivenName"] + " " + pupil["FamilyName"]
 						if pupilCount % 2 == 0:
 							pdfCanvas.drawInlineImage(lineImage, leftBorder*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(pupilCount-(pageCount*36))))-(topBorder+lineHeight/4))*reportlab.lib.units.mm, (pageWidth-(leftBorder*2))*reportlab.lib.units.mm, lineHeight*reportlab.lib.units.mm)
-						for (columnName, xPos) in [["FullName", 0],["OldUsername", 110],["DefaultPassword", 150]]:
+						#for (columnName, xPos) in [["FullName", 0],["OldUsername", 110],["DefaultPassword", 150]]:
+						for (columnName, xPos) in [["FullName", 0],["Username", 110],["DefaultPassword", 150]]:
 							pdfCanvas.drawString((leftBorder+xPos)*reportlab.lib.units.mm, ((pageHeight-(lineHeight*(pupilCount-(pageCount*36))))-topBorder)*reportlab.lib.units.mm, passwordEntry[columnName])
 						pupilCount = pupilCount + 1
 						if pupilCount == 36:
