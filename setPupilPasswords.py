@@ -74,6 +74,14 @@ if not os.path.exists(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + 
 # Read the existing pupil default passwords.
 defaultPasswords = pandas.read_csv(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", header=0)
 
+for passwordIndex, passwordEntry in defaultPasswords.iterrows():
+	pupilFound = False
+	for pupilIndex, pupil in pupils.iterrows():
+		if passwordEntry["Username"] == pupil["Username"]:
+			pupilFound = True
+	if not pupilFound:
+		print("Remove: " + passwordEntry["Username"])
+	
 for pupilIndex, pupil in pupils.iterrows():
 	pupilFound = False
 	for passwordIndex, passwordEntry in defaultPasswords.iterrows():
@@ -102,7 +110,7 @@ if len(sys.argv) >= 3:
 installLib.writeFile(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", defaultPasswords.to_csv(index=False))
 os.remove("fullEmailTemplate.html")
 
-#sys.exit(0)
+sys.exit(0)
 
 # Get ready to write out a formatted PDF document per year / form group listing usernames and passwords.
 # We are printing on A4 paper - set the page size and borders, in mm.
