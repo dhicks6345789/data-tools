@@ -19,4 +19,4 @@ for activityIndex, activityValues in activity.iterrows():
 	for pupilsIndex, pupilsValues in pupils.iterrows():
 		if pupilsValues["Username"] == username and username.endswith("17") and activityValues["accounts:last_login_time"] == "Never":
 			print("gam delete user " + username)
-			print("gam create alias " + username + " user " + pupilsValues["OldUsername"])
+			#print("gam create alias " + username + " user " + pupilsValues["OldUsername"])
