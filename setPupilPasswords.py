@@ -53,7 +53,7 @@ def setPassword(theUser, thePassword):
 	for pupilIndex, pupilEntry in pupils.iterrows():
 		if pupilEntry["Username"] == theUser:
 			# os.system("gam update user " + theUser + "@knightsbridgeschool.com password " + thePassword)
-			print("adupdatepassword " + theUser)
+			print("net user " + theUser + " " + thePassword + " /domain")
 			#for emailAddress in str(pupilEntry["Contacts"]).split(" "):
 				## Sending email from itsupport@knightsbridgeschool.com, replyto itsupport@knightsbridgeschool.com
 				#os.system("gam sendemail " + emailAddress + " subject \"Knightsbridge School - Pupil Account Password Reset\" file fullEmailTemplate.html replace childName \"" + pupilEntry["GivenName"] + " " + pupilEntry["FamilyName"] + "\" replace childUsername " + pupilEntry["OldUsername"] + " replace childPassword " + thePassword + " replace name \"David Hicks\" replace title \"IT Helpdesk\" replace email ithelpdesk@knightsbridgeschool.com replace telephone \"020 7590 9004\" html 2>&1")
