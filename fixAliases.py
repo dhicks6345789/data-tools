@@ -5,6 +5,8 @@ import json
 import pandas
 import dataLib
 
+validYears = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"]
+
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
 
@@ -18,7 +20,8 @@ allUsersHandle = os.popen("gam print users")
 allUsersData = allUsersHandle.read()
 allUsersHandle.close()
 for allUsersLine in allUsersData.split("\n"):
-	print(allUsersLine)
+	if allUsersLine.startswith("ks") and allUsersLine.split("@")[0][-2:] in validYears:
+		print(allUsersLine)
 
 #for pupilsIndex, pupilsValues in pupils.iterrows():
 #	print(pupilsValues["OldUsername"] + " to " + pupilsValues["Username"])
