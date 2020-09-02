@@ -17,7 +17,7 @@ pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 allUsersHandle = os.popen("gam print users")
 allUsersData = allUsersHandle.read()
 allUsersHandle.close()
-for allUsersLine in allUserData.split("\n"):
+for allUsersLine in allUsersData.split("\n"):
 	print(allUsersLine)
 
 #for pupilsIndex, pupilsValues in pupils.iterrows():
