@@ -5,7 +5,7 @@ import json
 import pandas
 import dataLib
 
-validYears = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"]
+validYears = ["12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"]
 
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
@@ -23,8 +23,8 @@ for allUsersLine in allUsersData.split("\n"):
 	if allUsersLine.startswith("ks") and allUsersLine.split("@")[0][-2:] in validYears:
 		print(allUsersLine)
 
-#for pupilsIndex, pupilsValues in pupils.iterrows():
-#	print(pupilsValues["OldUsername"] + " to " + pupilsValues["Username"])
+for pupilsIndex, pupilsValues in pupils.iterrows():
+	print(pupilsValues["OldUsername"] + " to " + pupilsValues["Username"])
 
 #for activityIndex, activityValues in activity.iterrows():
 #	username = activityValues["email"].split("@")[0]
