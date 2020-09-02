@@ -21,11 +21,10 @@ allUsersData = allUsersHandle.read()
 allUsersHandle.close()
 for allUsersLine in allUsersData.split("\n"):
 	username = allUsersLine.split("@")[0]
-	if username[-2:] == "12":
-		if allUsersLine.startswith("ks") and username[-2:] in validYears:
-			for pupilsIndex, pupilsValues in pupils.iterrows():
-				if username == pupilsValues["OldUsername"]:
-					print("gam create datatransfer " + pupilsValues["OldUsername"] + "@knightsbridgeschool.com drive " + pupilsValues["Username"] + "@knightsbridgeschool.com all")
+	if allUsersLine.startswith("ks") and username[-2:] in validYears:
+		for pupilsIndex, pupilsValues in pupils.iterrows():
+			if username == pupilsValues["OldUsername"]:
+				os.system("gam create datatransfer " + pupilsValues["OldUsername"] + "@knightsbridgeschool.com drive " + pupilsValues["Username"] + "@knightsbridgeschool.com all")
 
 #for activityIndex, activityValues in activity.iterrows():
 #	username = activityValues["email"].split("@")[0]
