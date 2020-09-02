@@ -20,11 +20,11 @@ allUsersHandle = os.popen("gam print users")
 allUsersData = allUsersHandle.read()
 allUsersHandle.close()
 for allUsersLine in allUsersData.split("\n"):
-	if allUsersLine.startswith("ks") and allUsersLine.split("@")[0][-2:] in validYears:
-		print(allUsersLine)
-
-for pupilsIndex, pupilsValues in pupils.iterrows():
-	print(pupilsValues["OldUsername"] + " to " + pupilsValues["Username"])
+	username = allUsersLine.split("@")[0]
+	if allUsersLine.startswith("ks") and username[-2:] in validYears:
+		for pupilsIndex, pupilsValues in pupils.iterrows():
+			if username == pupilsValues["OldUsername"]:
+				print(pupilsValues["OldUsername"] + " to " + pupilsValues["Username"])
 
 #for activityIndex, activityValues in activity.iterrows():
 #	username = activityValues["email"].split("@")[0]
