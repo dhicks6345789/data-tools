@@ -21,7 +21,7 @@ allUsersData = allUsersHandle.read()
 allUsersHandle.close()
 for allUsersLine in allUsersData.split("\n"):
 	username = allUsersLine.split("@")[0]
-	if username == "ksaboupia13":
+	if username[-2:] == "12":
 		if allUsersLine.startswith("ks") and username[-2:] in validYears:
 			for pupilsIndex, pupilsValues in pupils.iterrows():
 				if username == pupilsValues["OldUsername"]:
