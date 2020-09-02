@@ -21,10 +21,11 @@ allUsersData = allUsersHandle.read()
 allUsersHandle.close()
 for allUsersLine in allUsersData.split("\n"):
 	username = allUsersLine.split("@")[0]
-	if allUsersLine.startswith("ks") and username[-2:] in validYears:
-		for pupilsIndex, pupilsValues in pupils.iterrows():
-			if username == pupilsValues["OldUsername"]:
-				print(pupilsValues["OldUsername"] + " to " + pupilsValues["Username"])
+	if username == "ksaboupia13":
+		if allUsersLine.startswith("ks") and username[-2:] in validYears:
+			for pupilsIndex, pupilsValues in pupils.iterrows():
+				if username == pupilsValues["OldUsername"]:
+					print(pupilsValues["OldUsername"] + " to " + pupilsValues["Username"])
 
 #for activityIndex, activityValues in activity.iterrows():
 #	username = activityValues["email"].split("@")[0]
