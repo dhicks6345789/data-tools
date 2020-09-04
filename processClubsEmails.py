@@ -157,10 +157,10 @@ for clubIndex, clubValue in clubs.iterrows():
 	for pupilIndex, pupilValue in pupils.iterrows():
 		pupilName = pupilValue["GivenName"].lower() + " " +  pupilValue["FamilyName"].lower()
 		if pupilName == firstChildName and clubValue["firstChildUsername"] == "":
-			clubs.at[clubIndex, "firstChildUsername"] = pupilValue["OldUsername"]
+			clubs.at[clubIndex, "firstChildUsername"] = pupilValue["Username"]
 			rawDataChanged = True
 		if pupilName == secondChildName and clubValue["secondChildUsername"] == "":
-			clubs.at[clubIndex, "secondChildUsername"] = pupilValue["OldUsername"]
+			clubs.at[clubIndex, "secondChildUsername"] = pupilValue["Username"]
 			rawDataChanged = True
 			
 # We only write out a new Excel file if some data has actually changed, that
