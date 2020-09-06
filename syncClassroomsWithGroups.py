@@ -38,7 +38,7 @@ def syncOrAdd(teacherOrStudent, syncValue, classroomName, cacheFile, CSVData):
 					for user in CSVData.split("\n"):
 						user = user.strip()
 						if not user == "":
-							if user.startswith("ks") and user[-2:] in ["11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"]:
+							if user.startswith("ks") and user.split("@")[0][-2:] in ["11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"]:
 								print(user)
 							gamCommand = "gam course " + dataLib.noNan(coursesValue["id"]) + " add " + teacherOrStudent + " " + user
 							if "-test" in sys.argv:
