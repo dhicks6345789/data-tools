@@ -54,7 +54,7 @@ def setPassword(theUser, thePassword):
 		if pupilEntry["Username"] == theUser:
 			# os.system("gam update user " + theUser + "@knightsbridgeschool.com password " + thePassword)
 			print("Setting password for user " + theUser + "...")
-			os.system("net user " + theUser + " " + thePassword + " /domain")
+			#os.system("net user " + theUser + " " + thePassword + " /domain")
 			#for emailAddress in str(pupilEntry["Contacts"]).split(" "):
 				## Sending email from itsupport@knightsbridgeschool.com, replyto itsupport@knightsbridgeschool.com
 				#os.system("gam sendemail " + emailAddress + " subject \"Knightsbridge School - Pupil Account Password Reset\" file fullEmailTemplate.html replace childName \"" + pupilEntry["GivenName"] + " " + pupilEntry["FamilyName"] + "\" replace childUsername " + pupilEntry["OldUsername"] + " replace childPassword " + thePassword + " replace name \"David Hicks\" replace title \"IT Helpdesk\" replace email ithelpdesk@knightsbridgeschool.com replace telephone \"020 7590 9004\" html 2>&1")
@@ -111,7 +111,8 @@ if len(sys.argv) >= 3:
 installLib.writeFile(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", defaultPasswords.to_csv(index=False))
 os.remove("fullEmailTemplate.html")
 
-sys.exit(0)
+if len(sys.argv) >= 3:
+	sys.exit(0)
 
 # Get ready to write out a formatted PDF document per year / form group listing usernames and passwords.
 # We are printing on A4 paper - set the page size and borders, in mm.
