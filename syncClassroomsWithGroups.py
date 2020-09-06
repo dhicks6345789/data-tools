@@ -24,6 +24,7 @@ cacheTeachersAddRoot = cacheRoot + os.sep + "teachersAdd"
 os.makedirs(cacheTeachersAddRoot, exist_ok=True)
 
 def syncOrAdd(teacherOrStudent, syncValue, classroomName, cacheFile, CSVData):
+	print(teacherOrStudent)
 	if dataLib.rewriteCachedData(cacheFile, CSVData):
 		for coursesIndex, coursesValue in courses.iterrows():
 			if classroomName == coursesValue["name"]:
