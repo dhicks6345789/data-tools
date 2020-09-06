@@ -39,8 +39,11 @@ def syncOrAdd(teacherOrStudent, syncValue, classroomName, cacheFile, CSVData):
 						user = user.strip()
 						if not user == "":
 							if user.startswith("ks") and user.split("@")[0][-2:] in ["11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"]:
-								print(user)
-							gamCommand = "gam course " + dataLib.noNan(coursesValue["id"]) + " add " + teacherOrStudent + " " + user
+								for pupilsIndex, pupilsValue in pupils.iterrows():
+									if user == pupilsValue["OldUsername"] + "@knightsbridgeschool.com":
+										gamCommand = "gam course " + dataLib.noNan(coursesValue["id"]) + " add " + teacherOrStudent + " " + pupilsValue["Username"]
+							else:
+								gamCommand = "gam course " + dataLib.noNan(coursesValue["id"]) + " add " + teacherOrStudent + " " + user
 							if "-test" in sys.argv:
 								print(gamCommand)
 							else:
@@ -49,6 +52,9 @@ def syncOrAdd(teacherOrStudent, syncValue, classroomName, cacheFile, CSVData):
 # Read the users data.
 users = pandas.read_csv(config["dataFolder"] + os.sep + "users.csv", header=0)
 usernames = users["primaryEmail"].tolist()
+
+# This bit should just be temporary.
+pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
 # Read the existing courses (Classrooms) data.
 courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=0)
