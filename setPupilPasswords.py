@@ -100,7 +100,7 @@ if len(sys.argv) >= 3:
 	if len(sys.argv) == 3 and sys.argv[1] == "-user":
 		username = sys.argv[2]
 		for passwordIndex, passwordEntry in defaultPasswords.iterrows():
-			if passwordEntry["OldUsername"] == username:
+			if passwordEntry["Username"] == username:
 				setPassword(username, passwordEntry["DefaultPassword"])
 	elif len(sys.argv) == 3 and sys.argv[1] == "-group":
 		groupname = sys.argv[2]
