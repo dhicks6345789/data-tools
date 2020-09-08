@@ -20,7 +20,8 @@ groupDetails = {
 	"S5 Pupils":{"email":"s5pupils@knightsbridgeschool.com","group":"S5"},
 	"S6 Pupils":{"email":"s6pupils@knightsbridgeschool.com","group":"S6"},
 	"S7 Pupils":{"email":"s7pupils@knightsbridgeschool.com","group":"S7"},
-	"S8 Pupils":{"email":"s8pupils@knightsbridgeschool.com","group":"S8"}
+	"S8 Pupils":{"email":"s8pupils@knightsbridgeschool.com","group":"S8"},
+	"S9 Pupils":{"email":"s9pupils@knightsbridgeschool.com","group":"S9"}
 }
 
 # Load the configuration file.
@@ -88,7 +89,7 @@ for group in groupDetails.keys():
 	groupDetails[group]["Members"] = []
 	for pupilIndex, pupil in pupils.iterrows():
 		if groupDetails[group]["group"] in pupil["Form"]:
-			groupDetails[group]["Members"].append(pupil["OldUsername"] + "@knightsbridgeschool.com")
+			groupDetails[group]["Members"].append(pupil["Username"] + "@knightsbridgeschool.com")
 
 # Create a CSV file for each group (i.e. Year Group or Form).
 allPupils = ""
