@@ -53,18 +53,18 @@ maxNumContacts = 0
 completedInvites = {}
 invitedEmailAddresses = guardians["invitedEmailAddress"].tolist()
 for pupilsIndex, pupilsValue in pupils.iterrows():
-	completedInvites[pupilsValue["OldUsername"]] = False
+	completedInvites[pupilsValue["Username"]] = False
 	maxNumContacts = max(maxNumContacts, len(noNan(pupilsValue["Contacts"]).split(" ")))
 	for contact in noNan(pupilsValue["Contacts"]).split(" "):
 		contact = contact.strip()
 		if not contact == "" and not contact.lower() in invitedEmailAddresses and not contact.lower() in excludedEmailAddresses:
-			print("Sending invite for " + pupilsValue["OldUsername"] + " to " + contact)
-			os.system("gam create guardianinvite " + str(contact) + " " + pupilsValue["OldUsername"] + "@knightsbridgeschool.com")
+			print("Sending invite for " + pupilsValue["Username"] + " to " + contact)
+			os.system("gam create guardianinvite " + str(contact) + " " + pupilsValue["Username"] + "@knightsbridgeschool.com")
 
 for guardiansIndex, guardiansValue in guardians.iterrows():
 	for pupilsIndex, pupilsValue in pupils.iterrows():
-		if guardiansValue["studentEmail"] == pupilsValue["OldUsername"] + "@knightsbridgeschool.com" and guardiansValue["state"] == "COMPLETE":
-			completedInvites[pupilsValue["OldUsername"]] = True
+		if guardiansValue["studentEmail"] == pupilsValue["Username"] + "@knightsbridgeschool.com" and guardiansValue["state"] == "COMPLETE":
+			completedInvites[pupilsValue["Username"]] = True
 
 reportIndex = 1
 guardiansColumns = ["Name", "Username", "Yeargroup", "Form"]
@@ -75,9 +75,9 @@ pupilsNoGuardians = pandas.DataFrame(columns=guardiansColumns)
 for pupilUsername in completedInvites.keys():
 	if not completedInvites[pupilUsername]:
 		for pupilsIndex, pupilsValue in pupils.iterrows():
-			if pupilsValue["OldUsername"] == pupilUsername:
+			if pupilsValue["Username"] == pupilUsername:
 				pupilsNoGuardians.at[reportIndex, "Name"] = pupilsValue["GivenName"] + " " + pupilsValue["FamilyName"]
-				pupilsNoGuardians.at[reportIndex, "Username"] = pupilsValue["OldUsername"]
+				pupilsNoGuardians.at[reportIndex, "Username"] = pupilsValue["Username"]
 				pupilsNoGuardians.at[reportIndex, "Yeargroup"] = pupilsValue["YearGroup"]
 				pupilsNoGuardians.at[reportIndex, "Form"] = pupilsValue["Form"]
 				contactIndex = 1
