@@ -59,7 +59,7 @@ for pupilsIndex, pupilsValue in pupils.iterrows():
 		contact = contact.strip()
 		if not contact == "" and not contact.lower() in invitedEmailAddresses and not contact.lower() in excludedEmailAddresses:
 			print("Sending invite for " + pupilsValue["Username"] + " to " + contact)
-			# os.system("gam create guardianinvite " + str(contact) + " " + pupilsValue["Username"] + "@knightsbridgeschool.com")
+			os.system("gam create guardianinvite " + str(contact) + " " + pupilsValue["Username"] + "@knightsbridgeschool.com")
 
 for guardiansIndex, guardiansValue in guardians.iterrows():
 	for pupilsIndex, pupilsValue in pupils.iterrows():
