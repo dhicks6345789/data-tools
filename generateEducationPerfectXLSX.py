@@ -41,7 +41,7 @@ for pupilsIndex, pupilsValues in pupils.iterrows():
 		#		perfect.at[pupilsIndex+1, "Teacher Name/s"] = teachersValues["Teacher First name"] + " " + teachersValues["Teacher Surname"]
 		perfect.at[pupilsIndex+1, "Student ID"] = pupilsValues["GUID"]
 		perfect.at[pupilsIndex+1, "Student Email Address"] = pupilsValues["Username"] + "@knightsbridgeschool.com"
-		#perfect.at[pupilsIndex+1, "SSO Identifier"] = 
+		perfect.at[pupilsIndex+1, "SSO Identifier"] = pupilsValues["Username"] + "@knightsbridgeschool.com"
 		perfect.at[pupilsIndex+1, "Parent Email Address"] =  pupilsValues["Contacts"].split[","][0]
 
 perfect.to_excel(outputRoot + os.sep + "EducationPerfect.xlsx", index=False)
