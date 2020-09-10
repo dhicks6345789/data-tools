@@ -22,7 +22,7 @@ outputRoot = config["dataFolder"] + os.sep + "EducationPerfect"
 os.makedirs(outputRoot, exist_ok=True)
 
 # Input data headings:
-# Pupils: GUID,UserCode,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor
+# Pupils: GUID,UserCode,GivenName,FamilyName,DateOfBirth,Gender,Username,YearGroup,Form,Tutor,Contacts
 # Staff: GUID,UserCode,Title,GivenName,FamilyName,DateOfBirth,Username,Identifier,Form,JobTitle
 # Output in Excel spreadsheet:
 # First Name,Surname,Class Name,Teacher Name/s,Student ID,Student Email Address,SSO Identifier,Parent Email Address (optional)
@@ -42,6 +42,6 @@ for pupilsIndex, pupilsValues in pupils.iterrows():
 		perfect.at[pupilsIndex+1, "Student ID"] = pupilsValues["GUID"]
 		perfect.at[pupilsIndex+1, "Student Email Address"] = pupilsValues["Username"] + "@knightsbridgeschool.com"
 		#perfect.at[pupilsIndex+1, "SSO Identifier"] = 
-		#perfect.at[pupilsIndex+1, "Parent Email Address"] = 
+		perfect.at[pupilsIndex+1, "Parent Email Address"] =  pupilsValues["Contacts"].split[","][0]
 
 perfect.to_excel(outputRoot + os.sep + "EducationPerfect.xlsx", index=False)
