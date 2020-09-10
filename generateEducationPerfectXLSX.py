@@ -36,9 +36,9 @@ for pupilsIndex, pupilsValues in pupils.iterrows():
 		perfect.at[pupilsIndex+1, "First Name"] = pupilsValues["GivenName"]
 		perfect.at[pupilsIndex+1, "Surname"] = pupilsValues["FamilyName"]
 		perfect.at[pupilsIndex+1, "Class Name"] = pupilsValues["Form"]
-		for teachersIndex, teachersValues in teachers.iterrows():
-			if pupilsValues["Form"] == teachersValues["Class Name"]:
-				perfect.at[pupilsIndex+1, "Teacher Name/s"] = teachersValues["Teacher First name"] + " " + teachersValues["Teacher Surname"]
+		#for teachersIndex, teachersValues in teachers.iterrows():
+		#	if pupilsValues["Form"] == teachersValues["Class Name"]:
+		#		perfect.at[pupilsIndex+1, "Teacher Name/s"] = teachersValues["Teacher First name"] + " " + teachersValues["Teacher Surname"]
 		perfect.at[pupilsIndex+1, "Student Email Address"] = pupilsValues["Username"] + "@knightsbridgeschool.com"
 
 perfect.to_excel(outputRoot + os.sep + "EducationPerfect.xlsx", index=False)
