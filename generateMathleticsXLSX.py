@@ -26,22 +26,21 @@ os.makedirs(outputRoot, exist_ok=True)
 # Staff: GUID,UserCode,Title,GivenName,FamilyName,DateOfBirth,Username,Identifier,Form,JobTitle
 # Output in Excel spreadsheet:
 # Student First Name (Mandatory), Student Surname (Mandatory), Student Year (Mandatory), Class Name (Mandatory), Teacher Title (Optional), Teacher First name (Mandatory), Teacher Surname (Mandatory), Teacher Email (Mandatory)
-mathletics = pandas.DataFrame(columns=["Student First Name","Student Surname","Student Year","Class Name","Teacher Title","Teacher First name","Teacher Surname","Teacher Email"])
-
+mathletics = pandas.DataFrame(columns=["Student First Name (Mandatory)","Student Surname (Mandatory)","Student Year (Mandatory)","Class Name (Mandatory)","Teacher Title (Optional)","Teacher First name (Mandatory)","Teacher Surname (Mandatory)","Teacher Email (Mandatory)"])
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 teachers = pandas.read_excel(outputRoot + os.sep + "Teachers.xlsx", header=0)
 for pupilsIndex, pupilsValues in pupils.iterrows():
 	yearGroup = formToYearGroup(pupilsValues["Form"])
 	if not yearGroup == None:
-		mathletics.at[pupilsIndex+1, "Student First Name"] = pupilsValues["GivenName"]
-		mathletics.at[pupilsIndex+1, "Student Surname"] = pupilsValues["FamilyName"]
-		mathletics.at[pupilsIndex+1, "Student Year"] = yearGroup
-		mathletics.at[pupilsIndex+1, "Class Name"] = pupilsValues["Form"]
+		mathletics.at[pupilsIndex+1, "Student First Name (Mandatory)"] = pupilsValues["GivenName"]
+		mathletics.at[pupilsIndex+1, "Student Surname (Mandatory)"] = pupilsValues["FamilyName"]
+		mathletics.at[pupilsIndex+1, "Student Year (Mandatory)"] = yearGroup
+		mathletics.at[pupilsIndex+1, "Class Name (Mandatory)"] = pupilsValues["Form"]
 		for teachersIndex, teachersValues in teachers.iterrows():
 			if pupilsValues["Form"] == teachersValues["Class Name"]:
-				mathletics.at[pupilsIndex+1, "Teacher Title"] = teachersValues["Teacher Title"]
-				mathletics.at[pupilsIndex+1, "Teacher First name"] = teachersValues["Teacher First name"]
-				mathletics.at[pupilsIndex+1, "Teacher Surname"] = teachersValues["Teacher Surname"]
-				mathletics.at[pupilsIndex+1, "Teacher Email"] = teachersValues["Teacher Email"]
+				mathletics.at[pupilsIndex+1, "Teacher Title (Optional)"] = teachersValues["Teacher Title"]
+				mathletics.at[pupilsIndex+1, "Teacher First name (Mandatory)"] = teachersValues["Teacher First name"]
+				mathletics.at[pupilsIndex+1, "Teacher Surname (Mandatory)"] = teachersValues["Teacher Surname"]
+				mathletics.at[pupilsIndex+1, "Teacher Email (Mandatory)"] = teachersValues["Teacher Email"]
 
 mathletics.to_excel(outputRoot + os.sep + "Mathletics.xlsx", index=False)
