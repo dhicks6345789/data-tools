@@ -40,7 +40,7 @@ for pupilsIndex, pupilsValues in pupils.iterrows():
 		if studentFound:
 			mathletics.at[pupilsIndex+1, "Student First Name (Mandatory)"] = studentsValues["Student First Name (Mandatory)"]
 			mathletics.at[pupilsIndex+1, "Student Surname (Mandatory)"] = studentsValues["Student Surname (Mandatory)"]
-			mathletics.at[pupilsIndex+1, "Student Year (Mandatory)"] = studentsValues["Student Year (Mandatory)"]
+			mathletics.at[pupilsIndex+1, "Student Year (Mandatory)"] = yearGroup
 			mathletics.at[pupilsIndex+1, "Class Name (Mandatory)"] = studentsValues["Class Name (Mandatory)"]
 			mathletics.at[pupilsIndex+1, "Teacher Title (Optional)"] = studentsValues["Teacher Title (Optional)"]
 			mathletics.at[pupilsIndex+1, "Teacher First name (Mandatory)"] = studentsValues["Teacher First name (Mandatory)"]
