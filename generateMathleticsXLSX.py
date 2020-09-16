@@ -37,16 +37,15 @@ for pupilsIndex, pupilsValues in pupils.iterrows():
 		for studentsIndex, studentsValues in students.iterrows():
 			if studentsValues["Student First Name (Mandatory)"] == pupilsValues["GivenName"] and studentsValues["Student Surname (Mandatory)"] == pupilsValues["FamilyName"]:
 				studentFound = True
-		if studentFound:
-			mathletics.at[pupilsIndex+1, "Student First Name (Mandatory)"] = studentsValues["Student First Name (Mandatory)"]
-			mathletics.at[pupilsIndex+1, "Student Surname (Mandatory)"] = studentsValues["Student Surname (Mandatory)"]
-			mathletics.at[pupilsIndex+1, "Student Year (Mandatory)"] = yearGroup
-			mathletics.at[pupilsIndex+1, "Class Name (Mandatory)"] = studentsValues["Class Name (Mandatory)"]
-			mathletics.at[pupilsIndex+1, "Teacher Title (Optional)"] = studentsValues["Teacher Title (Optional)"]
-			mathletics.at[pupilsIndex+1, "Teacher First name (Mandatory)"] = studentsValues["Teacher First name (Mandatory)"]
-			mathletics.at[pupilsIndex+1, "Teacher Surname (Mandatory)"] = studentsValues["Teacher Surname (Mandatory)"]
-			mathletics.at[pupilsIndex+1, "Teacher Email (Mandatory)"] = studentsValues["Teacher Email (Mandatory)"]
-		else:
+				mathletics.at[pupilsIndex+1, "Student First Name (Mandatory)"] = studentsValues["Student First Name (Mandatory)"]
+				mathletics.at[pupilsIndex+1, "Student Surname (Mandatory)"] = studentsValues["Student Surname (Mandatory)"]
+				mathletics.at[pupilsIndex+1, "Student Year (Mandatory)"] = yearGroup
+				mathletics.at[pupilsIndex+1, "Class Name (Mandatory)"] = studentsValues["Class Name (Mandatory)"]
+				mathletics.at[pupilsIndex+1, "Teacher Title (Optional)"] = studentsValues["Teacher Title (Optional)"]
+				mathletics.at[pupilsIndex+1, "Teacher First name (Mandatory)"] = studentsValues["Teacher First name (Mandatory)"]
+				mathletics.at[pupilsIndex+1, "Teacher Surname (Mandatory)"] = studentsValues["Teacher Surname (Mandatory)"]
+				mathletics.at[pupilsIndex+1, "Teacher Email (Mandatory)"] = studentsValues["Teacher Email (Mandatory)"]
+		if not studentFound:
 			mathletics.at[pupilsIndex+1, "Student First Name (Mandatory)"] = pupilsValues["GivenName"]
 			mathletics.at[pupilsIndex+1, "Student Surname (Mandatory)"] = pupilsValues["FamilyName"]
 			mathletics.at[pupilsIndex+1, "Student Year (Mandatory)"] = yearGroup
