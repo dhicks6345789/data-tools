@@ -36,15 +36,15 @@ for groupTitle in list(groupsData):
 			groups[groupTitle].append(cellValue)
 
 for staffIndex, staffValues in staff.iterrows():
-	cpoms.at[staffIndex+1, "Firstname"] = staffValues["GivenName"]
-	cpoms.at[staffIndex+1, "Surname"] = staffValues["FamilyName"]
-	cpoms.at[staffIndex+1, "School/Establishment Email Address"] = staffValues["Username"] + "@knightsbridgeschool.com"
-	cpoms.at[staffIndex+1, "Job Title"] = staffValues["JobTitle"]
 	jobTitleHandled = False
 	for groupTitle in groups.keys():
 		for keyword in groups[groupTitle]:
 			if keyword in cellToStr(staffValues["JobTitle"]).lower():
 				jobTitleHandled = True
+				cpoms.at[staffIndex+1, "Firstname"] = staffValues["GivenName"]
+				cpoms.at[staffIndex+1, "Surname"] = staffValues["FamilyName"]
+				cpoms.at[staffIndex+1, "School/Establishment Email Address"] = staffValues["Username"] + "@knightsbridgeschool.com"
+				cpoms.at[staffIndex+1, "Job Title"] = staffValues["JobTitle"]
 				cpoms.at[staffIndex+1, "User Group"] = groupTitle
 	if not jobTitleHandled:
 		print("Unhandled job description: " + cellToStr(staffValues["JobTitle"]))
