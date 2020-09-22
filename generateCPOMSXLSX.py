@@ -18,7 +18,7 @@ os.makedirs(outputRoot, exist_ok=True)
 cpoms = pandas.DataFrame(columns=["Firstname","Surname","School/Establishment Email Address","Job Title","User Group","Class Restrictions"])
 staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 
-for staffIndex, staffValues in teachers.iterrows():
+for staffIndex, staffValues in staff.iterrows():
 	cpoms.at[staffIndex+1, "Firstname"] = staffValues["GivenName"]
 	cpoms.at[staffIndex+1, "Surname"] = staffValues["FamilyName"]
 	cpoms.at[staffIndex+1, "School/Establishment Email Address"] = staffValues["Username"] + "@knightsbridgeschool.com"
