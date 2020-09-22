@@ -39,7 +39,7 @@ for staffIndex, staffValues in staff.iterrows():
 	jobTitleHandled = False
 	for groupTitle in groups.keys():
 		for keyword in groups[groupTitle]:
-			if keyword in cellToStr(staffValues["JobTitle"]).lower():
+			if keyword == cellToStr(staffValues["JobTitle"]).lower():
 				jobTitleHandled = True
 				cpoms.at[staffIndex+1, "Firstname"] = staffValues["GivenName"]
 				cpoms.at[staffIndex+1, "Surname"] = staffValues["FamilyName"]
