@@ -33,9 +33,13 @@ for staffIndex, staffValues in staff.iterrows():
 	cpoms.at[staffIndex+1, "Surname"] = staffValues["FamilyName"]
 	cpoms.at[staffIndex+1, "School/Establishment Email Address"] = staffValues["Username"] + "@knightsbridgeschool.com"
 	cpoms.at[staffIndex+1, "Job Title"] = staffValues["JobTitle"]
+	jobTitleHandled = false
 	for groupTitle in groups.keys():
 		for keyword in groups[groupTitle]:
 			if keyword in cellToStr(staffValues["JobTitle"]).lower():
+				jobTitleHandled = true
 				cpoms.at[staffIndex+1, "User Group"] = groupTitle
+	if not jobTitleHandled:
+		print("Unhandled job description: " + staffValues["JobTitle"])
 		
 cpoms.to_excel(outputRoot + os.sep + "CPOMS.xlsx", index=False)
