@@ -6,9 +6,9 @@ import pandas
 import dataLib
 
 def cellToStr(theInput):
-	if type(theInput) == "str":
+	if isinstance(theInput, str):
 		return(theInput)
-	if type(theInput) == "float" and theInput == NaN:
+	if isinstance(theInput, float) and theInput == NaN:
 		return("")
 	return(str(theInput))
 
