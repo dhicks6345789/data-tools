@@ -40,6 +40,6 @@ for staffIndex, staffValues in staff.iterrows():
 				jobTitleHandled = True
 				cpoms.at[staffIndex+1, "User Group"] = groupTitle
 	if not jobTitleHandled:
-		print("Unhandled job description: " + staffValues["JobTitle"])
+		print("Unhandled job description: " + cellToStr(staffValues["JobTitle"]))
 		
 cpoms.to_excel(outputRoot + os.sep + "CPOMS.xlsx", index=False)
