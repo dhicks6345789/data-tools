@@ -16,10 +16,11 @@ os.makedirs(outputRoot, exist_ok=True)
 # Staff: GUID,UserCode,Title,GivenName,FamilyName,DateOfBirth,Username,Identifier,Form,JobTitle
 # Output in Excel spreadsheet:
 cpoms = pandas.DataFrame(columns=["Firstname","Surname","School/Establishment Email Address","Job Title","User Group","Class Restrictions"])
-teachers = pandas.read_excel(outputRoot + os.sep + "Teachers.xlsx", header=0)
-for teachersIndex, teachersValues in teachers.iterrows():
-	cpoms.at[teachersIndex+1, "Firstname"] = teachersValues["GivenName"]
-	cpoms.at[teachersIndex+1, "Surname"] = teachersValues["FamilyName"]
-	cpoms.at[teachersIndex+1, "School/Establishment Email Address"] = teachersValues["Username"] + "@knightsbridgeschool.com"
+staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
+
+for staffIndex, staffValues in teachers.iterrows():
+	cpoms.at[staffIndex+1, "Firstname"] = staffValues["GivenName"]
+	cpoms.at[staffIndex+1, "Surname"] = staffValues["FamilyName"]
+	cpoms.at[staffIndex+1, "School/Establishment Email Address"] = staffValues["Username"] + "@knightsbridgeschool.com"
 		
-mathletics.to_excel(outputRoot + os.sep + "CPOMS.xlsx", index=False)
+cpoms.to_excel(outputRoot + os.sep + "CPOMS.xlsx", index=False)
