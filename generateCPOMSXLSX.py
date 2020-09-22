@@ -31,15 +31,10 @@ groupsData = pandas.read_excel(outputRoot + os.sep + "groups.xlsx", header=0)
 for groupTitle in list(groupsData):
 	groups[groupTitle] = []
 	for row in groupsData[groupTitle]:
-		print(cellToStr(row))
-exit(0)
-	
-groups = {
-	"Teacher":["teacher","head","proprietor","principal","place2be","director","clubs coordinator"],
-	"TA":["assistant","gap student"]
-}
-
-
+		cellValue = cellToStr(row)
+		if not cellValue == "":
+			groups[groupTitle].append(cellValue)
+print(groups)
 
 for staffIndex, staffValues in staff.iterrows():
 	cpoms.at[staffIndex+1, "Firstname"] = staffValues["GivenName"]
