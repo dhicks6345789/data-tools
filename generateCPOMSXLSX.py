@@ -13,11 +13,6 @@ def cellToStr(theInput):
 		return("")
 	return(str(theInput))
 
-groups = {
-	"Teacher":["teacher","head","proprietor","principal","place2be","director","clubs coordinator"],
-	"TA":["assistant","gap student"]
-}
-
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
 
@@ -30,6 +25,20 @@ os.makedirs(outputRoot, exist_ok=True)
 # Output in Excel spreadsheet:
 cpoms = pandas.DataFrame(columns=["Firstname","Surname","School/Establishment Email Address","Job Title","User Group","Class Restrictions"])
 staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
+
+groups = {}
+groupsData = pandas.read_excel(outputRoot + os.sep + "groups.xlsx", header=0)
+for groupColumn in list(groupsData)
+	print(groups[groupColumn])
+
+exit(0)
+	
+groups = {
+	"Teacher":["teacher","head","proprietor","principal","place2be","director","clubs coordinator"],
+	"TA":["assistant","gap student"]
+}
+
+
 
 for staffIndex, staffValues in staff.iterrows():
 	cpoms.at[staffIndex+1, "Firstname"] = staffValues["GivenName"]
