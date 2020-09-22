@@ -34,7 +34,6 @@ for groupTitle in list(groupsData):
 		cellValue = cellToStr(row).lower()
 		if not cellValue == "":
 			groups[groupTitle].append(cellValue)
-print(groups)
 
 for staffIndex, staffValues in staff.iterrows():
 	cpoms.at[staffIndex+1, "Firstname"] = staffValues["GivenName"]
