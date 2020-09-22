@@ -1,18 +1,9 @@
 #!/usr/bin/python
 import os
 import sys
-import csv
 import json
 import pandas
 import dataLib
-
-validYeargroups = ["Rec","1","2","3","4"]
-
-def formToYearGroup(theForm):
-	for validYeargroup in validYeargroups:
-		if validYeargroup in theForm:
-			return validYeargroup.replace("Rec","R")
-	return None
 
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
