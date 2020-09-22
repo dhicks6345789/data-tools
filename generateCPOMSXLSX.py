@@ -6,9 +6,10 @@ import pandas
 import dataLib
 
 def cellToStr(theInput):
-	print(type(theInput))
-	if type(theInput) == "string":
+	if type(theInput) == "str":
 		return(theInput)
+	if type(theInput) == "float" and theInput == NaN:
+		return("")
 	return(str(theInput))
 
 groups = {
