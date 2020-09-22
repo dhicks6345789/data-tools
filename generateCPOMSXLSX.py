@@ -23,7 +23,7 @@ for staffIndex, staffValues in staff.iterrows():
 	cpoms.at[staffIndex+1, "Surname"] = staffValues["FamilyName"]
 	cpoms.at[staffIndex+1, "School/Establishment Email Address"] = staffValues["Username"] + "@knightsbridgeschool.com"
 	cpoms.at[staffIndex+1, "Job Title"] = staffValues["JobTitle"]
-	if staffValues["JobTitle"] == "TA"
+	if staffValues["JobTitle"] == "TA":
 		cpoms.at[staffIndex+1, "User Group"] = "TA"
 		
 cpoms.to_excel(outputRoot + os.sep + "CPOMS.xlsx", index=False)
