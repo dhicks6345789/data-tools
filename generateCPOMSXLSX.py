@@ -5,6 +5,11 @@ import json
 import pandas
 import dataLib
 
+def cellToStr(theInput):
+	if type(theInput) == "string":
+		return(theInput)
+	return(str(theInput))
+
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
 
