@@ -14,7 +14,7 @@ def cellToStr(theInput):
 	return(str(theInput))
 
 groups = {
-	"Teacher":["teacher", "head"],
+	"Teacher":["teacher","head","proprietor","principal","place2be","director","clubs coordinator"],
 	"TA":["assistant","gap student"]
 }
 
