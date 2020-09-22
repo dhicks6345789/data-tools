@@ -6,6 +6,7 @@ import pandas
 import dataLib
 
 def cellToStr(theInput):
+	print(type(theInput))
 	if type(theInput) == "string":
 		return(theInput)
 	return(str(theInput))
