@@ -15,7 +15,7 @@ def cellToStr(theInput):
 
 groups = {
 	"Teacher":["teacher", "head"],
-	"TA":["teaching assistant","classroom assistant","gap student"]
+	"TA":["assistant","gap student"]
 }
 
 # Load the config file (set by the system administrator).
