@@ -2,13 +2,14 @@
 import os
 import sys
 import json
+import math
 import pandas
 import dataLib
 
 def cellToStr(theInput):
 	if isinstance(theInput, str):
 		return(theInput)
-	if isinstance(theInput, float) and theInput == NaN:
+	if isinstance(theInput, float) and math.isnan(theInput):
 		return("")
 	return(str(theInput))
 
