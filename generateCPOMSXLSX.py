@@ -28,9 +28,10 @@ staff = pandas.read_csv(config["dataFolder"] + os.sep + "staff.csv", header=0)
 
 groups = {}
 groupsData = pandas.read_excel(outputRoot + os.sep + "groups.xlsx", header=0)
-for groupColumn in list(groupsData):
-	print(groupsData[groupColumn])
-
+for groupTitle in list(groupsData):
+	groups[groupTitle] = []
+	for row in groupsData[groupTitle]:
+		print(row)
 exit(0)
 	
 groups = {
