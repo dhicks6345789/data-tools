@@ -10,6 +10,11 @@ def cellToStr(theInput):
 		return(theInput)
 	return(str(theInput))
 
+groups = {
+	"Teacher":["teacher", "head"],
+	"TA":["teaching assistant","classroom assistant","gap student"]
+}
+
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
 
@@ -28,11 +33,9 @@ for staffIndex, staffValues in staff.iterrows():
 	cpoms.at[staffIndex+1, "Surname"] = staffValues["FamilyName"]
 	cpoms.at[staffIndex+1, "School/Establishment Email Address"] = staffValues["Username"] + "@knightsbridgeschool.com"
 	cpoms.at[staffIndex+1, "Job Title"] = staffValues["JobTitle"]
-	if "teaching assistant" in cellToStr(staffValues["JobTitle"]).lower():
-		cpoms.at[staffIndex+1, "User Group"] = "TA"
-	elif "classroom assistant" in cellToStr(staffValues["JobTitle"]).lower():
-		cpoms.at[staffIndex+1, "User Group"] = "TA"
-	elif "teacher" in cellToStr(staffValues["JobTitle"]).lower():
-		cpoms.at[staffIndex+1, "User Group"] = "Teacher"
+	for groupTitle in groups.keys():
+		for keyword in groups[groupTitle]:
+			if keyword in cellToStr(staffValues["JobTitle"]).lower():
+				cpoms.at[staffIndex+1, "User Group"] = groupTitle
 		
 cpoms.to_excel(outputRoot + os.sep + "CPOMS.xlsx", index=False)
