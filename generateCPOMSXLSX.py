@@ -31,7 +31,7 @@ groupsData = pandas.read_excel(outputRoot + os.sep + "groups.xlsx", header=0)
 for groupTitle in list(groupsData):
 	groups[groupTitle] = []
 	for row in groupsData[groupTitle]:
-		cellValue = cellToStr(row)
+		cellValue = cellToStr(row).lower()
 		if not cellValue == "":
 			groups[groupTitle].append(cellValue)
 print(groups)
