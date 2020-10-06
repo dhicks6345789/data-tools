@@ -5,7 +5,7 @@ import os
 #import sys
 #import csv
 #import json
-#import pandas
+import pandas
 import dataLib
 
 # Load the config file (set by the system administrator).
