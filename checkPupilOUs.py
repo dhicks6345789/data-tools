@@ -14,4 +14,4 @@ for usernamesIndex, usernamesValue in usernames.iterrows():
   if not usernameMatch == None:
     if not usernamesValue["orgUnitPath"] == "/KS-Pupils/" + usernameMatch.group(2):
       print("Moving user " + usernameMatch.group(1) + usernameMatch.group(2) + " to /KS-Pupils/" + usernameMatch.group(2))
-      print("gam update user " + usernameMatch.group(1) + usernameMatch.group(2) + " ou /KS-Pupils/" + usernameMatch.group(2))
+      os.system("gam update user " + usernameMatch.group(1) + usernameMatch.group(2) + " ou /KS-Pupils/" + usernameMatch.group(2))
