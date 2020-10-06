@@ -16,5 +16,5 @@ config = dataLib.loadConfig(["dataFolder"])
 #for pupilsIndex, pupilsValue in pupils.iterrows():
 
 usernames = pandas.read_csv(io.StringIO(dataLib.runCommand("gam print users query \"orgUnitPath='/KS-Pupils'\"")))
-for usernamesIndex, usernamesValue in pupils.iterrows():
+for usernamesIndex, usernamesValue in usernames.iterrows():
   print(usernamesValue["primaryEmail"])
