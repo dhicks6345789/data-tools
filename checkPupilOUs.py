@@ -10,7 +10,7 @@ config = dataLib.loadConfig(["dataFolder"])
 
 usernames = pandas.read_csv(io.StringIO(dataLib.runCommand("gam print users query \"orgUnitPath='/KS-Pupils'\"")))
 for usernamesIndex, usernamesValue in usernames.iterrows():
-  usernameMatch = re.match("(.*\..*)(\d\d)@knightsbridgeschool.com", usernamesValue["primaryEmail"])
+  usernameMatch == re.match("(.*\..*)(\d\d)@knightsbridgeschool.com", usernamesValue["primaryEmail"])
   if not usernameMatch = None:
     print(usrnameMatch.group(1))
     print(usrnameMatch.group(2))
