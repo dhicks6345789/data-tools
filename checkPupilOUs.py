@@ -12,4 +12,4 @@ usernames = pandas.read_csv(io.StringIO(dataLib.runCommand("gam print users quer
 for usernamesIndex, usernamesValue in usernames.iterrows():
   usernameMatch = re.match("(.*\..*)(\d\d)@knightsbridgeschool.com", usernamesValue["primaryEmail"])
   if not usernameMatch == None:
-    print("gam move " + usernameMatch.group(1) + usernameMatch.group(2) + " to " + usernameMatch.group(2))
+    print("gam update user " + usernameMatch.group(1) + usernameMatch.group(2) + " ou /KS-Pupils/" + usernameMatch.group(2))
