@@ -12,5 +12,5 @@ usernames = pandas.read_csv(io.StringIO(dataLib.runCommand("gam print users quer
 for usernamesIndex, usernamesValue in usernames.iterrows():
   usernameMatch = re.match("(.*\..*)(\d\d)@knightsbridgeschool.com", usernamesValue["primaryEmail"])
   if not usernameMatch == None:
-    print(usrnameMatch.group(1))
-    print(usrnameMatch.group(2))
+    print(usernameMatch.group(1))
+    print(usernameMatch.group(2))
