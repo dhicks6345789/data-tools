@@ -24,8 +24,13 @@ os.makedirs(config["dataFolder"] + os.sep + "Bebras", exist_ok=True)
 # Pupils, output: Class, Grade (English), Firstname, Lastname, Password, Gender
 outputString = "Class,Grade (English),Firstname,Lastname,Password,Gender\n"
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
+passwords = pandas.read_csv(config["dataFolder"] + os.sep + "DefaultPupilPasswords" + os.sep + "defaultPasswords.csv", header=0)
 for pupilIndex, pupil in pupils.iterrows():
+	pupilPassword = ""
+	for passwordIndex, passwordEntry in passwords.iterrows():
+		if pupil["ID"] == passwordEntry["ID"]:
+			pupilPassword = passwordEntry["DefaultPassword"]
 	for validYeargroup in validYeargroups:
 		if validYeargroup in pupil["Form"]:
-			outputString = outputString + pupil["Form"] + "," + pupil["Form"][1] + "," + pupil["GivenName"] + "," + pupil["FamilyName"] + "," + pupil["Password"] + "," + pupil["Gender"] + "\n"
+			outputString = outputString + pupil["Form"] + "," + pupil["Form"][1] + "," + pupil["GivenName"] + "," + pupil["FamilyName"] + "," + pupilPassword + "," + pupil["Gender"] + "\n"
 installLib.writeFile(config["dataFolder"] + os.sep + "Bebras" + os.sep + "bebras.csv", outputString)
