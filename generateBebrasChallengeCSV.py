@@ -7,6 +7,8 @@ import pandas
 import installLib
 
 requiredConfigParameters = ["dataFolder"]
+
+validYeargroups = ["S5","S6","S7","S8","S9"]
 	
 # Load the configuration file.
 config = json.loads(installLib.readFile("config/config.json"))
@@ -23,6 +25,8 @@ os.makedirs(config["dataFolder"] + os.sep + "Bebras", exist_ok=True)
 outputString = "Class,Grade (English),Firstname,Lastname,Password,Gender\n"
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 for pupilIndex, pupil in pupils.iterrows():
-	pupilPassword = ""
-	outputString = outputString + pupil["Form"] + "," + str(pupil["YearGroup"]) + "," + pupil["GivenName"] + "," + pupil["FamilyName"] + "," + pupilPassword + "," + pupil["Gender"] + "\n"
+	for validYeargroup in validYeargroups:
+		if validYeargroup in pupil["Form"]:
+			pupilPassword = ""
+			outputString = outputString + pupil["Form"] + "," + pupil["Form"][1] + "," + pupil["GivenName"] + "," + pupil["FamilyName"] + "," + pupilPassword + "," + pupil["Gender"] + "\n"
 installLib.writeFile(config["dataFolder"] + os.sep + "Bebras" + os.sep + "bebras.csv", outputString)
