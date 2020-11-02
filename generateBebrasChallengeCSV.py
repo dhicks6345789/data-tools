@@ -25,4 +25,4 @@ pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 for pupilIndex, pupil in pupils.iterrows():
 	pupilPassword = ""
 	outputString = outputString + pupil["Form"] + "," + str(pupil["YearGroup"]) + "," + pupil["GivenName"] + " " + pupil["FamilyName"] + "," + pupilPassword + "," + pupil["Gender"] + "\n"
-installLib.writeFile(config["dataFolder"] + os.sep + "Bebras" + os.sep + "pupils.csv", outputString)
+installLib.writeFile(config["dataFolder"] + os.sep + "Bebras" + os.sep + "bebras.csv", outputString)
