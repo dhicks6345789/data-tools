@@ -27,6 +27,5 @@ pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 for pupilIndex, pupil in pupils.iterrows():
 	for validYeargroup in validYeargroups:
 		if validYeargroup in pupil["Form"]:
-			pupilPassword = ""
-			outputString = outputString + pupil["Form"] + "," + pupil["Form"][1] + "," + pupil["GivenName"] + "," + pupil["FamilyName"] + "," + pupilPassword + "," + pupil["Gender"] + "\n"
+			outputString = outputString + pupil["Form"] + "," + pupil["Form"][1] + "," + pupil["GivenName"] + "," + pupil["FamilyName"] + "," + pupil["Password"] + "," + pupil["Gender"] + "\n"
 installLib.writeFile(config["dataFolder"] + os.sep + "Bebras" + os.sep + "bebras.csv", outputString)
