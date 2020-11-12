@@ -88,43 +88,43 @@ forms = {}
 houses = {}
 pupils = {"GUID":[],"ID":[],"UserCode":[],"GivenName":[],"FamilyName":[],"DateOfBirth":[],"Gender":[],"Username":[],"OldUsername":[],"YearGroup":[],"Form":[],"House":[],"Tutor":[],"Contacts":[]}
 for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
-	pupils["GUID"].append(currentPupil.attrib["PersonGuid"])
-	pupils["ID"].append(currentPupil.attrib["Id"])
-	pupils["UserCode"].append(getValue(currentPupil, "UserCode"))
-	pupilGivenName = currentPupil.find("Preferredname")
-	if pupilGivenName == None:
-		pupils["GivenName"].append("")
+	if currentPupil.find("Preferredname") == None:
+		print("ERROR: Pupil record with no name:")
+		print(currentPupil)
 	else:
-		pupils["GivenName"].append(normaliseName(pupilGivenName.text))
-	pupils["FamilyName"].append(normaliseName(currentPupil.find("Surname").text))
-	pupils["DateOfBirth"].append(currentPupil.find("DOB").text.split("T")[0])
-	pupils["Gender"].append(currentPupil.find("Gender").text)
-	pupilEmail = currentPupil.find("EmailAddress")
-	if pupilEmail == None:
-		pupils["Username"].append("")
-		pupils["OldUsername"].append("")
-		pupils["YearGroup"].append("")
-	else:
-		pupils["Username"].append(pupilEmail.text.split("@")[0])
+		pupils["GUID"].append(currentPupil.attrib["PersonGuid"])
+		pupils["ID"].append(currentPupil.attrib["Id"])
+		pupils["UserCode"].append(getValue(currentPupil, "UserCode"))
+		pupils["GivenName"].append(normaliseName(currentPupil.find("Preferredname").text))
+		pupils["FamilyName"].append(normaliseName(currentPupil.find("Surname").text))
+		pupils["DateOfBirth"].append(currentPupil.find("DOB").text.split("T")[0])
+		pupils["Gender"].append(currentPupil.find("Gender").text)
+		pupilEmail = currentPupil.find("EmailAddress")
+		if pupilEmail == None:
+			pupils["Username"].append("")
+			pupils["OldUsername"].append("")
+			pupils["YearGroup"].append("")
+		else:
+			pupils["Username"].append(pupilEmail.text.split("@")[0])
 		
-		oldUsername = "ks" + normaliseUserName(currentPupil.find("Surname").text)[:4]
-		oldUsername = oldUsername + normaliseUserName(currentPupil.find("Preferredname").text)[:3]
-		oldUsername = oldUsername + normaliseUserName(currentPupil.find("EmailAddress").text).split("@")[0][-2:]
-		pupils["OldUsername"].append(oldUsername)
+			oldUsername = "ks" + normaliseUserName(currentPupil.find("Surname").text)[:4]
+			oldUsername = oldUsername + normaliseUserName(currentPupil.find("Preferredname").text)[:3]
+			oldUsername = oldUsername + normaliseUserName(currentPupil.find("EmailAddress").text).split("@")[0][-2:]
+			pupils["OldUsername"].append(oldUsername)
 	
-		pupils["YearGroup"].append(currentPupil.find("EmailAddress").text.split("@")[0][-2:])
+			pupils["YearGroup"].append(currentPupil.find("EmailAddress").text.split("@")[0][-2:])
 		
-	pupils["Form"].append(currentPupil.find("Form").text)
-	forms[currentPupil.find("Form").text] = 1
-	if currentPupil.find("AcademicHouse") == None:
-		print("Pupil " + currentPupil.find("Preferredname").text + " " + currentPupil.find("Surname").text + " has no House set.")
-		house = ""
-	else:
-		house = currentPupil.find("AcademicHouse").text
-		houses[house] = 1
-	pupils["House"].append(house)
-	pupils["Tutor"].append(getValue(currentPupil, "Tutor"))
-	pupils["Contacts"].append("")
+		pupils["Form"].append(currentPupil.find("Form").text)
+		forms[currentPupil.find("Form").text] = 1
+		if currentPupil.find("AcademicHouse") == None:
+			print("Pupil " + currentPupil.find("Preferredname").text + " " + currentPupil.find("Surname").text + " has no House set.")
+			house = ""
+		else:
+			house = currentPupil.find("AcademicHouse").text
+			houses[house] = 1
+		pupils["House"].append(house)
+		pupils["Tutor"].append(getValue(currentPupil, "Tutor"))
+		pupils["Contacts"].append("")
 pupilsDataFrame = pandas.DataFrame(pupils)
 
 print("Adding pupil contact information to pupils.csv...")
