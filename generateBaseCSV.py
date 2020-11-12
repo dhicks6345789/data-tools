@@ -91,7 +91,7 @@ for currentPupil in iSAMSXML.findall("./PupilManager/CurrentPupils/Pupil"):
 	if currentPupil.find("Preferredname") == None:
 		print("ERROR: Pupil record with no name:")
 		for pupilField in currentPupil.keys():
-			print(" - " + currentPupil.attrib[pupilField])
+			print(" - " + pupilField + ": " + currentPupil.attrib[pupilField])
 	else:
 		pupils["GUID"].append(currentPupil.attrib["PersonGuid"])
 		pupils["ID"].append(currentPupil.attrib["Id"])
