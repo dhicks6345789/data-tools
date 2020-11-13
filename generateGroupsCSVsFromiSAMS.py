@@ -78,7 +78,7 @@ for house in houses.keys():
 	houseMembers[house] = []
 	for pupilIndex, pupil in pupils.iterrows():
 		if house == pupil["House"]:
-			houseMembers[house].append(pupil["OldUsername"])
+			houseMembers[house].append(pupil["Username"])
 
 # Add the list of forms to groupDetails.
 for form in forms.keys():
