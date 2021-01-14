@@ -53,13 +53,13 @@ def syncOrAdd(teacherOrStudent, syncValue, classroomName, cacheFile, CSVData):
 users = pandas.read_csv(config["dataFolder"] + os.sep + "users.csv", header=0)
 usernames = users["primaryEmail"].tolist()
 
-sys.exit(0)
-
 # This bit should just be temporary.
 pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
 # Read the existing courses (Classrooms) data.
 courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=0)
+
+sys.exit(0)
 
 if "-flushCache" in sys.argv:
 	os.system("erase \"" + cachePupilsSyncRoot + os.sep + "*.csv\"")
