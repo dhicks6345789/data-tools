@@ -53,9 +53,6 @@ def syncOrAdd(teacherOrStudent, syncValue, classroomName, cacheFile, CSVData):
 users = pandas.read_csv(config["dataFolder"] + os.sep + "users.csv", header=0)
 usernames = users["primaryEmail"].tolist()
 
-print(config["dataFolder"])
-print(config)
-print(config["dataFolder"] + os.sep + "users.csv")
 sys.exit(0)
 
 # This bit should just be temporary.
