@@ -71,6 +71,11 @@ pupilGroups = {}
 for pupilGroupsIndex, pupilGroupsValue in pandas.read_excel(classroomsRoot + os.sep + "pupilGroups.xlsx", header=None).iterrows():
 	pupilGroups[pupilGroupsValue[0]] = pupilGroupsValue[1]
 
+# Get the list of Teacher Groups to match with strings in Classroom names.
+teacherGroups = {}
+for teacherGroupsIndex, teacherGroupsValue in pandas.read_excel(classroomsRoot + os.sep + "teacherGroups.xlsx", header=None).iterrows():
+	teacherGroups[teacherGroupsValue[0]] = teacherGroupsValue[1]
+
 # Read the existing courses (Classrooms) data.
 #courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=0)
 
@@ -90,9 +95,23 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 		for pupilMatch in pupilGroups.keys():
 			if pupilsString == "" and pupilMatch.lower() in classroomsValue["name"].lower():
 				pupilsString = pupilGroups[pupilMatch]
-		classroomsToAppend.append({"ID":classroomsValue["id"], "Classroom":classroomsValue["name"], "Sync Or Add?":"", "Pupils":pupilsString, "Teachers":""})
+				
+		teachersString = ""
+		for teacherMatch in teacherGroups.keys():
+			if teachersString == "" and teacherMatch.lower() in classroomsValue["name"].lower():
+				teachersString = teacherGroups[teacherMatch]
+				
+		classroomsToAppend.append({"ID":classroomsValue["id"], "Classroom":classroomsValue["name"], "Sync Or Add?":"", "Pupils":pupilsString, "Teachers":teachersString})
 classroomsToSync = classroomsToSync.append(pandas.DataFrame(classroomsToAppend))
 classroomsToSync.to_excel(classroomsRoot + os.sep + "classroomsToSync.xlsx", index=False)
+
+# "ID", "Classroom","Sync Or Add?","Pupils","Teachers"
+for classroomsToSyncIndex, classroomsToSyncValue in classroomsToSync.iterrows():
+	classroomID = dataLib.noNan(classroomsToSyncValue["ID"])
+	classroomName = dataLib.noNan(classroomsToSyncValue["Classroom"])
+	classroomSyncOrAdd = dataLib.noNan(classroomsToSyncValue["Sync Or Add?"])
+	classroomPupils = dataLib.noNan(classroomsToSyncValue["Pupils"])
+	classroomTeachers = dataLib.noNan(classroomsToSyncValue["Teachers"])
 
 sys.exit(0)
 	
