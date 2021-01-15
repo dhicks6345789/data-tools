@@ -29,48 +29,19 @@ def getCommandOutput(theCommand):
 	commandHandle.close()
 	return(result)
 
-def syncOrAdd(teacherOrStudent, syncValue, classroomName, cacheFile, CSVData):
-	if dataLib.rewriteCachedData(cacheFile, CSVData):
-		for coursesIndex, coursesValue in courses.iterrows():
-			if classroomName == coursesValue["name"]:
-				print("Now " + syncValue + "ing: " + classroomName)
-				if syncValue == "sync":
-					gamCommand = "gam course " + dataLib.noNan(coursesValue["id"]) + " sync " + teacherOrStudent + "s file \"" + cacheFile + "\""	
-					if "-test" in sys.argv:
-						print(gamCommand)
-					else:
-						os.system(gamCommand)
-				else:
-					for user in CSVData.split("\n"):
-						user = user.strip()
-						if not user == "":
-							if user.startswith("ks") and user.split("@")[0][-2:] in ["11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"]:
-								for pupilsIndex, pupilsValue in pupils.iterrows():
-									if user == pupilsValue["OldUsername"] + "@knightsbridgeschool.com":
-										gamCommand = "gam course " + dataLib.noNan(coursesValue["id"]) + " add " + teacherOrStudent + " " + pupilsValue["Username"]
-							else:
-								gamCommand = "gam course " + dataLib.noNan(coursesValue["id"]) + " add " + teacherOrStudent + " " + user
-							if "-test" in sys.argv:
-								print(gamCommand)
-							else:
-								os.system(gamCommand)
-
 def cacheGroups(cacheFile, groups):
 	groupContents = ""
 	for group in groups.split(","):
 		infile = open(groupsRoot + os.sep + group + ".csv")
 		groupContents = groupContents + infile.read()
 		infile.close()
-	outfile = open(cacheRoot + os.sep + cacheFile + ".csv", "w")
+	outfile = open(cacheFile, "w")
 	outfile.write(groupContents)
 	outfile.close()
 
 # Read the users data.
-users = pandas.read_csv(config["dataFolder"] + os.sep + "users.csv", header=0)
-usernames = users["primaryEmail"].tolist()
-
-# This bit should just be temporary.
-#pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
+#users = pandas.read_csv(config["dataFolder"] + os.sep + "users.csv", header=0)
+#usernames = users["primaryEmail"].tolist()
 
 # Get a list of all courses, output in CSV format directly from GAM.
 print("Getting course list from Google Classroom.")
@@ -85,9 +56,6 @@ for pupilGroupsIndex, pupilGroupsValue in pandas.read_excel(classroomsRoot + os.
 teacherGroups = {}
 for teacherGroupsIndex, teacherGroupsValue in pandas.read_excel(classroomsRoot + os.sep + "teacherGroups.xlsx", header=None).iterrows():
 	teacherGroups[teacherGroupsValue[0]] = teacherGroupsValue[1]
-
-# Read the existing courses (Classrooms) data.
-#courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=0)
 
 if "-flushCache" in sys.argv:
 	os.system("erase \"" + cachePupilsSyncRoot + os.sep + "*.csv\"")
@@ -122,5 +90,16 @@ for classroomsToSyncIndex, classroomsToSyncValue in classroomsToSync.iterrows():
 	classroomSyncOrAdd = dataLib.noNan(classroomsToSyncValue["Sync Or Add?"])
 	classroomPupils = dataLib.noNan(classroomsToSyncValue["Pupils"])
 	classroomTeachers = dataLib.noNan(classroomsToSyncValue["Teachers"])
+	
+	gamCommand = ""
+	cacheFile = ""
 	if classroomSyncOrAdd == "sync" and not classroomPupils == "":
-		cacheGroups("pupilsSync" + classroomID, classroomPupils)
+		cacheFile = cacheRoot + os.sep + "pupilsSync" + classroomID + ".csv"
+		cacheGroups(cacheFile, classroomPupils)
+		gamCommand = "gam course " + classroomID + " sync pupils file \"" + cacheFile "\""
+	if not gamCommand == "":
+		print(gamCommand)
+		#if "-test" in sys.argv:
+		#print(gamCommand)
+		#else:
+		#os.system(gamCommand)
