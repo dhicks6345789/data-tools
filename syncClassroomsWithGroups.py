@@ -123,4 +123,5 @@ for classroomsToSyncIndex, classroomsToSyncValue in classroomsToSync.iterrows():
 	classroomPupils = dataLib.noNan(classroomsToSyncValue["Pupils"])
 	classroomTeachers = dataLib.noNan(classroomsToSyncValue["Teachers"])
 	if classroomSyncOrAdd == "sync" and not classroomPupils == "":
+		print("pupilsSync" + classroomID)
 		cacheGroups("pupilsSync" + classroomID, classroomPupils)
