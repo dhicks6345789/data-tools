@@ -104,8 +104,8 @@ for classroomsToSyncIndex, classroomsToSyncValue in classroomsToSync.iterrows():
 		cacheGroups(cacheFile, classroomTeachers)
 		gamCommand = "gam course " + classroomID + " add teachers file \"" + cacheFile + "\""
 	if not gamCommand == "":
-		print(gamCommand)
-		#if "-test" in sys.argv:
-		#print(gamCommand)
-		#else:
-		#os.system(gamCommand)
+		if "-test" in sys.argv:
+			print(gamCommand)
+		else:
+			print(gamCommand)
+			#os.system(gamCommand)
