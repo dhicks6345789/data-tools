@@ -23,6 +23,12 @@ os.makedirs(cacheTeachersSyncRoot, exist_ok=True)
 cacheTeachersAddRoot = cacheRoot + os.sep + "teachersAdd"
 os.makedirs(cacheTeachersAddRoot, exist_ok=True)
 
+def getCommandOutput(theCommand):
+	commandHandle = os.popen(theCommand)
+	result = commandHandle.read()
+	commandHandle.close()
+	return(result)
+
 def syncOrAdd(teacherOrStudent, syncValue, classroomName, cacheFile, CSVData):
 	if dataLib.rewriteCachedData(cacheFile, CSVData):
 		for coursesIndex, coursesValue in courses.iterrows():
@@ -54,10 +60,15 @@ users = pandas.read_csv(config["dataFolder"] + os.sep + "users.csv", header=0)
 usernames = users["primaryEmail"].tolist()
 
 # This bit should just be temporary.
-pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
+#pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 
+# Get a list of all courses, output in CSV format directly from GAM.
+print("Getting course list from Google Classroom.")
+courses = pandas.read_csv(StringIO(getCommandOutput("gam print courses"))
+print(courses)
+			  
 # Read the existing courses (Classrooms) data.
-courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=0)
+#courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=0)
 
 if "-flushCache" in sys.argv:
 	os.system("erase \"" + cachePupilsSyncRoot + os.sep + "*.csv\"")
