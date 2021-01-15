@@ -61,7 +61,7 @@ def cacheGroups(cacheFile, groups):
 		infile = open(groupsRoot + os.sep + group + ".csv")
 		groupContents = groupContents + infile.read()
 		infile.close()
-	outfile = open(cacheFile, "w")
+	outfile = open(cac heRoot + os.sep + cacheFile, "w")
 	outfile.write(groupContents)
 	outfile.close()
 
@@ -123,5 +123,4 @@ for classroomsToSyncIndex, classroomsToSyncValue in classroomsToSync.iterrows():
 	classroomPupils = dataLib.noNan(classroomsToSyncValue["Pupils"])
 	classroomTeachers = dataLib.noNan(classroomsToSyncValue["Teachers"])
 	if classroomSyncOrAdd == "sync" and not classroomPupils == "":
-		print("pupilsSync" + classroomID)
 		cacheGroups("pupilsSync" + classroomID, classroomPupils)
