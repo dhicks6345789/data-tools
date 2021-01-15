@@ -64,9 +64,9 @@ usernames = users["primaryEmail"].tolist()
 
 # Get a list of all courses, output in CSV format directly from GAM.
 print("Getting course list from Google Classroom.")
-courses = pandas.read_csv(io.StringIO(getCommandOutput("gam print courses")))
-print(courses)
-			  
+classrooms = pandas.read_csv(io.StringIO(getCommandOutput("gam print courses")))
+print(classrooms)
+
 # Read the existing courses (Classrooms) data.
 #courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=0)
 
@@ -76,14 +76,20 @@ if "-flushCache" in sys.argv:
 	os.system("erase \"" + cachePupilsAddRoot + os.sep + "*.csv\"")
 	os.system("erase \"" + cacheTeachersAddRoot + os.sep + "*.csv\"")
 
+# "ID", "Classroom","Sync Or Add?","Pupils","Teachers"
+classroomsToSync = pandas.read_excel(classroomsRoot + os.sep + "classroomsToSync.xlsx", heasder=0)
+for classroomsIndex, classroomsValue in classrooms.iterrows():
+	print(classroomsValue["id"])
+
 sys.exit(0)
 	
-# Load the "classroomToSync" spreadsheet. Should consist of four columns:
+# Load the "classroomToSync" spreadsheet. Should consist of five columns:
+# ID: The classroom ID.
 # Classroom: Classroom name.
 # Sync Or Add?: Whether to sync the list of users / groups given or whether to add to any existing members.
 # Pupils: Users or Groups to set as pupils.
 # Teachers: Users or Groups to set as teachers.
-(options, classrooms) = dataLib.readOptionsFile(classroomsRoot + os.sep + "classroomsToSync.xlsx", ["Classroom","Sync Or Add?","Pupils","Teachers"])
+(options, classrooms) = dataLib.readOptionsFile(classroomsRoot + os.sep + "classroomsToSync.xlsx", ["ID", "Classroom","Sync Or Add?","Pupils","Teachers"])
 for classroomsIndex, classroomsValue in classrooms.iterrows():
 	classroomName = dataLib.noNan(classroomsValue["Classroom"])
 	if not classroomName == "":
