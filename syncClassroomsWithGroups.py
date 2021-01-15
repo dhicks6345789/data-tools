@@ -1,6 +1,5 @@
 #!/usr/bin/python
 import os
-import re
 import io
 import sys
 import pandas
@@ -14,14 +13,6 @@ classroomsRoot = config["dataFolder"] + os.sep + "Classrooms"
 os.makedirs(classroomsRoot, exist_ok=True)
 cacheRoot = classroomsRoot + os.sep + "CSVs"
 os.makedirs(cacheRoot, exist_ok=True)
-cachePupilsSyncRoot = cacheRoot + os.sep + "pupilsSync"
-os.makedirs(cachePupilsSyncRoot, exist_ok=True)
-cachePupilsAddRoot = cacheRoot + os.sep + "pupilsAdd"
-os.makedirs(cachePupilsAddRoot, exist_ok=True)
-cacheTeachersSyncRoot = cacheRoot + os.sep + "teachersSync"
-os.makedirs(cacheTeachersSyncRoot, exist_ok=True)
-cacheTeachersAddRoot = cacheRoot + os.sep + "teachersAdd"
-os.makedirs(cacheTeachersAddRoot, exist_ok=True)
 
 def getCommandOutput(theCommand):
 	commandHandle = os.popen(theCommand)
