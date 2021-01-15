@@ -88,7 +88,7 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 	if not classroomsValue["id"] in classroomsToSyncIDs:
 		pupilsString = ""
 		for pupilMatch in pupilGroups.keys():
-			if pupilsString == "" and pupilMatch in classroomsValue["name"]:
+			if pupilsString == "" and pupilMatch.lower() in classroomsValue["name"].lower():
 				pupilsString = pupilGroups[pupilMatch]
 		classroomsToAppend.append({"ID":classroomsValue["id"], "Classroom":classroomsValue["name"], "Sync Or Add?":"", "Pupils":pupilsString, "Teachers":""})
 classroomsToSync = classroomsToSync.append(pandas.DataFrame(classroomsToAppend))
