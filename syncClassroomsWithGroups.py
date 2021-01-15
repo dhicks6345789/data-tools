@@ -59,14 +59,14 @@ pupils = pandas.read_csv(config["dataFolder"] + os.sep + "pupils.csv", header=0)
 # Read the existing courses (Classrooms) data.
 courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=0)
 
-sys.exit(0)
-
 if "-flushCache" in sys.argv:
 	os.system("erase \"" + cachePupilsSyncRoot + os.sep + "*.csv\"")
 	os.system("erase \"" + cacheTeachersSyncRoot + os.sep + "*.csv\"")
 	os.system("erase \"" + cachePupilsAddRoot + os.sep + "*.csv\"")
 	os.system("erase \"" + cacheTeachersAddRoot + os.sep + "*.csv\"")
 
+sys.exit(0)
+	
 # Load the "classroomToSync" spreadsheet. Should consist of four columns:
 # Classroom: Classroom name.
 # Sync Or Add?: Whether to sync the list of users / groups given or whether to add to any existing members.
