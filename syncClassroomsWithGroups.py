@@ -82,8 +82,8 @@ classroomsToAppend = []
 for classroomsIndex, classroomsValue in classrooms.iterrows():
 	if not classroomsValue["id"] in classroomsToSyncIDs:
 		classroomsToAppend.append({"ID":classroomsValue["id"], "Classroom":classroomsValue["name"], "Sync Or Add?":"", "Pupils":"", "Teachers":""})
-print(classroomsToAppend)
-#classroomsToSync.to_excel(classroomsRoot + os.sep + "classroomsToSync.xlsx", index=False)
+classroomsToSync = classroomsToSync.append(pandas.DataFrame(classroomsToAppend))
+classroomsToSync.to_excel(classroomsRoot + os.sep + "classroomsToSync.xlsx", index=False)
 
 sys.exit(0)
 	
