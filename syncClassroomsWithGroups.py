@@ -66,6 +66,12 @@ usernames = users["primaryEmail"].tolist()
 print("Getting course list from Google Classroom.")
 classrooms = pandas.read_csv(io.StringIO(getCommandOutput("gam print courses states ACTIVE")))
 
+# Get the list of Pupil Groups to match with strings in Classroom names.
+pupilGroups = {}
+for pupilGroupsIndex, pupilGroupsValue in pandas.read_excel(config["dataFolder"] + os.sep + "pupilGroups.xlsx", header=None).iterrows():
+	pupilGroups[pupilGroupsValue[0]] = pupilGroupsValue[1]
+print(pupilGroups)
+
 # Read the existing courses (Classrooms) data.
 #courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=0)
 
