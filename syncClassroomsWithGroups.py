@@ -64,7 +64,7 @@ usernames = users["primaryEmail"].tolist()
 
 # Get a list of all courses, output in CSV format directly from GAM.
 print("Getting course list from Google Classroom.")
-courses = pandas.read_csv(StringIO(getCommandOutput("gam print courses")))
+courses = pandas.read_csv(io.StringIO(getCommandOutput("gam print courses")))
 print(courses)
 			  
 # Read the existing courses (Classrooms) data.
