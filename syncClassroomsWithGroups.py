@@ -68,7 +68,7 @@ classrooms = pandas.read_csv(io.StringIO(getCommandOutput("gam print courses sta
 
 # Get the list of Pupil Groups to match with strings in Classroom names.
 pupilGroups = {}
-for pupilGroupsIndex, pupilGroupsValue in pandas.read_excel(config["dataFolder"] + os.sep + "pupilGroups.xlsx", header=None).iterrows():
+for pupilGroupsIndex, pupilGroupsValue in pandas.read_excel(classroomsRoot + os.sep + "pupilGroups.xlsx", header=None).iterrows():
 	pupilGroups[pupilGroupsValue[0]] = pupilGroupsValue[1]
 print(pupilGroups)
 
