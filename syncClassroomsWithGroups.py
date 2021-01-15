@@ -96,7 +96,7 @@ for classroomsToSyncIndex, classroomsToSyncValue in classroomsToSync.iterrows():
 	if classroomSyncOrAdd == "sync" and not classroomPupils == "":
 		cacheFile = cacheRoot + os.sep + "pupilsSync" + classroomID + ".csv"
 		cacheGroups(cacheFile, classroomPupils)
-		gamCommand = "gam course " + classroomID + " sync pupils file \"" + cacheFile "\""
+		gamCommand = "gam course " + classroomID + " sync pupils file \"" + cacheFile + "\""
 	if not gamCommand == "":
 		print(gamCommand)
 		#if "-test" in sys.argv:
