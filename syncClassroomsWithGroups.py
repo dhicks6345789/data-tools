@@ -30,10 +30,6 @@ def cacheGroups(cacheFile, groups):
 	outfile.write(groupContents)
 	outfile.close()
 
-# Read the users data.
-#users = pandas.read_csv(config["dataFolder"] + os.sep + "users.csv", header=0)
-#usernames = users["primaryEmail"].tolist()
-
 # Get a list of all courses, output in CSV format directly from GAM.
 print("Getting course list from Google Classroom.")
 classrooms = pandas.read_csv(io.StringIO(getCommandOutput("gam print courses states ACTIVE")))
