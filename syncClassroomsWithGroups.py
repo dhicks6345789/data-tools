@@ -61,7 +61,7 @@ def cacheGroups(cacheFile, groups):
 		infile = open(groupsRoot + os.sep + group + ".csv")
 		groupContents = groupContents + infile.read()
 		infile.close()
-	outfile = open(cac heRoot + os.sep + cacheFile, "w")
+	outfile = open(cacheRoot + os.sep + cacheFile, "w")
 	outfile.write(groupContents)
 	outfile.close()
 
