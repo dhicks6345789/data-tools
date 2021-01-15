@@ -8,18 +8,21 @@ import dataLib
 # Load the config file (set by the system administrator).
 config = dataLib.loadConfig(["dataFolder"])
 
+# Set up the folders to find/store data files in, and make sure they exist.
 groupsRoot = config["dataFolder"] + os.sep + "Groups"
 classroomsRoot = config["dataFolder"] + os.sep + "Classrooms"
 os.makedirs(classroomsRoot, exist_ok=True)
 cacheRoot = classroomsRoot + os.sep + "CSVs"
 os.makedirs(cacheRoot, exist_ok=True)
 
+# Runs a command, returns the output as a string.
 def getCommandOutput(theCommand):
 	commandHandle = os.popen(theCommand)
 	result = commandHandle.read()
 	commandHandle.close()
 	return(result)
 
+# Reads the existing groups, given in a comma-separated string, and produces one file of the concatenated contents.
 def cacheGroups(cacheFile, groups):
 	groupContents = ""
 	for group in groups.split(","):
@@ -44,17 +47,19 @@ teacherGroups = {}
 for teacherGroupsIndex, teacherGroupsValue in pandas.read_excel(classroomsRoot + os.sep + "teacherGroups.xlsx", header=None).iterrows():
 	teacherGroups[teacherGroupsValue[0]] = teacherGroupsValue[1]
 
+# If the user says so, clear out the cache folder.
 if "-flushCache" in sys.argv:
-	os.system("erase \"" + cachePupilsSyncRoot + os.sep + "*.csv\"")
-	os.system("erase \"" + cacheTeachersSyncRoot + os.sep + "*.csv\"")
-	os.system("erase \"" + cachePupilsAddRoot + os.sep + "*.csv\"")
-	os.system("erase \"" + cacheTeachersAddRoot + os.sep + "*.csv\"")
+	os.system("erase \"" + cacheRoot + os.sep + "*.csv\"")
 
+# Read the classroomsToSync spreadsheet, should have column headings:
 # "ID", "Classroom","Sync Or Add?","Pupils","Teachers"
 classroomsToSync = pandas.read_excel(classroomsRoot + os.sep + "classroomsToSync.xlsx", header=0)
 classroomsToSyncIDs = classroomsToSync["ID"].tolist()
 classroomsToAppend = []
+# Go through the list of Classrooms, add any not already listed to the classroomsToSync list.
 for classroomsIndex, classroomsValue in classrooms.iterrows():
+	# If we're adding a new Classroom to the list, make a guess as to which groups we might want to sync it with. We wait for the user to fill in
+	# the relevant spreadhseet value before we actually do so, though.
 	if not classroomsValue["id"] in classroomsToSyncIDs:
 		pupilsString = ""
 		for pupilMatch in pupilGroups.keys():
@@ -67,11 +72,13 @@ for classroomsIndex, classroomsValue in classrooms.iterrows():
 				teachersString = teacherGroups[teacherMatch]
 				
 		classroomsToAppend.append({"ID":classroomsValue["id"], "Classroom":classroomsValue["name"], "Sync Or Add?":"", "Pupils":pupilsString, "Teachers":teachersString})
+# Re-write the classroomsToSync file, with any new entries appended.
 classroomsToSync = classroomsToSync.append(pandas.DataFrame(classroomsToAppend))
 classroomsToSync.to_excel(classroomsRoot + os.sep + "classroomsToSync.xlsx", index=False)
 
-# "ID", "Classroom","Sync Or Add?","Pupils","Teachers"
+# Now, sync groups with Classrooms.
 for classroomsToSyncIndex, classroomsToSyncValue in classroomsToSync.iterrows():
+	# Make sure we have the values ready.
 	classroomID = dataLib.noNan(classroomsToSyncValue["ID"])
 	classroomName = dataLib.noNan(classroomsToSyncValue["Classroom"])
 	classroomSyncOrAdd = dataLib.noNan(classroomsToSyncValue["Sync Or Add?"])
@@ -84,6 +91,18 @@ for classroomsToSyncIndex, classroomsToSyncValue in classroomsToSync.iterrows():
 		cacheFile = cacheRoot + os.sep + "pupilsSync" + classroomID + ".csv"
 		cacheGroups(cacheFile, classroomPupils)
 		gamCommand = "gam course " + classroomID + " sync pupils file \"" + cacheFile + "\""
+	if classroomSyncOrAdd == "add" and not classroomPupils == "":
+		cacheFile = cacheRoot + os.sep + "pupilsAdd" + classroomID + ".csv"
+		cacheGroups(cacheFile, classroomPupils)
+		gamCommand = "gam course " + classroomID + " add pupils file \"" + cacheFile + "\""
+	if classroomSyncOrAdd == "sync" and not classroomTeachers == "":
+		cacheFile = cacheRoot + os.sep + "teachersSync" + classroomID + ".csv"
+		cacheGroups(cacheFile, classroomTeachers)
+		gamCommand = "gam course " + classroomID + " sync teachers file \"" + cacheFile + "\""
+	if classroomSyncOrAdd == "add" and not classroomTeachers == "":
+		cacheFile = cacheRoot + os.sep + "teachersAdd" + classroomID + ".csv"
+		cacheGroups(cacheFile, classroomTeachers)
+		gamCommand = "gam course " + classroomID + " add teachers file \"" + cacheFile + "\""
 	if not gamCommand == "":
 		print(gamCommand)
 		#if "-test" in sys.argv:
