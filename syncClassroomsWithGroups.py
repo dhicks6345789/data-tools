@@ -55,6 +55,16 @@ def syncOrAdd(teacherOrStudent, syncValue, classroomName, cacheFile, CSVData):
 							else:
 								os.system(gamCommand)
 
+def cacheGroups(cacheFile, groups):
+	groupContents = ""
+	for group in groups.split(","):
+		infile = open(groupsRoot + os.sep + group + ".csv")
+		groupContents = groupContents + infile.read()
+		infile.close()
+	outfile = open(cacheFile, "w")
+	outfile.write(groupContents)
+	outfile.close()
+
 # Read the users data.
 users = pandas.read_csv(config["dataFolder"] + os.sep + "users.csv", header=0)
 usernames = users["primaryEmail"].tolist()
@@ -112,54 +122,5 @@ for classroomsToSyncIndex, classroomsToSyncValue in classroomsToSync.iterrows():
 	classroomSyncOrAdd = dataLib.noNan(classroomsToSyncValue["Sync Or Add?"])
 	classroomPupils = dataLib.noNan(classroomsToSyncValue["Pupils"])
 	classroomTeachers = dataLib.noNan(classroomsToSyncValue["Teachers"])
-
-sys.exit(0)
-	
-# Load the "classroomToSync" spreadsheet. Should consist of five columns:
-# ID: The classroom ID.
-# Classroom: Classroom name.
-# Sync Or Add?: Whether to sync the list of users / groups given or whether to add to any existing members.
-# Pupils: Users or Groups to set as pupils.
-# Teachers: Users or Groups to set as teachers.
-(options, classrooms) = dataLib.readOptionsFile(classroomsRoot + os.sep + "classroomsToSync.xlsx", ["ID", "Classroom","Sync Or Add?","Pupils","Teachers"])
-for classroomsIndex, classroomsValue in classrooms.iterrows():
-	classroomName = dataLib.noNan(classroomsValue["Classroom"])
-	if not classroomName == "":
-		syncValue = dataLib.noNan(classroomsValue["Sync Or Add?"])
-		cachePupilsRoot = cachePupilsSyncRoot
-		cacheTeachersRoot = cacheTeachersSyncRoot
-		if syncValue == "add":
-			cachePupilsRoot = cachePupilsAddRoot
-			cacheTeachersRoot = cacheTeachersAddRoot
-		
-		pupilsCSV = ""
-		pupilsList = dataLib.noNan(classroomsValue["Pupils"])
-		for pupilsItem in pupilsList.split(","):
-			pupilsItem = pupilsItem.strip()
-			if not pupilsItem == "":
-				groupPath = groupsRoot + os.sep + pupilsItem + ".csv"
-				if os.path.exists(groupPath):
-					pupilsCSV = pupilsCSV + dataLib.readFile(groupPath)
-				elif pupilsItem + "@knightsbridgeschool.com" in usernames:
-					pupilsCSV = pupilsCSV + "\n" + pupilsItem
-				else:
-					print("Unknown group or user in pupils list: " + pupilsItem)
-
-		teachersCSV = ""
-		teachersList = dataLib.noNan(classroomsValue["Teachers"])
-		for teachersItem in teachersList.split(","):
-			teachersItem = teachersItem.strip()
-			if not teachersItem == "":
-				groupPath = groupsRoot + os.sep + teachersItem + ".csv"
-				if os.path.exists(groupPath):
-					teachersCSV = teachersCSV + dataLib.readFile(groupPath)
-				elif teachersItem + "@knightsbridgeschool.com" in usernames:
-					teachersCSV = teachersCSV + "\n" + teachersItem
-				else:
-					print("Unknown group or user in teachers list: " + teachersItem)
-		
-		if not pupilsCSV == "" and (syncValue == "sync" or syncValue == "add"):
-			syncOrAdd("student", syncValue, classroomName, cachePupilsRoot + os.sep + classroomName + ".csv", pupilsCSV)
-			
-		if not teachersCSV == "" and (syncValue == "sync" or syncValue == "add"):
-			syncOrAdd("teacher", syncValue, classroomName, cacheTeachersRoot + os.sep + classroomName + ".csv", teachersCSV)
+	if classroomSyncOrAdd == "sync" and not classroomPupils == "":
+		cacheGroups("pupilsSync" + classroomID, classroomPupils)
