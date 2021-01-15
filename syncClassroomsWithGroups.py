@@ -80,7 +80,7 @@ classroomsToSync = pandas.read_excel(classroomsRoot + os.sep + "classroomsToSync
 classroomsToSyncIDs = classroomsToSync["ID"].tolist()
 for classroomsIndex, classroomsValue in classrooms.iterrows():
 	if not classroomsValue["id"] in classroomsToSyncIDs:
-		print(classroomsValue["id"])
+		classroomsToSync.append(pandas.DataFrame([classroomsValue["id"], classroomsValue["name"], "", "", ""]))
 
 sys.exit(0)
 	
