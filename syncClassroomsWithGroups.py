@@ -70,7 +70,6 @@ classrooms = pandas.read_csv(io.StringIO(getCommandOutput("gam print courses sta
 pupilGroups = {}
 for pupilGroupsIndex, pupilGroupsValue in pandas.read_excel(classroomsRoot + os.sep + "pupilGroups.xlsx", header=None).iterrows():
 	pupilGroups[pupilGroupsValue[0]] = pupilGroupsValue[1]
-print(pupilGroups)
 
 # Read the existing courses (Classrooms) data.
 #courses = pandas.read_csv(config["dataFolder"] + os.sep + "courses.csv", header=0)
@@ -87,7 +86,11 @@ classroomsToSyncIDs = classroomsToSync["ID"].tolist()
 classroomsToAppend = []
 for classroomsIndex, classroomsValue in classrooms.iterrows():
 	if not classroomsValue["id"] in classroomsToSyncIDs:
-		classroomsToAppend.append({"ID":classroomsValue["id"], "Classroom":classroomsValue["name"], "Sync Or Add?":"", "Pupils":"", "Teachers":""})
+		pupilsString = ""
+		for pupilMatch in pupilGroups.keys():
+			if pupilString == "" and pupilGroup in classroomsValue["name"]:
+				pupilString = pupilGroups[pupilMatch]
+		classroomsToAppend.append({"ID":classroomsValue["id"], "Classroom":classroomsValue["name"], "Sync Or Add?":"", "Pupils":pupilsString, "Teachers":""})
 classroomsToSync = classroomsToSync.append(pandas.DataFrame(classroomsToAppend))
 classroomsToSync.to_excel(classroomsRoot + os.sep + "classroomsToSync.xlsx", index=False)
 
