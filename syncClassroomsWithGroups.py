@@ -76,12 +76,13 @@ if "-flushCache" in sys.argv:
 	os.system("erase \"" + cacheTeachersAddRoot + os.sep + "*.csv\"")
 
 # "ID", "Classroom","Sync Or Add?","Pupils","Teachers"
-classroomsToSync = pandas.read_excel(classroomsRoot + os.sep + "classroomsToSync.xlsx", header=0)
-classroomsToSyncIDs = classroomsToSync["ID"].tolist()
-for classroomsIndex, classroomsValue in classrooms.iterrows():
-	if not classroomsValue["id"] in classroomsToSyncIDs:
-		classroomsToSync = classroomsToSync.append(pandas.DataFrame([classroomsValue["id"], classroomsValue["name"], "", "", ""]))
-classroomsToSync.to_excel(classroomsRoot + os.sep + "classroomsToSync.xlsx", index=False)
+classroomsToSync = pandas.read_excel(classroomsRoot + os.sep + "classroomsToSync.xlsx", header=0).to_dict().values()
+print(classroomsToSync)
+#classroomsToSyncIDs = classroomsToSync["ID"].tolist()
+#for classroomsIndex, classroomsValue in classrooms.iterrows():
+#	if not classroomsValue["id"] in classroomsToSyncIDs:
+#		classroomsToSync = classroomsToSync.append(pandas.DataFrame([classroomsValue["id"], classroomsValue["name"], "", "", ""]))
+#classroomsToSync.to_excel(classroomsRoot + os.sep + "classroomsToSync.xlsx", index=False)
 
 sys.exit(0)
 	
