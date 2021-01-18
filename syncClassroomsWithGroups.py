@@ -94,7 +94,7 @@ for classroomsToSyncIndex, classroomsToSyncValue in classroomsToSync.iterrows():
 	if classroomSyncOrAdd == "add" and not classroomPupils == "":
 		cacheFile = cacheRoot + os.sep + "pupilsAdd" + classroomID + ".csv"
 		cacheGroups(cacheFile, classroomPupils)
-		gamCommand = "gam course " + classroomID + " add students file \"" + cacheFile + "\""
+		gamCommand = "gam courses " + classroomID + " add students file \"" + cacheFile + "\""
 	if classroomSyncOrAdd == "sync" and not classroomTeachers == "":
 		cacheFile = cacheRoot + os.sep + "teachersSync" + classroomID + ".csv"
 		cacheGroups(cacheFile, classroomTeachers)
@@ -102,7 +102,7 @@ for classroomsToSyncIndex, classroomsToSyncValue in classroomsToSync.iterrows():
 	if classroomSyncOrAdd == "add" and not classroomTeachers == "":
 		cacheFile = cacheRoot + os.sep + "teachersAdd" + classroomID + ".csv"
 		cacheGroups(cacheFile, classroomTeachers)
-		gamCommand = "gam course " + classroomID + " add teachers file \"" + cacheFile + "\""
+		gamCommand = "gam courses " + classroomID + " add teachers file \"" + cacheFile + "\""
 	if not gamCommand == "":
 		if "-test" in sys.argv:
 			print(gamCommand)
