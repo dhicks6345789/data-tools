@@ -108,4 +108,4 @@ for classroomsToSyncIndex, classroomsToSyncValue in classroomsToSync.iterrows():
 			print(gamCommand)
 		else:
 			print(gamCommand)
-			#os.system(gamCommand)
+			os.system(gamCommand)
