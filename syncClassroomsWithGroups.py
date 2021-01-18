@@ -90,11 +90,11 @@ for classroomsToSyncIndex, classroomsToSyncValue in classroomsToSync.iterrows():
 	if classroomSyncOrAdd == "sync" and not classroomPupils == "":
 		cacheFile = cacheRoot + os.sep + "pupilsSync" + classroomID + ".csv"
 		cacheGroups(cacheFile, classroomPupils)
-		gamCommand = "gam course " + classroomID + " sync pupils file \"" + cacheFile + "\""
+		gamCommand = "gam course " + classroomID + " sync students file \"" + cacheFile + "\""
 	if classroomSyncOrAdd == "add" and not classroomPupils == "":
 		cacheFile = cacheRoot + os.sep + "pupilsAdd" + classroomID + ".csv"
 		cacheGroups(cacheFile, classroomPupils)
-		gamCommand = "gam course " + classroomID + " add pupils file \"" + cacheFile + "\""
+		gamCommand = "gam course " + classroomID + " add students file \"" + cacheFile + "\""
 	if classroomSyncOrAdd == "sync" and not classroomTeachers == "":
 		cacheFile = cacheRoot + os.sep + "teachersSync" + classroomID + ".csv"
 		cacheGroups(cacheFile, classroomTeachers)
